@@ -1,0 +1,271 @@
+configuracao.Tribunal.Id
+---------------------- nao entra no codigo para grava tabela termotribunalprocesso
+
+git commit -am "coerracao gravacao tabela termotribunalprocesso"
+
+----------------------
+
+Atualizar esta tabela
+
+termotribunalprocesso
+TERMOTRIBUNALPROCESSO
+
+carlos.{0,20}alberto.?
+
+montar expressao regular para esta empresa
+
+EXPRESSO VERA CRUZ LTDA
+
+\bEXPRESSO\b.{0,20}\bVERA\b.{0,20}\bCRUZ\b.{0,20}\bLTDA
+
+
+FAP TELECOM LTDA (+2)
+\bFAP\b.{0,20}\bTELECOM\b.{0,20}
+
+-----------------------------------------------
+NAO ESQUECER DE INCLUIR O TRIBUNAL CORRETO CONFORME O INSERT ABAIXO:
+insert into TermoTribunal values (getdate(),1021,null,null,6,2002,17,1)
+
+
+INSERT INTO SolicitacaoLocalizacao (CriadoEm, CriadoPor, AlteradoEm, AlteradoPor, Descricao, IdStatus)
+VALUES (GETDATE(), 1021, GETDATE(), 'Poc EXPRESSO VERA CRUZ LTDA', 1);
+
+INSERT INTO TermoLocalizacao (CriadoEm, CriadoPor, AlteradoEm, AlteradoPor, IdSolicitacaoLocalizacao, Termo, Sequencia, Ativo, BaixarCopia, CapturarMovimento)
+VALUES (GETDATE(), 1021, GETDATE(), 1021, ?, 'EXPRESSO VERA CRUZ', 1, 1, 0, 1);
+
+INSERT INTO TermoExpressaoRegular (CriadoEm, CriadoPor, AlteradoEm, AlteradoPor, IdTermoLocalizacao, Expressao, Afirmacao, Sequencia, Ativo)
+VALUES (GETDATE(), 1021, GETDATE(), 1021, ?, '\bEXPRESSO\b.{0,20}\bVERA\b.{0,20}\bCRUZ\b.{0,20}\bLTDA', 1, 1, 1);
+
+-----------------------------------------------
+verificar o captcha nesta classe
+F:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\CaptchaService.cs
+
+linha 27
+
+-----------------------------------------------
+MRS LOGISTICA S/A ---1000018-69.2020.5.02.0374
+
+COMPANHIA PAULISTA DE TRENS METROPOLITANOS - CPTM - 1000016-02.2020.5.02.0374
+COMPANHIA.{0,20}PAULISTA.{0,20}DE.{0,20}TRENS.{0,20}METROPOLITANOS.{0,20}(?!\-|>|&).-{0,20}CPTM
+ 
+PROCISA DO BRASIL PROJETOS, CONSTRUCOES E INSTALACOES LTDA. (+1) --1000013-47.2020.5.02.0374 
+ 
+LOJA DAS UTILIDADES
+
+1000020-39.2020.5.02.0374
+BRUNA DE ABREU SANTOS CRUZ MONTALEONE x MAX LAYOUTS RIO REFORMAS E CONSTRUCOES - EIRELI 
+
+MAX.{0,20}LAYOUTS.{0,20}RIO.{0,20}REFORMAS.{0,20}E.{0,20}CONSTRUCOES.{0,20}(?!\-|>|&).-{0,20}EIRELI 
+
+TJ 2002
+IDTECNOL 17
+StatusSolicitacaoLocalizacao.EmAberto
+
+------------------------------------------------------------------------------------------------------
+http://regexstorm.net/tester
+https://www.freeformatter.com/regex-tester.html
+https://www.regextester.com/96926
+-------------------------------------------------------------------------------------------------------
+/reunioes diarias
+meet.google.com/anp-hzby-agn
+
+tarefa iniciada em 17/08/2020 -- 
+
+gerar processo em JSON 
+
+
+Os movimentos vai complicar um pouco, 
+pois na modelagem não esta associado diretamente o Processo através do Id... vou pensar aqu
+
+processo  -------------- ok 
+assuntos  -------------- ok 
+ assuntosextra --------- ok
+partes ----------------- ok
+ advogados ------------- ok
+movimentos ------------- nao-ok
+ documentos ------------ nao-ok
+processosrelacionados -- nao-ok
+audiencias ------------- tabela processoAudiencia esta zerada
+
+
+ir na tabela movimento e pegar pelo numero do processo --> pegar todos para teste
+
+observacao = descricao
+
+--------------------------------------------------
+Renato Martins: UnidadeOrgao": -> Utilizar a processo.forum ------------------------------ ok
+Renato Martins: "SecaoUnidade" => processo.vara ------------------------------------------ ok
+Renato Martins: "Assunto": => Utilizar Trim() para remover espaços do inicio do final ---- ok
+Renato Martins: "Movimentos": "ID" => ProcessoMovimento.IdEvento ------------------------- Rever com Renato esta vindo null -- pode vir null
+
+----------------------------------------------------------
+Martins: Movimentacao: "Identificacao": -> processomovimento.observacao ------------------ Rever com Renato
+
+----------------------------------------------------------
+
+Renato Martins: Movimento: "Observacao": -> Null  ------------------------------------------  ok 
+
+----------------------------------------------------------
+
+Renato Martins: "AreaProcessual" => "Trabalhista" se no processo a posição 18 for igual a "5"
+Renato Martins: "AreaProcessual" => "Cível" se no processo a posição 18 for igual a "8"
+Renato Martins: 0000001-91.2020.5.06.0001   a posição 18 eu considerei como a primeira posição sendo a 1 .... acho no C# a primeira posição é zero.. então seria a posição 17
+Renato Martins: no exemplo acima a referencia seria o 5 que vem logo depois de 2020.
+
+0000001-91.2020.5.06.0001
+0000001-91.2020.5.06.0001
+
+
+0000001-91.2020.5.06.0001 -- 437 -- ADRIELLY ALMEIDA DE HOLANDA
+------------------------------------------------------------------------ 
+
+tabela processoparte 
+---TermoRelacionado = "corrigir"; 
+-- ExpressaoRegular = "corrigir";
+
+select termotribunalprocesso firstordefault
+ por numeroprocesso 
+     idsolicitacaocaptura 
+	 nomeparte 
+     afirmacao = true --> 1
+
+se achar popular os dois campos
+se nao jogar null 
+
+var termoTribunalProcesso = _session.Query<TermoTribunalProcesso>().FirstOrDefault(p => p.Numero == "1212121212" && p.SolicitacaoCaptura.Id == 11111 && p.NomeParte == "xxxxxxx" && p.Afirmacao);
+                if (termoTribunalProcesso != null)
+                {
+                    string expressao = termoTribunalProcesso.Expressao;
+                    string termo = termoTribunalProcesso.TermoTribunal.Termo.Termo;
+                }
+
+-------------
+
+domain 
+core
+entidades
+
+
+processoadvogados core
+processoparteadvogado
+
+
+---------------------------------------------------------------------------------------
+/*
+select * from TermoTribunalProcesso where id = 29
+
+dados teste:
+update termoTribunalProcesso 
+	 set idtermotribunal = 12 
+		,numero = '0000001-91.2020.5.06.0001'
+		,idsolicitacaocaptura = 437
+		,nomeparte = 'TELEFONICA BRASIL S.A.'
+		,expressao = '\bTELEFONICA\b.{0,20}\bBRASIL\b.{0,20}\bSA\b'
+  where Id = 29
+
+
+dados originais:
+update termoTribunalProcesso 
+	 set idtermotribunal = 12 
+		,numero = '1000020-39.2020.5.02.0374'
+		,idsolicitacaocaptura =  761
+		,nomeparte = 'MAX LAYOUTS RIO REFORMAS E CONSTRUCOES - EIRELI'
+		,expressao = '\bMAX\b.{0,20}\bLAYOUTS\b.{0,20}\bRIO\b.{0,20}\bREFORMAS\b.{0,20}\bE\b.{0,20}\bCONSTRUCOES\b.{0,20}\bEIRELI\b'
+  where Id = 29
+
+
+
+*/
+
+
+
+
+1000065-43.2020.5.02.0374 ---
+
+---------------------------------------------------------------------------------------
+
+------------------------------------------------------------------------
+select count(*) from processoaudiencia
+
+select * from Processo where numero = '0000011-38.2020.5.06.0001'--'0000001-91.2020.5.06.0001'
+                                       
+select * from ProcessoParte where IdProcesso = 8792 ---  8782 --  17166, 17167, 17168
+
+select * from ProcessoAdvogado where idProcesso = 8782   -----8782 -- 12798, 12799, 12800, 12801
+
+select * from ProcessoParteAdvogado where idProcessoParte = 8792
+
+select  * from ProcessoMovimento where numero = '0000011-38.2020.5.06.0001'
+
+
+------------------------------------------------------------------------------------------------
+select * from Processo where Numero =  '0000001-91.2020.5.06.0001' --  437 -- 8782
+
+select * from ProcessoAdvogado where IdProcesso = 8782
+
+select * from ProcessoParte where IdProcesso = 8782
+
+select pp.id, pp.IdProcesso, pp.Nome, ppa.IdProcessoAdvogado, pa.Nome, pa.OAB, pa.Documento
+  from processoParte pp 
+  join ProcessoParteAdvogado ppa on idprocessoparte = pp.Id   
+  join ProcessoAdvogado pa on pa.Id = ppa.IdProcessoAdvogado  
+ where pp.IdProcesso = 8782
+ 
+select * from ProcessoAdvogado where IdProcesso =  8782
+
+update ProcessoAdvogado set
+       Documento = '12.292',
+	   Oab = '12292OAB'
+where id = 12292 
+
+update ProcessoAdvogado set
+       Documento = '12.293',
+	   Oab = '12293OAB'
+where id = 12293 
+
+update ProcessoAdvogado set
+       Documento = '12.294',
+	   Oab = '12294OAB'
+where id = 12294 
+
+update ProcessoAdvogado set
+       Documento = '12.295',
+	   Oab = '12295OAB'
+where id = 12295 
+
+update ProcessoAdvogado set
+       Documento = '12.296',
+	   Oab = '12296OAB'
+where id = 12296 
+
+
+--------------------------------------------------------------------------------------------------
+TAREFA ATUAL:
+
+TRIBUNAL--
+2002	TRT - 2ª Região	TRT2	São Paulo	SP	14	https://aplicacoes7.trtsp.jus.br/sis/index.php/segundaInstancia
+
+PROCESSO--
+1000065-43.2020.5.02.0374
+
+
+\bCLARO\b.{0,20}\bSA\b
+
+CLARO.{0,20}SA
+CLARO.{0,20}S.?A
+
+----ATUALIZAR HISTORICO DO PROCESSO--
+
+processo.AdicionarHistoricoStatus(usuarioProcessamento, StatusProcesso.DisponilizadoExecutado);
+                            using (var transaction = _session.BeginTransaction())
+                            {
+                                _session.SaveOrUpdate(processo);
+                                transaction.Commit();
+                            }
+
+
+
+
+----------------------------------------------------------------------------------------------------------------------------
+
+

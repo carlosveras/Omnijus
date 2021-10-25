@@ -1,0 +1,137 @@
+﻿using log4net;
+using System;
+using System.Diagnostics;
+
+namespace LogarErros
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+
+            int a = 0;
+            int b = 0;
+
+            #region pegaIdProcessoWindows
+            Process currentProcess = Process.GetCurrentProcess();
+            var processo = currentProcess.Id;
+            #endregion
+
+            //string caminho = @"D:\Processos\Processamento\782BCBED96BD\Log";
+            string caminho = @"C:\lixo\TesteLog";
+            GlobalContext.Properties["LogFileName"] = caminho;
+
+
+            log4net.ILog log;
+            log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
+
+            #region usoComAppParaTextoFuncionando-OK
+            GlobalContext.Properties["idprocesso"] = processo;
+            GlobalContext.Properties["idsolicitacaptura"] = 100;
+            GlobalContext.Properties["idEquipamentoprocessamento"] = 26;
+            #endregion
+
+            try
+            {
+                b = 100 / a;
+                Console.WriteLine("o valor e" + b);
+                Console.ReadKey();
+            }
+            catch (Exception ex)
+            {
+                pegaLinhaEMetodo(ex);
+                //log.Debug("erro gerado por exception -> " + ex.Message);
+                //log.DebugFormat("erro gerado por exception -> " + ex.Message);
+                log.Error("erro gerado por exception ERROR-> " + ex.Message);
+                //log.ErrorFormat("erro gerado por exception -> " + ex.Message);
+                //log.Fatal("erro teste -> 1 " + ex.Message);
+
+                //log.FatalFormat("erro gerado por exception -> " + ex.Message);
+                //log.Info("erro gerado por exception -> " + ex.Message);
+                //log.InfoFormat("erro gerado por exception -> " + ex.Message);
+                //log.Warn("erro gerado por exception -> " + ex.Message);
+                log.WarnFormat("erro gerado por exception WARN-> " + ex.Message);
+            }
+
+            try
+            {
+                b = 100 / a;
+                Console.WriteLine("o valor e" + b);
+                Console.ReadKey();
+            }
+            catch (Exception ex)
+            {
+                //log.Debug("erro gerado por exception -> " + ex.Message);
+                //log.DebugFormat("erro gerado por exception -> " + ex.Message);
+                log.Error("erro gerado por exception ERROR-> " + ex.Message);
+                //log.ErrorFormat("erro gerado por exception -> " + ex.Message);
+                //log.Fatal("erro teste 2 -> " + ex.Message);
+
+                //log.FatalFormat("erro gerado por exception -> " + ex.Message);
+                //log.Info("erro gerado por exception -> " + ex.Message);
+                //log.InfoFormat("erro gerado por exception -> " + ex.Message);
+                //log.Warn("erro gerado por exception -> " + ex.Message);
+                log.WarnFormat("erro gerado por exception WARN-> " + ex.Message);
+            }
+
+            try
+            {
+                b = 100 / a;
+                Console.WriteLine("o valor e" + b);
+                Console.ReadKey();
+            }
+            catch (Exception ex)
+            {
+                //log.Debug("erro gerado por exception -> " + ex.Message);
+                //log.DebugFormat("erro gerado por exception -> " + ex.Message);
+                log.Error("erro gerado por exception ERROR-> " + ex.Message);
+                //log.ErrorFormat("erro gerado por exception -> " + ex.Message);
+                //log.Fatal("erro teste 3 -> " + ex.Message);
+
+                //log.FatalFormat("erro gerado por exception -> " + ex.Message);
+                //log.Info("erro gerado por exception -> " + ex.Message);
+                //log.InfoFormat("erro gerado por exception -> " + ex.Message);
+                //log.Warn("erro gerado por exception -> " + ex.Message);
+                log.WarnFormat("erro gerado por exception WARN-> " + ex.Message);
+            }
+
+            try
+            {
+                b = 100 / a;
+                Console.WriteLine("o valor e" + b);
+                Console.ReadKey();
+            }
+            catch (Exception ex)
+            {
+                //log.Debug("erro gerado por exception -> " + ex.Message);
+                //log.DebugFormat("erro gerado por exception -> " + ex.Message);
+                log.Error("erro gerado por exception ERROR-> " + ex.Message);
+                //log.ErrorFormat("erro gerado por exception -> " + ex.Message);
+                //log.Fatal("erro teste -> 4 " + ex.Message);
+
+                //log.FatalFormat("erro gerado por exception -> " + ex.Message);
+                //log.Info("erro gerado por exception -> " + ex.Message);
+                //log.InfoFormat("erro gerado por exception -> " + ex.Message);
+                //log.Warn("erro gerado por exception -> " + ex.Message);
+                log.WarnFormat("erro gerado por exception WARN-> " + ex.Message);
+            }
+
+        }
+
+        private static void pegaLinhaEMetodo(Exception ex)
+        {
+            StackTrace trace = new StackTrace(ex, true);
+            StackFrame stackFrame = trace.GetFrame(trace.FrameCount - 1);
+            string fileName = stackFrame.GetFileName();
+            string methodName = stackFrame.GetMethod().Name;
+            int lineNo = stackFrame.GetFileLineNumber();
+
+            GlobalContext.Properties["nomeMetodo"] = methodName;
+            GlobalContext.Properties["linhaMetodo"] = lineNo;
+
+        }
+
+
+    }
+}
+

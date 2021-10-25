@@ -1,0 +1,12 @@
+$date = Get-Date
+$cutoffDate = $date.AddDays(-1).Date
+
+Get-ChildItem -Path C:\Users\bot_reglare\appdata\local\temp\rust_* -Directory | Where-Object LastWriteTime -LT $cutoffDate | Remove-Item -recurse
+
+Get-ChildItem -Path C:\Users\bot_reglare\appdata\local\temp\anony_* -Directory | Where-Object LastWriteTime -LT $cutoffDate | Remove-Item -recurse
+
+get-childitem -Path C:\Users\bot_reglare\appdata\local\temp\ |? {$_.psiscontainer -and $_.lastwritetime -le $cutoffDate } |% {remove-item $_ -force -whatif}
+
+$BackupFolderPath = "C:\BACKUP\PATH\FOlder\"
+
+Get-ChildItem -Directory $BackupFolderPath | Where-Object LastWriteTime -lt (Get-Date).AddDays(-30) | Foreach-Object {Remove-Item $_.FullName -Recurse -Force}

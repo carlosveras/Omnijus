@@ -1,0 +1,276 @@
+Por favor, você poderia montar uma query para usarmos como controle para verificar o quanto efetivo as capturas estão sendo em São Paulo
+Identificar por SolicitacaoCaptura qual foi a ultima execução dela (pode utilizar através da ProcessamentoCaptira)
+Também é importante conseguir identificar a data de distribuição do ultimo processo capturado
+
+
+
+
+select sc.id, sc.DataTerminoUltimaCaptura, p.Numero, p.IdTribunalJustica, p.IdEquipamentoProcessamento, p.Distribuicao
+     from SolicitacaoCaptura sc
+     join Processo p on p.IdSolicitacaoCaptura = sc.id 
+where convert(varchar(10), sc.DataTerminoUltimaCaptura, 102) 
+    = convert(varchar(10), getdate(), 102)
+and sc.id = 4591
+order by sc.DataTerminoUltimaCaptura desc
+
+select top 10 *,
+       sc.Id,
+       sc.CriadoEm,
+       sc.DataTerminoUltimaCaptura,
+	   (select max(DataTermino) from ProcessamentoCaptura pc where pc.IdSolicitacaoCaptura = sc.Id) as DataTermino
+  from SolicitacaoCaptura sc
+--where (select max(DataTermino) from ProcessamentoCaptura pc) as DataTermino
+order by sc.Id desc
+
+
+select p.Numero, 
+       p.Distribuicao, 
+	   p.IdSolicitacaoCaptura, 
+	   p.IdTribunalJustica,
+       (select max(DataTermino) from ProcessamentoCaptura pc where pc.IdSolicitacaoCaptura = p.IdSolicitacaoCaptura) as DataTermino
+  from Processo p
+where (select max(DataTermino) from ProcessamentoCaptura pc where pc.IdSolicitacaoCaptura = p.IdSolicitacaoCaptura) >= '2021-03-27'
+and p.IdTribunalJustica = 1
+
+
+select p.Numero, 
+       p.Distribuicao, 
+	   p.IdSolicitacaoCaptura, 
+	   p.IdTribunalJustica,
+       (select max(DataTermino) from ProcessamentoCaptura pc where pc.IdSolicitacaoCaptura = p.IdSolicitacaoCaptura) as DataTermino
+ ---316.692      (select max(CriadoEm) from ProcessoAdvogado pa where pa.IdProcesso = p.Id) as UltMovimento
+  from Processo p
+where (select max(DataTermino) from ProcessamentoCaptura pc where pc.IdSolicitacaoCaptura = p.IdSolicitacaoCaptura) >= '2021-03-27'
+and p.IdTribunalJustica = 1
+and p.IdStatus = 2
+
+select count(CAST(pc.CriadoEm AS DATE)) As QtdeProcessos, 
+       CAST(pc.CriadoEm AS DATE) As DtCaptura
+  from ProcessoCapturado pc
+where pc.CriadoEm >= '2021-03-28'
+GROUP BY CAST(pc.CriadoEm AS DATE)
+order by CAST(pc.CriadoEm AS DATE)
+
+
+select count(CAST(pc.CriadoEm AS DATE)) As QtdeProcessos, 
+       CAST(pc.CriadoEm AS DATE) As DtCaptura
+  from ProcessoCapturado pc
+where pc.CriadoEm >= '2021-03-28'
+and pc.IdTribunalJustica = 1
+GROUP BY CAST(pc.CriadoEm AS DATE)
+order by CAST(pc.CriadoEm AS DATE)
+
+
+
+select p.IdEquipamentoProcessamento As IdEquipamento,
+       count(p.IdEquipamentoProcessamento) as QtdePorEquipamento,
+	   CAST(pc.DataTermino AS DATE) as DataCaptura
+  from ProcessamentoCaptura pc
+  join Processo p on p.IdSolicitacaoCaptura = pc.IdSolicitacaoCaptura 
+where pc.DataTermino >= '2021-03-31 00:00:01' and pc.DataTermino <= '2021-03-31 23:59:59'
+and pc.IdEquipamentoProcessamento = 25
+and p.IdEquipamentoProcessamento = pc.IdEquipamentoProcessamento
+and p.IdTribunalJustica = 1
+GROUP BY CAST(pc.DataTermino AS DATE), p.IdEquipamentoProcessamento
+order by p.IdEquipamentoProcessamento
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+---------------------------------------------------------------------------------------------------
+
+
+
+
+
+select count(CAST(pc.CriadoEm AS DATE)) As QtdeProcessos, 
+       CAST(pc.CriadoEm AS DATE) As DtCaptura
+  from ProcessoCapturado pc
+ where pc.CriadoEm >= '2021-03-30 00:00:01' and pc.CriadoEm <= '2021-03-30 23:59:59'
+   and pc.IdTribunalJustica = 1
+ GROUP BY CAST(pc.CriadoEm AS DATE)
+ order by CAST(pc.CriadoEm AS DATE)
+
+ --24860
+
+ select top 10 *
+   from ProcessamentoCaptura
+
+ select top 1000 pc.CriadoEm, pc.Numero, p.Numero, p.IdEquipamentoProcessamento,p.IdTribunalJustica
+   from ProcessoCapturado pc
+   join Processo p on p.Numero = pc.Numero
+order by CriadoEm desc
+
+
+select *
+  from StatusProcesso
+
+  select count(CAST(pc.CriadoEm AS DATE)) As QtdeProcessos, 
+         CAST(pc.CriadoEm AS DATE) As DtCaptura, 
+		 count(p.IdEquipamentoProcessamento) as QtEquipamento,
+		 p.IdEquipamentoProcessamento
+    from ProcessoCapturado pc
+    join Processo p on p.Numero = pc.Numero
+ where pc.CriadoEm >= '2021-03-31 00:00:01' and pc.CriadoEm <= '2021-03-31 23:59:59'
+   and pc.IdTribunalJustica = 1
+ GROUP BY CAST(pc.CriadoEm AS DATE), p.IdEquipamentoProcessamento
+ order by CAST(pc.CriadoEm AS DATE)
+
+
+select count(pc.IdSolicitacaoCaptura) as qtprocessos, pc.IdSolicitacaoCaptura
+   from ProcessamentoCaptura pc 
+join Pro
+where pc.IdEquipamentoProcessamento = 27
+group by pc.IdSolicitacaoCaptura
+order by qtprocessos desc
+
+select top 10 * from ProcessamentoCaptura
+
+select * 
+  from Processo p
+where p.IdSolicitacaoCaptura = 5780
+and IdEquipamentoProcessamento = 27
+
+
+
+
+  select count(p.IdEquipamentoProcessamento) as QtEquipamento,
+		 p.IdEquipamentoProcessamento
+    from ProcessoCapturado pc
+    join Processo p on p.Numero = pc.Numero
+ where pc.CriadoEm >= '2021-03-31 00:00:01' and pc.CriadoEm <= '2021-03-31 23:59:59'
+   and pc.IdTribunalJustica = 1
+   and p.IdEquipamentoProcessamento = 29
+ GROUP BY p.IdEquipamentoProcessamento
+ 
+  select count(*) 
+    from ProcessoCapturado pc
+ where pc.CriadoEm >= '2021-03-31 00:00:01' and pc.CriadoEm <= '2021-03-31 23:59:59'
+   and pc.IdTribunalJustica = 1
+ 
+
+  select p.IdEquipamentoProcessamento,
+		 pc.CriadoEm,
+		 P.Numero,
+		 PC.IdTribunalJustica
+    from ProcessoCapturado pc
+    join Processo p on p.Numero = pc.Numero
+ where pc.CriadoEm >= '2021-03-31 00:00:01' and pc.CriadoEm <= '2021-03-31 23:59:59'
+   and pc.IdTribunalJustica = 1
+   and p.IdEquipamentoProcessamento = 29
+
+--- 29 = 1367 PROCESSOS EM 31-03-2021
+
+
+select pc.IdSolicitacaoCaptura,
+       p.IdSolicitacaoCaptura,
+	   p.Numero,
+	   p.IdEquipamentoProcessamento
+  from ProcessamentoCaptura pc
+  join Processo p on p.IdSolicitacaoCaptura = pc.IdSolicitacaoCaptura
+where pc.DataTermino >= '2021-03-31 00:00:01' and pc.DataTermino <= '2021-03-31 23:59:59'
+and pc.IdSolicitacaoCaptura = 4594
+--4216
+--29--774
+
+select * from Processo p
+where p.IdSolicitacaoCaptura = 4593
+and p.IdEquipamentoProcessamento = 29
+
+
+select pc.IdSolicitacaoCaptura, pc.DataTermino, p.Numero, p.IdEquipamentoProcessamento, p.IdStatus
+  from ProcessamentoCaptura pc
+  join Processo p on p.IdSolicitacaoCaptura = pc.IdSolicitacaoCaptura 
+where pc.DataTermino >= '2021-03-31 00:00:01' and pc.DataTermino <= '2021-03-31 23:59:59'
+--and pc.IdSolicitacaoCaptura = 4594
+and pc.IdEquipamentoProcessamento = 32
+and p.IdEquipamentoProcessamento = pc.IdEquipamentoProcessamento
+order by DataTermino
+
+-- 29 -- 11255
+-- 32 -- 18275
+select *
+ from Processo p
+where p.IdSolicitacaoCaptura = 4594
+and p.IdEquipamentoProcessamento = 29
+-- 75 linhas
+
+
+
+select p.IdEquipamentoProcessamento,
+       count(p.IdEquipamentoProcessamento) as QtdePorEquipamento
+  from ProcessamentoCaptura pc
+  join Processo p on p.IdSolicitacaoCaptura = pc.IdSolicitacaoCaptura 
+where pc.DataTermino >= '2021-03-31 00:00:01' and pc.DataTermino <= '2021-03-31 23:59:59'
+and p.IdEquipamentoProcessamento = pc.IdEquipamentoProcessamento
+and p.IdTribunalJustica = 1
+GROUP BY p.IdEquipamentoProcessamento
+order by p.IdEquipamentoProcessamento
+
+select p.IdEquipamentoProcessamento As IdEquipamento,
+       count(p.IdEquipamentoProcessamento) as QtdePorEquipamento,
+	   CAST(pc.DataTermino AS DATE) as DataCaptura
+  from ProcessamentoCaptura pc
+  join Processo p on p.IdSolicitacaoCaptura = pc.IdSolicitacaoCaptura 
+where pc.DataTermino >= '2021-03-31 00:00:01' and pc.DataTermino <= '2021-03-31 23:59:59'
+and pc.IdEquipamentoProcessamento = 25
+and p.IdEquipamentoProcessamento = pc.IdEquipamentoProcessamento
+and p.IdTribunalJustica = 1
+GROUP BY CAST(pc.DataTermino AS DATE), p.IdEquipamentoProcessamento
+order by p.IdEquipamentoProcessamento
+
+
+-- 39309
+-- 34259
+
+select p.IdEquipamentoProcessamento As IdEquipamento,
+       p.Numero,
+	   pc.DataTermino,
+	   pc.IdSolicitacaoCaptura,
+	   p.IdSolicitacaoCaptura
+  from ProcessamentoCaptura pc
+  join Processo p on p.IdSolicitacaoCaptura = pc.IdSolicitacaoCaptura 
+where pc.IdEquipamentoProcessamento = 25 
+AND pc.DataTermino >= '2021-03-31 00:00:01' and pc.DataTermino <= '2021-03-31 23:59:59'
+--and p.IdEquipamentoProcessamento = pc.IdEquipamentoProcessamento
+and pc.IdTribunal = 1
+--GROUP BY CAST(pc.DataTermino AS DATE), p.IdEquipamentoProcessamento
+order by p.IdEquipamentoProcessamento
+
+
+
+select *
+  from Processo p
+where p.Numero = '0000002-82.2021.8.26.0438'
+
+
+ 
+
+

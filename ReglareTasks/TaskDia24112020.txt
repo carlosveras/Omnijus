@@ -1,0 +1,287 @@
+---- MAQUINAS NA NUVEM
+
+administrator Kolim@03
+
+IP: 34.228.232.229 
+
+IP: 52.6.27.101 
+
+IP: 174.129.89.34 
+----
+http://www.creative-tim.com/product/material-dashboard-pro)
+
+----
+https://drive.google.com/drive/folders/1Zl5C9I9D6njwev_ynhdAr_2AlFQ9JyOp?usp=sharing
+https://drive.google.com/drive/folders/1Zl5C9I9D6njwev_ynhdAr_2AlFQ9JyOp?usp=sharing
+comando para pegar o id da placa de rede.
+D:\Lixo\Teste>getmac /v
+
+para executar um arquivo bat no powershell do windows
+
+-- salvar o arquivo com a extensao .ps1
+-- abrir o console do powershell 
+-- executar o comando : .\nomearquivo.ps1
+
+
+Status da Tarefa:
+
+C:\Pastas de Trabalho\Projetos\Captura Dados Processo\Processos\usuariosistema@usuariosistema.com.br
+todas as pastas SolicitacaoXXXXXX compactadas uma por uma.
+
+C:\Pastas de Trabalho\Projetos\Captura Dados Processo\CapturasMaquina26
+todas as pastas SolicitacaoXXXXXX compactadas uma por uma.
+
+C:\Pastas de Trabalho\Projetos\Captura Dados Processo
+pasta Configuracoes compactada.
+
+C:\Pastas de Trabalho\Projetos\Captura Dados Processo
+pasta CapturarDistribuicao compactada.
+
+--------------------------------------------------
+
+IP: 174.129.89.34 administrator Kolim@03
+
+
+Status da Tarefa:
+
+IP: 34.228.232.229 
+Placa de Rede : 0EAE997DFB47
+C:\Pastas de Trabalho\Projetos\Captura Dados Processo\Processos\Processamento\0EAE997DFB47
+
+IP: 52.6.27.101 
+Placa de Rede: 0E12597F4F59
+C:\Pastas de Trabalho\Projetos\Captura Dados Processo\Processos\Processamento\0E12597F4F59
+
+Pwd nas duas maquinas : Alterada
+
+Chrome e Firefox na duas maquinas : Instalados
+
+Estrutura de Diretorios com base na maquina 174.129.89.34: Criadas
+
+Arquivos CapturarDistribuicao e Configuracoes: Descompactados nas duas maquinas
+
+
+
+encerrando processamento por maquina inativa
+
+
+----------------------------------------------------------------------------
+
+
+
+
+
+
+https://drive.google.com/drive/folders/1Zl5C9I9D6njwev_ynhdAr_2AlFQ9JyOp?usp=sharing
+
+C:\Pastas de Trabalho\Projetos\Captura Dados Processo\CapturarDistribuicao
+
+
+ ase de produção esta em dbsql.cvrlswf8otab.us-east-1.rds.amazonaws.com
+base de produção esta em dbsql.cvrlswf8otab.us-east-1.rds.amazonaws.com
+user => admin     pwd => angoKae4f
+
+administrator Kolim@03
+
+rebootar:
+
+
+
+
+Id	
+21	Desenvolivmento Closel				0	9C2A7088BAA3	6
+25	Reglare Maquina 1 (174.129.89.34)	1	1297410E5D71	5
+26	Maquina Carlos						0	782BCBED96BD	5
+27	Reglare Maquina 2 (34.228.232.229)	1	0EAE997DFB47	5
+28	Reglare Maquina 3 (52.203.196.156)	1	0E12597F4F59	5
+29	Reglare Maquina 4 (3.86.40.131)		1	0EEA2447A545	5
+30	Reglare Maquina 5 (3.89.184.62)		1	0EC850C167AD	5
+31	Reglare Maquina 6 (34.229.248.185)	1	0E4F434AC675	5
+32	Reglare Maquina 7 (54.144.107.74)	1	0EA862919085	5
+33	Reglare Maquina 8 (18.209.110.38)	1	0E1ECD71AEE7	5
+34	Reglare Maquina 9 (54.224.252.56)	1	0E0D20AB9C41	5
+35	Reglare Maquina 10 (18.234.67.96)	1	0E18346B5BD7	5
+
+
+Status tarefa:
+
+Maquinas 1,2,3,4,5,6,7,8,9 e 10 -> solucao atualizada
+Maquinas 1,2,3,4,5,6 ------------> reboot realizado
+
+Tabelas atualizadas
+
+Para as maquinas 7,8,9 e 10
+EquipamentoProcessamento
+
+Base Maquina 31
+EquipamentoProcessamentoParametro
+EquipamentoProcessamentoTribunal
+
+
+
+
+
+Reglare Maquina 1 (174.129.89.34)	
+Reglare Maquina 2 (34.228.232.229)	
+Reglare Maquina 3 (52.203.196.156)	
+Reglare Maquina 4 (3.86.40.131)
+Reglare Maquina 5 (3.89.184.62)
+Reglare Maquina 6 (34.229.248.185)
+Reglare Maquina 7 (54.144.107.74)
+Reglare Maquina 8 (18.209.110.38)
+
+
+Faulting application name: CapturarDistribuicao.exe, version: 1.0.0.0, time stamp: 0x5fbaec7b
+Faulting module name: KERNELBASE.dll, version: 10.0.17763.1518, time stamp: 0xc4258670
+Exception code: 0xe0434352
+Fault offset: 0x001225f2
+Faulting process id: 0x2d84
+Faulting application start time: 0x01d6c26d2c6f9036
+Faulting application path: C:\Pastas de Trabalho\Projetos\Captura Dados Processo\CapturarDistribuicao\CapturarDistribuicao.exe
+Faulting module path: C:\Windows\System32\KERNELBASE.dll
+Report Id: 7c571624-3671-44ad-8d37-9e437b12a186
+Faulting package full name: 
+Faulting package-relative application ID: 
+
+Application: DesmembrarArquivo.exe
+Framework Version: v4.0.30319
+Description: The process was terminated due to an unhandled exception.
+Exception Info: System.ApplicationException
+   at CapturaDadosProcesso.Facade.Services.DesmembrarArquivoService.DesmembrarProcessoCopia()
+   at DesmembrarPDF.Program.Main(System.String[])
+
+
+
+Reglare Maquina 4 (3.86.40.131)
+Reglare Maquina 5 (3.89.184.62)
+Reglare Maquina 7 (54.144.107.74)
+--- https://www.minitool.com/news/0xc0000409.html
+Faulting application name: geckodriver.exe, version: 71.0.0.7191, time stamp: 0x5d76dfa9
+Faulting module name: geckodriver.exe, version: 71.0.0.7191, time stamp: 0x5d76dfa9
+Exception code: 0xc0000409 
+Fault offset: 0x00000000001b7f50
+Faulting process id: 0x5f28
+Faulting application start time: 0x01d6b1c82b76f931
+Faulting application path: C:\Pastas de Trabalho\Projetos\Captura Dados Processo\CapturarDistribuicao\geckodriver.exe
+Faulting module path: C:\Pastas de Trabalho\Projetos\Captura Dados Processo\CapturarDistribuicao\geckodriver.exe
+Report Id: f8a70583-c045-46f3-b495-be19cba9271d
+Faulting package full name: 
+Faulting package-relative application ID: 
+
+
+
+
+31	Reglare Maquina 6 (34.229.248.185)
+Application: CapturarDistribuicao.exe
+Framework Version: v4.0.30319
+Description: The process was terminated due to an unhandled exception.
+Exception Info: OpenQA.Selenium.WebDriverException
+   at OpenQA.Selenium.Remote.RemoteWebDriver.UnpackAndThrowOnError(OpenQA.Selenium.Remote.Response)
+   at OpenQA.Selenium.Remote.RemoteWebDriver.Execute(System.String, System.Collections.Generic.Dictionary`2<System.String,System.Object>)
+   at OpenQA.Selenium.Remote.RemoteWebDriver.Close()
+   at CapturaDadosProcesso.Facade.Services.CapturarDistribuicaoService.Capturar(System.String[])
+   at CapturarDistribuicao.Program.Main(System.String[])
+
+Exception Info: System.Data.SqlClient.SqlException
+   at System.Data.SqlClient.SqlConnection.OnError(System.Data.SqlClient.SqlException, Boolean, System.Action`1<System.Action>)
+   at System.Data.SqlClient.SqlInternalConnection.OnError(System.Data.SqlClient.SqlException, Boolean, System.Action`1<System.Action>)
+   at System.Data.SqlClient.TdsParser.ThrowExceptionAndWarning(System.Data.SqlClient.TdsParserStateObject, Boolean, Boolean)
+   at System.Data.SqlClient.TdsParser.TryRun(System.Data.SqlClient.RunBehavior, System.Data.SqlClient.SqlCommand, System.Data.SqlClient.SqlDataReader, System.Data.SqlClient.BulkCopySimpleResultSet, System.Data.SqlClient.TdsParserStateObject, Boolean ByRef)
+   at System.Data.SqlClient.SqlDataReader.TryConsumeMetaData()
+   at System.Data.SqlClient.SqlDataReader.get_MetaData()
+   at System.Data.SqlClient.SqlCommand.FinishExecuteReader(System.Data.SqlClient.SqlDataReader, System.Data.SqlClient.RunBehavior, System.String, Boolean, Boolean, Boolean)
+   at System.Data.SqlClient.SqlCommand.RunExecuteReaderTds(System.Data.CommandBehavior, System.Data.SqlClient.RunBehavior, Boolean, Boolean, Int32, System.Threading.Tasks.Task ByRef, Boolean, Boolean, System.Data.SqlClient.SqlDataReader, Boolean)
+   at System.Data.SqlClient.SqlCommand.RunExecuteReader(System.Data.CommandBehavior, System.Data.SqlClient.RunBehavior, Boolean, System.String, System.Threading.Tasks.TaskCompletionSource`1<System.Object>, Int32, System.Threading.Tasks.Task ByRef, Boolean ByRef, Boolean, Boolean)
+   at System.Data.SqlClient.SqlCommand.RunExecuteReader(System.Data.CommandBehavior, System.Data.SqlClient.RunBehavior, Boolean, System.String)
+   at System.Data.SqlClient.SqlCommand.ExecuteReader(System.Data.CommandBehavior, System.String)
+   at System.Data.SqlClient.SqlCommand.ExecuteDbDataReader(System.Data.CommandBehavior)
+   at System.Data.Common.DbCommand.System.Data.IDbCommand.ExecuteReader()
+   at NHibernate.AdoNet.AbstractBatcher.ExecuteReader(System.Data.IDbCommand)
+   at NHibernate.Loader.Loader.GetResultSet(System.Data.IDbCommand, Boolean, Boolean, NHibernate.Engine.RowSelection, NHibernate.Engine.ISessionImplementor)
+   at NHibernate.Loader.Loader.DoQuery(NHibernate.Engine.ISessionImplementor, NHibernate.Engine.QueryParameters, Boolean, NHibernate.Transform.IResultTransformer)
+   at NHibernate.Loader.Loader.DoQueryAndInitializeNonLazyCollections(NHibernate.Engine.ISessionImplementor, NHibernate.Engine.QueryParameters, Boolean, NHibernate.Transform.IResultTransformer)
+   at NHibernate.Loader.Loader.DoList(NHibernate.Engine.ISessionImplementor, NHibernate.Engine.QueryParameters, NHibernate.Transform.IResultTransformer)
+
+Exception Info: NHibernate.Exceptions.GenericADOException
+   at NHibernate.Loader.Loader.DoList(NHibernate.Engine.ISessionImplementor, NHibernate.Engine.QueryParameters, NHibernate.Transform.IResultTransformer)
+   at NHibernate.Loader.Loader.ListIgnoreQueryCache(NHibernate.Engine.ISessionImplementor, NHibernate.Engine.QueryParameters)
+   at NHibernate.Loader.Loader.List(NHibernate.Engine.ISessionImplementor, NHibernate.Engine.QueryParameters, System.Collections.Generic.ISet`1<System.String>, NHibernate.Type.IType[])
+   at NHibernate.Loader.Hql.QueryLoader.List(NHibernate.Engine.ISessionImplementor, NHibernate.Engine.QueryParameters)
+   at NHibernate.Hql.Ast.ANTLR.QueryTranslatorImpl.List(NHibernate.Engine.ISessionImplementor, NHibernate.Engine.QueryParameters)
+   at NHibernate.Engine.Query.HQLQueryPlan.PerformList(NHibernate.Engine.QueryParameters, NHibernate.Engine.ISessionImplementor, System.Collections.IList)
+   at NHibernate.Impl.SessionImpl.List(NHibernate.IQueryExpression, NHibernate.Engine.QueryParameters, System.Collections.IList)
+   at NHibernate.Impl.AbstractSessionImpl.List(NHibernate.IQueryExpression, NHibernate.Engine.QueryParameters)
+   at NHibernate.Impl.AbstractQueryImpl2.List()
+   at NHibernate.Linq.DefaultQueryProvider.ExecuteQuery(NHibernate.Linq.NhLinqExpression, NHibernate.IQuery, NHibernate.Linq.NhLinqExpression)
+   at NHibernate.Linq.DefaultQueryProvider.Execute(System.Linq.Expressions.Expression)
+   at NHibernate.Linq.DefaultQueryProvider.Execute[[System.__Canon, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]](System.Linq.Expressions.Expression)
+   at Remotion.Linq.QueryableBase`1[[System.__Canon, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]].GetEnumerator()
+   at System.Collections.Generic.List`1[[System.__Canon, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]..ctor(System.Collections.Generic.IEnumerable`1<System.__Canon>)
+   at System.Linq.Enumerable.ToList[[System.__Canon, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]](System.Collections.Generic.IEnumerable`1<System.__Canon>)
+   at CapturaDadosProcesso.Facade.Services.DesmembrarArquivoService.DesmembrarProcessoDistribuido()
+   at DesmembrarPDF.Program.Main(System.String[])
+
+
+
+
+
+
+--------------------------------------------
+view .net framework installed
+reg query "HKLM\SOFTWARE\Microsoft\Net Framework Setup\NDP\v4" /s
+
+https://support.microsoft.com/en-us/help/4503548/microsoft-net-framework-4-8-offline-installer-for-windows
+
+25	Reglare Maquina 1 (174.129.89.34)	-- 26/11/2020 - ok
+27	Reglare Maquina 2 (34.228.232.229)	-- 26/11/2020 - ok
+28	Reglare Maquina 3 (52.203.196.156)	-- 26/11/2020 - ok
+29	Reglare Maquina 4 (3.86.40.131)		-- 26/11/2020 - ok
+30	Reglare Maquina 5 (3.89.184.62)		-- 26/11/2020 - ok
+31	Reglare Maquina 6 (34.229.248.185)	-- 26/11/2020 - ok
+32	Reglare Maquina 7 (54.144.107.74)	-- 26/11/2020 - ok
+33	Reglare Maquina 8 (18.209.110.38)	-- 26/11/2020 - ok
+
+-----------------------------------------------------
+34	Reglare Maquina 9 (54.224.252.56)	-- 24/11/2020
+35	Reglare Maquina 10 (18.234.67.96)	-- 24/11/2020
+-----------------------------------------------------
+
+pontos:
+usarmos winscp para atualizar as maquinas 
+
+
+http://ig2600.blogspot.com/2009/07/finding-clr-exceptions-with-visual.html
+http://blog.coryfoy.com/2010/02/debugging-net-applications-with-windbg-and-sos/
+
+resolver
+
+
+diretorio com nome do idprocessowindows
+
+log.txt
+
+data|idprocesso|idsolicitacaptura|idEquipamentoprocessamento|exception
+
+como pegar a pasta correta para geracao do arquivo!!!!
+
+
+
+
+/html/body/div/div/div[2]/div[2]
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

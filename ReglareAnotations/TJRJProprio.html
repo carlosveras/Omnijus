@@ -1,0 +1,565 @@
+https://escoladedados.org/tutoriais/xpath-para-raspagem-de-dados-em-html/
+
+<---- comandos XPATH exemplos ---->
+/*
+
+//.[@class='esajCelulaConteudoServico']
+
+//.[@class='app-detalhes-processo.ng-tns-c115-5']
+
+
+//.[@class='rc-image-tile-33']
+
+//.[@class='rc-imageselect-desc-no-canonical']/strong
+
+//.[@class='rc-imageselect-desc']/strong
+
+//.[@class='rich-messages-label']
+
+//.[contains(text(),'A verificação de captcha não está correta.')]
+
+//.[contains(text(),'Atendimento ao usuário do DEJT:')]
+
+para inspecionar por href:
+//a[text()='Compare']
+
+para inspecionar por input:
+//input[@type='text' and @name='email']
+
+para inspecionar por id:
+//div[@id='rc-imageselect']
+
+com span e texto:
+//span[@class='ng-star-inserted'][text()='50']
+
+//para inspecionar elementos filhos - no caso a 2 div abaixo da class
+//.[@class='primary-controls']/child::div[2]
+
+//para inspecionar elementos seguintes no caso um input
+//abaixo da class
+//*[@id="captcha"]/following::input
+
+//input[@id='imgCaptcha']
+
+//*[@id="portalTabs__consultaUnificada"]/child::a[1]
+
+div//table//tbody//tr//td[@class='modalTitulo']
+
+//*[@id="content100"]//h3[.="Erro"]
+
+//div[@id='idOestePortal']
+
+//.[@class='rc-imageselect-error-dynamic-more']
+
+//span[@class='title']
+
+//.[@class='modalTitulo']
+
+//.[@id='corpo:formulario:dataFim']//following::button[1]
+
+//select[@id='corpo:formulario:tribunal']//following::td[@class='celulaFormulario'][1]
+
+//div[@id='diarioCon']//fieldset[@class='plc-fieldset']
+
+//*[@id="corpo:formulario:tribunal"]//following::td[@class='celulaFormulario']//span[@class='ico iNavProximo']
+
+//*[@id='diarioInferiorNav']/preceding::tbody[1]
+
+
+//span[text()='Listar todos os personagens']
+
+//a[text()='Listar todos os personagens']
+
+//.[@id='lista-historico-personagens']/preceding::i[1]
+
+---- 30.09.2021
+
+//pega div todos os personagens
+//.[contains(text(),'Localização')]/following::div[1]
+
+ 
+//pega div advogados do reu
+//.[contains(text(),'Réu')]/following::div[1]
+
+
+//pega 1 div a partir dos dados do personagem - Autor ou Requerente
+//.[contains(text(),'Dados dos')]/following::div[2]
+
+
+//pega 3 div a partir dos dados do personagem - Reu
+//.[contains(text(),'Dados dos')]/following::div[3]
+
+
+
+//Advogados do autor
+//.[contains(text(),'Dados dos')]/following::div[5]
+
+//advogados do requerente
+//.[contains(text(),'Dados dos')]/following::div[5]
+
+
+//advogado do reu
+//.[contains(text(),'Dados dos')]/following::div[4]
+
+//1,2 ou 4 advogados do reu
+//.[contains(text(),'Dados dos')]/following::div[4]
+
+
+
+//apenas 1 advogado como personagem do processo
+//.[contains(text(),'Dados dos')]/following::div[2]
+
+
+
+//detalhes ou movimentos do processo
+acertivo
+//.[@class='row box-conteudo box-rb ng-tns-c115-1 ng-star-inserted']
+
+
+.tree-branch>ul>li:nth-of-type(3) 
+
+
+//.[app-detalhes-processo]/following::div/div/div[3]
+/html/body/app-root/app-detalhes-processo/section/div/div/div[3]
+
+
+
+
+//.[@class='row box-conteudo box-rb ng-tns-c115-5 ng-star-inserted']
+
+
+*/
+RJ060094 - DEWETT CATRAMBY FILHO
+ 
+  SP103137 - ANTONIO CARLOS FARDIN 
+
+
+---div dos movimentos
+//.[contains(text(),'Dados dos')]/following::div[9] -------- 0006843-30.2021.8.19.0037 -  0030637-64.2021.8.19.0204 -- 0030633-40.2021.8.19.0038
+//.[contains(text(),'Para visualizar')]/following::div[1] -- 0006843-30.2021.8.19.0037 -  0030637-64.2021.8.19.0204 -- 0030633-40.2021.8.19.0038
+
+
+-------------------------------------------
+https://www3.tjrj.jus.br/segweb/faces/login.jsp?indGet=true&SIGLASISTEMA=PORTALSERVICOS
+
+Usuario 41391654803
+Senha mudar1234
+
+
+<----- QUERYS INICIAIS DE PARAMETROS ------>
+
+insert into TecnologiaSite 
+values (21,'Proprio RJ')
+
+insert into InstanciaTribunal
+values (2,'Login','https://www3.tjrj.jus.br/segweb/faces/login.jsp?indGet=true&SIGLASISTEMA=PORTALSERVICOS',0,1,NULL,21,1,'68.0.2 (32-bits)',NULL)
+
+
+
+/// A T E N C A O PARA A URL ABAIXO \\\
+/// TALVEZ A CORRETA POSSA SER ESTA ---> https://www3.tjrj.jus.br/portalservicos/#/dashboard
+insert into InstanciaTribunal
+values (2,'1ª Instância','http://www.tjrj.jus.br/#undefined',1,1,NULL,21,1,'68.0.2 (32-bits)',NULL)
+
+insert into UsuarioAcesso
+values (1,2,41391654803,'mudar1234',5314)
+
+insert into UsuarioAcesso
+values (1,2,41391654803,'mudar1234',5315)
+
+
+<----- PARA GUARDAR ----------->
+
+/*
+--===================================================================================================
+-- Incluir a Faixa de Numerçao -- 
+-- 0044273-64.2021 8.19.0021
+-- 0020363-35.2021.8.19.0206
+--===================================================================================================
+insert into ForumFaixaNumeroProcesso values (getdate(),1,null,null,3728,1,1,1,'0040000',5315,1,3)
+
+select @@IDENTITY
+--5315
+--===================================================================================================
+
+--===================================================================================================
+--Incluir a Faixa de Numerçao no Ano
+--===================================================================================================
+insert into ForumFaixaNumeroAno values (getdate(),1,null,null,5315,2021,0044273)
+--===================================================================================================
+
+--===================================================================================================
+--Incluir a Solicitação de Captura
+--===================================================================================================
+select top 10 * from SolicitacaoCaptura
+
+insert into SolicitacaoCaptura values
+(getdate(),1,'Captura Distribuição - TJRJ Proprio - 0021 - 0040000',1,3,null,0,1,0,0,0,1,1,0,0,null,null,null)
+
+select @@IDENTITY
+--1383
+===================================================================================================
+select top 10 * from Processo
+
+insert into Processo (IdSolicitacaoCaptura,Numero,IdTribunalJustica,IdStatus,Eletronico,IdTecnologiaSite,IdFaixaNumeroProcesso, IdInstanciaTribunal, justicagratuita)
+values (1383,'9999999-00.2021.8.19.0021',2,1,1,21,5315,5315, 0)
+===================================================================================================
+*/
+
+
+<----- xpaths TJR Proprio ----->
+
+
+<- numeros auxiliares para teste >
+
+0020363352021 8.19.0206 -- 2 advogados do reu 
+0020522752021 8.19.0206 -- 1 advogado do reu
+0006843302021 8.19.0037 -- 2 advogados do reu 
+
+0025870622021 8.19.0210 -- 1 advogado do reu
+0025420222021 8.19.0210 -- 1 advogado do reu
+
+0038390962021 8.19.0002 -- 0 advogados
+
+0044023312021 8.19.0021 -- 2 advogados do reu 
+0044273642021 8.19.0021 -- 2 advogados do reu
+0043429172021 8.19.0021 -- 1 advogado do reu -- tem data da AUDIENCIA
+0214266682021 8.19.0001 -- 1 advogado do reu
+0029432942021 8.19.0205 -- 1 advogado do reu
+0010565352021 8.19.0211 -- 2 advogados do reu -- tem um monte de MOVIMENTOS
+0044275342021 8.19.0021 -- 1 advogado do reu
+0027163672021 8.19.0210 -- 1 advogado do reu
+
+
+
+processo com varios personagens: 0044273642021 8.19.0021
+
+<----- PROCESSOS PEGOS NO BANCO DE DADOS EM 30.09.2021 ------>
+
+0027163672021 8.19.0210
+0027059752021 8.19.0210
+0029856392021 8.19.0205
+0045432422021 8.19.0021
+0045306892021 8.19.0021
+0029759392021 8.19.0205
+0045079022021 8.19.0021
+0029629492021 8.19.0205 - testar o autor vem depois dos reus no popup
+0025264582021 8.19.0008
+0010595702021 8.19.0211
+0214266682021 8.19.0001
+0029432942021 8.19.0205
+0010565352021 8.19.0211
+0023876052021 8.19.0208
+0801922472021 8.19.0052
+0803095652021 8.19.0001 -- pje
+0044620972021 8.19.0021
+0044557722021 8.19.0021
+0038665452021 8.19.0002
+0038192382021 8.19.0203
+0021982682021 8.19.0054
+0030070332021 8.19.0204 -- autor reu advogado
+
+
+0044273642021 8.19.0021 -- autor reu advogado
+0038022662021 8.19.0203 -- autor reu advogado
+0030945162021 8.19.0038 -- autor reu advogado
+0030637642021 8.19.0204 -- 4 advogados do reu  -- autor reu advogado -- listar todos personagem aberta
+0029621602021 8.19.0209 -- autor representante reu advogados  -- bom exemplo 
+0030633402021 8.19.0038 -- 2 advogados do requerente -- em uso!!
+0029716902021 8.19.0209 -- autor reu advogado 
+0044023312021 8.19.0021 -- autor reu advogado 
+0038390962021 8.19.0002 -- autor reu 
+0025870622021 8.19.0210 -- personagens...
+0030633402021 8.19.0038 -- requerente reu requerido
+0006843302021 8.19.0037 -- requerente reu advogados
+
+0020523602021 8.19.0206 -- tem apenas 1 advogado como personagem
+
+0020522752021 8.19.0206
+0808872222021 8.19.0004 -- pje 
+0800508222021 8.19.0017 -- pje 
+0803222822021 8.19.0007 -- pje 
+0043429172021 8.19.0021
+0025420222021 8.19.0210
+0804537402021 8.19.0042 -- pje 
+0804529632021 8.19.0042
+0020363352021 8.19.0206 -- autor reu advogado
+0826033402021 8.19.0038
+
+
+
+<----- TELA INICIAL LOGIN ------>
+
+login:
+//.[@id='txtLogin']
+
+senha:
+//.[@id='txtSenha']
+
+
+<----- combo inicial advogado ----->
+
+combo:
+//.[@class='autocomplete-serventia focus ng-untouched ng-pristine ng-valid']
+var comboTipoUsuario = janelaNova.FindElement(By.XPath("//.[@class='autocomplete-serventia focus ng-untouched ng-pristine ng-valid']"));
+comboTipoUsuario.Click();
+System.Threading.Thread.Sleep(2000);
+
+//clica na selecao aberta do advogado
+janelaNova.FindElement(By.XPath("//span[@class='color-def']")).Click();
+
+botao entrar:
+//.[contains(text(),'Entrar')]
+
+<----- Menu lateral  ----->
+
+menu lateral:
+//li[@id='CONSULTAS']
+
+<----- Selecao superior ----->
+
+selecao consultas processuais:
+//.[@alt='Consultas Processuais']
+
+<------ Informar o nr do processo ----->
+
+input numero processo:
+//.[@name='numeroProcesso']
+
+input ultima faixa de numero do processo:
+//.[@id='inputSufixoUnica3']
+
+<------ Botao pesquisar: ----->
+
+pesquisar processo:
+//.[@id='botaoPesquisarProcesso']
+
+<------ Dados do Cabecalho ------>
+
+botao abrir todos os movimentos do processo:
+//.[contains(text(),'Todos os Movimentos ')]
+
+data distribuicao:
+//.[contains(text(),'Distribuído')] retornado:  - Distribuído em 17/09/2021
+
+<------ Dados da Serventia ------>
+
+comarca:
+//.[@name='comarca'] retornado: Comarca de Duque de Caxias
+
+vara:
+//.[@name='vara'] retornado : 1º Juizado Especial Cível
+
+serventia:
+//.[@name='vara']//following::label[@name='serventia'][1] retornado: Cartório do 1º Juizado Especial Cível
+
+endereco da serventia:
+//.[@name='endereco'] retornado: Cartório do 1º Juizado Especial Cível
+
+bairro:
+//.[@name='bairro'] retornado : 25 de Agosto
+
+cidade:
+//.[@name='cidade'] retornado : Duque de Caxias
+
+
+<------ Dados do Processo ------>
+
+acao:
+//.[@name='acao']
+
+competencia:
+//.[@name='acao']//following::label[@name='serventia']
+
+assunto:
+//.[@name='classe']/preceding::label[@name='assunto']
+
+classe:
+//.[@name='classe']
+
+processos no tribunal:
+//.[@name='segInst']
+
+localizacao na serventia:
+//.[@name='localServentia']
+
+<------- Dados dos Personagens --------->
+
+select top 500 *
+  from ParteQualificacao
+
+
+processo com varios personagens: 0044273-64.2021.8.19.0021
+
+listar todos os personagens:
+//span[text()='Listar todos os personagens']
+
+
+
+
+combo personagens:
+//.[@class='autocomplete-serventia focus ng-untouched ng-pristine ng-valid']
+var comboPersonagens = janelaNova.FindElement(By.XPath("//.[@class='autocomplete-serventia focus ng-untouched ng-pristine ng-valid']"));
+comboPersonagens.Click();
+System.Threading.Thread.Sleep(2000);
+
+//.[@class='ng-tns-c57-2 p-dropdown-label p-inputtext ng-star-inserted']
+
+
+
+
+requerente:
+//label[text()='Requerente']/following::label[@name='personagemDesc'][1]
+
+reu:
+//label[text()='Réu']/following::label[@name='personagemDesc'][1]
+
+requerido:
+//label[text()='Requerido']/following::label[@name='personagemDesc'][1]
+
+advogados:
+//.[@name='advogado']
+
+
+
+24-09-2021
+
+//.[@class='p-datatable-wrapper ng-star-inserted']
+
+
+botao voltar a pesquisar:
+//.[contains(text(),'Voltar')]
+
+Palavras de exclusao
+
+Movimentação
+Ato Assinado
+Visualizar Ato Assinado Digitalmente
+1
+10
+Os autos de processos findos terão como destinação final 
+a guarda permanente ou a eliminação, depois de cumpridos 
+os respectivos prazos de guarda definidos na Tabela de 
+Temporalidade de Documentos do PJERJ.
+
+
+
+
+
+qMovimento[1] = "Movimentação";
+qMovimento[2] = "Tipo do Movimento: Juntada - Petição";
+qMovimento[3] = "Data da juntada:";
+qMovimento[4] = "17/09/2021";
+qMovimento[5] = "Descrição da Juntada:";
+qMovimento[6] = "Documento eletrônico juntado de forma automática.";
+qMovimento[7] = "Tipo do Movimento: Recebimento";
+qMovimento[8] = "Data de Recebimento:";
+qMovimento[9] = "16/09/2021";
+qMovimento[10] = "Descrição";
+qMovimento[11] = "Verifica-se pelo sistema informatizado do TJ/RJ a existência de petição pendente de juntada. Assim, JUNTE-SE aos autos. Após, voltem conclusos com brevidade.";
+qMovimento[12] = "Ato Assinado";
+qMovimento[13] = "Visualizar Ato Assinado Digitalmente";
+qMovimento[14] = "Tipo do Movimento: Despacho - Proferido despacho de mero expediente";
+qMovimento[15] = "Data Despacho:";
+qMovimento[16] = "15/09/2021";
+qMovimento[17] = "Tipo do Movimento: Conclusão ao Juiz";
+qMovimento[18] = "Data da conclusão:";
+qMovimento[19] = "15/09/2021";
+qMovimento[20] = "Juiz:";
+qMovimento[21] = "FERNANDO LUIS GONCALVES DE MORAES";
+qMovimento[22] = "Tipo do Movimento: Ato Ordinatório Praticado";
+qMovimento[23] = "Data:";
+qMovimento[24] = "15/09/2021";
+qMovimento[25] = "Descrição:";
+qMovimento[26] = "CERTIDÃO DE AUTUAÇÃO Certifico e dou fé que o presente feito foi devidamente registrado sob o n.º de ordem epigrafado, sendo certo que suas peças encontram-se digitalizadas, haja vista sua distribuição como processo eletrônico. Eu, Mario Luis V. Cristino, Técnico Judiciário, mat. 01/1761 o autuei e o subscrevo. CERTIDÃO DE RECOLHIMENTO DE CUSTAS Certifico, quanto ao recolhimento de custas: ( ) Que consta à fl. ( ) pedido de Gratuidade de Justiça, bem como apresenta documentos relativos aos rendimentos à fl.(s)_____ e extratos de IRPF à fl.(s)______. ( ) Que trata-se de Carta Precatória com notícia de Gratuidade de Justiça à fl.(s) ( ). ( ) Que A parte autora é isenta de custas, por se tratar de ação proposta pelo MP (art. 18, IV da Lei 3350/99). ( ) A parte autora é isenta de custas, por se tratar de ente público ou autarquia (artigo 17, IX da Lei 3350/99). Entretanto, para que haja a isenção de taxa judiciária, a parte autora (União, Estado, DF e o Município) deverá comprovar a existência de igual isenção, na forma prevista no parágrafo único do artigo 115 do Decreto Lei 05/75. ( X ) DISTRIBUIÇÃO - A peça inicial está dirigida ao Juizado Especial Cível";
+qMovimento[27] = "Tipo do Movimento: Distribuição Sorteio";
+qMovimento[28] = "Data da Distribuição:";
+qMovimento[29] = "14/09/2021";
+qMovimento[30] = "Serventia:";
+qMovimento[31] = "Cartório da 3ª Vara Cível - 3ª Vara Cível";
+qMovimento[32] = "1";
+qMovimento[33] = "10";
+qMovimento[34] = "Os autos de processos findos terão como destinação final a guarda permanente ou a eliminação, depois de cumpridos os respectivos prazos de guarda definidos na Tabela de Temporalidade de Documentos do PJERJ.";
+
+
+
+
+Valor pego ..:17/09/2021
+Valor pego ..:Documento eletrônico juntado de forma automática.
+
+Valor pego ..:16/09/2021
+Valor pego ..:Verifica-se pelo sistema informatizado do TJ/RJ a existência de petição pendente de juntada. Assim, JUNTE-SE aos autos. Após, voltem conclusos com brevidade.
+
+Valor pego ..:Tipo do Movimento: Despacho - Proferido despacho de mero expediente
+Valor pego ..:Data Despacho:
+Valor pego ..:15/09/2021
+
+Valor pego ..:Tipo do Movimento: Conclusão ao Juiz
+Valor pego ..:Data da conclusão:
+Valor pego ..:15/09/2021
+Valor pego ..:Juiz:
+Valor pego ..:FERNANDO LUIS GONCALVES DE MORAES
+
+Valor pego ..:Tipo do Movimento: Ato Ordinatório Praticado
+Valor pego ..:Data:
+Valor pego ..:15/09/2021
+Valor pego ..:Descrição:
+Valor pego ..:CERTIDÃO DE AUTUAÇÃO Certifico e dou fé que o presente feito foi devidamente registrado sob o n.º de ordem epigrafado, sendo certo que suas peças encontram-se digitalizadas, haja vista sua distribuição como processo eletrônico. Eu, Mario Luis V. Cristino, Técnico Judiciário, mat. 01/1761 o autuei e o subscrevo. CERTIDÃO DE RECOLHIMENTO DE CUSTAS Certifico, quanto ao recolhimento de custas: ( ) Que consta à fl. ( ) pedido de Gratuidade de Justiça, bem como apresenta documentos relativos aos rendimentos à fl.(s)_____ e extratos de IRPF à fl.(s)______. ( ) Que trata-se de Carta Precatória com notícia de Gratuidade de Justiça à fl.(s) ( ). ( ) Que A parte autora é isenta de custas, por se tratar de ação proposta pelo MP (art. 18, IV da Lei 3350/99). ( ) A parte autora é isenta de custas, por se tratar de ente público ou autarquia (artigo 17, IX da Lei 3350/99). Entretanto, para que haja a isenção de taxa judiciária, a parte autora (União, Estado, DF e o Município) deverá comprovar a existência de igual isenção, na forma prevista no parágrafo único do artigo 115 do Decreto Lei 05/75. ( X ) DISTRIBUIÇÃO - A peça inicial está dirigida ao Juizado Especial Cível
+
+Valor pego ..:Tipo do Movimento: Distribuição Sorteio
+Valor pego ..:Data da Distribuição:
+Valor pego ..:14/09/2021
+Valor pego ..:Serventia:
+Valor pego ..:Cartório da 3ª Vara Cível - 3ª Vara Cível
+
+
+valor pego...: 17/09/2021
+valor pego...: Documento eletrônico juntado de forma automática.
+
+valor pego...: 16/09/2021
+valor pego...: Verifica-se pelo sistema informatizado do TJ/RJ a existência de petição pendente de juntada. Assim, JUNTE-SE aos autos. Após, voltem conclusos com brevidade.
+
+valor pego...: 15/09/2021
+
+valor pego...: Data da conclusão:
+valor pego...: 15/09/2021
+valor pego...: FERNANDO LUIS GONCALVES DE MORAES
+
+valor pego...: 15/09/2021
+valor pego...: CERTIDÃO DE AUTUAÇÃO Certifico e dou fé que o presente feito foi devidamente registrado sob o n.º de ordem epigrafado, sendo certo que suas peças encontram-se digitalizadas, haja vista sua distribuição como processo eletrônico. Eu, Mario Luis V. Cristino, Técnico Judiciário, mat. 01/1761 o autuei e o subscrevo. CERTIDÃO DE RECOLHIMENTO DE CUSTAS Certifico, quanto ao recolhimento de custas: ( ) Que consta à fl. ( ) pedido de Gratuidade de Justiça, bem como apresenta documentos relativos aos rendimentos à fl.(s)_____ e extratos de IRPF à fl.(s)______. ( ) Que trata-se de Carta Precatória com notícia de Gratuidade de Justiça à fl.(s) ( ). ( ) Que A parte autora é isenta de custas, por se tratar de ação proposta pelo MP (art. 18, IV da Lei 3350/99). ( ) A parte autora é isenta de custas, por se tratar de ente público ou autarquia (artigo 17, IX da Lei 3350/99). Entretanto, para que haja a isenção de taxa judiciária, a parte autora (União, Estado, DF e o Município) deverá comprovar a existência de igual isenção, na forma prevista no parágrafo único do artigo 115 do Decreto Lei 05/75. ( X ) DISTRIBUIÇÃO - A peça inicial está dirigida ao Juizado Especial Cível
+
+valor pego...: 14/09/2021
+valor pego...: Cartório da 3ª Vara Cível - 3ª Vara Cível
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,58 @@
+---- TAREFAS IMPLEMENTACAO DE LOG
+
+ESAJ ----------------- TecnologiaEsajService.cs ------------> Implementada
+Projudi -------------- TecnologiaProjudiService.cs ---------> Implementada
+PJE TJ --------------- TecnologiaPJETJService.cs -----------> Implementada
+PJE Versão 2.0 ------- TecnologiaPJEV2Service.cs -----------> Implementada 
+
+
+Tecnologia Rio ------- TecnologiaTjRjService.cs ------------> Implementada ------ subir no git
+Tecnologia EProc ----- TecnologiaEProcService.cs -----------> Implementada ------ subir no git
+
+Tecnologia RS -------- TecnologiaRSService.cs --------------> Nao Implementada 
+Tecnologia ES -------- TecnologiaESService.cs --------------> Nao Implementada
+PJE TJ sem PjeOffice - TecnologiaPJETJSemOfficeService.cs --> Nao Implementada
+
+
+
+
+
+Trabalhar no PJETJ
+
+D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\TecnologiaPJETJService.cs
+
+TecnologiaPJETJService.cs
+
+---- Equipamento ativo para o tribunal abaixo
+
+update EquipamentoProcessamentoTribunal
+   set Ativo = 1
+where id = 3239
+
+---- alteracao qtde tentativas desafio captcha
+
+update EquipamentoProcessamentoParametro
+   set Valor = 25
+where id = 161
+
+
+
+
+---- TAREFA
+
+Implementar o captcha desafio 
+
+Implementar a geracao do LOG
+bool gerouLog = _commonService.GeraLog(numeroProcesso, 0, 0, ex);
+
+----
+
+
+https://pje.tjmg.jus.br/pje/QuadroAviso/listViewQuadroAvisoMensagem.seam
+
+
+
+
+
+
+

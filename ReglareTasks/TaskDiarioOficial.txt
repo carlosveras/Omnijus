@@ -1,0 +1,403 @@
+
+- Robo download diarios - BaixarDejt
+- Parametro de Datas ? so´ dia ? periodo ?
+- Criar a parte dentro da solucao ou incluir no LerDiarioOficial sendo primeiro Baixar e na sequencia Ler
+
+
+- Na tabela DiarioOficialProcessos rever a questao de duplicidades de processos dentro do mesmo diario.
+
+15-02-21 a 19-02-21
+
+22-02-21 a 23-02-21
+
+
+para segunda-feira dia 08-03-2021
+
+pegar os dia 04 a 05 de marco 2021
+
+
+
+
+<button type="button" onclick="submitForm('corpo:formulario',1,{source:'corpo:formulario:plcLogicaItens:0:j_id131'});return false;" class="bt af_commandButton"><img src="/dejt/plc/midia/baixar.png"></button>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+1) Criar uma tabela que vai guardar o nome do arquivo que ele esta lendo, 
+bem como a Data e Hora que começou a ler e a data e hora que acabou de Ler 
+(lembrando que esta dado começa como NULL e depois é atualizada)
+
+NomeArquivo
+CriadoEm
+InicioLeitura
+FimLeitura
+
+
+2) Criar uma tabela que vai guardar o numero do processo que for encontrando dentro 
+daquele Diário Oficial. 
+Além do Número do Processo pode criar uma flag (bit) que vai identificar se o Processo 
+foi captura na Distribuição. Neste momento todo mundo nasce como sendo 0.
+
+
+3) depois que ler o arquivo .pdf mover ele para um outro diretório . 
+Pode criar uma parametro para isto também
+
+
+Sugestao de Pastas:
+D:\Pastas de Trabalho\Projetos\Captura Dados Processo\DiarioOficialALer
+D:\Pastas de Trabalho\Projetos\Captura Dados Processo\DiarioOficialLidos
+
+No site abaixo selecionar a Data de Inicio e a Data de Fim, 
+colocar o Tipo de Caderno como JUDICIARIO e buscar o Orgão 
+do TRT1 até o TRT24 desde o dia: 01.janeiro.2021
+
+https://dejt.jt.jus.br/dejt/f/n/diariocon
+
+
+
+---- SCRIPT INICIAL 
+
+CREATE TABLE DiarioOficial (
+    Id int IDENTITY(1,1) PRIMARY KEY,
+	CriadoEm datetime,
+    Tribunal varchar(250),
+	NumeroDiario varchar(30),
+	DataDisponibilizacao varchar(100),
+    NomeArquivo varchar(100),
+	DataDisp datetime,
+    InicioLeitura datetime,
+    FimLeitura datetime
+);
+
+CREATE TABLE DiarioOficialProcessos (
+Id int IDENTITY(1,1) PRIMARY KEY,
+	IdDiarioOficial int,
+	CriadoEm datetime,
+	Numero varchar(30),
+	IdStatus smallint
+);
+
+
+CREATE UNIQUE INDEX idx_tribunalnum
+ON DiarioOficial (Tribunal, NumeroDiario);
+
+CREATE UNIQUE INDEX idx_iddiarionumer
+  ON DiarioOficialProcessos (IdDiarioOficial, Numero);
+
+
+
+INSERT INTO EquipamentoProcessamentoParametro (CriadoEm,CriadoPor,AlteradoEm,AlteradoPor,IdEquipamentoProcessamento,Descricao,Valor)
+VALUES(GETDATE(),1,NULL,NULL,21,'Pasta Base Diário Oficial A Ler','C:\Pastas de Trabalho\Projetos\Captura Dados Processo\DiarioOficialAler')
+
+INSERT INTO EquipamentoProcessamentoParametro (CriadoEm,CriadoPor,AlteradoEm,AlteradoPor,IdEquipamentoProcessamento,Descricao,Valor)
+VALUES(GETDATE(),1,NULL,NULL,21,'Pasta Base Diário Oficial Lidos','C:\Pastas de Trabalho\Projetos\Captura Dados Processo\DiarioOficialLidos')
+
+INSERT INTO EquipamentoProcessamentoParametro (CriadoEm,CriadoPor,AlteradoEm,AlteradoPor,IdEquipamentoProcessamento,Descricao,Valor)
+VALUES(GETDATE(),1,NULL,NULL,25,'Pasta Base Diário Oficial A Ler','C:\Pastas de Trabalho\Projetos\Captura Dados Processo\DiarioOficialAler')
+
+INSERT INTO EquipamentoProcessamentoParametro (CriadoEm,CriadoPor,AlteradoEm,AlteradoPor,IdEquipamentoProcessamento,Descricao,Valor)
+VALUES(GETDATE(),1,NULL,NULL,25,'Pasta Base Diário Oficial Lidos','C:\Pastas de Trabalho\Projetos\Captura Dados Processo\DiarioOficialLidos')
+
+INSERT INTO EquipamentoProcessamentoParametro (CriadoEm,CriadoPor,AlteradoEm,AlteradoPor,IdEquipamentoProcessamento,Descricao,Valor)
+VALUES(GETDATE(),1,NULL,NULL,27,'Pasta Base Diário Oficial A Ler','C:\Pastas de Trabalho\Projetos\Captura Dados Processo\DiarioOficialAler')
+
+INSERT INTO EquipamentoProcessamentoParametro (CriadoEm,CriadoPor,AlteradoEm,AlteradoPor,IdEquipamentoProcessamento,Descricao,Valor)
+VALUES(GETDATE(),1,NULL,NULL,27,'Pasta Base Diário Oficial Lidos','C:\Pastas de Trabalho\Projetos\Captura Dados Processo\DiarioOficialLidos')
+
+INSERT INTO EquipamentoProcessamentoParametro (CriadoEm,CriadoPor,AlteradoEm,AlteradoPor,IdEquipamentoProcessamento,Descricao,Valor)
+VALUES(GETDATE(),1,NULL,NULL,28,'Pasta Base Diário Oficial A Ler','C:\Pastas de Trabalho\Projetos\Captura Dados Processo\DiarioOficialAler')
+
+INSERT INTO EquipamentoProcessamentoParametro (CriadoEm,CriadoPor,AlteradoEm,AlteradoPor,IdEquipamentoProcessamento,Descricao,Valor)
+VALUES(GETDATE(),1,NULL,NULL,28,'Pasta Base Diário Oficial Lidos','C:\Pastas de Trabalho\Projetos\Captura Dados Processo\DiarioOficialLidos')
+
+INSERT INTO EquipamentoProcessamentoParametro (CriadoEm,CriadoPor,AlteradoEm,AlteradoPor,IdEquipamentoProcessamento,Descricao,Valor)
+VALUES(GETDATE(),1,NULL,NULL,29,'Pasta Base Diário Oficial A Ler','C:\Pastas de Trabalho\Projetos\Captura Dados Processo\DiarioOficialAler')
+
+INSERT INTO EquipamentoProcessamentoParametro (CriadoEm,CriadoPor,AlteradoEm,AlteradoPor,IdEquipamentoProcessamento,Descricao,Valor)
+VALUES(GETDATE(),1,NULL,NULL,29,'Pasta Base Diário Oficial Lidos','C:\Pastas de Trabalho\Projetos\Captura Dados Processo\DiarioOficialLidos')
+
+INSERT INTO EquipamentoProcessamentoParametro (CriadoEm,CriadoPor,AlteradoEm,AlteradoPor,IdEquipamentoProcessamento,Descricao,Valor)
+VALUES(GETDATE(),1,NULL,NULL,30,'Pasta Base Diário Oficial A Ler','C:\Pastas de Trabalho\Projetos\Captura Dados Processo\DiarioOficialAler')
+
+INSERT INTO EquipamentoProcessamentoParametro (CriadoEm,CriadoPor,AlteradoEm,AlteradoPor,IdEquipamentoProcessamento,Descricao,Valor)
+VALUES(GETDATE(),1,NULL,NULL,30,'Pasta Base Diário Oficial Lidos','C:\Pastas de Trabalho\Projetos\Captura Dados Processo\DiarioOficialLidos')
+
+INSERT INTO EquipamentoProcessamentoParametro (CriadoEm,CriadoPor,AlteradoEm,AlteradoPor,IdEquipamentoProcessamento,Descricao,Valor)
+VALUES(GETDATE(),1,NULL,NULL,31,'Pasta Base Diário Oficial A Ler','C:\Pastas de Trabalho\Projetos\Captura Dados Processo\DiarioOficialAler')
+
+INSERT INTO EquipamentoProcessamentoParametro (CriadoEm,CriadoPor,AlteradoEm,AlteradoPor,IdEquipamentoProcessamento,Descricao,Valor)
+VALUES(GETDATE(),1,NULL,NULL,31,'Pasta Base Diário Oficial Lidos','C:\Pastas de Trabalho\Projetos\Captura Dados Processo\DiarioOficialLidos')
+
+INSERT INTO EquipamentoProcessamentoParametro (CriadoEm,CriadoPor,AlteradoEm,AlteradoPor,IdEquipamentoProcessamento,Descricao,Valor)
+VALUES(GETDATE(),1,NULL,NULL,32,'Pasta Base Diário Oficial A Ler','C:\Pastas de Trabalho\Projetos\Captura Dados Processo\DiarioOficialAler')
+
+INSERT INTO EquipamentoProcessamentoParametro (CriadoEm,CriadoPor,AlteradoEm,AlteradoPor,IdEquipamentoProcessamento,Descricao,Valor)
+VALUES(GETDATE(),1,NULL,NULL,32,'Pasta Base Diário Oficial Lidos','C:\Pastas de Trabalho\Projetos\Captura Dados Processo\DiarioOficialLidos')
+
+INSERT INTO EquipamentoProcessamentoParametro (CriadoEm,CriadoPor,AlteradoEm,AlteradoPor,IdEquipamentoProcessamento,Descricao,Valor)
+VALUES(GETDATE(),1,NULL,NULL,33,'Pasta Base Diário Oficial A Ler','C:\Pastas de Trabalho\Projetos\Captura Dados Processo\DiarioOficialAler')
+
+INSERT INTO EquipamentoProcessamentoParametro (CriadoEm,CriadoPor,AlteradoEm,AlteradoPor,IdEquipamentoProcessamento,Descricao,Valor)
+VALUES(GETDATE(),1,NULL,NULL,33,'Pasta Base Diário Oficial Lidos','C:\Pastas de Trabalho\Projetos\Captura Dados Processo\DiarioOficialLidos')
+
+INSERT INTO EquipamentoProcessamentoParametro (CriadoEm,CriadoPor,AlteradoEm,AlteradoPor,IdEquipamentoProcessamento,Descricao,Valor)
+VALUES(GETDATE(),1,NULL,NULL,34,'Pasta Base Diário Oficial A Ler','C:\Pastas de Trabalho\Projetos\Captura Dados Processo\DiarioOficialAler')
+
+INSERT INTO EquipamentoProcessamentoParametro (CriadoEm,CriadoPor,AlteradoEm,AlteradoPor,IdEquipamentoProcessamento,Descricao,Valor)
+VALUES(GETDATE(),1,NULL,NULL,34,'Pasta Base Diário Oficial Lidos','C:\Pastas de Trabalho\Projetos\Captura Dados Processo\DiarioOficialLidos')
+
+INSERT INTO EquipamentoProcessamentoParametro (CriadoEm,CriadoPor,AlteradoEm,AlteradoPor,IdEquipamentoProcessamento,Descricao,Valor)
+VALUES(GETDATE(),1,NULL,NULL,35,'Pasta Base Diário Oficial A Ler','C:\Pastas de Trabalho\Projetos\Captura Dados Processo\DiarioOficialAler')
+
+INSERT INTO EquipamentoProcessamentoParametro (CriadoEm,CriadoPor,AlteradoEm,AlteradoPor,IdEquipamentoProcessamento,Descricao,Valor)
+VALUES(GETDATE(),1,NULL,NULL,35,'Pasta Base Diário Oficial Lidos','C:\Pastas de Trabalho\Projetos\Captura Dados Processo\DiarioOficialLidos')
+
+
+
+
+
+------------------------------------------
+
+idStatus = Pendente == 1
+	
+------------------------------------------
+converter data extenso em datetime
+
+https://docs.microsoft.com/pt-br/dotnet/standard/base-types/parsing-datetime
+
+
+
+
+
+
+
+
+select *
+  from EquipamentoProcessamentoParametro
+where idEquipamentoProcessamento = 26
+
+delete EquipamentoProcessamentoParametro where id = 164
+
+INSERT INTO EquipamentoProcessamentoParametro (CriadoEm,CriadoPor,AlteradoEm,AlteradoPor,IdEquipamentoProcessamento,Descricao,Valor)
+VALUES(GETDATE(),1,NULL,NULL,26,'Pasta Base Diário Oficial A Ler','C:\Pastas de Trabalho\Projetos\Captura Dados Processo\DiarioOficialAler')
+
+INSERT INTO EquipamentoProcessamentoParametro (CriadoEm,CriadoPor,AlteradoEm,AlteradoPor,IdEquipamentoProcessamento,Descricao,Valor)
+VALUES(GETDATE(),1,NULL,NULL,26,'Pasta Base Diário Oficial Lidos','C:\Pastas de Trabalho\Projetos\Captura Dados Processo\DiarioOficialLidos')
+
+
+
+----query utilizadas na tarefa
+
+select dop.IdDiarioOficial,
+       do.NumeroDiario,
+	   do.NomeArquivo,
+	   do.Tribunal,
+	   dop.Numero
+  from DiarioOficialProcessos dop
+join DiarioOficial do on do.Id = dop.IdDiarioOficial
+WHERE dop.CriadoEm BETWEEN '20210216 00:00' AND '20210216 23:59:59'
+AND (PATINDEX('%[a-zA-Z]%', dop.Numero) <> 0)
+
+
+
+select count(do.NomeArquivo), do.NomeArquivo
+  from DiarioOficialProcessos dop
+join DiarioOficial do on do.Id = dop.IdDiarioOficial
+WHERE dop.CriadoEm BETWEEN '20210216 00:00' AND '20210216 23:59:59'
+AND (PATINDEX('%[a-zA-Z]%', dop.Numero) <> 0)
+group by do.nomearquivo
+
+select count(dop.numero), 
+       dop.Numero,
+	   dop.IdDiarioOficial
+  from DiarioOficialProcessos dop
+where dop.IdDiarioOficial = 325
+group by dop.Numero, dop.IdDiarioOficial
+having count(dop.numero) > 1
+order by dop.Numero
+
+
+
+
+
+select count(dop.numero), 
+       dop.Numero,
+	   dop.IdDiarioOficial
+  from DiarioOficialProcessos dop
+where dop.IdDiarioOficial = 325
+group by dop.Numero, dop.IdDiarioOficial
+having count(dop.numero) > 1
+order by dop.Numero
+
+
+select count(*)
+  from DiarioOficial
+ where IdDiarioOficial = 325
+
+
+
+---- erros
+ 00002-57.2021.5.12.0039
+
+
+
+
+-------------------------------------------------
+
+ROT-0100026-87.2018.5.01.0077
+ROT-0100026-87.2018.5.01.0077
+AP-0011013-88.2014.5.01.0054
+AP-0011013-88.2014.5.01.0054
+
+0100026-87.2018.5.01.0077
+0100026-87.2018.5.01.0077
+0011013-88.2014.5.01.0054
+0011013-88.2014.5.01.0054
+000003535.2021.5.06.0000
+000003705.2021.5.06.0000
+0011013-88.2014.5.01.0054
+
+0100044-43.2021.5.01.0000
+
+
+814.000000491.2021.5.06.0201
+814.000000746.2021.5.06.0201
+814.000000661.2021.5.06.0201
+814.000000746.2021.5.06.0201
+814.000000661.2021.5.06.0201
+814.000006112.2021.5.06.0201
+
+0000488-43.2016.5.06.0020
+
+
+
+Processo n. 0100044-43.2021.5.01.0000
+Processo n. 0100044-43.2021.5.01.0000
+
+--------------------------------------------------
+000003705.2021.5.06.0000
+000000937.2021.5.06.0000
+Tribunal Regional do Trabalho da 6ª Região
+
+
+ TRT0000009-37.2021.5.06.0000 (ED/MSCIV)
+ 0000015-21.2021.5.06.0331 - HOMOLOGAÇÃO DA
+ 0000015-21.2021.5.06.0331 - HOMOLOGAÇÃO DA
+ 0000017-88.2021.5.06.0331 - HOMOLOGAÇÃO DA
+ 0000017-88.2021.5.06.0331 - HOMOLOGAÇÃO DA
+ 0000018-73.2021.5.06.0331 - HOMOLOGAÇÃO DA
+ 0000018-73.2021.5.06.0331 - HOMOLOGAÇÃO DA
+ 0000020-43.2021.5.06.0331 - HOMOLOGAÇÃO DA
+ 0000020-43.2021.5.06.0331 - HOMOLOGAÇÃO DA
+ 0000021-28.2021.5.06.0331 - HOMOLOGAÇÃO DA
+ 0000021-28.2021.5.06.0331 - HOMOLOGAÇÃO DA
+ 0000022-13.2021.5.06.0331 - HOMOLOGAÇÃO DA
+ 0000022-13.2021.5.06.0331 - HOMOLOGAÇÃO DA
+ 0000023-95.2021.5.06.0331 - HOMOLOGAÇÃO DA
+ 0000023-95.2021.5.06.0331 - HOMOLOGAÇÃO DA
+ 0000024-80.2021.5.06.0331 - HOMOLOGAÇÃO DA
+ 0000024-80.2021.5.06.0331 - HOMOLOGAÇÃO DA
+ 0000025-65.2021.5.06.0331 - HOMOLOGAÇÃO DA
+ 0000025-65.2021.5.06.0331 - HOMOLOGAÇÃO DA
+ 0000026-50.2021.5.06.0331 - HOMOLOGAÇÃO DA
+ 0000026-50.2021.5.06.0331 - HOMOLOGAÇÃO DA
+ 0000029-05.2021.5.06.0331 - HOMOLOGAÇÃO DA
+ 0000027-35.2021.5.06.0331 - HOMOLOGAÇÃO DA
+ 0000027-35.2021.5.06.0331 - HOMOLOGAÇÃO DA
+ 0000029-05.2021.5.06.0331 - HOMOLOGAÇÃO DA
+ 0000033-42.2021.5.06.0331 - HOMOLOGAÇÃO DA
+ 0000033-42.2021.5.06.0331 - HOMOLOGAÇÃO DA
+ 0000011-81.2021.5.06.0331 - HOMOLOGAÇÃO DA
+ 0000011-81.2021.5.06.0331 - HOMOLOGAÇÃO DA
+: 0000017-93.2021.5.06.0006 - AÇÃO TRABALHISTA -
+30
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+---fim logicaerrada
+
+
+
+
+0059300-49.2004.5.06.0004
+0059300-49.2004.5.06.0004
+0195400-74.2005.5.06.0004
+0000573-97.2013.5.05.0008
+0056200-55.2000.5.05.0101
+0068900-48.2009.5.05.0101
+
+00018058420175060103
+
+0001805-84.2017.5.06.0103
+0001805-84.20175.0.60.103
+
+
+0000357-51.2020.5.06.0142--
+
+
+//*[@id="diarioInferiorNav"]
+
+
+
+
+
+
+
+
+
+
+
+
+

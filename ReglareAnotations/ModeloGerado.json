@@ -1,0 +1,467 @@
+{
+  "Numero": "0000001-91.2020.5.06.0001",
+  "InformacaoCapturadaPor": "Reglare",
+  "DataHoraPesquisa": "20/05/2020 15:51:55",
+  "AreaProcessual": null,
+  "Orgao": "TRT6",
+  "UnidadeOrgao": "1ª Vara do Trabalho do Recife",
+  "SecaoUnidade": "corrigir",
+  "Comarca": null,
+  "UfComarca": "PE",
+  "DataHoraDistribuicao": "20/05/2020 17:47:24",
+  "TipoDistribuicao": "corrigir",
+  "ValorAcao": "R$ 80.695,80",
+  "Julgador": null,
+  "NumeroControle": null,
+  "NumeroLocalizacao": null,
+  "JusticaGratuita": false,
+  "SegredoJustica": false,
+  "Instancia": "1ª e 2ª Instância",
+  "Classe": null,
+  "Assuntos": [
+    {
+      "Assunto": "Indenização Adicional "
+    },
+    {
+      "Assunto": " Adicional de Insalubridade"
+    }
+  ],
+  "AssuntosExtra": [],
+  "Partes": [
+    {
+      "Tipo": "Autora",
+      "Nome": "ADRIELLY ALMEIDA DE HOLANDA",
+      "Documento": "CPF: 090.579.664-09",
+      "Endereco": "RUA MARIA JOSE REGUEIRA , 44 - SAO BENEDITO - OLINDA - PE - CEP: 53210-445",
+      "Qualificacao": "Autor",
+      "TermoRelacionado": "corrigir",
+      "ExpressaoRegular": "corrigir",
+      "Advogados": [
+        {
+          "Nome": "Antonio Aparecido Pascoal Arruda",
+          "OAB": "corrigir",
+          "Documento": "corrigir"
+        },
+        {
+          "Nome": "Alessandra de Almeida Figueiredo",
+          "OAB": "corrigir",
+          "Documento": "corrigir"
+        },
+        {
+          "Nome": "Everton Bispo",
+          "OAB": "corrigir",
+          "Documento": "corrigir"
+        }
+      ]
+    },
+    {
+      "Tipo": "Reu",
+      "Nome": "TELEINFORMACOES LTDA",
+      "Documento": "CPJ: 02.553.250/0001-84",
+      "Endereco": "RUA DO LORETO , 36 , Apto 701 - PIEDADE - JABOATAO DOS GUARARAPES - PE - CEP: 54420-004",
+      "Qualificacao": "Réu",
+      "TermoRelacionado": "corrigir",
+      "ExpressaoRegular": "corrigir",
+      "Advogados": []
+    },
+    {
+      "Tipo": "Reu",
+      "Nome": "TELEFONICA BRASIL S.A.",
+      "Documento": "CPJ: 02.558.157/0001-62",
+      "Endereco": "TELEFONICA BRASIL S/A, 1376 , AV. ENGENHEIRO LUIZ CARLOS BERRINI - MONÇÕES - SAO PAULO - SP - CEP: 04571-936",
+      "Qualificacao": "Réu",
+      "TermoRelacionado": "corrigir",
+      "ExpressaoRegular": "corrigir",
+      "Advogados": [
+        {
+          "Nome": "Tamara Kosicki Vicente Corrêa",
+          "OAB": "corrigir",
+          "Documento": "corrigir"
+        }
+      ]
+    }
+  ],
+  "Movimentos": [
+    {
+      "Id": "284048",
+      "Data": "21/05/2020 00:54",
+      "Identificacao": "corrigir",
+      "Observacao": "Publicado(a) o(a) Notificação em 01/06/2020",
+      "Documentos": []
+    },
+    {
+      "Id": "284049",
+      "Data": "21/05/2020 00:54",
+      "Identificacao": "corrigir",
+      "Observacao": "Disponibilizado (a) o(a) Notificação no Diário da Justiça Eletrônico",
+      "Documentos": []
+    },
+    {
+      "Id": "284050",
+      "Data": "21/05/2020 00:54",
+      "Identificacao": "corrigir",
+      "Observacao": "Publicado(a) o(a) Notificação em 01/06/2020",
+      "Documentos": []
+    },
+    {
+      "Id": "284051",
+      "Data": "21/05/2020 00:54",
+      "Identificacao": "corrigir",
+      "Observacao": "Disponibilizado (a) o(a) Notificação no Diário da Justiça Eletrônico",
+      "Documentos": []
+    },
+    {
+      "Id": "284052",
+      "Data": "20/05/2020 16:05",
+      "Identificacao": "corrigir",
+      "Observacao": "Intimação. (Intimação) - a92147d",
+      "Documentos": []
+    },
+    {
+      "Id": "284053",
+      "Data": "20/05/2020 16:05",
+      "Identificacao": "corrigir",
+      "Observacao": "Expedido(a) intimação a(o) ADRIELLY ALMEIDA DE HOLANDA",
+      "Documentos": []
+    },
+    {
+      "Id": "284054",
+      "Data": "20/05/2020 16:05",
+      "Identificacao": "corrigir",
+      "Observacao": "Expedido(a) intimação a(o) TELEFONICA BRASIL S.A.",
+      "Documentos": []
+    },
+    {
+      "Id": "284055",
+      "Data": "20/05/2020 16:04",
+      "Identificacao": "corrigir",
+      "Observacao": "Despacho. (Despacho) - 8cffab3",
+      "Documentos": []
+    },
+    {
+      "Id": "284056",
+      "Data": "20/05/2020 16:04",
+      "Identificacao": "corrigir",
+      "Observacao": "Proferido despacho de mero expediente",
+      "Documentos": []
+    },
+    {
+      "Id": "284057",
+      "Data": "20/05/2020 14:25",
+      "Identificacao": "corrigir",
+      "Observacao": "Conclusos os autos para despacho (genérica) a PATRICIA PEDROSA SOUTO MAIOR",
+      "Documentos": []
+    },
+    {
+      "Id": "284058",
+      "Data": "08/05/2020 00:02",
+      "Identificacao": "corrigir",
+      "Observacao": "Decorrido o prazo de TELEFONICA BRASIL S.A. em 07/05/2020",
+      "Documentos": []
+    },
+    {
+      "Id": "284059",
+      "Data": "08/05/2020 00:02",
+      "Identificacao": "corrigir",
+      "Observacao": "Decorrido o prazo de ADRIELLY ALMEIDA DE HOLANDA em 07/05/2020",
+      "Documentos": []
+    },
+    {
+      "Id": "284060",
+      "Data": "19/03/2020 16:43",
+      "Identificacao": "corrigir",
+      "Observacao": "Manifestação. (Impugnação aos documentos. Telefônica) - 7235337",
+      "Documentos": []
+    },
+    {
+      "Id": "284061",
+      "Data": "19/03/2020 16:43",
+      "Identificacao": "corrigir",
+      "Observacao": "Juntada a petição de Manifestação (Impugnação aos documentos. Telefônica)",
+      "Documentos": []
+    },
+    {
+      "Id": "284062",
+      "Data": "18/03/2020 02:19",
+      "Identificacao": "corrigir",
+      "Observacao": "Publicado(a) o(a) Notificação em 18/03/2020",
+      "Documentos": []
+    },
+    {
+      "Id": "284063",
+      "Data": "18/03/2020 02:19",
+      "Identificacao": "corrigir",
+      "Observacao": "Disponibilizado (a) o(a) Notificação no Diário da Justiça Eletrônico",
+      "Documentos": []
+    },
+    {
+      "Id": "284064",
+      "Data": "18/03/2020 02:19",
+      "Identificacao": "corrigir",
+      "Observacao": "Publicado(a) o(a) Notificação em 18/03/2020",
+      "Documentos": []
+    },
+    {
+      "Id": "284065",
+      "Data": "18/03/2020 02:19",
+      "Identificacao": "corrigir",
+      "Observacao": "Disponibilizado (a) o(a) Notificação no Diário da Justiça Eletrônico",
+      "Documentos": []
+    },
+    {
+      "Id": "284066",
+      "Data": "16/03/2020 19:17",
+      "Identificacao": "corrigir",
+      "Observacao": "Intimação. (Intimação) - d1c359a",
+      "Documentos": []
+    },
+    {
+      "Id": "284067",
+      "Data": "16/03/2020 19:17",
+      "Identificacao": "corrigir",
+      "Observacao": "Expedido(a) intimação a(o) TELEFONICA BRASIL S.A.",
+      "Documentos": []
+    },
+    {
+      "Id": "284068",
+      "Data": "16/03/2020 19:17",
+      "Identificacao": "corrigir",
+      "Observacao": "Expedido(a) intimação a(o) ADRIELLY ALMEIDA DE HOLANDA",
+      "Documentos": []
+    },
+    {
+      "Id": "284069",
+      "Data": "16/03/2020 19:16",
+      "Identificacao": "corrigir",
+      "Observacao": "Despacho. (Despacho) - c4ef45a",
+      "Documentos": []
+    },
+    {
+      "Id": "284070",
+      "Data": "16/03/2020 19:16",
+      "Identificacao": "corrigir",
+      "Observacao": "Proferido despacho de mero expediente",
+      "Documentos": []
+    },
+    {
+      "Id": "284071",
+      "Data": "16/03/2020 14:25",
+      "Identificacao": "corrigir",
+      "Observacao": "Conclusos os autos para despacho (genérica) a PATRICIA PEDROSA SOUTO MAIOR",
+      "Documentos": []
+    },
+    {
+      "Id": "284072",
+      "Data": "16/03/2020 14:23",
+      "Identificacao": "corrigir",
+      "Observacao": "Audiência de instrução designada (06/05/2020 10:30:00 Sala Principal - 1ª Vara do Trabalho do Recife)",
+      "Documentos": []
+    },
+    {
+      "Id": "284073",
+      "Data": "16/03/2020 14:23",
+      "Identificacao": "corrigir",
+      "Observacao": "Audiência de instrução cancelada (19/03/2020 10:30:00 Sala Principal - 1ª Vara do Trabalho do Recife)",
+      "Documentos": []
+    },
+    {
+      "Id": "284074",
+      "Data": "03/03/2020 00:22",
+      "Identificacao": "corrigir",
+      "Observacao": "Juntada a petição de Manifestação (MANIFESTACAO SOBRE PRELIMINAR E PREJUDICIAL DE MERITO)",
+      "Documentos": []
+    },
+    {
+      "Id": "284075",
+      "Data": "03/03/2020 00:22",
+      "Identificacao": "corrigir",
+      "Observacao": "Manifestação. (MANIFESTACAO SOBRE PRELIMINAR E PREJUDICIAL DE MERITO) - eb530f7",
+      "Documentos": []
+    },
+    {
+      "Id": "284076",
+      "Data": "03/03/2020 00:07",
+      "Identificacao": "corrigir",
+      "Observacao": "Manifestação. (REQUER JUNTADA DOCUMENTOS) - 04d68b6",
+      "Documentos": []
+    },
+    {
+      "Id": "284077",
+      "Data": "03/03/2020 00:07",
+      "Identificacao": "corrigir",
+      "Observacao": "Juntada a petição de Manifestação (REQUER JUNTADA DOCUMENTOS)",
+      "Documentos": []
+    },
+    {
+      "Id": "284078",
+      "Data": "02/03/2020 23:52",
+      "Identificacao": "corrigir",
+      "Observacao": "Juntada a petição de Manifestação (MANIFESTACAO SOBRE DOCUMENTOS JUNTADOS PELA RECLAMADA)",
+      "Documentos": []
+    },
+    {
+      "Id": "284079",
+      "Data": "02/03/2020 23:52",
+      "Identificacao": "corrigir",
+      "Observacao": "Manifestação. (MANIFESTACAO SOBRE DOCUMENTOS JUNTADOS PELA RECLAMADA) - 33fe354",
+      "Documentos": []
+    },
+    {
+      "Id": "284080",
+      "Data": "02/03/2020 11:35",
+      "Identificacao": "corrigir",
+      "Observacao": "Manifestação. (Manifestação Telefônica) - 4f851ff",
+      "Documentos": []
+    },
+    {
+      "Id": "284081",
+      "Data": "02/03/2020 11:35",
+      "Identificacao": "corrigir",
+      "Observacao": "Juntada a petição de Manifestação (Manifestação Telefônica)",
+      "Documentos": []
+    },
+    {
+      "Id": "284082",
+      "Data": "27/02/2020 09:04",
+      "Identificacao": "corrigir",
+      "Observacao": "Audiência de instrução designada (19/03/2020 10:30:00 Sala Principal - 1ª Vara do Trabalho do Recife)",
+      "Documentos": []
+    },
+    {
+      "Id": "284083",
+      "Data": "20/02/2020 14:38",
+      "Identificacao": "corrigir",
+      "Observacao": "Audiência inicial realizada (20/02/2020 09:10:00 Sala Principal - 1ª Vara do Trabalho do Recife)",
+      "Documentos": []
+    },
+    {
+      "Id": "284084",
+      "Data": "20/02/2020 14:37",
+      "Identificacao": "corrigir",
+      "Observacao": "Ata da Audiência. (Ata da Audiência) - d627612",
+      "Documentos": []
+    },
+    {
+      "Id": "284085",
+      "Data": "20/02/2020 10:26",
+      "Identificacao": "corrigir",
+      "Observacao": "Certidão. (Declaração) - 1380e13",
+      "Documentos": []
+    },
+    {
+      "Id": "284086",
+      "Data": "18/02/2020 13:13",
+      "Identificacao": "corrigir",
+      "Observacao": "Contestação. (Contestação) - 232f84f",
+      "Documentos": []
+    },
+    {
+      "Id": "284087",
+      "Data": "18/02/2020 13:13",
+      "Identificacao": "corrigir",
+      "Observacao": "Juntada a petição de Contestação (Contestação)",
+      "Documentos": []
+    },
+    {
+      "Id": "284088",
+      "Data": "18/02/2020 13:06",
+      "Identificacao": "corrigir",
+      "Observacao": "Solicitação de Habilitação. (Solicitação de habilitação) - c1a2645",
+      "Documentos": []
+    },
+    {
+      "Id": "284089",
+      "Data": "18/02/2020 13:06",
+      "Identificacao": "corrigir",
+      "Observacao": "Juntada a petição de Solicitação de Habilitação (Solicitação de habilitação)",
+      "Documentos": []
+    },
+    {
+      "Id": "284090",
+      "Data": "31/01/2020 13:30",
+      "Identificacao": "corrigir",
+      "Observacao": "Certidão. (Aviso de Recebimento) - 053c972",
+      "Documentos": []
+    },
+    {
+      "Id": "284091",
+      "Data": "22/01/2020 16:11",
+      "Identificacao": "corrigir",
+      "Observacao": "Devolvido o mandado pelo Oficial de Justiça (cumprido com finalidade atingida)",
+      "Documentos": []
+    },
+    {
+      "Id": "284092",
+      "Data": "22/01/2020 16:10",
+      "Identificacao": "corrigir",
+      "Observacao": "Certidão. (Certidão) - 140c310",
+      "Documentos": []
+    },
+    {
+      "Id": "284093",
+      "Data": "14/01/2020 12:44",
+      "Identificacao": "corrigir",
+      "Observacao": "Recebido o mandado pelo Oficial de Justiça para cumprimento",
+      "Documentos": []
+    },
+    {
+      "Id": "284094",
+      "Data": "14/01/2020 12:44",
+      "Identificacao": "corrigir",
+      "Observacao": "Remetido(a) o(a) documento para Órgão jurisdicional competente para cumprir determinação judicial",
+      "Documentos": []
+    },
+    {
+      "Id": "284095",
+      "Data": "14/01/2020 12:44",
+      "Identificacao": "corrigir",
+      "Observacao": "Expedido(a) Mandado a(o) réu/",
+      "Documentos": []
+    },
+    {
+      "Id": "284096",
+      "Data": "14/01/2020 12:44",
+      "Identificacao": "corrigir",
+      "Observacao": "Expedido(a) Notificação a(o) réu/",
+      "Documentos": []
+    },
+    {
+      "Id": "284097",
+      "Data": "14/01/2020 12:44",
+      "Identificacao": "corrigir",
+      "Observacao": "Notificação. (Notificação) - f777079",
+      "Documentos": []
+    },
+    {
+      "Id": "284098",
+      "Data": "14/01/2020 12:44",
+      "Identificacao": "corrigir",
+      "Observacao": "Mandado. (Mandado) - 5d2a551",
+      "Documentos": []
+    },
+    {
+      "Id": "284099",
+      "Data": "01/01/2020 22:44",
+      "Identificacao": "corrigir",
+      "Observacao": "Audiência inicial designada (20/02/2020 09:10 - 1ª Vara do Trabalho do Recife)",
+      "Documentos": []
+    },
+    {
+      "Id": "284100",
+      "Data": "01/01/2020 22:44",
+      "Identificacao": "corrigir",
+      "Observacao": "Distribuído por sorteio",
+      "Documentos": []
+    },
+    {
+      "Id": "284101",
+      "Data": "01/01/2020 22:25",
+      "Identificacao": "corrigir",
+      "Observacao": "Petição Inicial. (Petição Inicial) - 7f5235e",
+      "Documentos": []
+    }
+  ],
+  "Documentos": [],
+  "ProcessosRelacionados": [],
+  "Audiencias": []
+}

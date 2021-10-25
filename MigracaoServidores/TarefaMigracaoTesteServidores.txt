@@ -1,0 +1,322 @@
+C:\Pastas de Trabalho\Projetos\Captura Dados Processo\Configuracoes\Profile Firefox\qfucjlxm.default-release
+
+
+TAREFA MIGRACAO :
+
+CapturarDistribuicao --
+CapturarProcesso  -----
+DesmembrarPDF ---------
+ResetarProcessamento --
+TrasnsferenciaProcesso --
+
+
+---- login e senha VPN
+Usuário: t.carlos.silva@omnijus.com.br
+Senha: L6jtnz@OkVUHJpg
+ 
+ 
+ 
+
+
+
+---- Maquinas a serem testadas
+
+Usuário: omnijus.com.br\bot_reglare
+Senha: Kolim@050607&$
+
+25 - 172.13.0.7 -- sched
+
+mq start noturna -- 27 - 172.13.0.8 -- sched
+
+28 - 172.13.0.9 -- sched
+
+maq start noturna -- 29 - 172.13.0.10 - sched 
+
+30 - 172.13.0.11 - sched
+
+31 - 172.13.0.12 - sched
+
+32 - 172.13.0.13 - sched
+
+33 - 172.13.0.14 - sched 
+
+34 - 172.13.0.15 - sched
+
+35 - 172.13.0.16 - sched
+
+36 - 172.13.0.17 - 
+
+37 - 172.13.0.18 - 
+
+
+27 - 172.13.0.8
+30 - 172.13.0.11 
+34 - 172.13.0.15
+36 - 172.13.0.17
+
+update EquipamentoProcessamentoParametro
+set Valor = 'Não'
+where id in (
+105,129,157,172,187,202,217,232,247,262,334,352)
+
+update EquipamentoProcessamento
+   set Ativo = 0
+ where id in (
+25,27,28,29,30,31,32,33,34,36,37)
+
+update EquipamentoProcessamentoTribunal
+set Ativo = 1
+where id in (
+3230,3245,3250,3328,3357,3385,3479,3517,3555,3712,3754,3797)
+
+
+
+
+---- PARA AMANHA 07-04-2021
+
+Verificar HD e task manager das seguintes maquinas:
+
+30 -- 172.13.0.11 
+37 -- 172.13.0.18
+
+C:\Pastas de Trabalho\Projetos\Processos\Processamento\000D3A10FE65\7092\1895539\Download
+
+
+C:\Pastas de Trabalho\Projetos\Processos\Processamento\000D3A98AC56
+
+---- MAQUINAS COM ERRO DE CAMINHO PASTA LONGO
+
+/*
+https://www.howtogeek.com/266621/how-to-make-windows-10-accept-file-paths-over-260-characters/
+https://mspoweruser.com/ntfs-260-character-windows-10/
+
+
+*/
+
+Dism /online /Disable-Feature /FeatureName:Windows-Defender /Remove /NoRestart /quiet
+
+
+taskkill /im geckodriver.exe /f
+
+taskkill /im Firefox.exe /f
+
+taskkill /im capturarDistribuicao.exe /f
+
+2021 04 26 09 34 33 3433
+
+20210426 09 57 29 648
+
+25 - 172.13.0.7 -- OK
+
+27 - 172.13.0.8 -- trabalhando nesta maquina com nova versao do capturarDistribuicao
+
+28 - 172.13.0.9 -- OK - desligada no banco
+
+29 - 172.13.0.10 - OK
+
+30 - 172.13.0.11 - ok
+
+31 - 172.13.0.12 - OK -- olhar apos o almoco !!! 30.04.21  
+
+32 - 172.13.0.13 - OK
+
+33 - 172.13.0.14 - OK
+
+34 - 172.13.0.15 - geek64 e dia13 ---- pegando tribunal 2 RJ -- so a noite -- OK
+35 - 172.13.0.16 - geek64 e dia13 ---- RJ e ES -------------- acompanhando -- OK
+36 - 172.13.0.17 - geek64 e dia13 ---- pegando tribunal 2 RJ -- so a noite -- OK
+37 - 172.13.0.18 - geek64 e dia13 ---- pegando tribunal 2 RJ -- so a noite -- OK
+
+
+select pc.Id as idprocessamento
+		,pc.IdEquipamentoProcessamento
+		,pc.DataInicio
+		,sc.Id as idsolicitacao
+		,sc.DataUltimoProcessamento
+		,sc.DataTerminoUltimaCaptura
+		,sc.descricao
+		,(select COUNT(1) from Processo pro where pro.idsolicitacaocaptura = sc.id and pro.idstatus = 2) as capturados
+		,(select COUNT(1) from Processo pro where pro.idsolicitacaocaptura = sc.id and pro.idstatus = 10) as passados
+		,(select COUNT(1) from Processo pro where pro.idsolicitacaocaptura = sc.id and pro.idstatus = 1) as passar
+		,(select COUNT(1) from Processo pro where pro.idsolicitacaocaptura = sc.id and pro.idstatus = 7) as segredo
+		,ep.Descricao
+	from ProcessamentoCaptura pc
+		,SolicitacaoCaptura sc
+		,EquipamentoProcessamento ep
+where pc.datatermino is null
+and pc.idsolicitacaocaptura = sc.id
+and pc.IdEquipamentoProcessamento = ep.Id
+and pc.IdEquipamentoProcessamento in (27,29)
+order by pc.IdEquipamentoProcessamento,pc.DataInicio
+
+
+
+
+
+
+Assuntos conversar com Renatao:
+
+-- versao geckodriver.
+-- nome da pasta com base idProcessoWindows - reuso deste pid pode gerar erro.
+-- verificar onde podemos encerrar o processo quando estourar erro no log.
+-- cada vez que ocorre um erro o sistema deixa um geckodriver aberto e nao exclui as pastas de trabalho.
+
+4294967295
+20211212130456333
+
+2021 04 28 14 39 25 893
+9999 99 99 99 99 99 999
+
+rotina pegar o pid em execucao antes e depois do start do aplicativo.
+
+
+IEnumerable<int> pidsBefore = Process.GetProcessesByName("firefox").Select(p => p.Id);
+
+            FirefoxDriver driver = new FirefoxDriver();
+            IEnumerable<int> pidsAfter = Process.GetProcessesByName("firefox").Select(p => p.Id);
+
+            IEnumerable<int> newFirefoxPids = pidsAfter.Except(pidsBefore);
+
+            // do some stuff with PID if you want to kill them, do the following
+            foreach (int pid in newFirefoxPids) {
+                Process.GetProcessById(pid).Kill();
+            }
+
+
+
+
+------- LANCAR EXCESSAO
+
+if (driver != null)
+  throw new NullReferenceException();
+
+------- Atividades Para amanha dia 25-05-2021
+
+Reverter todas as alteracoes da solucao; menos as classe DesmembrarArquivoService e GerenciarFisicoService -- feito em 25-05-21
+
+rever o uso do Tuple c# e performance.(encontrei outra solucao em 25-05-21)
+
+repassar uso hd de todas as maquinas abaixo: (nao realizado - realizar dia 26.05.21)
+
+25 - 172.13.0.7 -- ok - antimalware ligado
+27 - 172.13.0.8 -- ok - antimalware desligado
+28 - 172.13.0.9 -- ok - antimalware ligado
+29 - 172.13.0.10 - ok - antimalware desligado
+30 - 172.13.0.11 - ok - antimalware ligado
+31 - 172.13.0.12 - ok - antimalware ligado
+32 - 172.13.0.13 - ok - antimalware ligado
+33 - 172.13.0.14 - ok - antimalware ligado
+34 - 172.13.0.15 - ok - antimalware ligado - pegando tribunal 2 RJ ----- so a noite -- OK
+35 - 172.13.0.16 - ok - antimalware ligado - pegando tribunal RJ e ES -- dia e noite --OK
+36 - 172.13.0.17 - ok - antimalware ligado - pegando tribunal 2 RJ ----- so a noite -- OK
+37 - 172.13.0.18 - ok - antimalware ligado - pegando tribunal 2 RJ ----- so a noite -- OK
+
+https://stackoverflow.com/questions/5901679/kill-process-tree-programmatically-in-c-sharp
+
+
+--- query's apoio
+
+descobrir tribunal setado para a maquina
+
+---1 query
+select ept.Id, 
+       ept.IdTribunal, 
+	   ept.IdTecnologiaSite, 
+	   ept.Ativo 
+  from EquipamentoProcessamentoTribunal ept
+where ept.IdEquipamentoProcessamento = 26
+and ept.Ativo = 1
+
+---2 query
+  select it.IdTribunal,
+         it.Descricao,
+         it.URL,
+		 ts.id,
+		 ts.Descricao,
+		 uf.Sigla
+    from InstanciaTribunal it
+    join TipoNavegadorWeb tnw on tnw.id = it.IdTipoNavegador
+    join TecnologiaSite ts on ts.id = it.IdTecnologiaSite
+	join TribunalJustica tj on tj.Id = it.IdTribunal 
+    join Uf uf on uf.id = tj.IdUF
+	order by IdTribunal asc
+
+---3 query
+select top 100 
+       sc.id, 
+	   sc.Descricao, 
+	   sc.IdStatus, 
+	   ssc.Descricao,
+	   sc.DataUltimoProcessamento,
+	   sc.DataTerminoUltimaCaptura
+  from SolicitacaoCaptura sc
+  join StatusSolicitacaoCaptura ssc on ssc.Id = sc.IdStatus
+ order by id desc
+
+
+delete from ProcessamentoCaptura where idEquipamentoProcessamento = 26 and DataTermino is null
+
+---- Para amanha dia 28-05-2021 verificar comportamento 
+maquina 18 37 - 172.13.0.18 - 
+
+instalada versao que mata geckodriver e filhos alem da pasta em caso de erro.
+
+25 - 172.13.0.7 -- maquina desligada no Azure
+27 - 172.13.0.8 -- maquina desligada no Azure
+28 - 172.13.0.9 -- maquina desligada no Azure
+29 - 172.13.0.10 - maquina desligada no Azure
+30 - 172.13.0.11 - maquina desligada no Azure
+31 - 172.13.0.12 - maquina desligada no Azure
+32 - 172.13.0.13 - maquina desligada no Azure
+33 - 172.13.0.14 - maquina desligada no Azure
+
+34 - 172.13.0.15 - ok - antimalware ligado - pegando tribunal 2 RJ ----- so a noite -- OK
+35 - 172.13.0.16 - ok - antimalware ligado - pegando tribunal RJ e ES -- dia e noite --OK
+
+36 - 172.13.0.17 - maquina desligada no Azure
+37 - 172.13.0.18 - maquina desligada no Azure
+
+---- Para amanha dia 29-05-2021 verificar comportamento das maquinas abaixo
+
+36 - 172.13.0.17 - ok - antimalware ligado - pegando tribunal 2 RJ ----- so a noite -- OK
+37 - 172.13.0.18 - ok - antimalware ligado - pegando tribunal 2 RJ ----- so a noite -- OK
+
+----para conferir acompanhamento
+
+select ttp.id, 
+       ttp.CriadoEm ,
+       ttp.NomeParte, 
+	   p.Numero, 
+	   p.IdStatus, 
+	   p.Forum
+  from TermoTribunalProcesso ttp
+  join Processo p on p.Numero = ttp.Numero
+where cast(ttp.CriadoEm AS DATE) >= '2021-05-28' and cast(ttp.CriadoEm AS DATE) <= '2021-05-29'
+and p.IdEquipamentoProcessamento = 36 
+order by CAST(ttp.CriadoEm as date)
+
+-----
+ 
+Registros na tabela processo -- > 1867302 em 20-07-2021 
+
+------
+Reglare Maquina 9 (172.13.0.15)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+ 

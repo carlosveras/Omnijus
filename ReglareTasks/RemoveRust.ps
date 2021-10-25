@@ -1,0 +1,4 @@
+$date = Get-Date
+$cutoffDate = $date.AddDays(-2)
+
+Get-ChildItem -Path C:\Users\Administrator\appdata\local\temp -Directory | Where-Object LastWriteTime -LT $cutoffDate | Remove-Item -recurse

@@ -1,0 +1,106 @@
+
+Não foi possível localizar uma parte do caminho 'C:\Pastas de Trabalho\Projetos\Captura Dados Processo\Configuracoes\ProfileFireFox'.
+
+--Ajustar Solucao para o tribunal do rio
+
+Tribunal 2 - Rio de Janeiro - tecnologia 2
+
+-------------------------------------------
+query para colocar a maquina para processar 
+no tribunal do rio de janeiro
+
+update EquipamentoProcessamentoTribunal
+   set Ativo = 1
+where id = 3231
+-------------------------------------------
+
+----- tribunais e senhas
+
+senha antiga --> 6122	1	2	09233805743	bianca17	5302
+
+
+login/senha:    SP394192	tcs0707*
+login/senha: 94120510263	tcs0708*
+
+https://www3.tjrj.jus.br/segweb/faces/login.jsp?indGet=true&SIGLASISTEMA=PORTALSERV
+
+www4.tjrj.jus.br/portalDeServicos/processoeletronico
+
+
+tcs0708*
+94120510263
+
+-----
+
+
+https://www3.tjrj.jus.br
+
+----- realizados
+
+ insert into UsuarioAcesso
+ (IdUsuario,IdTribunal,Usuario,PWD,IdInstanciaTribunal)
+ Values(1,2,'94120510263','tcs0708*',5302)
+
+ update UsuarioAcesso
+    set Usuario = '94120510263', PWD = 'tcs0708*'
+where Id = 6122
+
+
+ update InstanciaTribunal
+    set IdTipoNavegador  = 1
+where Id in (5301,5302)
+
+--------------------------------
+verificar
+
+//input[@id='imgCaptcha']
+
+apos linha 914 na classe:
+D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\TecnologiaTjRjService.cs
+
+---------------------------------
+
+var x = 308; --> 354 -------> 46 = 262
+var y = 185; --> 228 -------> 43 = 142
+
+widht = 222
+hight = 62
+
+
+//*[@id="imgCaptcha"]
+type="image"
+
+
+id=captcha
+type=text
+
+
+type=button
+value=Enviar
+
+-------
+error mover mouse para o nova coordenada
+
+https://stackoverflow.com/questions/27342519/selenium-movebyoffset-will-only-work-2-times
+
+https://stackoverflow.com/questions/46664632/why-is-movebyoffset-not-working-for-multiple-navigation
+
+
+actions.move_to_element_with_offset(driver.find_element_by_tag_name('body'), x_axis,y_axis)
+
+
+
+---------------------
+
+parametro ------------- > default = qtde de vezes
+
+equipametroparametro ---> qtde de vezes 
+
+---------------------
+
+
+
+
+
+
+

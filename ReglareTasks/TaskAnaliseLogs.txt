@@ -1,0 +1,65 @@
+IronOcr License Exception.  
+To deploy IronOcr please apply a commercial license key or free 30 day deployment trial 
+key at  http://ironsoftware.com/csharp/ocr/licensing/.  
+Keys may be applied by setting IronOcr.License.LicenseKey at 
+any point in your application before IronOCR is used.
+
+
+
+22/01/2021 05:20:08|0|0|0|
+GerenciarFisicoService.cs|
+DeletarDiretorioProcesso|1007|
+The process cannot access the file 'C:\Pastas de Trabalho\Projetos\Processos\Processamento\0E18346B5BD7\17876\429672' 
+because it is being used by another process.
+
+21/01/2021 22:25:30|0|0|0|
+GerenciarFisicoService.cs|
+DeletarDiretorioProcesso|1007|
+The process cannot access the file 'C:\Pastas de Trabalho\Projetos\Processos\Processamento\0E18346B5BD7\13460\424585' 
+because it is being used by another process.
+
+21/01/2021 16:10:12|0|0|0|GerenciarFisicoService.cs|
+DeletarArquivo|272|Could not find a part of the path 'C:\Pastas de Trabalho\Projetos\Captura Dados Processo\ImagemCaptcha\ImagemLimpa'.
+
+
+
+
+21/01/2021 16:39:51|0|0|0|
+GerenciarFisicoService.cs|
+DeletarDiretorioProcesso|1007|
+Access to the path 'Magick.NET-Q8-x86.Native.dll' is denied.
+
+
+Transaction (Process ID 70) was deadlocked on lock resources 
+with another process and has been chosen as the deadlock victim. 
+Rerun the transaction.
+
+CommonService.cs|NovoProcessamento|1462|could not insert: 
+[CapturaDadosProcesso.Core.Entidades.ProcessamentoCaptura]
+[SQL: INSERT INTO ProcessamentoCaptura (Task, DataInicio, DataTermino, Observacao, 
+BaixarCopia, CapturarDado, CapturarMovimento, CapturarDistribuicao, 
+IdEquipamentoProcessamento, IdTribunal, IdSolicitacaoCaptura, IdProcesso, 
+IdTecnologiaSite) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?); select SCOPE_IDENTITY()]
+21/01/2021 18:37:20|Value cannot be null.
+
+
+21/01/2021 08:52:28|Could not execute query: 
+INSERT INTO ProcessamentoCaptura (Task, DataInicio, DataTermino, Observacao, BaixarCopia, 
+CapturarDado, CapturarMovimento, CapturarDistribuicao, IdEquipamentoProcessamento, IdTribunal, 
+IdSolicitacaoCaptura, IdProcesso, IdTecnologiaSite) VALUES (@p0, @p1, @p2, @p3, @p4, @p5, @p6, 
+@p7, @p8, @p9, @p10, @p11, @p12); select SCOPE_IDENTITY()
+System.Data.SqlClient.SqlException (0x80131904): Cannot insert duplicate key row in object 
+'dbo.ProcessamentoCaptura' with unique index 'IdxProcessamentoCaptura'. 
+The duplicate key value is (4529, 17, <NULL>).
+
+
+18/01/2021 16:50:19|Transaction (Process ID 89) was deadlocked on lock resources 
+with another process and has been chosen as the deadlock victim. 
+Rerun the transaction.
+índices como clusterizados,
+
+
+
+
+
+

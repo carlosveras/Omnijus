@@ -1,0 +1,122 @@
+﻿using log4net;
+using System;
+using System.Diagnostics;
+
+namespace LogarErros
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            int a = 0;
+            int b = 0;
+
+            log4net.ILog log;
+            log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
+
+            
+            #region pegaIdProcessoWindows
+            Process currentProcess = Process.GetCurrentProcess();
+            var processo = currentProcess.Id;
+            #endregion
+
+            #region usoComAppParaTabelaNoBancoFuncionando-OK
+            GlobalContext.Properties["CriadoEm"] = System.DateTime.Now;
+            GlobalContext.Properties["IdEquipamentoProcessamento"] = 26;
+            GlobalContext.Properties["IdProcessoWindows"] = processo;
+
+            GlobalContext.Properties["IdProcesso"] = processo;
+            GlobalContext.Properties["IdSolicitacaoCaptura"] = processo;
+            GlobalContext.Properties["Mensagem"] = "teste de log em tabela no banco de dados";
+            GlobalContext.Properties["Excecao"] = "erro teste excecao ";
+            GlobalContext.Properties["Exception"] = "erro teste Exception ";
+            #endregion
+
+            try
+            {
+                b = 100 / a;
+                Console.WriteLine("o valor e" + b);
+                Console.ReadKey();
+            }
+            catch (Exception ex)
+            {
+                //log.Debug("erro gerado por exception -> " + ex.Message);
+                //log.DebugFormat("erro gerado por exception -> " + ex.Message);
+                //log.Error(ex.Message);
+                //log.ErrorFormat("erro gerado por exception -> " + ex.Message);
+                //log.Fatal("erro teste -> 1 " + ex.Message);
+
+                //log.FatalFormat("erro gerado por exception -> " + ex.Message);
+                //log.Info("erro gerado por exception -> " + ex.Message);
+                //log.InfoFormat("erro gerado por exception -> " + ex.Message);
+                //log.Warn("erro gerado por exception -> " + ex.Message);
+                log.WarnFormat("erro gerado por exception -> " + ex.Message);
+            }
+
+            try
+            {
+                b = 100 / a;
+                Console.WriteLine("o valor e" + b);
+                Console.ReadKey();
+            }
+            catch (Exception ex)
+            {
+                //log.Debug("erro gerado por exception -> " + ex.Message);
+                //log.DebugFormat("erro gerado por exception -> " + ex.Message);
+                //log.Error(ex.Message);
+                //log.ErrorFormat("erro gerado por exception -> " + ex.Message);
+                //log.Fatal("erro teste 2 -> " + ex.Message);
+                //log.FatalFormat("erro gerado por exception -> " + ex.Message);
+                //log.Info("erro gerado por exception -> " + ex.Message);
+                //log.InfoFormat("erro gerado por exception -> " + ex.Message);
+                //log.Warn("erro gerado por exception -> " + ex.Message);
+                log.WarnFormat("erro gerado por exception -> " + ex.Message);
+            }
+
+            try
+            {
+                b = 100 / a;
+                Console.WriteLine("o valor e" + b);
+                Console.ReadKey();
+            }
+            catch (Exception ex)
+            {
+                //GlobalContext.Properties["Exception"] = "erro teste 3 -> " + ex.Message;
+                //log.Debug("erro gerado por exception -> " + ex.Message);
+                //log.DebugFormat("erro gerado por exception -> " + ex.Message);
+                //log.Error(ex.Message);
+                //log.ErrorFormat("erro gerado por exception -> " + ex.Message);
+                //log.Fatal("erro teste 3 -> " + ex.Message);
+                //log.FatalFormat("erro gerado por exception -> " + ex.Message);
+                //log.Info("erro gerado por exception -> " + ex.Message);
+                //log.InfoFormat("erro gerado por exception -> " + ex.Message);
+                //log.Warn("erro gerado por exception -> " + ex.Message);
+                log.WarnFormat("erro gerado por exception -> " + ex.Message);
+            }
+
+            try
+            {
+                b = 100 / a;
+                Console.WriteLine("o valor e" + b);
+                Console.ReadKey();
+            }
+            catch (Exception ex)
+            {
+                //GlobalContext.Properties["Exception"] = "erro teste 4 -> " + ex.Message;
+                //log.Debug("erro gerado por exception -> " + ex.Message);
+                //log.DebugFormat("erro gerado por exception -> " + ex.Message);
+                //log.Error(ex.Message);
+                //log.ErrorFormat("erro gerado por exception -> " + ex.Message);
+                //log.Fatal("erro teste -> 4 " + ex.Message);
+                //log.FatalFormat("erro gerado por exception -> " + ex.Message);
+                //log.Info("erro gerado por exception -> " + ex.Message);
+                //log.InfoFormat("erro gerado por exception -> " + ex.Message);
+                //log.Warn("erro gerado por exception -> " + ex.Message);
+                log.WarnFormat("erro gerado por exception -> " + ex.Message);
+            }
+
+
+        }
+
+    }
+}

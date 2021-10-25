@@ -1,0 +1,11 @@
+D:\Projetos\CapturarComarcas\CapturarComarcas\bin\Debug\netcoreapp2.2\CapturarComarcas.deps.json
+D:\Projetos\CapturarComarcas\CapturarComarcas\bin\Debug\netcoreapp2.2\CapturarComarcas.runtimeconfig.json
+D:\Projetos\CapturarComarcas\CapturarComarcas\bin\Debug\netcoreapp2.2\CapturarComarcas.runtimeconfig.dev.json
+D:\Projetos\CapturarComarcas\CapturarComarcas\bin\Debug\netcoreapp2.2\CapturarComarcas.dll
+D:\Projetos\CapturarComarcas\CapturarComarcas\obj\Debug\netcoreapp2.2\CapturarComarcas.csprojAssemblyReference.cache
+D:\Projetos\CapturarComarcas\CapturarComarcas\obj\Debug\netcoreapp2.2\CapturarComarcas.csproj.CoreCompileInputs.cache
+D:\Projetos\CapturarComarcas\CapturarComarcas\obj\Debug\netcoreapp2.2\CapturarComarcas.AssemblyInfoInputs.cache
+D:\Projetos\CapturarComarcas\CapturarComarcas\obj\Debug\netcoreapp2.2\CapturarComarcas.AssemblyInfo.cs
+D:\Projetos\CapturarComarcas\CapturarComarcas\bin\Debug\netcoreapp2.2\CapturarComarcas.pdb
+D:\Projetos\CapturarComarcas\CapturarComarcas\obj\Debug\netcoreapp2.2\CapturarComarcas.dll
+D:\Projetos\CapturarComarcas\CapturarComarcas\obj\Debug\netcoreapp2.2\CapturarComarcas.pdb

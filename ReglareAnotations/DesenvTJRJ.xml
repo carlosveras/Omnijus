@@ -1,0 +1,372 @@
+----- ACESSO ANTIGO
+--https://www3.tjrj.jus.br/segweb/faces/login.jsp?indGet=true&SIGLASISTEMA=PORTALSERV
+
+
+----- ACESSO NOVO
+https://www3.tjrj.jus.br/segweb/faces/login.jsp?indGet=true&SIGLASISTEMA=PORTALSERVICOS
+
+usuário: 28653865896
+senha  : mudar@123
+
+Processos para consultar:
+
+0002836-75.2021.8.19.0075
+
+------ MAQUINA EM PROCESSAMENTO
+Reglare Maquina 9 (172.13.0.15) -- id no banco = 34
+
+
+------ PROCESSO DE CAPTURA PIC PAY ACESSANDO O SITE ABAIXO
+https://sistemas.tjes.jus.br/pje/login.seam?loginComCertificado=false&cid=740311
+
+https://tjrj.pje.jus.br/1g/login.seam
+
+Dados para acessar os Sites do TJES e TJRJ no PJe
+
+login: 41391654803	
+pwd  : Omnijus@2021
+
+Nome da Parte : PICPAY
+
+Data de autuação : colocar intervalo de datas
+
+------ Query para pegar processos PIC PAY
+
+select ttp.Numero
+		,ttp.CriadoEm
+--		,pro.Id as idprocesso
+		,pro.IdSolicitacaoCaptura
+		,pro.Comarca
+--		,pro.Forum
+--		,pro.Vara
+--		,pro.Area
+		,pro.OrgaoJulgador
+		,(select top 1 1
+			from HistoricoStatusProcesso hsp
+				where pro.Id = hsp.IdProcesso
+				and hsp.IdStatus = 15) as Desmembrado
+		,(select top 1 1
+			from HistoricoStatusProcesso hsp
+				where pro.Id = hsp.IdProcesso
+				and hsp.IdStatus = 5) as TransferidoS3
+		,(select top 1 1
+			from HistoricoStatusProcesso hsp
+				where pro.Id = hsp.IdProcesso
+				and hsp.IdStatus = 21) as IntegradoOmniJus
+  from TermoTribunalProcesso ttp
+		,Processo pro
+where ttp.numero = pro.Numero
+and ttp.IdSolicitacaoCaptura = pro.IdSolicitacaoCaptura
+and pro.Numero like '%.8.19.%'
+and pro.IdTecnologiaSite = 20
+and ttp.NomeParte like 'PicPay%'
+order by ttp.CriadoEm desc
+
+------ NOVA QUERY
+
+select pro.id as idprocesso
+		,ttp.Numero
+		,pro.IdStatus as IdProcesso
+		,pro.Distribuicao
+		,ttp.CriadoEm
+		,(select count(1) from HistoricoStatusProcesso hsp where hsp.idprocesso = pro.Id and hsp.IdStatus = 15) as Desmenbrado
+		,(select count(1) from HistoricoStatusProcesso hsp where hsp.idprocesso = pro.Id and hsp.IdStatus = 5) as DisponibilizadoS3
+		,(select count(1) from HistoricoStatusProcesso hsp where hsp.idprocesso = pro.Id and hsp.IdStatus = 21) as IntegradoOmnijus
+		,pro.IdEquipamentoProcessamento
+		,pro.PossuiDocumento
+		,pro.IdSolicitacaoCaptura
+		,pro.Area
+  from TermoTribunalProcesso ttp
+		,Processo pro
+where ttp.Numero = pro.Numero
+and ttp.IdSolicitacaoCaptura = pro.IdSolicitacaoCaptura
+and ttp.NomeParte like 'PIC%'
+and ttp.CriadoEm >= '2021-09-01 00:00:00'
+and (select count(1) from HistoricoStatusProcesso hsp where hsp.idprocesso = pro.Id and hsp.IdStatus = 21) = 0
+order by ttp.CriadoEm desc
+
+------ PROCESSOS PIC PAY CAPTURADOS
+
+08008496320218190012
+50124224120218080048
+50124588320218080048
+50187843420218080024
+50001870920218080059
+50073837420218080012
+50047937020218080030
+50123023720218080035
+50005115920218080039
+
+
+------ ALGUMAS QUERYS DE APOIO
+
+--select * from SolicitacaoCaptura where id = 8863
+
+drop table #CapturaTJRJ
+
+create table #CapturaTJRJ (numero varchar(30))
+
+insert into #CapturaTJRJ (numero) values
+('0010565-35.2021.8.19.0211'),
+('0029432-94.2021.8.19.0205'),
+('0214266-68.2021.8.19.0001')
+
+insert into Processo (IdSolicitacaoCaptura,
+						Numero,
+						IdTribunalJustica,
+						IdStatus,
+						Eletronico,
+						IdTecnologiaSite,
+						IdInstanciaTribunal, 
+						justicagratuita)
+select 8863
+		,a.numero
+		,2
+		,1
+		,1
+		,2
+		,5302
+		,0
+	from #CapturaTJRJ a
+	where not exists (select 1
+						from processo pro
+						where pro.IdSolicitacaoCaptura = 8863
+						and pro.Numero = a.numero)
+
+select *
+  from processo
+where IdSolicitacaoCaptura = 8863
+and IdStatus != 2
+
+/*
+
+update ProcessamentoCaptura
+   set DataTermino = getdate()
+where IdEquipamentoProcessamento = 39
+and DataTermino is null
+
+*/
+
+--------------------------------------------------------------
+select *
+  from Processo p
+where p.Numero in
+('0800849-63.2021.8.19.0012',
+'0803222-82.2021.8.19.0007',
+'0800849-63.2021.8.19.0012',
+'0826033-40.2021.8.19.0038'	
+)
+
+SELECT
+    hsp.IdProcesso, hsp.IdStatus, COUNT(*)
+FROM
+    HistoricoStatusProcesso hsp
+GROUP BY
+     hsp.IdProcesso, hsp.IdStatus
+HAVING 
+    COUNT(*) > 1
+
+SELECT
+    p.numero, COUNT(*)
+FROM
+    Processo p
+WHERE p.Numero like '%.8.19.%'
+GROUP BY
+     p.Numero
+HAVING 
+    COUNT(*) > 1
+
+
+select * from InstanciaTribunal where id = 5319
+
+select * from TribunalJustica where id = 2
+
+select * from TecnologiaSite where id = 20
+
+select * from TecnologiaSite
+
+select * 
+  from EquipamentoProcessamentoTribunal
+where IdEquipamentoProcessamento = 34
+and Ativo = 1
+
+
+select p.Numero, (p.Distribuicao)
+  from Processo p
+where 
+p.Distribuicao LIKE '15/09/2021'
+or p.Distribuicao LIKE '14/09/2021'
+or p.Distribuicao LIKE '13/09/2021'
+
+
+select *
+  from Processo p
+ where p.Numero = '0805160-76.2021.8.19.0213'
+ ---1887866
+
+ select * 
+   from ProcessoParte
+where IdProcesso = 1887866
+
+select * 
+  from ProcessoAdvogado
+where IdProcesso = 1887866
+
+
+
+select * 
+  from TribunalJustica
+
+select * 
+  from InstanciaTribunal
+where IdTribunal in (2)
+
+select * 
+  from TecnologiaSite
+
+------- 14-09-2021
+
+5012923 34 2021.8.08. 0035
+
+select *
+  from EquipamentoProcessamentoTribunal
+where IdEquipamentoProcessamento = 34
+and Ativo = 1
+
+---NAO ESQUECER DE ATIVAR NOVAMENTE
+update EquipamentoProcessamentoTribunal
+set Ativo = 1
+where id = 3669  --3558-ES -- 3669RJ
+
+
+
+
+
+5004869-94.2021.8.08.0030 - ok
+5019299-69.2021.8.08.0024 - ok 
+
+0803222-82.2021.8.19.0007
+0804529-63.2021.8.19.0042
+0804537-40.2021.8.19.0042
+
+
+
+('0826094-95.2021.8.19.0038',	
+'0809707-10.2021.8.19.0004',
+'0809703-70.2021.8.19.0004',	
+'0800967-69.2021.8.19.0002',	
+'0804537-40.2021.8.19.0042',	
+'0826033-40.2021.8.19.0038',	
+'0804529-63.2021.8.19.0042',	
+'0803222-82.2021.8.19.0007')
+
+
+
+0805160-76.2021.8.19.0213--	
+0801854-97.2021.8.19.0052--	
+0826094-95.2021.8.19.0038--	
+0809707-10.2021.8.19.0004--	
+0809703-70.2021.8.19.0004--	
+0800967-69.2021.8.19.0002	
+0804537-40.2021.8.19.0042	
+0826033-40.2021.8.19.0038	
+0804529-63.2021.8.19.0042	
+0803222-82.2021.8.19.0007	
+5019399-24.2021.8.08.0024--
+5012737-11.2021.8.08.0035--	
+5019299-69.2021.8.08.0024	
+5004869-94.2021.8.08.0030	
+
+5019399-24.2021.8.08.0024
+0826094-95.2021.8.19.0038
+0801854-97.2021.8.19.0052
+0809703-70.2021.8.19.0004
+0805160-76.2021.8.19.0213
+0809707-10.2021.8.19.0004
+5012737-11.2021.8.08.0035
+
+5019588-02.2021.8.08.0024..desmembrado e transferido
+
+0044620-97.2021.8.19.0021 -- hum advogado do reu 
+0044557-72.2021.8.19.0021 -- hum advogado do reu 
+0038665-45.2021.8.19.0002 -- nao encontrado
+0038192-38.2021.8.19.0203 -- nao encontrado
+0021982-68.2021.8.19.0054 -- dois advogado do reu 
+0030070-33.2021.8.19.0204 -- nao encontrado
+0044273-64.2021.8.19.0021
+0038022-66.2021.8.19.0203
+0030945-16.2021.8.19.0038
+0029716-90.2021.8.19.0209
+0826765-21.2021.8.19.0038
+0803049-76.2021.8.19.0001
+
+22-09-2021
+
+5000758-57.2021.8.08.0001
+0801922-47.2021.8.19.0052
+
+0800072-78.2021.8.19.0206	
+0800337-82.2021.8.19.0076	
+
+
+
+declare @selecao varchaR(3);
+select @selecao = 'RJ';
+
+IF @selecao = 'RJ'
+  BEGIN
+	update EquipamentoProcessamentoTribunal
+	set Ativo = 1
+	where id = 3669;
+	update EquipamentoProcessamentoTribunal
+	set Ativo = 0
+	where id = 3558;
+  END
+ELSE
+    IF @selecao = 'ES' BEGIN
+    update EquipamentoProcessamentoTribunal
+	set Ativo = 0
+	where id = 3669;
+	update EquipamentoProcessamentoTribunal
+	set Ativo = 1
+	where id = 3558;
+END
+ELSE BEGIN
+    update EquipamentoProcessamentoTribunal
+	set Ativo = 0
+	where id = 3669;
+	update EquipamentoProcessamentoTribunal
+	set Ativo = 0
+	where id = 3558;
+END
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

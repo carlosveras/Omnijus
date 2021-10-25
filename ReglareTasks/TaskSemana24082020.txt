@@ -1,0 +1,224 @@
+/*
+select * from ForumTribunal where id in (0702,0703,0706,0707, 503)
+
+select IdForumFaixaNumeroProcesso = ffnp.id
+  from ForumFaixaNumeroProcesso ffnp
+		,ForumTribunal ft
+		,TribunalJustica tf
+where ffnp.IdForumTribunal = ft.Id
+and ft.IdTribunal = tf.Id
+and tf.IdentificacaoProcesso = '5.03'
+and ft.numero = '0002'
+and ffnp.FaixaNumeroProcesso = '0010000'
+order by  ft.Numero, ffnp.FaixaNumeroProcesso
+
+*/
+
+/*
+select * from TermoTribunalProcesso
+where CriadoEm >= '2020-08-23 00:00:00'
+
+
+
+select * from processo where numero in (
+'0010400-63.2020.5.03.0002',
+'0010527-86.2020.5.03.0006',
+'0010474-05.2020.5.03.0007',
+'0010515-69.2020.5.03.0007',
+'0010516-54.2020.5.03.0007')
+
+
+select top 10 * from processo
+
+
+select top 10 * from SolicitacaoCaptura 
+
+
+select * from InstanciaTribunal
+*/
+
+select * from Processo where numero in
+('1001020-42.2020.5.02.0611',
+'1001145-07.2020.5.02.0612'	,
+'1000908-64.2020.5.02.0614'	,
+'1000716-61.2020.5.02.0702'	,
+'1000710-51.2020.5.02.0703'	,
+'1000832-55.2020.5.02.0706'	,
+'1000712-09.2020.5.02.0707'	,
+'1000683-53.2020.5.02.0708'	)
+
+
+select * from SolicitacaoCaptura
+
+
+select pro.IdSolicitacaoCaptura
+		,pro.numero
+		,pro.Distribuicao
+		,sc.IdStatus
+  from SolicitacaoCaptura sc
+		,Processo Pro
+where sc.descricao like 'Captura Distribuição - TRT1 %'
+and sc.id = Pro.IdSolicitacaoCaptura
+and pro.numero = (select max(numero)
+					from processo pro1
+					where sc.id = pro1.IdSolicitacaoCaptura
+					and pro1.IdStatus = 2)
+order by 1 desc
+
+
+
+----------------------------------------------------------------------------
+
+CRIAR TELA NO PROJETO WEB PARA INCLUSAO DE FAIXA DE NUMERO.
+TABELA A SER ACESSADA ---> ForumFaixaNumeroAno
+
+
+divRangerNumeracao
+confirmar-numeracao-btn
+
+_CamposNumeracao.cshtml
+Fórum	Intância	Faixa	Ano	Último Número
+adicionar-numeracao
+
+<h4 class="card-footer" align="right">
+ <a href="javascript:void(0)" id="adicionar-numeracao" class="adicionar-numeracao btn btn-round btn-xs"><i class="material-icons">add</i> Faixa</a>
+ </h4>
+
+
+_ListaNumeracao.cshtml --> esta funcionando perfeito
+
+_Lista.cshtml -----------> realizar as alteracoes necessarias
+
+-----------------------------------------------------------------------------
+
+query para execucao processo tim
+
+select p.id, 
+	   sc.Descricao,
+       p.IdSolicitacaoCaptura, 
+       p.Numero, 
+	   p.IdTribunalJustica,
+	   p.IdStatus as 'StatusProcesso',  sp.Descricao as 'Descr. StatusProcesso', 
+	   sc.IdStatus as 'Status Captura', ssc.Descricao as 'Descr. StatusCaptura', 
+	   sc.DataTerminoUltimaCaptura,
+	   sc.CapturarDistribuicao,
+	   p.Inconsistencia
+  from Processo p
+  join StatusProcesso sp on sp.Id = p.IdStatus
+  join SolicitacaoCaptura sc on sc.Id = p.IdSolicitacaoCaptura
+  join StatusSolicitacaoCaptura ssc on ssc.Id = sc.IdStatus
+where p.IdSolicitacaoCaptura = 761
+--and p.IdStatus in (1,4)
+order by p.IdStatus
+   
+
+update  processo
+   set IdStatus = 1, Inconsistencia = null
+where IdSolicitacaoCaptura =761
+and IdStatus = 4
+
+update solicitacaocaptura
+  set idstatus = 3 -----> sempre verificar o status
+where id = 761
+
+
+--delete from 
+select * from 
+ProcessamentoCaptura where idEquipamentoProcessamento = 26 and DataTermino is null
+
+----------------------------------------------------------------------------------------
+excluir pasta apos terminar a captura dos dados
+
+
+C:\Pastas de Trabalho\Projetos\Captura Dados Processo\Processos\782BCBED96BD
+C:\Pastas de Trabalho\Projetos\Captura Dados Processo\Processos\Processamento\782BCBED96BD
+
+----------------------------------------------------------------------------------------
+TELA POP UP FORUM FAIXA NUMERO ANO 
+
+tabela a ser atualizada:
+FORUMFAIXANUMEROANO
+
+ForumFaixaNumeroAnoModel
+
+
+
+querys de apoio
+
+select ffa.Id, 
+       ffa.IdForumFaixaNumeroProcesso, 
+	   ft.nome, 
+	   ft.Comarca, 
+	   ffa.UltimoNumeroProcesso, 
+	   ffnp.FaixaNumeroProcesso,
+	   ft.Numero
+  from ForumFaixaNumeroAno ffa
+  join ForumFaixaNumeroProcesso ffnp on ffnp.Id = ffa.IdForumFaixaNumeroProcesso
+  join ForumTribunal ft on ft.Id = ffnp.IdForumTribunal
+where ft.IdTribunal = 2002
+order by ft.Comarca
+
+select * from forumFaixaNumeroProcesso
+
+select * from forumTribunal
+
+select ffa.Id, ffa.IdForumFaixaNumeroProcesso, ffa.UltimoNumeroProcesso, ft.Nome, ft.Numero, ft.Comarca
+  from ForumFaixaNumeroAno ffa
+  join ForumFaixaNumeroProcesso ffnp on ffnp.Id = ffa.IdForumFaixaNumeroProcesso
+  join ForumTribunal ft on ft.Id = ffnp.IdForumTribunal
+where numero = 223
+
+
+select * from Forum
+
+/*
+--------------------------------------------------------------
+tela atual atualiza e cria na tabela ForumFaixaNumeroProcesso
+--------------------------------------------------------------
+
+tela nova devera criar e atualizar na tabela --> ForumFaixaNumeroAno
+
+criar tela ---> "_campos.cshtml" --> contem a chamada a pop up 
+
+a tela -------> "_CamposNumeracao.cshtml" contem o popup para o preenchimento dos campos
+
+
+
+*/
+
+
+
+
+
+select tj.Id, tj.Descricao, tj.Sigla, uf.Nome, uf.Sigla, it.IdTecnologiaSite, it.URL
+  from TribunalJustica tj
+  join UF uf on uf.id = tj.IdUF
+  join InstanciaTribunal it on it.IdTribunal = tj.Id
+order by id
+
+select top 2 * from ForumFaixaNumeroProcesso
+
+select top 2 * from ForumFaixaNumeroAno
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

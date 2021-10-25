@@ -1,0 +1,36 @@
+@@ -942,7 +942,35 @@ namespace CapturaDadosProcesso.Facade.Services
+             }
+ 
+             return retorno;
+         }
+ 
++        public string GeraLogBancoInstavel (string pastaBaseRobos, string macAddress, int idProcessoWindows)
++        {
++            string retorno = "";
++            string macAddr = macAddress;
++            string folderBase = pastaBaseRobos;
++
++            try
++            {
++                string nomeArquivo = "log" + idProcessoWindows + ".txt";
++                string folderprofile = $"{folderBase}Processamento\\{macAddr}";
++                string pathSaida = folderprofile + nomeArquivo;
++
++                //using (var writer = new StreamWriter(pathSaida))
++                using (StreamWriter writer = new StreamWriter(System.IO.Path.Combine(folderprofile, nomeArquivo), true))
++                {
++                    writer.WriteLine(System.DateTime.Now + "|" + idProcessoWindows);
++                }
++
++                retorno = $"{folderprofile}";
++            }
++            catch (Exception ex)
++            {
++                retorno = ex.Message;
++            }
++
++            return retorno;
++        }
++
+     }
+ }

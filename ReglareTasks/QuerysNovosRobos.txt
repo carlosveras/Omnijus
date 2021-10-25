@@ -1,0 +1,13 @@
+select pc.IdSolicitacaoCaptura, 
+       CAST(pc.DataTermino AS DATE),
+	   p.Numero,
+	   p.Distribuicao,
+	   p.IdEquipamentoProcessamento,
+	   p.IdTribunalJustica
+  from ProcessamentoCaptura pc 
+  join Processo p on p.IdSolicitacaoCaptura = pc.IdSolicitacaoCaptura
+  where CAST(pc.DataTermino AS DATE) = '2021-04-02'
+group by pc.IdSolicitacaoCaptura, CAST(pc.DataTermino AS DATE), p.Numero, p.Distribuicao, p.IdEquipamentoProcessamento, p.IdTribunalJustica
+order by IdSolicitacaoCaptura
+
+

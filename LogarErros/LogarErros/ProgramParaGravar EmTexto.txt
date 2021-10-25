@@ -1,0 +1,117 @@
+﻿using log4net;
+using System;
+using System.Diagnostics;
+
+namespace LogarErros
+{
+    class Program
+    {
+
+        static void Main(string[] args)
+        {
+            int a = 0;
+            int b = 0;
+
+            log4net.ILog log;
+            log4net.Config.XmlConfigurator.Configure();
+            log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
+
+
+            #region pegaIdProcessoWindows
+            Process currentProcess = Process.GetCurrentProcess();
+            var processo = currentProcess.Id;
+            #endregion
+
+            #region usoComAppParaTextoFuncionando-OK
+            GlobalContext.Properties["MAQUINA"] = 26;
+            GlobalContext.Properties["PROCESSO"] = processo;
+            #endregion
+
+
+            try
+            {
+                b = 100 / a;
+                Console.WriteLine("o valor e" + b);
+                Console.ReadKey();
+            }
+            catch (Exception ex)
+            {
+                //log.Debug("erro gerado por exception -> " + ex.Message);
+                //log.DebugFormat("erro gerado por exception -> " + ex.Message);
+                log.Error("erro gerado por exception ERROR-> " + ex.Message);
+                //log.ErrorFormat("erro gerado por exception -> " + ex.Message);
+                //log.Fatal("erro teste -> 1 " + ex.Message);
+
+                //log.FatalFormat("erro gerado por exception -> " + ex.Message);
+                //log.Info("erro gerado por exception -> " + ex.Message);
+                //log.InfoFormat("erro gerado por exception -> " + ex.Message);
+                //log.Warn("erro gerado por exception -> " + ex.Message);
+                log.WarnFormat("erro gerado por exception WARN-> " + ex.Message);
+            }
+
+            try
+            {
+                b = 100 / a;
+                Console.WriteLine("o valor e" + b);
+                Console.ReadKey();
+            }
+            catch (Exception ex)
+            {
+                //log.Debug("erro gerado por exception -> " + ex.Message);
+                //log.DebugFormat("erro gerado por exception -> " + ex.Message);
+                log.Error("erro gerado por exception ERROR-> " + ex.Message);
+                //log.ErrorFormat("erro gerado por exception -> " + ex.Message);
+                //log.Fatal("erro teste 2 -> " + ex.Message);
+
+                //log.FatalFormat("erro gerado por exception -> " + ex.Message);
+                //log.Info("erro gerado por exception -> " + ex.Message);
+                //log.InfoFormat("erro gerado por exception -> " + ex.Message);
+                //log.Warn("erro gerado por exception -> " + ex.Message);
+                log.WarnFormat("erro gerado por exception WARN-> " + ex.Message);
+            }
+
+            try
+            {
+                b = 100 / a;
+                Console.WriteLine("o valor e" + b);
+                Console.ReadKey();
+            }
+            catch (Exception ex)
+            {
+                //log.Debug("erro gerado por exception -> " + ex.Message);
+                //log.DebugFormat("erro gerado por exception -> " + ex.Message);
+                log.Error("erro gerado por exception ERROR-> " + ex.Message);
+                //log.ErrorFormat("erro gerado por exception -> " + ex.Message);
+                //log.Fatal("erro teste 3 -> " + ex.Message);
+
+                //log.FatalFormat("erro gerado por exception -> " + ex.Message);
+                //log.Info("erro gerado por exception -> " + ex.Message);
+                //log.InfoFormat("erro gerado por exception -> " + ex.Message);
+                //log.Warn("erro gerado por exception -> " + ex.Message);
+                log.WarnFormat("erro gerado por exception WARN-> " + ex.Message);
+            }
+
+            try
+            {
+                b = 100 / a;
+                Console.WriteLine("o valor e" + b);
+                Console.ReadKey();
+            }
+            catch (Exception ex)
+            {
+                //log.Debug("erro gerado por exception -> " + ex.Message);
+                //log.DebugFormat("erro gerado por exception -> " + ex.Message);
+                log.Error("erro gerado por exception ERROR-> " + ex.Message);
+                //log.ErrorFormat("erro gerado por exception -> " + ex.Message);
+                //log.Fatal("erro teste -> 4 " + ex.Message);
+
+                //log.FatalFormat("erro gerado por exception -> " + ex.Message);
+                //log.Info("erro gerado por exception -> " + ex.Message);
+                //log.InfoFormat("erro gerado por exception -> " + ex.Message);
+                //log.Warn("erro gerado por exception -> " + ex.Message);
+                log.WarnFormat("erro gerado por exception WARN-> " + ex.Message);
+            }
+
+        }
+    }
+}

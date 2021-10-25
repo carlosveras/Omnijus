@@ -1,0 +1,9 @@
+C:\Projetos\BaixarDejt\BaixarDejt\bin\Release\BaixarDejt.exe.config
+C:\Projetos\BaixarDejt\BaixarDejt\bin\Release\BaixarDejt.exe
+C:\Projetos\BaixarDejt\BaixarDejt\bin\Release\BaixarDejt.pdb
+C:\Projetos\BaixarDejt\BaixarDejt\bin\Release\WebDriver.dll
+C:\Projetos\BaixarDejt\BaixarDejt\bin\Release\WebDriver.xml
+C:\Projetos\BaixarDejt\BaixarDejt\obj\Release\BaixarDejt.csproj.CoreCompileInputs.cache
+C:\Projetos\BaixarDejt\BaixarDejt\obj\Release\BaixarDejt.csproj.CopyComplete
+C:\Projetos\BaixarDejt\BaixarDejt\obj\Release\BaixarDejt.exe
+C:\Projetos\BaixarDejt\BaixarDejt\obj\Release\BaixarDejt.pdb

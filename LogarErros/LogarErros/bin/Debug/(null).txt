@@ -1,0 +1,16 @@
+2020-12-18 13:16:55,271|4324|100|26|Main|36|erro gerado por exception ERROR-> Tentativa de divisão por zero.
+2020-12-18 13:16:55,286|4324|100|26|Main|36|erro gerado por exception WARN-> Tentativa de divisão por zero.
+2020-12-18 13:16:55,286|4324|100|26|Main|36|erro gerado por exception ERROR-> Tentativa de divisão por zero.
+2020-12-18 13:16:55,286|4324|100|26|Main|36|erro gerado por exception WARN-> Tentativa de divisão por zero.
+2020-12-18 13:16:55,286|4324|100|26|Main|36|erro gerado por exception ERROR-> Tentativa de divisão por zero.
+2020-12-18 13:16:55,286|4324|100|26|Main|36|erro gerado por exception WARN-> Tentativa de divisão por zero.
+2020-12-18 13:16:55,286|4324|100|26|Main|36|erro gerado por exception ERROR-> Tentativa de divisão por zero.
+2020-12-18 13:16:55,286|4324|100|26|Main|36|erro gerado por exception WARN-> Tentativa de divisão por zero.
+2020-12-18 13:16:57,625|3268|100|26|Main|36|erro gerado por exception ERROR-> Tentativa de divisão por zero.
+2020-12-18 13:16:57,641|3268|100|26|Main|36|erro gerado por exception WARN-> Tentativa de divisão por zero.
+2020-12-18 13:16:57,641|3268|100|26|Main|36|erro gerado por exception ERROR-> Tentativa de divisão por zero.
+2020-12-18 13:16:57,641|3268|100|26|Main|36|erro gerado por exception WARN-> Tentativa de divisão por zero.
+2020-12-18 13:16:57,641|3268|100|26|Main|36|erro gerado por exception ERROR-> Tentativa de divisão por zero.
+2020-12-18 13:16:57,641|3268|100|26|Main|36|erro gerado por exception WARN-> Tentativa de divisão por zero.
+2020-12-18 13:16:57,656|3268|100|26|Main|36|erro gerado por exception ERROR-> Tentativa de divisão por zero.
+2020-12-18 13:16:57,656|3268|100|26|Main|36|erro gerado por exception WARN-> Tentativa de divisão por zero.

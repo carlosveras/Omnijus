@@ -1,0 +1,337 @@
+--Ajustar Solucao para o tribunal do rio
+
+Tribunal 2 - Rio de Janeiro - tecnologia 2
+
+-------------------------------------------
+query para colocar a maquina para processar 
+no tribunal do rio de janeiro
+
+update EquipamentoProcessamentoTribunal
+   set Ativo = 1
+where id = 3231
+-------------------------------------------
+
+Updates realizados no banco de Producao 
+para executar captura no Rio de Janeiro
+
+update InstanciaTribunal
+    set IdTipoNavegador  = 1
+where Id in (5301,5302)
+
+update UsuarioAcesso
+    set Usuario = '94120510263', PWD = 'tcs0708*'
+where Id = 6122
+
+----- tribunais e senhas
+
+senha antiga --> 6122	1	2	09233805743	bianca17	5302
+
+
+login/senha:    SP394192	tcs0707*
+login/senha: 94120510263	tcs0708*
+
+https://www3.tjrj.jus.br/segweb/faces/login.jsp?indGet=true&SIGLASISTEMA=PORTALSERV
+
+www4.tjrj.jus.br/portalDeServicos/processoeletronico
+
+https://www3.tjrj.jus.br
+
+tcs0708*
+94120510263
+
+-----
+
+
+
+---- selects mais usados:
+
+Parametros equipamento:
+select *
+  from EquipamentoProcessamentoParametro
+ where idEquipamentoProcessamento = 26
+
+Equipamento setado para rodar no tribunal X:
+select * 
+  from EquipamentoProcessamentoTribunal
+ where idEquipamentoProcessamento = 26
+
+
+Verifica tribunais e seus parametros:
+select it.IdTribunal,
+	it.Descricao,
+     it.URL,
+	 tnw.Descricao,
+	 ts.Descricao,
+	 it.Descricao
+from InstanciaTribunal it
+join TipoNavegadorWeb tnw on tnw.id = it.IdTipoNavegador
+join TecnologiaSite ts on ts.id = it.IdTecnologiaSite
+order by IdTribunal
+
+Verifica o parametro do sistema:
+Select *
+  from ParametroSistema
+ where Descricao like 'Tentativas%'
+
+----- ATENCAO!!! updates realizados no banco de teste !!!
+
+ insert into UsuarioAcesso
+ (IdUsuario,IdTribunal,Usuario,PWD,IdInstanciaTribunal)
+ Values(1,2,'94120510263','tcs0708*',5302)
+
+ update UsuarioAcesso
+    set Usuario = '94120510263', PWD = 'tcs0708*'
+where Id = 6122
+
+ update InstanciaTribunal
+    set IdTipoNavegador  = 1
+where Id in (5301,5302)
+
+update EquipamentoProcessamentoParametro 
+    set Valor = '760#616#200#100'
+where Id = 160
+
+
+update InstanciaTribunal
+set url = 'www4.tjrj.jus.br/portalDeServicos/processoeletronico'
+where Id = 5302
+
+INSERT 
+  INTO EquipamentoProcessamentoParametro
+(CriadoEm,CriadoPor,AlteradoEm,AlteradoPor,IdEquipamentoProcessamento,Descricao,Valor)
+VALUES (GETDATE(),1,NULL,NULL,26,'Posicao Imagem Visualizar Documento TJRJ','760#613#0#0')
+
+
+valor antigo da url instancia tribunal do rio de janeiro alterado em 17/12/2020:
+Id	    IdTribunal	Descricao	    URL	                                                   
+5302	2	        1ª Instância	www4.tjrj.jus.br/portalDeServicos/processoeletronico
+
+valor novo da url instancia tribunal do rio de janeiro alterado em 17/12/2020:
+Id	    IdTribunal	Descricao	    URL	                                                   
+5302	2	        1ª Instância	http://www4.tjrj.jus.br/ConsultaUnificada/consulta.do#tabs-numero-indice0
+
+
+
+
+--------------------------------
+verificar
+
+//input[@id='imgCaptcha']
+
+apos linha 914 na classe:
+D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\TecnologiaTjRjService.cs
+
+---------------------------------
+primeira captcha
+x = 262
+y = 142
+
+segunda captcha
+x= 760
+y= 613
+
+
+int intX = System.Convert.ToInt16(posicaoCaptcha.Split('#')[0]); 
+int intY = System.Convert.ToInt16(posicaoCaptcha.Split('#')[1]);
+int intW = System.Convert.ToInt16(posicaoCaptcha.Split('#')[2]);
+int intH = System.Convert.ToInt16(posicaoCaptcha.Split('#')[3]);
+
+
+
+
+var x = 308; --> 354 -------> 46 = 262
+var y = 185; --> 228 -------> 43 = 142
+
+widht = 222
+hight = 62
+
+
+var x = 770; 
+var y = 616; 
+
+widht = 200
+hight = 100
+
+
+
+
+//*[@id="imgCaptcha"]
+type="image"
+
+
+id=captcha
+type=text
+
+
+type=button
+value=Enviar
+
+-------
+error mover mouse para o nova coordenada
+
+https://stackoverflow.com/questions/27342519/selenium-movebyoffset-will-only-work-2-times
+
+https://stackoverflow.com/questions/46664632/why-is-movebyoffset-not-working-for-multiple-navigation
+
+
+actions.move_to_element_with_offset(driver.find_element_by_tag_name('body'), x_axis,y_axis)
+
+
+
+---------------------
+
+parametro ------------- > default = qtde de vezes
+
+equipametroparametro ---> qtde de vezes 
+
+---------------------
+
+
+---- 14/12/2020
+
+//*[@id="idOestePortal"]
+
+
+
+https://us04web.zoom.us/j/8643091273?pwd=UExwa01BRytib2FSbWtCeW9TWFZCQT09
+
+
+
+
+
+https://us04web.zoom.us/j/71525912182?pwd=UExEY1QwcFVSUENCVnNya2FkZFI0QT09
+
+
+
+
+//*[@id="ext-gen324"]
+//*[@id="ext-gen324"]
+
+  driver.SwitchTo().Window(handle);
+                IWebElement btnFecharAbaPesquisa = _browserService.ElementVerify(navegador, "Id", "ext-gen324", "ElementIsVisible", TimeSpan.FromSeconds(5));
+                btnFecharAbaPesquisa.Click();
+
+
+
+
+
+
+
+
+
+
+0006294-26.2020.8.19.0208
+
+ 0006296-93.2020.8.19.0208 
+
+
+
+
+ 0006303-85.2020.8.19.0208
+
+
+
+janelaProcesso.SwitchTo().ParentFrame();
+
+
+driver.SwitchTo().ParentFrame();
+IWebElement linkConsultasProcessuaisB = _browserService.ElementVerify(navegador, "LinkText", "Consultas Processuais", "ElementToBeClickable", TimeSpan.FromSeconds(10));
+if (linkConsultasProcessuaisB == null)
+    return janelaProcesso;
+
+linkConsultasProcessuais.Click();
+
+
+
+---- PROCESSO TIM -----
+
+0006314-17.2020.8.19.0208 
+
+0006314-17.2020.8.19.0208
+
+---- PROCESSO TIM -----
+
+
+
+
+
+ 0006317-69.2020.8.19.0208 
+ 0006318-54.2020.8.19.0208
+
+
+
+
+---> "4294967297" ---> janela menu
+      4294967297
+      18
+
+
+---> 4294967300
+
+
+---------------------------------
+
+
+
+1-- "6442450945" 
+2--  6442450945
+
+ao acessarprocessopara baixar
+
+1- 6442450948
+
+---- erro no tjrj ao consultar processo
+
+
+type= button
+value= Voltar
+
+//*[@id="content100"]//h3[.="Erro"]
+
+  //verifica se deu erro na pagina do tribunal
+                var botaoVoltar = frameConsulta.FindElement(By.XPath("//input[@type='button' and @value='Voltar']"));
+                if (botaoVoltar != null)
+                    return janelaProcesso;
+
+
+
+2020.208.006313-9 
+2020.208.006296-2 
+
+
+
+www4.tjrj.jus.br/portalDeServicos/processoeletronico <-- url atual de pesquisa
+
+
+http://www4.tjrj.jus.br/ConsultaUnificada/consulta.do#tabs-numero-indice0 
+
+
+pagina de origem:
+http://www4.tjrj.jus.br/portalDeServicos/jsp/portal/redirPortalNovaJanela.jsp
+
+---- 21/12/2020
+
+div id="idOestePortal"
+
+div id=" //div[@id='idTreeMenuLateral']
+
+//span[contains(text(),'Consultas Processuais')]
+
+
+
+0006314-17.2020.8.19.0208
+		0006314172020
+		
+		
+--------------------------------------------------
+
+PASTABASEROBOS\PLACADEREDE\ PROCESSOWINDOWS.LOG
+
+
+
+
+
+
+
+
+

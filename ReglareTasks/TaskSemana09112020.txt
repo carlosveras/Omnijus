@@ -1,0 +1,32 @@
+
+verificar o site abaixo para capturar comarcas:
+https://www.tjpe.jus.br/poder-judiciario/comarcas-de-pernambuco
+http://mppr.mp.br/pagina-1306.html#
+https://www.tjac.jus.br/comarcas/entrancia-inicial/#santa
+----
+
+CNJ
+
+VARAS OU COMARCAS
+
+[14:50, 11/11/2020] Renato Martins: https://www.trt1.jus.br/conteudo-completo-das-varas-por-jurisdicao
+[14:51, 11/11/2020] Renato Martins: https://www.tjdft.jus.br/funcionamento/enderecos-e-telefones-old/lista-de-emails-das-varas-e-juizados
+[14:54, 11/11/2020] Renato Martins: https://www.cnj.jus.br/programas-e-acoes/numeracao-unica/documentos/
+
+
+
+excluir sub-pastas da pasta D:\Processos\Processamento\782BCBED96BD
+ao termino do processo
+
+ 
+----- analisar o erro abaixo
+Element <i id="setaVoltar" class="icon-back"> is not clickable at point (415,70)
+ because another element <div class="blockUI blockOverlay"> obscures it
+Finalizou a captura de Processos Novos com Problema.
+
+
+------------------------------------------------------
+dashboard
+
+
+

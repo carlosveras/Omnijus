@@ -1,0 +1,45 @@
+﻿
+---cria tabela padrao log4net
+CREATE TABLE [dbo].[LogDadosProcesso] (
+	[Id] [int] IDENTITY (1, 1) NOT NULL,
+	[Date] [datetime] NOT NULL,
+	[Thread] [varchar] (255) NOT NULL,
+	[Level] [varchar] (50) NOT NULL,
+	[Logger] [varchar] (255) NOT NULL,
+	[Message] [varchar] (4000) NOT NULL,
+	[Exception] [varchar] (2000) NULL
+)
+drop table LogDadosProcesso
+----
+
+---cria tabela personalizada
+CREATE TABLE [dbo].[LogDadosProcesso] (
+	[Id] [int] IDENTITY (1, 1) NOT NULL,
+	[CriadoEm] [datetime] NOT NULL,
+	[IdEquipamentoProcessamento] [int] NOT NULL,
+	[IdProcessoWindows] [int] NOT NULL,
+	[IdProcesso] [int] NULL,
+	[IdSolicitacaoCaptura] [int] NULL,
+	[Mensagem] [varchar] (4000) NULL,
+	[Exception] [varchar] (2000) NULL,
+	FOREIGN KEY ([IdEquipamentoProcessamento]) REFERENCES [dbo].EquipamentoProcessamento ([Id]),
+	FOREIGN KEY ([IdProcesso]) REFERENCES [dbo].Processo ([Id]),
+	FOREIGN KEY ([IdSolicitacaoCaptura]) REFERENCES [dbo].SolicitacaoCaptura ([Id])
+)
+
+CREATE TABLE [dbo].[LogDadosProcesso](
+	[Id] [int] IDENTITY(1,1) NOT NULL,
+	[CriadoEm] [datetime] NOT NULL,
+	[IdEquipamentoProcessamento] [int] NULL,
+	[IdProcessoWindows] [int] NULL,
+	[IdProcesso] [int] NULL,
+	[IdSolicitacaoCaptura] [int] NULL,
+	[Mensagem] [varchar](4000) NULL,
+	[Excecao] [varchar](2000) NULL,
+	[Exception] [varchar](2000) NULL
+)
+
+
+
+
+

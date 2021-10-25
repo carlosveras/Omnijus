@@ -1,0 +1,15 @@
+Reglare Maquina 1 (54.81.17.99) ---- ok -- 12gb free
+Reglare Maquina 2 (34.228.232.229) - ok -- 20gb free
+Reglare Maquina 3 (52.203.196.156) - ok -- 44gb free
+Reglare Maquina 4 (3.86.40.131) ---- ok -- 11gb free
+Reglare Maquina 5 (3.89.184.62) ---- ok -- 25gb free
+Reglare Maquina 6 (34.229.248.185) - ok -- 32gb free
+Reglare Maquina 7 (54.144.107.74) -- ok -- 17gb free
+Reglare Maquina 8 (18.209.110.38) -- ok -- 19gb free
+Reglare Maquina 9 (54.224.252.56) -- ok -- 34gb free
+Reglare Maquina 10 (18.234.67.96) -- ok -- 34gb free
+
+Kolim@05
+
+
+Apagar o conteudo da pasta

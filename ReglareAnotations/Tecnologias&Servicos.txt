@@ -1,0 +1,22 @@
+
+
+
+Tecnologia Site              Servico na Solution  
+ESAJ                         TecnologiaEsajService.cs
+Tecnologia Rio               TecnologiaTjRjService
+PJE                          
+PJE TRT                      TecnologiaPJETRTService 
+PJE TJ                       TecnologiaPJETJService
+PJE TJ sem PjeOffice         TecnologiaPJETJSemOfficeService
+Projudi BA                   TecnologiaBAService -- ??
+Tecnologia ES                TecnologiaESService
+Projudi PR                   TecnologiaPRService 
+Tecnologia MG                TecnologiaMGService
+Tecnologia SE                TecnologiaSEService
+Tecnologia RS                TecnologiaRSService
+Tecnologia GO                TecnologiaGOService
+Tecnologia TRT Não PJE       
+Tecnologia TRT5 Não PJE      TecnologiaTRT5Service
+Tecnologia EProc             TecnologiaEProcService
+PJE Versão 2.0               TecnologiaPJEV2Service 
+TRT 8 Fisico                 TecnologiaTRT8FisicoService

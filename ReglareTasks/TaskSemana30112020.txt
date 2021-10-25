@@ -1,0 +1,166 @@
+Tarefa implementacao de Log na Aplicacao:
+
+Diretorio para a gravacao do Log:
+
+\PlacaDeRede\IdProcessoWindows
+
+Nome do Arquivo:
+
+Log.txt
+
+Formato Arquivo:
+
+data|idprocesso|idsolicitacaptura|idEquipamentoprocessamento|exception
+
+
+----------------------------------------
+25	Reglare Maquina 1 (174.129.89.34)	
+27	Reglare Maquina 2 (34.228.232.229)	-- ponto de atencao apenas 14gb livres dos 99 gb
+28	Reglare Maquina 3 (52.203.196.156)	
+29	Reglare Maquina 4 (3.86.40.131)		
+30	Reglare Maquina 5 (3.89.184.62)		
+31	Reglare Maquina 6 (34.229.248.185)	
+32	Reglare Maquina 7 (54.144.107.74)	
+33	Reglare Maquina 8 (18.209.110.38)	
+34	Reglare Maquina 9 (54.224.252.56)	
+35	Reglare Maquina 10 (18.234.67.96)	
+----------------------------------------
+
+
+---- Problemas com o captcha
+
+em andamento:
+https://2captcha.com/2captcha-api#solving_clickcaptcha
+
+
+
+
+
+
+----- anotacoes para enviar imagem
+
+--> ResolverCaptcha
+
+--> SalvarCaptcha
+
+--> Enviar2Captcha
+
+
+criei os metodos abaixo e estou trabalhando neles:
+
+ResolverReCaptchaV2Old <-- rever a chamada para este metodo !!!!
+
+ResolverCaptchaOld
+
+var x = 760; 
+var y = 200; 
+
+widht = 400
+hight = 500
+
+<iframe title="recaptcha challenge" 
+src="https://www.google.com/recaptcha/api2/bframe?hl=pt-BR&amp;v=UFwvoDBMjc8LiYc1DKXiAomK&amp;k=6Lcw_EcUAAAAAKtjLxiusSHNdT2dDHDR-aY1sUp9&amp;cb=7t4578s8od64" 
+style="width: 400px; height: 580px;" 
+name="c-xfb16paw3imn" scrolling="no" 
+sandbox="allow-forms allow-popups allow-same-origin allow-scripts allow-top-navigation allow-modals 
+allow-popups-to-escape-sandbox allow-storage-access-by-user-activation" frameborder="0"></iframe>
+----------------------------------------
+  select it.IdTribunal,
+         it.Descricao,
+         it.URL,
+		 tnw.Descricao,
+		 ts.Descricao,
+		 it.PrimeiroParametro,
+		 tj.sigla
+    from InstanciaTribunal it
+    join TipoNavegadorWeb tnw on tnw.id = it.IdTipoNavegador
+    join TecnologiaSite ts on ts.id = it.IdTecnologiaSite
+	join TribunalJustica tj on tj.Id = it.IdTribunal
+where ts.descricao like 'PJE T%'
+
+
+
+select * 
+  from EquipamentoProcessamentoParametro
+ where IdEquipamentoProcessamento = 26
+
+
+
+ 
+INSERT INTO EquipamentoProcessamentoParametro (CriadoEm,CriadoPor,AlteradoEm,AlteradoPor,IdEquipamentoProcessamento,Descricao,Valor)
+VALUES (GETDATE(),1,NULL,NULL,26,'Posicao Imagem PJETJ','760#200#400#500')
+
+
+
+
+----------------------------------------
+class="rc-image-tile-33"
+
+class=rc-imageselect-payload
+
+//.[@class='rc-image-tile-33']
+
+//.[@class='rc-imageselect-desc-no-canonical']//strong ---> descricao
+
+rc-imageselect
+----------------------------------------
+Informacoes uteis:
+
+https://stackoverflow.com/questions/6244939/how-do-i-fix-a-net-windows-application-crashing-at-startup-with-exception-code
+http://ig2600.blogspot.com/2009/07/finding-clr-exceptions-with-visual.html
+http://blog.coryfoy.com/2010/02/debugging-net-applications-with-windbg-and-sos/
+
+-- fazer este curso
+
+https://cursos.alura.com.br/course/csharp-parte-4-excecoes
+
+https://cursos.alura.com.br/course/certificacao-csharp-fluxo-de-programa-excecoes
+
+
+https://cursos.alura.com.br/course/csharp-biblioteca-dll-documentacao-nuget
+
+https://cursos.alura.com.br/course/csharp-refatorando-codigo-parte-3
+
+http://www.macoratti.net/13/07/c_excep.htm
+
+https://www.codingame.com/playgrounds/5073/exception-handling-in-c/introduction
+
+
+
+
+
+
+ESAJ --869
+int intX = System.Convert.ToInt16(posicaoCaptcha.Split('#')[0]); 
+int intY = System.Convert.ToInt16(posicaoCaptcha.Split('#')[1]);
+int intW = System.Convert.ToInt16(posicaoCaptcha.Split('#')[2]);
+int intH = System.Convert.ToInt16(posicaoCaptcha.Split('#')[3]);
+
+
+
+
+OK|coordinates:
+x=90,y=408;
+x=323,y=437;
+x=341,y=291
+
+click coordinates selenium c#
+
+
+rc-imageselect
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

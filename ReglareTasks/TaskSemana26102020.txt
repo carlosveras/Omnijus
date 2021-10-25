@@ -1,0 +1,74 @@
+---- MAQUINAS NA NUVEM
+
+administrator Kolim@03
+
+IP: 34.228.232.229 
+
+IP: 52.6.27.101 
+
+IP: 174.129.89.34 
+----
+http://www.creative-tim.com/product/material-dashboard-pro)
+
+----
+https://drive.google.com/drive/folders/1Zl5C9I9D6njwev_ynhdAr_2AlFQ9JyOp?usp=sharing
+
+comando para pegar o id da placa de rede.
+D:\Lixo\Teste>getmac /v
+
+para executar um arquivo bat no powershell do windows
+
+-- salvar o arquivo com a extensao .ps1
+-- abrir o console do powershell 
+-- executar o comando : .\nomearquivo.ps1
+
+
+Status da Tarefa:
+
+C:\Pastas de Trabalho\Projetos\Captura Dados Processo\Processos\usuariosistema@usuariosistema.com.br
+todas as pastas SolicitacaoXXXXXX compactadas uma por uma.
+
+C:\Pastas de Trabalho\Projetos\Captura Dados Processo\CapturasMaquina26
+todas as pastas SolicitacaoXXXXXX compactadas uma por uma.
+
+C:\Pastas de Trabalho\Projetos\Captura Dados Processo
+pasta Configuracoes compactada.
+
+C:\Pastas de Trabalho\Projetos\Captura Dados Processo
+pasta CapturarDistribuicao compactada.
+
+--------------------------------------------------
+
+IP: 174.129.89.34 administrator Kolim@03
+
+
+Status da Tarefa:
+
+IP: 34.228.232.229 
+Placa de Rede : 0EAE997DFB47
+C:\Pastas de Trabalho\Projetos\Captura Dados Processo\Processos\Processamento\0EAE997DFB47
+
+IP: 52.6.27.101 
+Placa de Rede: 0E12597F4F59
+C:\Pastas de Trabalho\Projetos\Captura Dados Processo\Processos\Processamento\0E12597F4F59
+
+Pwd nas duas maquinas : Alterada
+
+Chrome e Firefox na duas maquinas : Instalados
+
+Estrutura de Diretorios com base na maquina 174.129.89.34: Criadas
+
+Arquivos CapturarDistribuicao e Configuracoes: Descompactados nas duas maquinas
+
+
+
+encerrando processamento por maquina inativa
+
+
+
+
+
+
+
+
+

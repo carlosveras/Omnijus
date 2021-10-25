@@ -1,0 +1,10 @@
+D:\Projetos\LogarErros\LogarErros\bin\Debug\LogarErros.exe.config
+D:\Projetos\LogarErros\LogarErros\bin\Debug\LogarErros.exe
+D:\Projetos\LogarErros\LogarErros\bin\Debug\LogarErros.pdb
+D:\Projetos\LogarErros\LogarErros\bin\Debug\log4net.dll
+D:\Projetos\LogarErros\LogarErros\bin\Debug\log4net.xml
+D:\Projetos\LogarErros\LogarErros\obj\Debug\LogarErros.csproj.CoreCompileInputs.cache
+D:\Projetos\LogarErros\LogarErros\obj\Debug\LogarErros.csproj.CopyComplete
+D:\Projetos\LogarErros\LogarErros\obj\Debug\LogarErros.exe
+D:\Projetos\LogarErros\LogarErros\obj\Debug\LogarErros.pdb
+D:\Projetos\LogarErros\LogarErros\obj\Debug\LogarErros.csprojAssemblyReference.cache

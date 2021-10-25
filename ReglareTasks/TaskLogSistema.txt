@@ -1,0 +1,270 @@
+---- TAREFA
+
+---- TAREFAS IMPLEMENTACAO DE LOG
+
+ESAJ ----------------- TecnologiaEsajService.cs ------------> Implementada
+Projudi -------------- TecnologiaProjudiService.cs ---------> Implementada
+PJE TJ --------------- TecnologiaPJETJService.cs -----------> Implementada
+PJE Versão 2.0 ------- TecnologiaPJEV2Service.cs -----------> Implementada 
+
+
+Tecnologia Rio ------- TecnologiaTjRjService.cs ------------> Implementada ------ subir no git
+Tecnologia EProc ----- TecnologiaEProcService.cs -----------> Implementada ------ subir no git
+
+Tecnologia RS -------- TecnologiaRSService.cs --------------> Nao Implementada 
+Tecnologia ES -------- TecnologiaESService.cs --------------> Nao Implementada
+PJE TJ sem PjeOffice - TecnologiaPJETJSemOfficeService.cs --> Nao Implementada
+
+
+
+
+
+Trabalhar no PJETJ
+
+D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\TecnologiaPJETJService.cs
+
+TecnologiaPJETJService.cs
+
+---- Equipamento ativo para o tribunal abaixo
+
+update EquipamentoProcessamentoTribunal
+   set Ativo = 1
+where id = 3239
+
+---- alteracao qtde tentativas desafio captcha
+
+update EquipamentoProcessamentoParametro
+   set Valor = 25
+where id = 161
+
+
+
+
+---- TAREFA
+
+Implementar o captcha desafio 
+
+Implementar a geracao do LOG
+bool gerouLog = _commonService.GeraLog(numeroProcesso, 0, 0, ex);
+
+----
+
+
+https://pje.tjmg.jus.br/pje/QuadroAviso/listViewQuadroAvisoMensagem.seam
+
+
+
+
+
+
+
+
+
+
+
+Implementar a geracao do LOG
+
+---- dicas
+
+https://stackoverflow.com/questions/1535736/how-can-i-change-the-file-location-programmatically
+
+https://stackoverflow.com/questions/12582014/how-to-get-logger-programmatically-for-two-appenders-in-log4net
+
+https://csharp.hotexamples.com/examples/-/log4net.Appender.RollingFileAppender/-/php-log4net.appender.rollingfileappender-class-examples.html
+
+---- selects mais usados:
+
+Parametros equipamento:
+select *
+  from EquipamentoProcessamentoParametro
+ where idEquipamentoProcessamento = 26
+
+update EquipamentoProcessamentoTribunal
+  set Ativo = 1 
+where id = 3239
+
+
+Equipamento setado para rodar no tribunal X:
+select * 
+  from EquipamentoProcessamentoTribunal
+ where idEquipamentoProcessamento = 26
+
+
+Verifica tribunais e seus parametros:
+select it.IdTribunal,
+	it.Descricao,
+     it.URL,
+	 tnw.Descricao,
+	 ts.Descricao,
+	 it.Descricao
+from InstanciaTribunal it
+join TipoNavegadorWeb tnw on tnw.id = it.IdTipoNavegador
+join TecnologiaSite ts on ts.id = it.IdTecnologiaSite
+order by IdTribunal
+
+Verifica o parametro do sistema:
+Select *
+  from ParametroSistema
+ where Descricao like 'Tentativas%'
+
+update EquipamentoProcessamentoParametro
+   set Valor = 10
+where id = 161
+
+select ept.Id,
+       ept.IdEquipamentoProcessamento,
+       ept.IdTribunal,
+	   ept.Ativo,
+	   ept.IdTecnologiaSite
+  from EquipamentoProcessamentoTribunal ept
+ where idEquipamentoProcessamento = 26
+ order by ept.IdTribunal
+
+
+---- querys mais usadas
+
+delete from ProcessamentoCaptura where idEquipamentoProcessamento = 26 and DataTermino is null
+
+select ept.Id,
+       ept.IdTribunal,
+       ept.Ativo,
+	   ept.IdTecnologiaSite,
+	   ts.Descricao,
+	   tj.Descricao,
+	   uf.Sigla,
+	   tj.Sigla
+  from EquipamentoProcessamentoTribunal ept
+  join TecnologiaSite ts on ts.id = ept.IdTecnologiaSite
+  join TribunalJustica tj on tj.Id = ept.IdTribunal 
+  join UF uf on uf.id = tj.IdUF
+ where idEquipamentoProcessamento = 26
+ order by ts.Descricao
+
+ select it.IdTribunal,
+         it.Descricao,
+         it.URL,
+		 tnw.Descricao,
+		 ts.Descricao,
+		 uf.Sigla
+    from InstanciaTribunal it
+    join TipoNavegadorWeb tnw on tnw.id = it.IdTipoNavegador
+    join TecnologiaSite ts on ts.id = it.IdTecnologiaSite
+	join TribunalJustica tj on tj.Id = it.IdTribunal 
+    join Uf uf on uf.id = tj.IdUF
+
+	select tj.Id, 
+       tj.Descricao, 
+	   tj.Sigla, 
+	   uf.Nome, 
+	   uf.Sigla, 
+	   it.IdTecnologiaSite, 
+	   ts.Descricao,
+	   it.URL 
+  from TribunalJustica tj
+  join UF uf on uf.id = tj.IdUF
+  join InstanciaTribunal it on it.IdTribunal = tj.Id
+  join TecnologiaSite ts on ts.id = it.IdTecnologiaSite
+ where ts.Descricao like 'ESAJ%'
+order by id
+
+select epp.Id,
+       epp.Descricao,
+	   epp.Valor
+  from EquipamentoProcessamentoParametro epp
+ where idEquipamentoProcessamento = 26 
+
+
+--query para colocar maquina para processar no TJ Sao Paulo
+
+update EquipamentoProcessamentoTribunal
+   set Ativo = 1
+where id = 3229
+
+
+
+select * 
+  from Processo p
+ where p.IdEquipamentoProcessamento = 26
+ order by id desc
+
+
+-----------------------
+
+para simular erro e testar o log no TJRJ
+//var linkConsultasProcessuais = driver.FindElement(By.XPath("//span[contains(text(),'Consultas Pressuis')]"));
+//if (linkConsultasProcessuais == null)
+//    throw new Exception(@"Não foi possível clicar no objeto");
+
+------------------------------------ E.M. A.N.D.A.M.E.N.T.O ----------------------------------
+
+_controleLog.GeraLog("0", 0, 0, ex);
+
+bool gerouLog = _controleLog.GeraLog("0", 0, 0, ex);
+
+
+---- TAREFAS IMPLEMENTACAO DE LOG
+
+ESAJ ----------------- TecnologiaEsajService.cs ------------> Implementada
+Projudi -------------- TecnologiaProjudiService.cs ---------> Implementada
+PJE TJ --------------- TecnologiaPJETJService.cs -----------> Implementada
+PJE Versão 2.0 ------- TecnologiaPJEV2Service.cs -----------> Implementada 
+Tecnologia Rio ------- TecnologiaTjRjService.cs ------------> Implementada 
+
+Tecnologia EProc ---------- TecnologiaEProcService.cs ------> Implementada ------ subir no git
+CommonService.cs ---------- CommonService.cs ---------------> Implementada ------ subir no git
+GerenciarFisicoService.cs - GerenciarFisicoService.cs ------> Implementada ------ subir no git
+BrowserService.cs --------- BrowserService.cs --------------> Implementada ------ subir no git
+
+----- 
+
+Tecnologia RS -------- TecnologiaRSService.cs --------------> Nao Implementada 
+Tecnologia ES -------- TecnologiaESService.cs --------------> Nao Implementada
+PJE TJ sem PjeOffice - TecnologiaPJETJSemOfficeService.cs --> Nao Implementada
+
+Trabalhar no PJETJ
+
+D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\TecnologiaPJETJService.cs
+
+TecnologiaPJETJService.cs
+
+---- Equipamento ativo para o tribunal abaixo
+
+update EquipamentoProcessamentoTribunal
+   set Ativo = 1
+where id = 3239
+
+---- alteracao qtde tentativas desafio captcha
+
+update EquipamentoProcessamentoParametro
+   set Valor = 25
+where id = 161
+
+
+https://pje.tjmg.jus.br/pje/QuadroAviso/listViewQuadroAvisoMensagem.seam
+
+
+
+---- Duvidas para testar e Discutir com Renato!!!
+
+Classe:
+D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\IBMBucketService.cs
+
+
+
+
+capturardistribuicaoservice.cs ---<<<< REVER !!!
+
+
+
+
+0006456-21.2020.8.19.0208
+
+
+-> Impl Log TecnologiaBAService TecnologiaEProcService e TecnologiaESService
+Ajuste FaixaNumeração para guardar a quantidade Loop. Ajuste no Pje para env
+-> Implement LOG TecnologiaProjudiService ajustes LOG TecnologiaEsajService
+
+
+
+
+

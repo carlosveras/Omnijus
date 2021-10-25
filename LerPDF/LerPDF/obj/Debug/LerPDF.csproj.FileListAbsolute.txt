@@ -1,0 +1,11 @@
+D:\Projetos\LerPDF\LerPDF\bin\Debug\LerPDF.exe.config
+D:\Projetos\LerPDF\LerPDF\bin\Debug\LerPDF.exe
+D:\Projetos\LerPDF\LerPDF\bin\Debug\LerPDF.pdb
+D:\Projetos\LerPDF\LerPDF\bin\Debug\BouncyCastle.Crypto.dll
+D:\Projetos\LerPDF\LerPDF\bin\Debug\itextsharp.dll
+D:\Projetos\LerPDF\LerPDF\bin\Debug\itextsharp.xml
+D:\Projetos\LerPDF\LerPDF\obj\Debug\LerPDF.csprojAssemblyReference.cache
+D:\Projetos\LerPDF\LerPDF\obj\Debug\LerPDF.csproj.CoreCompileInputs.cache
+D:\Projetos\LerPDF\LerPDF\obj\Debug\LerPDF.csproj.CopyComplete
+D:\Projetos\LerPDF\LerPDF\obj\Debug\LerPDF.exe
+D:\Projetos\LerPDF\LerPDF\obj\Debug\LerPDF.pdb

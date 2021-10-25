@@ -1,0 +1,76 @@
+Trabalhar no ESAJ
+
+colocar o tribunal 
+
+D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\TecnologiaEsajService.cs
+
+---- querys mais usadas
+ select it.IdTribunal,
+         it.Descricao,
+         it.URL,
+		 tnw.Descricao,
+		 ts.Descricao,
+		 uf.Sigla
+    from InstanciaTribunal it
+    join TipoNavegadorWeb tnw on tnw.id = it.IdTipoNavegador
+    join TecnologiaSite ts on ts.id = it.IdTecnologiaSite
+	join TribunalJustica tj on tj.Id = it.IdTribunal 
+    join Uf uf on uf.id = tj.IdUF
+
+	select tj.Id, 
+       tj.Descricao, 
+	   tj.Sigla, 
+	   uf.Nome, 
+	   uf.Sigla, 
+	   it.IdTecnologiaSite, 
+	   ts.Descricao,
+	   it.URL 
+  from TribunalJustica tj
+  join UF uf on uf.id = tj.IdUF
+  join InstanciaTribunal it on it.IdTribunal = tj.Id
+  join TecnologiaSite ts on ts.id = it.IdTecnologiaSite
+ where ts.Descricao like 'ESAJ%'
+order by id
+
+select ept.IdTribunal,
+       ept.Ativo,
+	   ept.IdTecnologiaSite,
+	   ts.Descricao,
+	   tj.Descricao,
+	   uf.Sigla
+  from EquipamentoProcessamentoTribunal ept
+  join TecnologiaSite ts on ts.id = ept.IdTecnologiaSite
+  join TribunalJustica tj on tj.Id = ept.IdTribunal 
+  join UF uf on uf.id = tj.IdUF
+ where idEquipamentoProcessamento = 26
+ order by ts.Descricao
+
+select epp.Id,
+       epp.Descricao,
+	   epp.Valor
+  from EquipamentoProcessamentoParametro epp
+ where idEquipamentoProcessamento = 26 
+
+
+--query para colocar maquina para processar no TJ Sao Paulo
+
+update EquipamentoProcessamentoTribunal
+   set Ativo = 1
+where id = 3229
+
+
+
+select * 
+  from Processo p
+ where p.IdEquipamentoProcessamento = 26
+ order by id desc
+
+
+
+-----------------------
+
+
+
+
+
+

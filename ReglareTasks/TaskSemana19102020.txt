@@ -1,0 +1,135 @@
+Projeto startup --- > CapturarDistribuicao
+
+Tarefa processamento Tribunal de Justiça do Parana 
+
+Tecnologia PJE TJ -- TecnologiaProjudiService
+
+Tribunal - 5009
+
+Tecnologia - 19
+
+Processos envolvidos:
+
+D:\Projetos\ReglareSolution\capturadadosprocesso\src\apps\CapturarDistribuicao\Program.cs
+
+D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\CapturarDistribuicaoService.cs
+
+D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\TecnologiaProjudiService.cs
+
+Fazer e-mail para o Renato com as pendencias na solucao
+
+----
+TRF1 (e-proc)
+login: 249.926.68-27
+senha: LTEIFPZW
+
+TRF2
+login: 249.926.608-27
+senha: 35280707
+
+Projudi (PR)
+login: SP146428
+senha: opt2017
+
+JFPR, JFRS, JFSC e TRF4
+login: sp146428
+senha: 35280707
+
+STJ e STF
+login: 249.926.608-27
+senha: Jr249926
+
+TJSP
+login: 249.926.608-27
+senha: Jr249926
+
+TRT2
+login: 249.926.608-27
+senha: Jr249926
+
+29570633875
+Elaw@TICrobot777
+
+
+
+---- query verificar configuracao ativa da minha maquina
+select ept.Id,
+	   ept.IdEquipamentoProcessamento,
+	   ept.Ativo,
+       ept.IdTribunal,
+	   ept.Sequencia,
+	   ept.QuantidadeTask,
+	   ept.IdTecnologiaSite,
+	   ept.Sequencia,
+	   ept.BaixarCopia,
+	   ept.CapturarDistribuicao,
+	   ept.CapturarDado,
+	   ept.CapturarMovimento,
+	   ept.CopiaDocumentoUnico
+  from EquipamentoProcessamentoTribunal ept
+ where IdEquipamentoProcessamento = 26
+ 
+---- query's epecificas para conferencia gravacao tabelas do sistema
+
+
+-- TERMOTRIBUNALPROCESSO -- processos especificos com base expressao regular
+select ttp.CriadoEm,
+       ttp.Numero,
+	   ttp.NomeParte,
+	   p.IdTribunalJustica,
+	   p.IdTecnologiaSite,
+	   p.OrgaoJulgador,
+	   p.Forum,
+	   p.Comarca,
+	   p.Vara
+  from TermoTribunalProcesso ttp
+  join Processo p on p.Numero = ttp.Numero
+ where p.IdTribunalJustica = 5009 
+order by ttp.criadoEm desc
+
+-- PROCESSO -- processos
+select p.id, 
+       p.IdSolicitacaoCaptura, 
+       p.Numero, 
+	   p.IdTribunalJustica,
+--	   p.IdStatus as 'StatusProcesso',  sp.Descricao as 'Descr. StatusProcesso', 
+--	   sc.IdStatus as 'Status Captura', ssc.Descricao as 'Descr. StatusCaptura', 
+--	   convert(CHAR,sc.DataTerminoUltimaCaptura,103) as 'DataTerminoUltimaCaptura',
+--	   sc.CapturarDistribuicao,
+	   p.IdEquipamentoProcessamento,
+	   p.Comarca,
+	   p.Vara,
+	   p.Forum,
+	   p.OrgaoJulgador, 
+	   sc.CriadoEm
+  from Processo p
+  join StatusProcesso sp on sp.Id = p.IdStatus
+  join SolicitacaoCaptura sc on sc.Id = p.IdSolicitacaoCaptura
+  join StatusSolicitacaoCaptura ssc on ssc.Id = sc.IdStatus
+where sc.CriadoEm >= '2020-10-21'
+
+-- MOVIMENTOPROCESSO -- movimentacoes dos processos
+select * 
+  from processomovimento pm
+ where pm.numero = '0010220-06.2020.8.16.0044'
+ 
+
+-- PROCESSOPARTES -- partes e seus respectivos advogados
+select pp.criadoEm,
+       pp.id, 
+       pp.IdProcesso, 
+	   ppa.IdProcessoParte, 
+       pp.Nome, 
+	   pp.Qualificacao, 
+	   pa.id, 
+	   ppa.IdProcessoAdvogado, 
+	   pa.Nome, 
+	   pa.Qualificacao,
+	   pa.OAB
+  from ProcessoParte pp
+  left join ProcessoParteAdvogado ppa on ppa.IdProcessoParte = pp.Id
+  left join ProcessoAdvogado pa on pa.Id = ppa.IdProcessoAdvogado
+where pp.IdProcesso in
+
+--delete from ProcessamentoCaptura where idEquipamentoProcessamento = 26 and DataTermino is null
+

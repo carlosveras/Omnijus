@@ -1,0 +1,5 @@
+
+
+select * from EquipamentoProcessamentoParametro
+where IdEquipamentoProcessamento = 26
+and Descricao = 'Posicao Imagem PJe V2'

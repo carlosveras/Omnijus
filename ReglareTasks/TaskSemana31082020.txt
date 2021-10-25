@@ -1,0 +1,364 @@
+gravar na tabela que o renato ira criar
+
+if (statusProcessamento == StatusProcesso.ProcessoDesmembrado || statusProcessamento == StatusProcesso.SemAtualizacaoDocumento)
+   {
+       processoCopia.AdicionarHistoricoStatus(loginSistema, statusProcessamento);
+
+       if (statusProcessamento == StatusProcesso.SemAtualizacaoDocumento)
+           processoCopia.AlterarStatusParaInconsistente(loginSistema, "Não Houve Atualização de Peças após a Ultima Captura.");
+
+       using (var transaction = _session.BeginTransaction())
+       {
+           _session.SaveOrUpdate(processoCopia);
+           transaction.Commit();
+       }
+
+   }
+   
+C:\Pastas de Trabalho\Projetos\Captura Dados Processo\Processos\chesf@oito.srv.br\Solicitacao000000437\Processos\00000019120205060001
+C:\Pastas de Trabalho\Projetos\Captura Dados Processo\Processos\chesf@oito.srv.br\Solicitacao000000437\Processos\00000019120205060001
+
+C:\Pastas de Trabalho\Projetos\Captura Dados Processo\Processos\chesf@oito.srv.br\Solicitacao000000764\Processos\01006117820205010010
+usuariosistema@usuariosistema.com.br
+------------------------------QUERYS AUXILIARES
+select p.id, 
+       p.IdSolicitacaoCaptura, 
+       p.Numero, 
+	   sc.IdEquipamentoProcessamento,
+	   p.IdTribunalJustica,
+	   p.IdStatus as 'StatusProcesso',  sp.Descricao as 'Descr. StatusProcesso', 
+	   sc.IdStatus as 'Status Captura', ssc.Descricao as 'Descr. StatusCaptura', 
+	   sc.DataTerminoUltimaCaptura,
+	   sc.CapturarDistribuicao,
+	   p.IdTecnologiaSite,
+	   ts.Descricao
+  from Processo p
+  join StatusProcesso sp on sp.Id = p.IdStatus
+  join SolicitacaoCaptura sc on sc.Id = p.IdSolicitacaoCaptura
+  join StatusSolicitacaoCaptura ssc on ssc.Id = sc.IdStatus
+  join TecnologiaSite ts on ts.Id = p.IdTecnologiaSite
+where p.Numero =  '0100533-02.2020.5.01.0005'
+
+
+
+and p.Numero =  '1000065-43.2020.5.02.0374'
+
+select * from Processo 
+-- where Numero = '0100533-02.2020.5.01.0005' -- 37728
+where Numero = '0100611-78.2020.5.01.0010'     
+
+--IdStatus = 2 and PossuiDocumetos is not null
+
+select hsp.id, hsp.IdProcesso, hsp.IdStatus, sp.Id, sp.Descricao 
+  from HistoricoStatusProcesso hsp
+  join StatusProcesso sp on sp.Id = hsp.IdStatus
+ where IdProcesso in (37728, 38258)  
+
+select * from StatusProcesso
+
+
+classe SumarioDocumentoModel
+
+------------------------------------------------------------------------------------------
+
+* * * Para amanha dia 02/09/2020 * * *
+
+TABELA PROCESSO 
+CRIAR COLUNA IDEQUIPAMENTOPROCESSAMENTO
+CRIAR RELACIONAMENTO COM EQUIPAMENTOPROCESSAMENTO
+
+PJEV2 --->> ALTERAR OU ATULIZAR DADOS DO PROCESSO ---> popular MAQUINA QUE ESTA PROCESSANDO
+
+equipamentoprocessamento parametro id 26.. exibirnavegador
+
+popular nova coluna com o idEquipamentoProcessamento
+
+---------------------------------------------------------------------------------------------
+
+
+pegar dado do cpf do advogado e popular a tabela.
+
+/html/body/pje-root/pje-detalhe-processo/div[6]/div[2]/div[2]/pje-parte-processo/section/ul/ul/li/small/span
+
+
+processo : 0100676-90.2020.5.01.0069
+
+elemento a procurar ---->>>>> cdk-describedby-message-11
+
+li/small/span
+
+
+<i _ngcontent-uky-c12="" 
+class="fa fa-user mr-10" 
+mattooltipposition="after" 
+style="touch-action: none; user-select: none;" 
+aria-describedby="cdk-describedby-message-11" 
+cdk-describedby-host=""></i>
+
+<div id="cdk-describedby-message-11">CPF: 081.501.407-43</div>
+
+xpath para pegar por classe
+.//*[contains(@class, 'fa fa-user mr-10')]
+.//*/i[contains(@class, 'fa fa-user mr-10')]
+
+//*[@id="cdk-describedby-message-container"]
+         cdk-describedby-message-container
+
+
+<div id="cdk-describedby-message-container" aria-hidden="true" style="display: none;">
+<div id="cdk-describedby-message-6">Dados do processo</div>
+<div id="cdk-describedby-message-7">Expedientes do processo</div>
+<div id="cdk-describedby-message-8">Baixar processo na íntegra</div>
+<div id="cdk-describedby-message-9">Próximo                  documento</div>
+<div id="cdk-describedby-message-10">Fechar dados do processo</div>
+<div id="cdk-describedby-message-11">CPF: 091.725.787-18</div>
+<div id="cdk-describedby-message-12">CPF: 008.377.147-61</div>
+</div>
+
+
+select p.id, 
+       p.IdSolicitacaoCaptura, 
+       p.Numero, 
+	   p.IdTribunalJustica,
+	   p.IdStatus as 'StatusProcesso',  sp.Descricao as 'Descr. StatusProcesso', 
+	   sc.IdStatus as 'Status Captura', ssc.Descricao as 'Descr. StatusCaptura', 
+	   convert(CHAR,sc.DataTerminoUltimaCaptura,103) as 'DataTerminoUltimaCaptura',
+	   sc.CapturarDistribuicao,
+	   p.IdEquipamentoProcessamento
+  from Processo p
+  join StatusProcesso sp on sp.Id = p.IdStatus
+  join SolicitacaoCaptura sc on sc.Id = p.IdSolicitacaoCaptura
+  join StatusSolicitacaoCaptura ssc on ssc.Id = sc.IdStatus
+where p.IdSolicitacaoCaptura in (786,790)
+--p.Numero = '0100698-41.2020.5.01.0040' ---> possui 6 advogados
+--'0100721-12.2020.5.01.0064'
+--'0100698-41.2020.5.01.0040'
+--'0100720-05.2020.5.01.0039'   ---p.IdSolicitacaoCaptura in (786,790)
+
+
+
+delete from ProcessamentoCaptura where idEquipamentoProcessamento = 26 and DataTermino is null
+
+_commonService.LocalizaXPath(polo, "i[@class='fa fa-user mr-10']")
+
+
+----------------------------------------------------------------------------------------------
+para debugar com o site aberto:
+na linha de comando --> cmd
+chrome.exe -remote-debugging-port=9014 --user-data-dir="D:\Selenium\Chrome_Test"
+
+firefox.exe -start-debugger-server 9222
+
+abrir a url : 
+https://pje.trt1.jus.br/consultaprocessual/detalhe-processo/0100721-12.2020.5.01.0064
+
+
+0002925-78.2012.5.02.0062
+0010434-69.2020.5.03.0024
+0010471-51.2020.5.03.0136
+0010488-87.2020.5.03.0136
+0010509-11.2020.5.03.0024
+0010510-26.2020.5.03.0014
+0010521-49.2020.5.03.0016
+0010521-49.2020.5.03.0113
+0010554-51.2020.5.03.0012
+0010556-15.2020.5.03.0014
+0010559-86.2020.5.03.0137
+0010588-79.2020.5.03.0059
+0010656-91.2020.5.03.0103
+0010698-43.2020.5.03.0103
+0010717-49.2020.5.03.0103
+0010828-04.2020.5.03.0048
+0010834-11.2020.5.03.0048
+0010840-18.2020.5.03.0048
+0010880-40.2020.5.03.0067
+0010885-60.2020.5.03.0100
+0010897-76.2020.5.03.0067
+0010913-87.2020.5.03.0048
+0010919-94.2020.5.03.0048
+0010942-40.2020.5.03.0048
+0100510-61.2020.5.01.0068
+0100515-09.2020.5.01.0028
+0100532-64.2020.5.01.0054
+0100532-77.2020.5.01.0082
+0100536-83.2020.5.01.0060
+0100558-76.2020.5.01.0017
+0100560-37.2020.5.01.0020
+0100569-69.2020.5.01.0223
+0100579-07.2020.5.01.0032
+0100586-85.2020.5.01.0068
+0100593-31.2020.5.01.0051
+0100593-83.2020.5.01.0551
+0100604-04.2020.5.01.0005
+0100613-80.2020.5.01.0064
+0100631-34.2020.5.01.0054
+0100632-85.2020.5.01.0032
+0100636-82.2020.5.01.0013
+0100639-44.2020.5.01.0043
+0100640-09.2020.5.01.0082
+0100642-63.2020.5.01.0054
+0100642-76.2020.5.01.0082
+0100664-14.2020.5.01.0025
+0100678-74.2020.5.01.0032
+0100682-97.2020.5.01.0069
+0100686-72.2020.5.01.0025
+0100700-35.2020.5.01.0032
+0100700-56.2020.5.01.0025
+0100705-41.2020.5.01.0005
+0100706-28.2020.5.01.0069
+0100713-65.2020.5.01.0054
+0100811-56.2020.5.01.0343
+0100847-04.2020.5.01.0342
+0100887-83.2020.5.01.0342
+0100887-86.2020.5.01.0341
+0100893-90.2020.5.01.0342
+1000277-34.2016.5.02.0203
+1000356-43.2020.5.02.0374
+1000667-80.2020.5.02.0391
+1000693-72.2020.5.02.0005
+1000694-76.2020.5.02.0322
+1000722-72.2020.5.02.0054
+1000724-02.2020.5.02.0714
+1000727-47.2020.5.02.0005
+1000727-66.2020.5.02.0322
+1000730-09.2020.5.02.0714
+1000739-56.2020.5.02.0718
+1000743-87.2020.5.02.0041
+1000745-69.2020.5.02.0716
+1000754-77.2020.5.02.0054
+1000766-63.2020.5.02.0031
+1000768-21.2020.5.02.0714
+1000773-37.2020.5.02.0716
+1000775-19.2020.5.02.0712
+1000779-47.2020.5.02.0036
+1000785-07.2020.5.02.0084
+1000789-94.2020.5.02.0714
+1000794-13.2020.5.02.0716
+1000798-68.2020.5.02.0322
+1000799-84.2020.5.02.0053
+1000806-27.2020.5.02.0716
+1000808-97.2020.5.02.0036
+1000814-95.2020.5.02.0718
+1000819-75.2020.5.02.0053
+1000822-84.2020.5.02.0714
+1000826-56.2020.5.02.0089
+1000827-88.2020.5.02.0041
+1000833-22.2020.5.02.0712
+1000836-50.2020.5.02.0041
+1000841-05.2020.5.02.0322
+1000841-93.2020.5.02.0713
+1000843-96.2020.5.02.0314
+1000844-48.2020.5.02.0713
+1000847-90.2020.5.02.0005
+1000848-47.2020.5.02.0467
+1000850-49.2020.5.02.0036
+1000853-04.2020.5.02.0715
+1000857-56.2020.5.02.0031
+1000861-63.2020.5.02.0041
+1000865-13.2020.5.02.0070
+1000865-24.2020.5.02.0713
+1000867-38.2020.5.02.0084
+1000868-12.2020.5.02.0314
+1000868-55.2020.5.02.0041
+1000869-61.2020.5.02.0713
+1000873-89.2020.5.02.0716
+1000874-51.2020.5.02.0465
+1000877-56.2020.5.02.0319
+1000878-20.2020.5.02.0714
+1000883-38.2020.5.02.0004
+1000887-67.2020.5.02.0718
+1000895-53.2020.5.02.0715
+1000906-87.2020.5.02.0002
+1000908-91.2020.5.02.0605
+1000921-56.2020.5.02.0002
+1000927-04.2020.5.02.0054
+1000930-09.2020.5.02.0005
+1000930-63.2020.5.02.0084
+1000939-38.2020.5.02.0015
+1000939-55.2020.5.02.0074
+1000939-69.2020.5.02.0037
+1000943-97.2020.5.02.0719
+1000945-25.2020.5.02.0054
+1000954-76.2020.5.02.0089
+1000957-35.2020.5.02.0605
+1000966-30.2020.5.02.0012
+1000968-34.2020.5.02.0712
+1001022-36.2020.5.02.0603
+1001038-81.2020.5.02.0605
+1001044-94.2020.5.02.0603
+1001066-55.2020.5.02.0603
+1001072-62.2020.5.02.0603
+1001077-84.2020.5.02.0603
+1001115-81.2020.5.02.0608
+1001119-33.2020.5.02.0604
+1001123-58.2020.5.02.0608
+1001129-80.2020.5.02.0603
+1001147-86.2020.5.02.0608
+1001149-50.2020.5.02.0610
+1001169-59.2020.5.02.0604
+1001171-32.2020.5.02.0603
+1001178-09.2020.5.02.0608
+1001199-79.2020.5.02.0609
+1001229-32.2020.5.02.0604
+1001257-97.2020.5.02.0604
+
+
+
+
+
+
+
+
+-------------------- 09/09/20
+achou
+
+elemento.FindElement(By.Id("cdk-describedby-message-11")).GetAttribute("textContent")
+
+
+//input[contains(@id, 'cdk-describedby-message-container']
+
+.//li//small["@class='partes-representante'"]//i
+
+.//li//small["@class='partes-representante'"]//span
+
+linha 1647:
+var divX = _commonService.LocalizaXPath(objetoAdvogado, "li//small[@class='partes-representante']//i");
+
+select pp.id, 
+       pp.IdProcesso, 
+       pp.Nome, 
+	   pp.Qualificacao, 
+	   pa.Nome, 
+	   pa.Qualificacao,
+	   pa.Documento,
+	   p.Numero,
+	   sp.Id,
+	   sp.Descricao,
+	   p.IdSolicitacaoCaptura,
+	   p.IdTribunalJustica
+  from ProcessoParte pp
+  join ProcessoParteAdvogado ppa on ppa.IdProcessoParte = pp.Id
+  join ProcessoAdvogado pa on pa.Id = ppa.IdProcessoAdvogado
+  join Processo p on p.Id = pp.IdProcesso
+  join StatusProcesso sp on sp.Id = p.IdStatus
+where pa.Documento is not null;
+
+
+
+
+
+https://pje.trt1.jus.br/consultaprocessual/detalhe-processo/0100691-33.2020.5.01.0013
+
+
+
+
+
+
+
+
+
+
+
+
+
+

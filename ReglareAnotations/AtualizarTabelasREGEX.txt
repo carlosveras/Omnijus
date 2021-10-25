@@ -1,0 +1,37 @@
+select * from SolicitacaoLocalizacao
+
+INSERT INTO SolicitacaoLocalizacao (CriadoEm, CriadoPor, AlteradoEm, AlteradoPor, Descricao, IdStatus)
+VALUES (GETDATE(), 1021, GETDATE(), 1021, 'Poc EXPRESSO VERA CRUZ LTDA', 1);
+
+select * from TermoLocalizacao
+
+INSERT INTO TermoLocalizacao (CriadoEm, CriadoPor, AlteradoEm, AlteradoPor, IdSolicitacaoLocalizacao, Termo, Sequencia, Ativo, BaixarCopia, CapturarMovimento)
+VALUES (GETDATE(), 1021, GETDATE(), 1021, 4, 'EXPRESSO VERA CRUZ', 1, 1, 0, 1);
+
+select * from TermoExpressaoRegular
+
+INSERT INTO TermoExpressaoRegular (CriadoEm, CriadoPor, AlteradoEm, AlteradoPor, IdTermoLocalizacao, Expressao, Afirmacao, Sequencia, Ativo)
+VALUES (GETDATE(), 1021, GETDATE(), 1021, 6, '\bEXPRESSO\b.{0,20}\bVERA\b.{0,20}\bCRUZ\b.{0,20}\bLTDA', 1, 1, 1);
+
+insert into TermoTribunal values (getdate(),1021,null,null,6,5022,17,1)
+
+-----------------------------------------------------------------------------
+
+select * from TermoExpressaoRegular
+
+select * from TermoTribunal
+
+insert into TermoTribunal values (getdate(),1021,null,null,6,5022,17,1)
+
+update TermoExpressaoRegular 
+	set Expressao = '\bFAP\b.{0,20}\bTELECOM\b.{0,20}'
+  where id = 22
+
+
+update SolicitacaoLocalizacao 
+	set Descricao = 'Poc FAP'
+  where id = 4
+
+update TermoLocalizacao 
+	set Termo = 'FAP TELECOM'
+  where id = 6

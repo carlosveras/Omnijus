@@ -1,0 +1,170 @@
+
+cartao santander 2113 
+chave IBS
+
+Severity	Code	Description	Project	File	Line	Suppression State
+Error	NETSDK1045	The current .NET SDK does not support targeting .NET Core 2.2.  
+Either target .NET Core 2.1 or lower, 
+or use a version of the .NET SDK that supports .NET Core 2.2.	
+CapturarComarcas	
+
+folder processamento
+C:\Pastas de Trabalho\Projetos\Processos\Processamento\782BCBED96BD\11712\102040
+
+https://tarunlalwani.com/post/reusing-existing-browser-session-selenium-csharp/
+
+
+--- alterar para 1 apos testes com desmembrarArquivo
+
+
+update EquipamentoProcessamentoTribunal
+set Ativo = 0
+where id = 3224
+
+
+---- processo modelo
+
+5006832-58.2021.8.08.0024
+
+----
+
+selects diversos
+select top 100 * 
+  from SolicitacaoCaptura sc
+order by id desc
+
+--where sc.IdEquipamentoProcessamento = 26
+
+insert into SolicitacaoCaptura values (GETDATE(),1,'Captura Distribuição - TJES - 0024 - 5000000 - MAQ-26',0,3,null,0,1,0,0,0,1,1,0,0,null,null,null)
+
+--- primeiro campo refere-se ao id da solicitacaocaptura gerado no insert acima
+insert into Processo values (1379,'9999999-00.2021.8.08.0024',5008,null,1,1,null,5220,20,
+null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,
+5310,0,null,0,null)
+
+select * from
+Processo p
+where IdSolicitacaoCaptura = 1379
+
+select * from SolicitacaoCaptura
+where id in (1379)
+
+update SolicitacaoCaptura
+set QuantidadeProcessos = 0, IdStatus = 3
+where id = 1379
+
+select * from StatusSolicitacaoCaptura
+
+select * 
+  from Processo p
+where p.IdSolicitacaoCaptura = 1379
+
+select * from 
+StatusProcesso
+
+select * from ProcessamentoCaptura
+order by id desc
+
+delete ProcessamentoCaptura where id in (102238)
+
+select * from ForumFaixaNumeroProcesso
+order by id desc
+
+--insert into ForumFaixaNumeroProcesso
+--values (GETDATE(),1,NULL,NULL,3925,	1,	1,	1,	5000000,	5220,	1,	3)
+
+select * from ForumTribunal where id = 3925
+
+5319	2020-11-12 00:25:05.680	1	NULL	NULL	3931	1	1	1	5000000	5220	1	3
+
+--insert into ForumTribunal
+--values (GETDATE(),1,NULL,NULL,5008,24,'Nome Forum 0024','Comarca Forum 0024',1)
+
+select * from ForumTribunal
+order by id desc
+
+select * 
+  from Processo p
+where IdSolicitacaoCaptura = 1379
+
+select * from TecnologiaSite
+
+select * from InstanciaTribunal
+where IdTribunal = 5008
+
+insert into InstanciaTribunal
+--values(5008,'Login','https://sistemas.tjes.jus.br/pje/',0,1,NULL,20,1,'68.0.2 (32-bits)',NULL)
+values  (5008,'Login','https://sistemas.tjes.jus.br/pje/',1,1,NULL,5,1,'68.0.2 (32-bits)',NULL)
+
+select * 
+  from InstanciaTribunal
+where IdTribunal = 5008
+order by id
+--where IdTecnologiaSite = 20
+
+update InstanciaTribunal
+set 
+--SequenciaProcessamento = 1, 
+--Situacao = 1, 
+--IdTecnologiaSite = 20, 
+VersaoNavegadorWeb = '68.0.2 (32-bits)'
+where id = 5248 
+
+select *
+  from UsuarioAcesso
+where IdTribunal = 5008
+
+insert 
+into UsuarioAcesso
+values(1,5008,'94120510263','tcs0708*',5323)
+
+select * 
+  from Processo p
+where IdSolicitacaoCaptura = 1379
+
+select *
+  from SolicitacaoCaptura
+where id = 1379
+
+select * 
+  from EquipamentoProcessamentoParametro
+where IdEquipamentoProcessamento  = 26
+
+select * from Usuario
+
+--- procedimento para gerar processos
+
+
+--- para continuar dia 13-05-2021
+
+
+select * from HistoricoStatusProcesso
+where IdProcesso = 145270
+
+select * from Processo p
+where id = 145270
+
+delete from HistoricoStatusProcesso
+where id = 810851
+
+caminho pastas:
+C:\Pastas de Trabalho\Projetos\Processos\usuariosistema@usuariosistema.com.br\Solicitacao000001379\Processos\50068325820218080024
+
+C:\Pastas de Trabalho\Projetos\Processos\usuariosistema@usuariosistema.com.br\Solicitacao000001379\Processos\50068325820218080024\Desmembramento
+
+
+GerenciarFisicoService.cs
+linha : 694
+
+
+Certidão - Conferência Inicial
+50068325820218080024_000016ate000016_Certidão___Conferência_Inicial_Certidão___Conferência_Inicial
+
+-- arquivos alterados para controle
+
+C:\Reglare\capturadadosprocesso\capturadadosprocesso\src\domain\Facade\Services\GerenciarFisicoService.cs
+
+C:\Reglare\capturadadosprocesso\capturadadosprocesso\src\domain\Facade\Services\DesmembrarArquivoService.cs
+
+
+

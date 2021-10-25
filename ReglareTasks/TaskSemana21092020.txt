@@ -1,0 +1,452 @@
+Projeto startup --- > CapturarDistribuicao
+
+Tarefa processamento tribunal SC
+
+Tecnologia Eproc -- TecnologiaEProcService
+
+Processos envolvidos:
+
+F:\Projetos\ReglareSolution\capturadadosprocesso\src\apps\CapturarDistribuicao\Program.cs
+
+F:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\CapturarDistribuicaoService.cs
+
+F:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\TecnologiaEProcService.cs
+
+
+inserir parametro na tabela EquipamentoProcessamentoTribunal:
+
+INSERT INTO EquipamentoProcessamentoTribunal 
+(CriadoEm,CriadoPor,AlteradoEm,AlteradoPor,IdEquipamentoProcessamento,IdTribunal,IdCliente,Sequencia,QuantidadeTask,Ativo,IdTecnologiaSite,BaixarCopia,CapturarDado,CapturarMovimento,CapturarDistribuicao,ManterLogin,CopiaDocumentoUnico)
+VALUES (GETDATE(),1,NULL,NULL,26,2,NULL,5,6,0,2,1,0,0,1,1,1)
+
+inserir parametro na tabela EquipamentoProcessamentoParametro:
+
+INSERT INTO EquipamentoProcessamentoParametro (CriadoEm,CriadoPor,AlteradoEm,AlteradoPor,IdEquipamentoProcessamento,Descricao,Valor)
+VALUES(GETDATE(),1,NULL,NULL,26,'Posicao Imagem TJRJ','-60#0#0#0')
+-----------------------------------------------------------------------
+select p.id, 
+       p.IdSolicitacaoCaptura, 
+       p.Numero, 
+	   p.IdTribunalJustica,
+	   p.IdStatus as 'StatusProcesso',  sp.Descricao as 'Descr. StatusProcesso', 
+	   sc.IdStatus as 'Status Captura', ssc.Descricao as 'Descr. StatusCaptura', 
+	   convert(CHAR,sc.DataTerminoUltimaCaptura,103) as 'DataTerminoUltimaCaptura',
+	   sc.CapturarDistribuicao,
+	   p.IdEquipamentoProcessamento
+  from Processo p
+  join StatusProcesso sp on sp.Id = p.IdStatus
+  join SolicitacaoCaptura sc on sc.Id = p.IdSolicitacaoCaptura
+  join StatusSolicitacaoCaptura ssc on ssc.Id = sc.IdStatus
+where p.IdSolicitacaoCaptura = 761
+--and p.Numero =  '1000065-43.2020.5.02.0374'
+
+select top 100 * from processo
+
+
+select sc.Id, sc.CriadoEm, sc.Descricao, sc.IdStatus, 
+       ssc.Descricao, sc.DataTerminoUltimaCaptura, 
+	   sc.CapturarDistribuicao,
+	   sc.DataUltimoProcessamento, sc.IdEquipamentoProcessamento
+  from SolicitacaoCaptura sc
+  join StatusSolicitacaoCaptura ssc on ssc.Id = sc.IdStatus
+  where sc.DataTerminoUltimaCaptura >= '2020-09-29' and sc.DataTerminoUltimaCaptura <= '2020-09-29 23:59:59'
+
+(select sc.Id 
+  from SolicitacaoCaptura sc
+  where sc.DataTerminoUltimaCaptura >= '2020-09-29' and sc.DataTerminoUltimaCaptura <= '2020-09-29 23:59:59')
+
+select p.Id,
+       p.IdSolicitacaoCaptura,
+	   p.Numero,
+	   p.IdTribunalJustica,
+	   p.Forum,
+	   p.Vara,
+	   p.Comarca,
+	   p.UF,
+	   p.Classe,
+	   p.Area,
+	   p.Assunto,
+	   p.Distribuicao,
+	   p.ValorAcao,
+	   p.Juiz
+  from Processo p
+where p.IdSolicitacaoCaptura in
+(select sc.Id
+  from SolicitacaoCaptura sc
+  where sc.DataTerminoUltimaCaptura >= '2020-09-29' and sc.DataTerminoUltimaCaptura <= '2020-09-29 23:59:59')
+and p.Comarca is not null
+-----and p.Vara is not null
+----- 1738 registros no total
+----- 47 com dados completos
+
+--select top 1000 * from Processo where Forum is not null
+
+------------------------------------------------------------------------
+29570633875
+Elaw@TICrobot777
+
+https://eproc1g.tjsc.jus.br/eproc/
+
+Juiz(a): Histórico Juizo ALINE MENDES DE GODOY
+
+TRADICIONAL PIZZA SOMENTE TELE ENTREGA EIRELI   (29.635.594/0001-99)  - Pessoa Jurídica
+
+ANDREIA LUDWIG           SC039924    <-- advogado
+ADRIANO DE MELLO OCHOA   PR071738    <-- advogado
+
+EXEQUENTE	EXECUTADO
+AUTOR	    ACUSADO
+AUTOR	    RÉU
+REQUERENTE	REQUERIDO
+
+fldPartes --- div partes -- contain os dados das partes 
+
+fldCapa   --- div capa do processo -- contain os dados do juiz
+
+tblPartesERepresentantes
+
+id=carregarOutrosR
+#carregarOutrosR > a:nth-child(1) > img:nth-child(1)
+infra_css/imagens/ver_tudo.gif
+
+
+------------------------------------------------------
+//*[@id="fldAssuntos"]/div/table/tbody/tr/td[2]
+
+//*[@id="fldInformacoesAdicionais"]/div/table/tbody/tr[7]/td[4]
+
+//td//label[contains(text(),'Valor da Causa:')]
+
+//td//label[contains(text(),'Valor da Causa:')]//following::td//label//a//img
+
+//*[@id="tblPartesERepresentantes"]//td//span
+
+
+*//span[@class='infraNomeParte']
+
+
+pega todos os span
+.//table[@id='tblPartesERepresentantes']//tr[2]//span
+
+//*[@id='tblPartesERepresentantes']//tbody/tr[@class="infraTrClara"]/td[2]/span
+
+pega so os dados da parte
+//*[@id="tblPartesERepresentantes"]//tbody/tr/td[1]/span
+
+
+------------------------------------------------------
+pega assuntos
+//*[@summary='Assuntos']/tbody/tr
+
+------------------------------------------------------
+area do processo
+//*[@id='divInfraAreaProcesso']
+
+------------------------------------------------------
+REGISTRO INSERIDO NA TABELA TERMOTRIBUNALPROCESSO.....
+
+insert into termotribunal values (getdate(),1021,null,null,5,1002,16,1)
+REGISTRO GEROU O ID ----> 24
+------------------------------------------------------
+
+PROCESSOs COM VARIOS ADVOGADOS 50037665420208240026 - 5031796-63.2020.8.24.0038 - 5002339-66.2020.8.24.0076
+
+
+PROCESSO COM VARIAS PARTES  --- 5014855-57.2020.8.24.0064
+
+PROCESSOS COM 15 LINHAS NA MOVIMENTACAO ---> 50333408620208240038 -- 00001062820208240030
+
+PROCESSO COM 18 LINHAS NA MOVIMENTACAO ----> 50246072720208240008
+
+PROCESSO COM 25 LINHAS NA MOVIMENTACAO ----> 50146399620208240064
+
+PROCESSO COM 21 LINHAS NA MOVIMENTACAO ----> 50113651420208240036
+
+PROCESSO COM PROCESSOS RELACIONADOS -------> 50089465320208240090
+
+
+5004186-34.2020.8.24.0002  <---- processo tem outras partes escondidas
+
+50041863420208240002
+
+50139763320208240005 <--- processo tem ministerio publico na tabela
+
+50139841020208240005 <--- sem nome parte
+------------------------------------------------------
+
+string[] frases {
+"Juízo do Juizado Especial Cível e Criminal da Comarca de Brusque",
+"Juízo da 1ª Vara Cível da Comarca de Balneário Camboriú",
+"Juízo da 1º Juizado Especial Cível da Comarca de Balneário Camboriú",
+"Juízo da 1º Juizado Especial Cível da Comarca de Chapecó",
+"Juízo da 1º Juizado Especial Cível da Comarca de Joinville",
+"Juízo da 2ª Vara Cível da Comarca de Chapecó",
+"Juízo da 2ª Vara Cível da Comarca de Jaraguá do Sul",
+"Juízo da 2º Juizado Especial Cível da Comarca de Balneário Camboriú",
+"Juízo da 2º Juizado Especial Cível da Comarca de Blumenau",
+"Juízo da 3ª Vara Cível da Comarca de Balneário Camboriú",
+"Juízo da 3ª Vara Cível da Comarca de Chapecó",
+"Juízo da 4ª Vara Cível da Comarca de Balneário Camboriú",
+"Juízo da Vara Cível da Comarca de Brusque",
+"Juízo do Juizado Especial Cível da Comarca de São José", 
+"Juízo do Juizado Especial Cível da Comarca de Tubarão",
+"Juízo do Juizado Especial Cível do Norte da Ilha",
+"Juízo do Juizado Especial Cível e Criminal da Universidade Federal de Santa Catarina",
+"Juízo Titular da 3ª Vara Cível da Comarca de Florianópolis"}
+
+------------------------------------------------------
+
+justiça gratuita : 
+
+Não requerida
+Requerida
+Deferida
+
+
+logarsite
+capturar
+processarinstancia
+pesquisarprocessoterceiro
+
+  select p.id, 
+       p.IdSolicitacaoCaptura, 
+       p.Numero, 
+	   p.IdTribunalJustica,
+	   p.IdStatus as 'StatusProcesso',  sp.Descricao as 'Descr. StatusProcesso', 
+	   sc.IdStatus as 'Status Captura', ssc.Descricao as 'Descr. StatusCaptura', 
+	   convert(CHAR,sc.DataTerminoUltimaCaptura,103) as 'DataTerminoUltimaCaptura',
+	   sc.CapturarDistribuicao,
+	   p.IdEquipamentoProcessamento
+  from Processo p
+  join StatusProcesso sp on sp.Id = p.IdStatus
+  join SolicitacaoCaptura sc on sc.Id = p.IdSolicitacaoCaptura
+  join StatusSolicitacaoCaptura ssc on ssc.Id = sc.IdStatus
+--where --p.IdSolicitacaoCaptura = 761
+where p.Numero in  
+-- ('5004186-34.2020.8.24.0002')
+('5014438-07.2020.8.24.0064',
+'5024478-22.2020.8.24.0008',
+'5003766-54.2020.8.24.0026',
+'5008957-30.2020.8.24.0075',
+'5002304-09.2020.8.24.0076',
+'5008861-67.2020.8.24.0090',
+'5008924-92.2020.8.24.0090',
+'5008980-73.2020.8.24.0075',
+'5063753-30.2020.8.24.0023',
+'5008897-12.2020.8.24.0090',
+'5031796-63.2020.8.24.0038',
+'5011365-14.2020.8.24.0036',
+'5014639-96.2020.8.24.0064',
+'5005019-51.2020.8.24.0067',
+'5024607-27.2020.8.24.0008',
+'5002974-22.2020.8.24.0052',
+'5032121-38.2020.8.24.0038',
+'5002338-81.2020.8.24.0076',
+'5008946-53.2020.8.24.0090',
+'5013980-70.2020.8.24.0005',
+'5002339-66.2020.8.24.0076',
+'5003913-31.2020.8.24.0010',
+'5002327-52.2020.8.24.0076',
+'5003812-43.2020.8.24.0026',
+'5002325-82.2020.8.24.0076',
+'5014710-98.2020.8.24.0064',
+'5008968-14.2020.8.24.0090',
+'5002119-49.2020.8.24.0050',
+'5014795-84.2020.8.24.0064',
+'5002728-45.2020.8.24.0078',
+'5004700-77.2020.8.24.0069',
+'5032310-16.2020.8.24.0038',
+'5014855-57.2020.8.24.0064',
+'5002364-79.2020.8.24.0076',
+'5009216-25.2020.8.24.0075',
+'5003119-18.2020.8.24.0072',
+'5032495-54.2020.8.24.0038',
+'5014861-64.2020.8.24.0064',
+'5004395-54.2020.8.24.0082',
+'5015200-98.2020.8.24.0039',
+'5015226-56.2020.8.24.0020',
+'5009340-06.2020.8.24.0011',
+'5024941-61.2020.8.24.0008',
+'5019200-62.2020.8.24.0033',
+'5002386-40.2020.8.24.0076',
+'5019203-17.2020.8.24.0033',
+'5009086-87.2020.8.24.0090',
+'5024978-88.2020.8.24.0008',
+'5032728-51.2020.8.24.0038',
+'5015328-78.2020.8.24.0020',
+'5014989-84.2020.8.24.0064',
+'5014977-70.2020.8.24.0064',
+'5014991-54.2020.8.24.0064',
+'5000885-38.2020.8.24.0242',
+'5002762-20.2020.8.24.0078',
+'5003759-14.2020.8.24.0139',
+'5007167-82.2020.8.24.0019',
+'5001462-71.2020.8.24.0159',
+'5009338-38.2020.8.24.0075',
+'5033013-44.2020.8.24.0038',
+'5019441-36.2020.8.24.0033',
+'5020420-43.2020.8.24.0018',
+'5002405-46.2020.8.24.0076',
+'5002408-98.2020.8.24.0076',
+'5020393-60.2020.8.24.0018',
+'5032978-84.2020.8.24.0038',
+'5002409-83.2020.8.24.0076',
+'5004209-60.2020.8.24.0040',
+'5033197-97.2020.8.24.0038',
+'5002410-68.2020.8.24.0076',
+'5002417-60.2020.8.24.0076',
+'5009379-57.2020.8.24.0090',
+'5006357-87.2020.8.24.0058',
+'5002411-53.2020.8.24.0076',
+'0000106-28.2020.8.24.0030',
+'5015140-50.2020.8.24.0064',
+'5033340-86.2020.8.24.0038',
+'5002422-82.2020.8.24.0076',
+'5002423-67.2020.8.24.0076',
+'5002424-52.2020.8.24.0076',
+'5004190-71.2020.8.24.0002',
+'5009468-80.2020.8.24.0090',
+'5009501-70.2020.8.24.0090',
+'5002815-98.2020.8.24.0078',
+'5011802-28.2020.8.24.0045',
+'5001559-58.2020.8.24.0034',
+'5002104-20.2020.8.24.0167',
+'5019878-77.2020.8.24.0033',
+'5020871-68.2020.8.24.0018',
+'5012125-60.2020.8.24.0036',
+'5034097-80.2020.8.24.0038',
+'5025839-74.2020.8.24.0008',
+'5002692-91.2020.8.24.0081',
+'5003982-15.2020.8.24.0026',
+'5009741-59.2020.8.24.0090')
+
+--------------------------------------------------------------
+(50144380720208240064
+50244782220208240008
+50037665420208240026
+50089573020208240075
+50023040920208240076
+50088616720208240090
+50089249220208240090
+50089807320208240075
+50637533020208240023
+50088971220208240090
+50317966320208240038
+50113651420208240036
+50146399620208240064
+50050195120208240067
+50246072720208240008
+50029742220208240052
+50321213820208240038
+50023388120208240076
+50089465320208240090
+50139807020208240005
+50023396620208240076
+50039133120208240010
+50023275220208240076
+50038124320208240026
+50023258220208240076
+50147109820208240064
+50089681420208240090
+50021194920208240050
+50147958420208240064
+50027284520208240078
+50047007720208240069
+50323101620208240038
+50148555720208240064
+50023647920208240076
+50092162520208240075
+50031191820208240072
+50324955420208240038
+50148616420208240064
+50043955420208240082
+50152009820208240039
+50152265620208240020
+50093400620208240011
+50249416120208240008
+50192006220208240033
+50023864020208240076
+50192031720208240033
+50090868720208240090
+50249788820208240008
+50327285120208240038
+50153287820208240020
+50149898420208240064
+50149777020208240064
+50149915420208240064
+50008853820208240242
+50027622020208240078
+50037591420208240139
+50071678220208240019
+50014627120208240159
+50093383820208240075
+50330134420208240038
+50194413620208240033
+50204204320208240018
+50024054620208240076
+50024089820208240076
+50203936020208240018
+50329788420208240038
+50024098320208240076
+50042096020208240040
+50331979720208240038
+50024106820208240076
+50024176020208240076
+50093795720208240090
+50063578720208240058
+50024115320208240076
+00001062820208240030
+50151405020208240064
+50333408620208240038
+50024228220208240076
+50024236720208240076
+50024245220208240076
+50041907120208240002
+50094688020208240090
+50095017020208240090
+50028159820208240078
+50118022820208240045
+50015595820208240034
+50021042020208240167
+50198787720208240033
+50208716820208240018
+50121256020208240036
+50340978020208240038
+50258397420208240008
+50026929120208240081
+50039821520208240026
+50097415920208240090)
+
+
+nao foi possivel atualizar final do processamento... <- procurar no codigo
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

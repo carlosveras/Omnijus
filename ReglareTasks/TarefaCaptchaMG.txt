@@ -1,0 +1,173 @@
+
+Tarefa para colocar a 
+Captcha correta no Tribunal de Minas Gerais
+
+
+4002	Tribunal de Justiça de Minas Gerais	TJMG	Minas Gerais	MG	5	PJE TJ	https://pje.tjmg.jus.br/pje/
+
+tecnologia: PJE TJ
+
+
+3239	4002	1	5	PJE TJ	Tribunal de Justiça de Minas Gerais	MG	TJMG
+
+
+----- Xpaths
+
+id da imagem
+//*[@id="rc-imageselect"]
+
+id botao verficar imagem
+//*[@id="recaptcha-verify-button"]
+
+--------- valores parametro antigo
+Id	CriadoEm	            CriadoPor AlteradoEm	AlteradoPor	IdEquipamentoProcessamento	Descricao	            Valor
+159	2020-12-03 17:00:22.757	1	      NULL    	    NULL	    26	                        Posicao Imagem PJETJ	760#200#400#500
+
+
+INSERT 
+  INTO EquipamentoProcessamentoParametro
+(CriadoEm,CriadoPor,AlteradoEm,AlteradoPor,IdEquipamentoProcessamento,Descricao,Valor)
+VALUES (GETDATE(),1,NULL,NULL,26,'Tentativas Desafio Captcha','10')
+
+INSERT 
+  INTO ParametroSistema
+(Id,Descricao,Valor)
+VALUES (2,'Tentativas Desafio Captcha','10')
+
+
+
+---- urls mais acessadas:
+
+https://pje.tjmg.jus.br/pje/Processo/ConsultaProcesso/listView.seam
+
+
+
+
+
+//*[@id="recaptcha-verify-button"] --> Verificar --> Pular --> Avancar
+
+
+
+
+---- selects mais usados:
+
+Parametros equipamento:
+select *
+  from EquipamentoProcessamentoParametro
+ where idEquipamentoProcessamento = 26
+
+Equipamento setado para rodar no tribunal X:
+select * 
+  from EquipamentoProcessamentoTribunal
+ where idEquipamentoProcessamento = 26
+
+
+Verifica tribunais e seus parametros:
+select it.IdTribunal,
+	it.Descricao,
+     it.URL,
+	 tnw.Descricao,
+	 ts.Descricao,
+	 it.Descricao
+from InstanciaTribunal it
+join TipoNavegadorWeb tnw on tnw.id = it.IdTipoNavegador
+join TecnologiaSite ts on ts.id = it.IdTecnologiaSite
+order by IdTribunal
+
+Verifica o parametro do sistema:
+Select *
+  from ParametroSistema
+ where Descricao like 'Tentativas%'
+
+update EquipamentoProcessamentoParametro
+   set Valor = 10
+where id = 161
+
+select ept.Id,
+       ept.IdEquipamentoProcessamento,
+       ept.IdTribunal,
+	   ept.Ativo,
+	   ept.IdTecnologiaSite
+  from EquipamentoProcessamentoTribunal ept
+ where idEquipamentoProcessamento = 26
+ order by ept.IdTribunal
+
+
+update EquipamentoProcessamentoTribunal
+  set Ativo = 1 
+where id = 3239
+
+
+
+//IWebElement imagemCaptcha = driver.FindElement(By.Id("rc-imageselect"));
+
+
+---- id -- > g-recaptcha-response
+-----id ---> recaptcha-verify-button
+---- id -- > rc-imageselect
+
+
+---- ClassName --- > g-recaptcha   ------------ OK
+
+
+---- Id -----------> g-recaptcha-response ----- OK
+
+----- Id ----------> recaptcha-verify-button -- OK 
+
+----- ClassName ---> rc-controls -------------- OK
+
+---- codigo antigo 
+
+//IWebElement btnEnviar = _browserService.ElementVerify(navegador, "Id", "recaptcha-verify-button", "ElementExists", null);
+//if (btnEnviar == null)
+//    return capturado;
+
+//btnEnviar.Click();
+//System.Threading.Thread.Sleep(1000);
+
+//IWebElement divPesquisar = _browserService.ElementVerify(navegador, "Id", "j_id142_header", "ElementIsVisible", new TimeSpan(0, 0, 10));
+//if (divPesquisar != null)
+//{
+//    tentativaAtual = tentativasDesafio + 1;
+//    desafioResolvido = true;
+//    //return desafioResolvido;
+//}
+////else if (tentativaAtual == tentativasDesafio)
+////{
+////    tentativaAtual++;
+////    capturado = false;
+////    driver.Close();
+////    driver.Dispose();
+////    throw new Exception(@"limite de tentativas desafio excedido");
+////}
+
+----
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

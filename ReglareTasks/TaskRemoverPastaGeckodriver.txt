@@ -1,0 +1,3 @@
+
+
+https://stackoverflow.com/questions/47999568/selenium-how-to-stop-geckodriver-process-impacting-pc-memory-without-calling/48003289#48003289

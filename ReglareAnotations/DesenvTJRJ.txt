@@ -1,0 +1,11 @@
+
+https://www3.tjrj.jus.br/segweb/faces/login.jsp?indGet=true&SIGLASISTEMA=PORTALSERVICOS
+
+
+https://www3.tjrj.jus.br/segweb/faces/login.jsp?indGet=true&SIGLASISTEMA=PORTALSERVICOS
+
+
+
+login: 41391654803 
+pwd  : omnijus
+

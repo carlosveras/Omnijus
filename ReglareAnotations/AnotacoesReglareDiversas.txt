@@ -1,0 +1,258 @@
+
+-----------------------------------------------------------------
+Para cada solicitacao captura nos temos varias 
+processamentocaptura
+
+select * from SolicitacaoCaptura where id = 761
+select * from ProcessamentoCaptura where IdSolicitacaoCaptura = 761
+
+-----------------------------------------------------------------
+SQLExpress
+<add name="Default" connectionString="Password=Captura909;Persist Security Info=True;User ID=admin; Initial Catalog=dadosprocesso; Data Source=dadosprocesso.ce2r3zcydgft.us-east-2.rds.amazonaws.com" providerName="MySql.Data.MySqlClient" />
+
+/reunioes diarias
+meet.google.com/anp-hzby-agn
+
+
+
+configurar:
+equipamentoprocessamento
+
+------------------------
+STARTUP PROJECT DEFAULT:
+capturardistribuicao
+
+------------------------
+
+Banco de Dados SQL Server
+Admin 
+Captura909
+
+
+capturadistribuicao na facade
+
+trt6
+
+--- tribunal 5022 -- TRT 6 --
+--- tribunal 2002 -- TRT 2 -- SAO PAULO
+1000020-39.2020.5.02.0374
+-------------------------------------------
+Login e senha TRT 6
+
+https://pje.trt6.jus.br/consultaprocessual/login
+
+29570633875
+Elaw@TICrobot777
+
+
+0000413-87.2020.5.06.0141
+-------------------------------------------
+https://pje.trt2.jus.br/consultaprocessual/login
+
+29570633875
+Elaw@TICrobot777
+
+0000003-20.2020.5.02.0374
+
+
+5001239-19.2020.8.13.0388
+
+------------------------------------------
+29570633875
+Elaw@TICrobot777
+
+login e senha para RO
+Usuario: 29570633875 e PWD: 29570633875
+
+login e senha para MT
+Usuário: TATIANASAMPAIO - Senha: 1234VERDE
+
+login e senha para TO
+Usuário SP262851 e senha: SP262851
+
+login e senha para MG
+https://projudi.tjmg.jus.br/projudi/ 
+Usuario OABSP262851  senha Elaw@TICrobot77
+
+----------------------------------------------
+Acesso OK!
+https://esaj.tjsp.jus.br/cpopg/open.do
+https://esaj.tjsp.jus.br/sajcas/login?service=https%3A%2F%2Fesaj.tjsp.jus.br%2Fesaj%2Fj_spring_cas_security_check
+29570633875
+Elaw@TICrobot777
+-----------------------------------------------
+Acesso OK!
+https://esaj.tjsc.jus.br/cpopg/open.do?gateway=true
+https://esaj.tjsc.jus.br/sajcas/login?service=https%3A%2F%2Fesaj.tjsc.jus.br%2Fesaj%2Fj_spring_cas_security_check
+29570633875
+Elaw@TICrobot777
+
+-----------------------------------------------
+Acesso OK!
+http://esaj.tjba.jus.br/cpopg/open.do
+http://esaj.tjba.jus.br/sajcas/login?service=http%3A//esaj.tjba.jus.br/cpopg/open.do
+29570633875
+Elaw@TICrobot777
+
+------------------------------------------------
+Acesso OK!
+http://esaj.tjce.jus.br/cpopg/open.do
+https://esaj.tjce.jus.br/sajcas/login?service=https%3A%2F%2Fesaj.tjce.jus.br%2Fesaj%2Fj_spring_cas_security_check
+29570633875
+Elaw@TICrobot777
+
+-------------------------------------------------
+Acesso OK!
+http://esaj.tjrn.jus.br/cpo/pg/open.do?gateway=true
+http://esaj.tjrn.jus.br/sajcas/login?service=http%3A%2F%2Fesaj.tjrn.jus.br%2Fesaj%2Fj_spring_cas_security_check
+29570633875
+Elaw@TICrobot777
+
+-------------------------------------------------
+Acesso OK!
+https://www2.tjal.jus.br/cpopg/open.do
+https://www2.tjal.jus.br/sajcas/login?service=https%3A%2F%2Fwww2.tjal.jus.br%2Fesaj%2Fj_spring_cas_security_check
+29570633875
+Elaw@TICrobot777
+
+--------------------------------------------------
+Acesso OK!
+https://esaj.tjms.jus.br/cpopg5/open.do
+https://esaj.tjms.jus.br/sajcas/login?service=https%3A%2F%2Fesaj.tjms.jus.br%2Fesaj%2Fj_spring_cas_security_check
+29570633875
+Elaw@TICrobot777
+
+--------------------------------------------------
+Acesso OK!
+https://esaj.tjac.jus.br/cpopg/open.do
+https://esaj.tjac.jus.br/sajcas/login?service=https%3A%2F%2Fesaj.tjac.jus.br%2Fesaj%2Fj_spring_cas_security_check
+
+29570633875
+Elaw@TICrobot777
+---------------------------------------------------
+Acesso OK!
+https://esaj.tjam.jus.br/cpopg/open.do?gateway=true
+https://consultasaj.tjam.jus.br/sajcas/login?service=https%3A%2F%2Fconsultasaj.tjam.jus.br%2Fesaj%2Fj_spring_cas_security_check
+
+29570633875
+Elaw@TICrobot777
+
+-------------------------------------------------
+TODOS
+http://www.pje.jus.br/navegador/
+
+-------------------------------------------------
+Acesso Ok!
+https://projudi.tjmt.jus.br/projudi/   
+
+TATIANASAMPAIO 
+1234VERDE
+-------------------------------------------------
+Acesso Ok!
+https://eproc1.tjto.jus.br/eprocV2_prod_1grau/
+
+SP262851 
+SP262851
+
+-------------------------------------------------
+
+http://projudi.tjro.jus.br/projudi/   
+29570633875 
+29570633875
+
+--------------------------------------------------
+
+https://projudi.tjmg.jus.br/projudi/  
+Usuario OABSP262851  senha Elaw@TICrobot77
+
+
+-------------------------------------------------
+https://www3.tjrj.jus.br/segweb/faces/login.jsp?indGet=true&SIGLASISTEMA=PORTALSERV
+
+
+
+
+
+
+
+
+-------------------------------------------------------
+
+C:\Program Files (x86)\Mozilla Firefox
+C:\Program Files\Mozilla Firefox\firefox.exe
+
+------------------------------------------- PASTA DOWNLOADS
+
+C:\Pastas de Trabalho\Projetos\Captura Dados Processo\Processos\Processamento\782BCBED96BD
+
+configuracao firefox
+C:\Users\VERAS\AppData\Roaming\Mozilla\Firefox\Profiles\otyccvvp.default-release
+
+
+------------------------------------------- SELECTS IMPORTANTES
+/*
+select * from equipamentoprocessamento
+*/
+
+/*
+select *
+from EquipamentoProcessamentoParametro
+where IdEquipamentoProcessamento = 26
+--and id = 95
+*/
+
+/*
+UPDATE EquipamentoProcessamentoParametro
+SET valor = 'C:\Users\HOME01\AppData\Roaming\Mozilla\Firefox\Profiles\otyccvvp.default-release'
+WHERE id = 95
+AND IdEquipamentoProcessamento = 26
+*/
+
+/*
+UPDATE EquipamentoProcessamentoParametro
+SET valor = 'F:\Projetos\ReglareDownloads'
+WHERE id = 94
+AND IdEquipamentoProcessamento = 26
+*/
+
+/*
+select * from EquipamentoProcessamentoTribunal where IdEquipamentoProcessamento <>  26
+*/
+
+/*
+INSERT INTO table_name (column1, column2, column3, ...)
+VALUES (value1, value2, value3, ...);
+
+
+*/
+
+
+
+
+\bTIM\b.{0,20}\bBRASIL\b.{0,20}\bSERVICOS\b
+----------------------------------------------
+
+statusprocesso
+
+TermoTribunalProcesso -- precisa ser atualizada
+
+processo --- status = 2 --> capturado
+             status = 1 --> 
+             status = 10 -> 
+
+----------------------------------------------
+
+TABELA INICIO DO PROCESSAMENTO:
+
+
+
+
+
+
+
+
+
+
+
+
+

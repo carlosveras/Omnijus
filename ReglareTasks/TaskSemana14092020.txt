@@ -1,0 +1,34 @@
+
+
+TAREFA PARA ATUALIZAR TABELA:
+TERMOTRIBUNALPROCESSO
+
+
+Na classe TecnologiaPJEV@Service, a cada solicitacao a processar ele bate no
+sevico _solicitacaoLocalizacaoService.ListarExpressaoPorTribunal(configuracao.Tribunal.Id, configuracao.Tecnologia.Id)
+para pegar as expressoes regulares para aquela solicitacao
+
+quando ele chama o metodo Processar instancia ainda dentro da classe TecnologiaPJEV@Service
+ele leva esta lista de expressoes com ele mais as partes do processo e ao chamar o servico
+_commonService.IdentificarTermoParte -- > neste momento ele encontra as expressoes regulares
+e popula o objeto termoprocessomodel
+
+
+https://esaj.tjsp.jus.br/cposg/open.do
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

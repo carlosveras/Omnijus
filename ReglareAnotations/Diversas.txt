@@ -1,0 +1,520 @@
+TRIBUNAL DE JUSTICA TRT6 -- PERNAMBUCO
+TRIBUNAL DE JUSTICA TRT2 -- SAO PAULO
+
+--------------------------------------------------------
+As numeracoes de novos processos sao geradas na tabela --> Processo
+
+
+para gerar novos processos
+
+update SolicitacaoCaptura
+  set IdStatus = 3
+where id = 761
+
+Renato Martins: Você precisar ter pelo menos uma solicitação com o Status = 3
+Renato Martins: e não pode estar com processamento pendente na ProcessamentoCaptura
+
+select * from ProcessamentoCaptura
+where idequipamentoprocessamento = 26
+and datatermino is null
+
+
+--------------------------------------------------------
+para pegar somente 1 documento no projeto:
+F:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\DisponibilizarDistribuicaoService.cs
+
+                //var processos = _session.Query<Processo>()
+                //                .Where(x => x.Status == StatusProcesso.Capturado &&
+                //                            x.Solicitacao.CapturarDistribuicao && x.Numero == "0000001-91.2020.5.06.0001" &&
+                //                            !x.Historicos.Any(h => h.Status == StatusProcesso.DisponilizadoExecutado))
+                //                .ToList();
+
+
+
+
+--------------------------------------------------------
+
+http://regexstorm.net/tester
+https://www.freeformatter.com/regex-tester.html
+https://www.regextester.com/96926
+
+
+--------------------------------------------------------
+
+
+--select * from processo where id = 761
+
+select * from solicitacaocaptura where id = 761
+
+select * from TribunalJustica where sigla = 'TRT6'
+
+select * from uf
+
+--select top 10 * from solicitacaodistribuicao
+
+ ---idTribunalJustica = 2002 AND
+
+/*
+select * from StatusProcesso
+
+
+select * from processo where IdSolicitacaoCaptura = 761
+--select * from processo where Id = 6216
+select * from TribunalJustica where Id = 1
+
+*/
+
+
+select * from ProcessamentoCaptura where datainicio = '20-08-13'
+
+--------------------------------------------------------
+
+select * from solicitacaocaptura where id = 761
+
+select * from TribunalJustica where sigla = 'TRT6'
+
+select * from uf
+
+--select top 10 * from solicitacaodistribuicao
+
+ ---idTribunalJustica = 2002 AND
+
+/*
+select * from StatusProcesso
+
+
+select * from processo where IdSolicitacaoCaptura = 761
+--select * from processo where Id = 6216
+select * from TribunalJustica where Id = 1
+
+*/
+
+
+select * from ProcessamentoCaptura where datainicio = '20-08-13'
+--------------------------------------------------------
+
+begin transaction
+
+declare @idprocesso1 int 
+declare @idprocesso2 int 
+select @idprocesso1 = 37611  --> antes do Processo Chesf
+select @idprocesso2 = 37611  --> Processo Chesf para teste 9643
+
+declare @idsolicitacocaptura int 
+select @idsolicitacocaptura = 761  --> Solicitacao captura Processo Chesf 
+
+delete processoparteadvogado
+	from processoparte pp
+		,processo pro
+where processoparteadvogado.IdProcessoParte = pp.id
+  and pp.idprocesso = pro.id
+  and pro.IdSolicitacaoCaptura = @idsolicitacocaptura
+  and (pro.id >= @idprocesso1 and pro.id <= @idprocesso2)
+
+delete processoAdvogado 
+		from processo pro
+where processoAdvogado.idprocesso = pro.id 
+  and pro.IdSolicitacaoCaptura = @idsolicitacocaptura
+  and (pro.id >= @idprocesso1 and pro.id <= @idprocesso2)
+
+delete processoparte 
+		from processo pro
+where processoparte.idprocesso = pro.id 
+  and pro.IdSolicitacaoCaptura = @idsolicitacocaptura
+  and (pro.id >= @idprocesso1 and pro.id <= @idprocesso2)
+
+update processo 
+	set idstatus = 1 
+		,idinstanciatribunal = null
+		,vara = null
+		,uf = null
+		,assunto = null
+		,distribuicao = null
+		,valoracao = null
+		,classe = null
+  where IdSolicitacaoCaptura = @idsolicitacocaptura
+  and (id >= @idprocesso1 and id <= @idprocesso2)
+
+
+delete processomovimento 
+   from processo pro
+where pro.numero = processomovimento.numero 
+  and pro.IdSolicitacaoCaptura = @idsolicitacocaptura
+  and (pro.id >= @idprocesso1 and pro.id <= @idprocesso2)
+
+
+delete termotribunalprocesso 
+   from processo pro
+where pro.numero = termotribunalprocesso.numero 
+  and pro.IdSolicitacaoCaptura = @idsolicitacocaptura
+  and (pro.id >= @idprocesso1 and pro.id <= @idprocesso2)
+
+update SolicitacaoCaptura
+   set idstatus = 9
+where descricao like '%distr%'
+
+update SolicitacaoCaptura
+   set idstatus = 12
+where id = @idsolicitacocaptura
+
+commit transaction
+--rollback transaction
+
+
+--delete  from ProcessamentoCaptura where id = 12024
+
+--select * from ProcessamentoCaptura where IdEquipamentoProcessamento = 26
+
+----------------------------------------------------------------------------------------------------------------------------------
+/*
+0000001-91.2020.5.06.0001 -- 437 -- ADRIELLY ALMEIDA DE HOLANDA
+*/
+
+/*
+select * from Processo where numero = '1000020-39.2020.5.02.0374'    --- 761---'0000001-91.2020.5.06.0001' -- 437 -- ADRIELLY ALMEIDA DE HOLANDA
+select * from Processo where numero = '0000001-91.2020.5.06.0001'    --- 761---'0000001-91.2020.5.06.0001' -- 437 -- ADRIELLY ALMEIDA DE HOLANDA
+
+select top 10 * from ProcessoCapturado
+
+select * from TermoTribunalProcesso
+
+select * from TermoTribunal
+
+select * from TribunalJustica
+
+select top 10 * from Processo where IdSolicitacaoCaptura=  761 -- ADRIELLY ALMEIDA DE HOLANDA
+*/
+
+/*
+ -- 71004 -- 71005
+select pp.id, pp.IdProcesso, pp.Nome, ppa.IdProcessoAdvogado, pa.Nome
+  from processoParte pp 
+  join ProcessoParteAdvogado ppa on idprocessoparte = pp.Id   
+  join ProcessoAdvogado pa on pa.Id = ppa.IdProcessoAdvogado  
+ where pp.IdProcesso = 8782 --37651
+
+select top 10 * from ProcessoAdvogado where idProcesso = 37651
+
+select top 10 * from ProcessoParteAdvogado where IdProcessoAdvogado in (13082,13083)
+
+select * from TermoTribunalProcesso where idsolicitacaocaptura = 761	--- '1000020-39.2020.5.02.0374'
+
+select top 10 * from ProcessoParte where IdProcesso = 37651  --- 8782 --> adry --- 37651 --> max layout
+*/
+
+
+/*
+select * from TermoTribunalProcesso where id = 29
+
+dados teste:
+update termoTribunalProcesso 
+	 set idtermotribunal = 12 
+		,numero = '0000001-91.2020.5.06.0001'
+		,idsolicitacaocaptura = 437
+		,nomeparte = 'TELEFONICA BRASIL S.A.'
+		,expressao = '\bTELEFONICA\b.{0,20}\bBRASIL\b.{0,20}\bSA\b'
+  where Id = 29
+
+
+dados originais:
+update termoTribunalProcesso 
+	 set idtermotribunal = 12 
+		,numero = '1000020-39.2020.5.02.0374'
+		,idsolicitacaocaptura =  761
+		,nomeparte = 'MAX LAYOUTS RIO REFORMAS E CONSTRUCOES - EIRELI'
+		,expressao = '\bMAX\b.{0,20}\bLAYOUTS\b.{0,20}\bRIO\b.{0,20}\bREFORMAS\b.{0,20}\bE\b.{0,20}\bCONSTRUCOES\b.{0,20}\bEIRELI\b'
+  where Id = 29
+
+
+
+*/
+
+/*
+
+select * from SolicitacaoCaptura where id = 761 
+select * from Processo where IdTribunalJustica = 2002
+
+select * from solicitacaocaptura
+where Descricao like '%distr%TRT%'
+and IdStatus != 9
+
+update SolicitacaoCaptura
+   set IdStatus = 3 
+where id = 761
+
+select * from SolicitacaoCaptura where id = 761
+
+select * from StatusSolicitacaoCaptura
+
+
+
+select * from EquipamentoProcessamentoParametro
+where id= 90 --Descricao = 'Posicao Imagem PJe V2'
+
+update EquipamentoProcessamentoParametro
+  set Valor = '0#0#0#0'
+where id = 90
+
+
+
+select * from solicitacaocaptura
+where Descricao like '%distr%TRT%'
+and IdStatus != 9
+
+
+select * from EquipamentoProcessamento = 26
+
+select * from solicitacaoCaptura where id = 761
+
+select * from SolicitacaoCaptura where id = 437 --761
+select * from Processo where idTribunalJustica = 2002 and IdSolicitacaoCaptura = 761 and IdStatus in (1, 10)
+Select * from ProcessamentoCaptura where idEquipamentoProcessamento = 26
+delete from ProcessamentoCaptura where id = 12056
+
+select * from StatusProcesso
+
+*/
+
+select * from Processo where Numero =  '0000001-91.2020.5.06.0001' --  437 -- 8782
+
+select * from ProcessoAdvogado where IdProcesso = 8782
+
+select * from ProcessoParte where IdProcesso = 8782
+
+select pp.id, pp.IdProcesso, pp.Nome, ppa.IdProcessoAdvogado, pa.Nome, pa.OAB, pa.Documento
+  from processoParte pp 
+  join ProcessoParteAdvogado ppa on idprocessoparte = pp.Id   
+  join ProcessoAdvogado pa on pa.Id = ppa.IdProcessoAdvogado  
+ where pp.IdProcesso = 8782
+ 
+select * from ProcessoAdvogado where IdProcesso =  8782
+
+update ProcessoAdvogado set
+       Documento = '12.292',
+	   Oab = '12292OAB'
+where id = 12292 
+
+update ProcessoAdvogado set
+       Documento = '12.293',
+	   Oab = '12293OAB'
+where id = 12293 
+
+update ProcessoAdvogado set
+       Documento = '12.294',
+	   Oab = '12294OAB'
+where id = 12294 
+
+update ProcessoAdvogado set
+       Documento = '12.295',
+	   Oab = '12295OAB'
+where id = 12295 
+
+update ProcessoAdvogado set
+       Documento = '12.296',
+	   Oab = '12296OAB'
+where id = 12296 
+
+---------------------------------------------------------------------------
+--Select * from Advogado
+
+--select top 10 * from ProcessoAdvogado
+
+select * from SolicitacaoCaptura where id = 761
+
+
+/*
+update EquipamentoProcessamentoTribunal
+   set Ativo = 0
+where id =3223 -- tj 5022
+
+update EquipamentoProcessamentoTribunal
+   set Ativo = 1 
+where id =3224 -- tj 2002
+
+*/
+
+
+select * from SolicitacaoCaptura 
+ where IdStatus in (3,4,12) 
+   and IdEquipamentoProcessamento is null
+
+select * from solicitacaocaptura where descricao like 'Captura Distribuição - TRT6%'
+
+ update solicitacaocaptura
+  set idstatus = 9
+where descricao like 'Captura Distribuição - TRT6%'
+and idstatus != 9
+
+
+select * from  processamentocaptura where idequipamentoprocessamento = 26 and datatermino is null
+
+select * from EquipamentoProcessamentoTribunal where id = 3223
+
+delete from  processamentocaptura
+where idequipamentoprocessamento = 26
+and datatermino is null
+----------------------------------------------------
+select * from solicitacaocaptura
+--  set idstatus = 9
+where descricao like 'Captura Distribuição - TRT2%'
+and idstatus != 9
+
+update solicitacaocaptura
+  set idstatus = 9
+where descricao like 'Captura Distribuição - TRT2%'
+and idstatus != 9
+
+update equipamentoprocessamentotribunal
+   set ativo = 0
+where idequipamentoprocessamento = 26
+
+update equipamentoprocessamentotribunal
+   set ativo = 1
+where idequipamentoprocessamento = 26
+and idtribunal = 2002
+
+select * from  equipamentoprocessamentotribunal
+where idequipamentoprocessamento = 26
+and idtribunal = 2002
+
+
+
+
+
+
+
+
+
+delete processamentocaptura
+where idequipamentoprocessamento = 26
+and datatermino is null
+
+select * from ProcessamentoCaptura 
+where idequipamentoprocessamento = 26
+and datatermino is null
+---------------------------------------------------------------
+begin transaction
+
+declare @idprocesso1 int 
+declare @idprocesso2 int 
+select @idprocesso1 = 37281  --> antes do Processo Chesf
+select @idprocesso2 = 37281  --> Processo Chesf para teste 9643
+
+declare @idsolicitacocaptura int 
+select @idsolicitacocaptura = 681  --> Solicitacao captura Processo Chesf 
+
+delete processoparteadvogado
+	from processoparte pp
+		,processo pro
+where processoparteadvogado.IdProcessoParte = pp.id
+  and pp.idprocesso = pro.id
+  and pro.IdSolicitacaoCaptura = @idsolicitacocaptura
+  and (pro.id >= @idprocesso1 and pro.id <= @idprocesso2)
+
+delete processoAdvogado 
+		from processo pro
+where processoAdvogado.idprocesso = pro.id 
+  and pro.IdSolicitacaoCaptura = @idsolicitacocaptura
+  and (pro.id >= @idprocesso1 and pro.id <= @idprocesso2)
+
+delete processoparte 
+		from processo pro
+where processoparte.idprocesso = pro.id 
+  and pro.IdSolicitacaoCaptura = @idsolicitacocaptura
+  and (pro.id >= @idprocesso1 and pro.id <= @idprocesso2)
+
+update processo 
+	set idstatus = 1 
+		,idinstanciatribunal = null
+		,vara = null
+		,uf = null
+		,assunto = null
+		,distribuicao = null
+		,valoracao = null
+		,classe = null
+  where IdSolicitacaoCaptura = @idsolicitacocaptura
+  and (id >= @idprocesso1 and id <= @idprocesso2)
+
+delete processomovimento 
+   from processo pro
+where pro.numero = processomovimento.numero 
+  and pro.IdSolicitacaoCaptura = @idsolicitacocaptura
+  and (pro.id >= @idprocesso1 and pro.id <= @idprocesso2)
+
+delete termotribunalprocesso 
+   from processo pro
+where pro.numero = termotribunalprocesso.numero 
+  and pro.IdSolicitacaoCaptura = @idsolicitacocaptura
+  and (pro.id >= @idprocesso1 and pro.id <= @idprocesso2)
+
+update SolicitacaoCaptura
+   set idstatus = 9
+where descricao like '%distr%'
+
+update SolicitacaoCaptura
+   set idstatus = 12
+where id = @idsolicitacocaptura
+
+commit transaction
+--rollback transaction
+
+
+--delete  from ProcessamentoCaptura where id = 12015
+
+--select * from ProcessamentoCaptura where IdEquipamentoProcessamento = 26
+
+
+--select* from termotribunalprocesso 
+
+
+ update solicitacaocaptura
+  set idstatus = 9
+where descricao like 'Captura Distribuição - TRT6%'
+and idstatus != 9
+
+update equipamentoprocessamentotribunal
+   set ativo = 0
+where idequipamentoprocessamento = 26
+
+update equipamentoprocessamentotribunal
+   set ativo = 1
+where idequipamentoprocessamento = 26
+and idtribunal = 2002
+
+delete processamentocaptura
+where idequipamentoprocessamento = 26
+and datatermino is null
+
+----
+
+
+C:\\Pastas de Trabalho\\Projetos\\Captura Dados Processo\\Processos\\\\Processamento\\782BCBED96BD\\12023
+
+
+C:\\Pastas de Trabalho\\Projetos\\Captura Dados Processo\\Processos\\\\Processamento\\782BCBED96BD\\12023
+
+F:\Projetos\ReglareSolution\capturadadosprocesso\packages\CommonServiceLocator.SimpleInjectorAdapter.2.8.2\lib\portable-net4+sl4+wp8+win8+wpa81\CommonServiceLocator.SimpleInjectorAdapter.dll
+
+
+
+
+
+https://www.google.com/recaptcha/api2/bframe?hl=pt-BR&v=UFwvoDBMjc8LiYc1DKXiAomK&k=6Lcw_EcUAAAAAKtjLxiusSHNdT2dDHDR-aY1sUp9&cb=e3gj1rsdma32
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

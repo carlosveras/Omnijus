@@ -1,0 +1,11 @@
+D:\Projetos\BaixarDejtCore\BaixarDejtCore\bin\Debug\netcoreapp2.2\BaixarDejtCore.deps.json
+D:\Projetos\BaixarDejtCore\BaixarDejtCore\bin\Debug\netcoreapp2.2\BaixarDejtCore.runtimeconfig.json
+D:\Projetos\BaixarDejtCore\BaixarDejtCore\bin\Debug\netcoreapp2.2\BaixarDejtCore.runtimeconfig.dev.json
+D:\Projetos\BaixarDejtCore\BaixarDejtCore\bin\Debug\netcoreapp2.2\BaixarDejtCore.dll
+D:\Projetos\BaixarDejtCore\BaixarDejtCore\obj\Debug\netcoreapp2.2\BaixarDejtCore.csprojAssemblyReference.cache
+D:\Projetos\BaixarDejtCore\BaixarDejtCore\obj\Debug\netcoreapp2.2\BaixarDejtCore.csproj.CoreCompileInputs.cache
+D:\Projetos\BaixarDejtCore\BaixarDejtCore\obj\Debug\netcoreapp2.2\BaixarDejtCore.AssemblyInfoInputs.cache
+D:\Projetos\BaixarDejtCore\BaixarDejtCore\obj\Debug\netcoreapp2.2\BaixarDejtCore.AssemblyInfo.cs
+D:\Projetos\BaixarDejtCore\BaixarDejtCore\bin\Debug\netcoreapp2.2\BaixarDejtCore.pdb
+D:\Projetos\BaixarDejtCore\BaixarDejtCore\obj\Debug\netcoreapp2.2\BaixarDejtCore.dll
+D:\Projetos\BaixarDejtCore\BaixarDejtCore\obj\Debug\netcoreapp2.2\BaixarDejtCore.pdb

@@ -1,0 +1,66 @@
+
+select * 
+  from ProcessamentoCaptura 
+ where idEquipamentoProcessamento = 5
+
+ update ProcessamentoCaptura
+    set DataTermino = null -- '2020-03-31'
+  where id = 8 
+
+---- CRIAR UM SISTEMA DE LOG DE ARQUIVO PARA A APLICACAO
+
+
+-- Pensar em como estruturar a pasta para a gravacao
+do log, no sentido de que varias instancias da aplicacao
+podem estar rodando ao mesmo tempo
+
+url abordagem log para base de dados
+http://logging.apache.org/log4net/log4net-2.0.7/release/config-examples.html
+
+coluna customizada
+https://stackoverflow.com/questions/12139486/log4net-how-to-add-a-custom-field-to-my-logging
+
+
+---- opacao para reconexao com o banco
+<reconnectonerror value="True" />
+
+---- query criacao tabela para log dos eventos
+
+
+CREATE TABLE [dbo].[LogDadosProcesso] (
+    [Id] [int] IDENTITY (1, 1) NOT NULL,
+    [CriadoEm] [datetime] NOT NULL,
+	[IdEquipamentoProcessamento] [int] NOT NULL,
+	[IdProcessoWindows] [int] NOT NULL,
+	[IdProcesso] [int] NULL,
+	[IdSolicitacaoCaptura] [int] NULL,
+    [Mensagem] [varchar] (4000) NULL,
+    [Exception] [varchar] (2000) NULL,
+	FOREIGN KEY ([IdEquipamentoProcessamento]) REFERENCES [dbo].EquipamentoProcessamento ([Id]),
+	FOREIGN KEY ([IdProcesso]) REFERENCES [dbo].Processo ([Id]),
+	FOREIGN KEY ([IdSolicitacaoCaptura]) REFERENCES [dbo].SolicitacaoCaptura ([Id])
+)
+
+----
+
+catch (SqlException ex)
+{
+    MessageBox.Show($"Can not open connection ! ErrorCode: {ex.ErrorCode} Error: {ex.Message}");
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

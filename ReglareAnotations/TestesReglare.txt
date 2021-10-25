@@ -1,0 +1,70 @@
+C:\\Pastas de Trabalho\\Projetos\\Captura Dados Processo\\Processos\\\\Processamento\\782BCBED96BD\\11982
+
+http://regexstorm.net/tester
+https://www.freeformatter.com/regex-tester.html
+https://www.regextester.com/96926
+
+
+MOSAIC.{0,20}FERTILIZANTES.{0,20}P&K.{0,20}LTDA
+------------
+TIM.{0,20}S.?A
+
+TIM S/A
+TIM S/A.
+TIM SA
+TIM SA.
+TIM S.A
+TIM S.A.
+TIM. SA
+TIM. SA.
+TIM. S.A.
+------------
+
+TIM.{0,20}CELULAR|CELULAR.{0,20}TIM
+TIM CELULAR
+TIM CELULAR.
+TIM. CELULAR.
+TIM. CELULAR
+-------------
+
+TIM.{0,20}(PARTC.{0,20}|PARTICIPACOES)
+TIM PARTICIPACOES
+TIM. PARTICIPACOES
+TIM. PARTICIPACOES.
+
+-------------
+TIM.{0,20}BRASIL.{0,20}SERVICOS
+tim brasil servicos
+tim. brasil. servicos
+tim. brasil. servicos.
+
+------------
+TIM.{0,20}SA
+TIM SA.
+TIM SA
+
+
+COMPANHIA.{0,20}PAULISTA.{0,20}DE.{0,20}TRENS.{0,20}METROPOLITANOS.{0,20}((?!\-|>|&).-{0,20}CPTM
+
+------------
+
+------------
+
+/*
+--select * from StatusProcesso
+
+--select * from ProcessoParteAdvogado where IdProcessoParte = 33437
+
+select * from processoAdvogado 
+where processoAdvogado.idprocesso = 33437 
+
+select * from processo pro where pro.id  = 33437
+
+ processomovimento 
+   from processo pro
+where pro.numero = processomovimento.numero 
+  and pro.IdSolicitacaoCaptura = @idsolicitacocaptura
+  and (pro.id >= @idprocesso1 and pro.id <= @idprocesso2)
+
+
+  */

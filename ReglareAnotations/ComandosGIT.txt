@@ -1,0 +1,20 @@
+paginas para leitura:
+https://git-scm.com/book/en/v2/Git-Basics-Getting-a-Git-Repository
+https://docs.github.com/en/free-pro-team@latest/github/using-git/changing-a-remotes-url
+
+
+remoto:
+https://carlosveras@bitbucket.org/ragpmartins/capturadadosprocesso.git
+
+para setar o repositorio remoto:
+git remote set-url origin https://carlosveras@bitbucket.org/ragpmartins/capturadadosprocesso.git
+
+
+
+
+git status
+
+git commit -am "coerracao gravacao tabela termotribunalprocesso"
+
+git push -u origin --all
+

@@ -1,0 +1,387 @@
+Projeto startup --- > CapturarDistribuicao
+
+Tarefa processamento Tribunal de Justiça de Minas Gerais
+
+Tecnologia PJE TJ -- TecnologiaPJETJService
+
+Tribunal = 4002
+
+Processos envolvidos:
+
+D:\Projetos\ReglareSolution\capturadadosprocesso\src\apps\CapturarDistribuicao\Program.cs
+
+D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\CapturarDistribuicaoService.cs
+
+D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\TecnologiaPJETJService.cs
+
+https://pje.tjmg.jus.br
+
+
+
+TERMOTRIBUNALPROCESSO
+
+
+
+29570633875
+Elaw@TICrobot777
+
+
+title=recaptcha challenge
+
+
+                                            ClassName      gcaptcha
+elemento = ElementExists(navegadorWaiting, identificador, idElemento);
+
+
+
+
+
+classname botao-menu
+
+xpath encontrou
+/html/body/nav/div/div[1]/ul/li/a
+
+
+--------------------------------------------------------------------------------------------------------
+update realizado na tabela InstanciaTribunal:
+
+update InstanciaTribunal 
+  set SequenciaProcessamento = 0
+where id = 5207
+
+ORIGINAL:
+Id	IdTribunal	Descricao	    URL	                            SequenciaProcessamento	Situacao	PrimeiroParametro	IdTecnologiaSite	IdTipoNavegador	VersaoNavegadorWeb
+5207	4002	1ª Instância	https://pje.tjmg.jus.br/pje/	1	                    1	        NULL	            5	                1	            NULL
+
+
+ALTERADO:
+Id	    IdTribunal	Descricao	    URL	                         SequenciaProcessamento	Situacao	PrimeiroParametro	IdTecnologiaSite	IdTipoNavegador	VersaoNavegadorWeb
+5207	4002	    1ª Instância	https://pje.tjmg.jus.br/pje/ 0	                    1	        NULL	            5	                1	            NULL
+
+----------------------------------------------------------
+class botao-menu
+
+encontrou o path
+a[@href='/pje/Processo/ConsultaProcesso/listView.seam']
+
+5022690-57.2020.8.13.0079
+
+5004663-61.2020.8.13.0035
+
+---------------------------------------------------------------------------------------
+select p.Id,
+       sc.CriadoEm,
+       p.IdSolicitacaoCaptura,
+	   p.Numero,
+	   p.IdTribunalJustica,
+	   p.Forum,
+	   p.Vara,
+	   p.Comarca,
+	   p.OrgaoJulgador,
+	   sc.DataTerminoUltimaCaptura
+  from Processo p
+  join SolicitacaoCaptura sc on sc.Id = p.IdSolicitacaoCaptura
+where p.IdSolicitacaoCaptura in
+(select sc.Id
+  from SolicitacaoCaptura sc
+  where sc.CriadoEm >= '2020-10-01')
+and p.IdTribunalJustica = 4002
+--and p.idEquipamentoProcessamento = 26
+--p.Comarca is not null
+-----and p.Vara is not null
+------------------------------------------------------------------------------------------
+https://pje.tjmg.jus.br/pje/Processo/ConsultaProcesso/listView.seam
+https://pje.tjmg.jus.br/pje/login.seam
+
+
+url inicial:
+https://pje.tjmg.jus.br/pje/QuadroAviso/listViewQuadroAvisoMensagem.seam
+
+
+href="/pje/Processo/ConsultaProcesso/listView.seam"
+
+29570633875
+Elaw@TICrobot777
+
+para debugar com o site aberto:
+
+na linha de comando --> cmd
+para navegador chrome:
+chrome.exe -remote-debugging-port=9014 --user-data-dir="D:\Selenium\Chrome_Test"
+
+para navegador firefox:
+firefox.exe -start-debugger-server 9222
+
+-------------------------------------------------------------------------------------
+
+//li[4]/div/ul/li/a
+
+
+#fPP\:processosTable\:25342866\:j_id464
+
+*[@id="fPP:processosTable:25342866:j_id464"]
+       fPP:processosTable:25852860:j_id464
+
+
+	   fPP:processosTable:25852860:j_id462
+
+fPP:processosTable:25852860:j_id462
+fPP:processosTable:25872873:j_id462
+
+5004664-46.2020.8.13.0035
+
+
+//a[@title='5004664-46.2020.8.13.0035']
+
+
+*//.[@class="rich-table-row rich-table-firstrow"]
+
+
+
+*//.[@id="fPP:processosTable:tb"]
+
+*//.[@id='fPP:processosTable:tb']//tr//a
+
+
+29570633875
+Elaw@TICrobot777
+
+
+
+*//tbody[@id="fPP:processosTable:tb"]//tr//a
+
+
+webDriver.FindElement(By.XPath("*//td[text()='Assunto']")).Text;
+
+
+webDriver.FindElement(By.XPath("//*[contains(text(),'Assunto')]"));
+
+webDriver.FindElement(By.XPath("*//div//dl//dt[text(),'Assunto']//following::dd"));
+
+div//table//tbody//tr//td[@class='modalTitulo']
+
+div//table//tbody//tr//td[@id='maisDetalhes']
+
+0 = nao
+1 = sim
+
+
+Última distribuição
+
+Justiça gratuita?
+Órgão julgador
+Cargo judicial
+Competência
+
+select p.Id,
+       p.IdSolicitacaoCaptura,
+	   p.Numero,
+	   p.IdTribunalJustica,
+	   p.Forum,
+	   p.Vara,
+	   p.Comarca,
+	   p.OrgaoJulgador,
+	   sc.DataTerminoUltimaCaptura
+  from Processo p
+  join SolicitacaoCaptura sc on sc.Id = p.IdSolicitacaoCaptura
+where p.IdSolicitacaoCaptura in
+(select sc.Id
+  from SolicitacaoCaptura sc
+  where sc.DataTerminoUltimaCaptura >= '2020-10-10')
+and p.idEquipamentoProcessamento = 26
+and p.id = 96670
+
+
+
+
+select * 
+  from TermoTribunalProcesso ttp
+ where ttp.CriadoEm >= '2020-10-10'
+
+
+select pp.id, 
+       pp.IdProcesso, 
+	   p.numero,
+	   ppa.IdProcessoParte, 
+       pp.Nome, 
+	   pp.Qualificacao, 
+	   pa.id, 
+	   ppa.IdProcessoAdvogado, 
+	   pa.Nome, 
+	   pa.Qualificacao,
+	   pa.OAB
+  from ProcessoParte pp
+  join Processo p on p.Id = pp.idProcesso
+  left join ProcessoParteAdvogado ppa on ppa.IdProcessoParte = pp.Id
+  left join ProcessoAdvogado pa on pa.Id = ppa.IdProcessoAdvogado
+where pp.IdProcesso in (96668,
+96670,
+96671,
+96673,
+96675,
+96676,
+96678,
+96679,
+96680,
+96681,
+96682,
+96683,
+96684,
+96685,
+96687,
+96688,
+96689,
+96691,
+96692)
+
+---------------------------------- query's de apoio
+
+
+
+
+
+--select * 
+--  from ProcessoMovimento pm
+--where pm.criadoEm >= '2020-10-10'
+--order by pm.criadoEm desc
+
+select ttp.CriadoEm,
+       ttp.Numero,
+	   ttp.NomeParte,
+	   p.IdTribunalJustica,
+	   p.IdTecnologiaSite,
+	   p.OrgaoJulgador,
+	   p.Forum,
+	   p.Comarca,
+	   p.Vara
+  from TermoTribunalProcesso ttp
+  join Processo p on p.Numero = ttp.Numero
+ where ttp.CriadoEm >= '2020-10-10'
+order by ttp.criadoEm desc
+
+ select tj.Id, 
+       tj.Descricao, 
+	   tj.Sigla, 
+	   uf.Nome, 
+	   uf.Sigla, 
+	   it.IdTecnologiaSite, 
+	   ts.Descricao,
+	   it.URL 
+  from TribunalJustica tj
+  join UF uf on uf.id = tj.IdUF
+  join InstanciaTribunal it on it.IdTribunal = tj.Id
+  join TecnologiaSite ts on ts.id = it.IdTecnologiaSite
+order by tj.sigla
+
+select p.Id,
+       p.IdSolicitacaoCaptura,
+	   p.Numero,
+	   p.IdTribunalJustica,
+	   p.Forum,
+	   p.Vara,
+	   p.Comarca,
+	   p.OrgaoJulgador,
+	   sc.DataTerminoUltimaCaptura
+  from Processo p
+  join SolicitacaoCaptura sc on sc.Id = p.IdSolicitacaoCaptura
+--where p.IdSolicitacaoCaptura in
+--(select sc.Id
+--  from SolicitacaoCaptura sc
+--  where sc.DataTerminoUltimaCaptura >= '2020-10-10')
+--and p.idEquipamentoProcessamento = 26
+--and p.id = 96670
+--and p.idtribunalJustica = 1002 
+where p.OrgaoJulgador is not null
+
+
+select GETDATE()
+
+
+select tj.Id, 
+       tj.Descricao, 
+	   tj.Sigla, 
+	   uf.Nome, 
+	   uf.Sigla, 
+	   it.IdTecnologiaSite, 
+	   ts.Descricao,
+	   it.URL 
+  from TribunalJustica tj
+  join UF uf on uf.id = tj.IdUF
+  join InstanciaTribunal it on it.IdTribunal = tj.Id
+  join TecnologiaSite ts on ts.id = it.IdTecnologiaSite
+order by id
+
+
+TRF1 (e-proc)
+login: 249.926.68-27
+senha: LTEIFPZW
+
+TRF2
+login: 249.926.608-27
+senha: 35280707
+
+Projudi (PR)
+login: SP146428
+senha: opt2017
+
+JFPR, JFRS, JFSC e TRF4
+login: sp146428
+senha: 35280707
+
+STJ e STF
+login: 249.926.608-27
+senha: Jr249926
+
+TJSP
+login: 249.926.608-27
+senha: Jr249926
+
+TRT2
+login: 249.926.608-27
+senha: Jr249926
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

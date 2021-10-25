@@ -1,0 +1,198 @@
+
+Rodar DisponibilizarDistribuicao
+
+9:00 -- 11:00 -- 13:00 -- 15:00 -- 17:00
+
+Monitoramento PicPay
+
+1)	TJES - Tecnologia Pje (tecnologiaPjePorDtaService)
+a.	Logar no Site 
+i.	https://sistemas.tjes.jus.br/pje/
+ii.	User 	94120510263
+iii. PWD	tcs0708*
+
+
+usuario 94120510263 e senha tcs0708*
+
+
+b.	Acessar 
+
+https://sistemas.tjes.jus.br/pje/Processo/ConsultaProcesso/listView.seam para listar os processos que foram distribuídos
+
+i.	Nome da Parte		PicPay
+ii.	Data de Autuação	de: Data do Dia-2	até: 	Data do Dia
+
+c.	Garantir que os processos Listados no item “b” estão relacionados na query abaixo:
+/
+ 
+      
+2)	TJRJ - Tecnologia Pje (tecnologiaPjePorDtaService)
+a.	Logar no Site 
+i.	https://tjrj.pje.jus.br/1g/
+ii.	User 	94120510263
+iii.	PWD	tcs0708*
+
+b.	Acessar 
+
+https://tjrj.pje.jus.br/1g/Processo/ConsultaProcesso/listView.seam para listar os processos que foram distribuídos
+
+i.	Nome da Parte		PicPay
+ii.	Data de Autuação	de: Data do Dia-2	até: 	Data do Dia
+
+c.	Garantir que os processos Listados no item “b” estão relacionados na query abaixo:
+select ttp.Numero
+		,ttp.CriadoEm
+--		,pro.Id as idprocesso
+		,pro.IdSolicitacaoCaptura
+		,pro.Comarca
+--		,pro.Forum
+--		,pro.Vara
+--		,pro.Area
+		,pro.OrgaoJulgador
+		,(select top 1 1
+			from HistoricoStatusProcesso hsp
+				where pro.Id = hsp.IdProcesso
+				and hsp.IdStatus = 15) as Desmembrado
+		,(select top 1 1
+			from HistoricoStatusProcesso hsp
+				where pro.Id = hsp.IdProcesso
+				and hsp.IdStatus = 5) as TransferidoS3
+		,(select top 1 1
+			from HistoricoStatusProcesso hsp
+				where pro.Id = hsp.IdProcesso
+				and hsp.IdStatus = 21) as IntegradoOmniJus
+  from TermoTribunalProcesso ttp
+		,Processo pro
+where ttp.numero = pro.Numero
+and ttp.IdSolicitacaoCaptura = pro.IdSolicitacaoCaptura
+and pro.Numero like '%.8.19.%'
+and pro.IdTecnologiaSite = 20
+and ttp.NomeParte like 'PicPay%'
+order by ttp.CriadoEm desc
+
+3)	Ações a serem tomadas:
+a.	Quando não estiver capturado identificar se o robô de captura esta rodando de forma correta na Maquina 10 (18.234.57.0) 
+i.	User 	administrator
+ii.	PWD	Kolim@06
+
+b.	Quando localizado, verificar se os dados de Vara, Comarca e Fórum, estão atualizados de forma correta
+i.	Utilizar como base as informações do Órgão Julgador quando existir.
+ii.	Se for necessário ajustar manualmente as informações na entidade processo
+
+c.	Verificar se o Processo foi Desmembrado e Enviado para o S3.
+i.	As rotinas rodam a cada 30 minutos;
+ii.	Se necessário entrar na máquina e rodar as rotinas na mão. 
+
+as colunas devem estar com o valor 1
+Desmembrado --------> 1
+TransferidoS3 ------> 1
+IntegradoOmniJus ---> 1
+
+
+d.	Rodar o processo de integração com a plataforma OmniJus de forma manual.
+i.	Baixar a ultima versão do repositório dos Fontes
+ii.	Verificar se o Parametro de chamado no endpoint para a maquina que irá rodar o processo esta correto:
+
+select * 
+  from EquipamentoProcessamentoParametro
+where IdEquipamentoProcessamento = 26 – Numero da Sua maquina
+ and Descricao = 'EndPoint .json Retorno OmniJus'
+ 
+			 Retorno esperado é https://apidistribuicao.omnijus.com.br/
+
+iii.	Executar a rotina “DisponibilizarDistribuicao” através do Visual Studio
+
+e.	Rodar este procedimento diariamente a cada duas/três horas durante o expediente.
+
+---- dia 15-03-2021
+
+5000271-77.2021.8.08.0069	
+5001998-76.2021.8.08.0035 
+000271-77.2021.8.08.0069
+0800579-61.2021.8.19.0037 
+0800112-62.2021.8.19.0076 
+
+
+
+select top 10 * 
+  from SolicitacaoCaptura sc
+where sc.id in (select p.IdSolicitacaoCaptura
+  from Processo p
+where p.IdTribunalJustica = 2
+and p.IdTecnologiaSite = 2
+and p.IdStatus in (1,10))
+and sc.IdStatus in (3,4,12)
+and (sc.IdEquipamentoProcessamento is null or sc.IdEquipamentoProcessamento = 35)
+and sc.id = 7734
+
+
+select top 20 p.Id,
+       p.Numero,
+       p.IdSolicitacaoCaptura, 
+	   p.IdFaixaNumeroProcesso,
+	   p.IdTribunalJustica,
+	   p.IdTecnologiaSite
+  from Processo p
+order by id desc
+
+select p.Id,
+       p.Numero,
+       p.IdSolicitacaoCaptura, 
+	   p.IdFaixaNumeroProcesso
+  from Processo p
+where p.IdSolicitacaoCaptura in (8750,8751,8752,8753,8754,8755,8756,5757,8758)
+order by id desc
+
+select ffnp.Id, 
+       ffnp.IdInstanciaTribunal, 
+	   ffnp.FaixaNumeroProcesso,
+	   ffnp.CriadoEm
+  from ForumFaixaNumeroProcesso ffnp
+where ffnp.id = 5040
+--where CAST(ffnp.CriadoEm as date) = '2021-04-22'
+order by id desc
+
+select * 
+  from ForumFaixaNumeroAno
+where  IdForumFaixaNumeroProcesso = 5040
+
+
+select * 
+  from SolicitacaoCaptura sc
+ where sc.Id = 7734
+
+select p.Id,
+       p.Numero,
+       p.IdSolicitacaoCaptura, 
+	   p.IdFaixaNumeroProcesso
+  from Processo p
+where p.IdSolicitacaoCaptura in (7734)
+order by id desc
+
+
+
+
+
+select * from Processo p
+where p.IdEquipamentoProcessamento = 37
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

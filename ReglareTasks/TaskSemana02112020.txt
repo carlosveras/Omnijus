@@ -1,0 +1,301 @@
+---- senhas e logins
+TRF1 (e-proc)
+login: 249.926.68-27
+senha: LTEIFPZW
+
+TRF2
+login: 249.926.608-27
+senha: 35280707
+
+Projudi (PR)
+login: SP146428
+senha: opt2017
+
+JFPR, JFRS, JFSC e TRF4
+login: sp146428
+senha: 35280707
+
+STJ e STF
+login: 249.926.608-27
+senha: Jr249926
+
+TJSP
+login: 249.926.608-27
+senha: Jr249926
+
+TRT2
+login: 249.926.608-27
+senha: Jr249926
+
+
+-----
+
+
+4005 --> 8.06
+
+
+1002 --> 8.24
+
+
+1 --> 8.26
+
+
+
+
+tribunal atual:
+4005 --> 8.06
+
+tecnologia do site:
+1 - ESAJ
+
+
+link do tribunal em analise:
+https://esaj.tjce.jus.br/sajcas/login
+
+link das consultas layout antigo:
+https://esaj.tjce.jus.br/cpopg/open.do?gateway=true
+
+
+  
+elementModel.idElemento ---> esta pegando linkpasta
+
+
+
+5032 https://pje.trt24.jus.br/consultaprocessual/login PJE
+
+5021 https://pje.trt8.jus.br/consultaprocessual/consulta-terceiros PJE
+
+5014 https://pje.trt1.jus.br/consultaprocessual/login PJE 
+
+2002 https://pje.trt2.jus.br/consultaprocessual/login PJE 
+
+
+-------------------------------------------------
+
+-- partes 
+
+-- tratamento foro vara comarca
+
+-- observar partes e advogados
+
+-- 
+
+//*[@id="setaVoltar"]
+
+linha 1860 incluir orgao julgador
+
+
+Exequente 
+Executado 
+
+ProcEst
+
+0030844-87.2020.8.06.0001 <- processo com apenas 1 parte
+
+0608196-64.2020.8.06.0001 <- processo com varia partes --> tem  id 'linkpartes'
+
+
+------------------------------------------------
+Processo 0050693-44.2020.8.06.0163 - 10:24
+Processo 0050694-29.2020.8.06.0163 - 10:26
+Processo 0050695-14.2020.8.06.0163 - 10:30
+Processo 0050696-96.2020.8.06.0163 - 10:35
+Processo 0050697-81.2020.8.06.0163 - 10:41
+Processo 0050698-66.2020.8.06.0163 - 10:43
+Processo 0050699-51.2020.8.06.0163 - 10:44
+Processo 0050700-36.2020.8.06.0163 - 10:44
+Processo 0050701-21.2020.8.06.0163 - 10:44
+Processo 0050702-06.2020.8.06.0163 - 10:44
+Processo 0050703-88.2020.8.06.0163 - 10:44
+Processo 0050704-73.2020.8.06.0163 - 10:44
+Processo 0050705-58.2020.8.06.0163 - 10:45
+Processo 0050706-43.2020.8.06.0163 - 10:45
+Processo 0050707-28.2020.8.06.0163 - 10:46
+Processo 0050708-13.2020.8.06.0163 - 10:46
+Processo 0050709-95.2020.8.06.0163 - 10:46
+Processo 0050710-80.2020.8.06.0163 - 10:46
+Processo 0050711-65.2020.8.06.0163 - 10:46
+Processo 0050712-50.2020.8.06.0163 - 10:46
+Processo 0050713-35.2020.8.06.0163 - 10:47
+Processo 0050714-20.2020.8.06.0163 - 10:47
+
+-------- 
+segredo de justica
+
+Iniciando processo de Captura
+==================================
+Processo ID 11832
+Buscando Solicitações a Processar.
+Buscando Solicitacoes Disponiveis 04/11/2020 12:28:04
+Buscando Solicitações Disponiveis 04/11/2020 12:28:04
+montando 10 solicitacoes 04/11/2020 12:28:05
+montou  10 solicitacoes 04/11/2020 12:28:05
+Buscou Solicitacoes Disponiveis 04/11/2020 12:28:05
+Reservando Processamento Solicitacao 1375 04/11/2020 12:28:05
+Reservou Processamento Solicitacao 1375 no processamento 101350 04/11/2020 12:28
+:07
+Vai Processar a Solicitação 1375.
+Vai Gerar os Novos Processos a Capturar.
+Gerou os Novos Processos a Capturar.
+Identifica os Processos Antigos da Solicitação.
+Vai Capturar os 0 Processos Antigos.
+Identifica os Processos Novos da Solicitação.
+Vai Capturar os 50 Processos Novos.
+Vai Logar ESAJ.
+Pagina Login
+Identifica a Primeira Instancia
+Pasta Base para Baixa Copias
+Abre a Pagina Inicial do Tribunal no Firefox
+Abrindo Inicial do Tribunal no Firefox
+montando no Firefox
+1604503701970   mozrunner::runner       INFO    Running command: "C:\\Program Fi
+les\\Mozilla Firefox\\firefox.exe" "-marionette" "-foreground" "-no-remote" "-pr
+ofile" "C:\\Users\\VERAS\\AppData\\Local\\Temp\\rust_mozprofileYgBivy"
+Processo 0050694-29.2020.8.06.0163 - 12:28
+Processo 0050695-14.2020.8.06.0163 - 12:31
+Element <i id="setaVoltar" class="icon-back"> is not clickable at point (415,70)
+ because another element <div class="blockUI blockOverlay"> obscures it
+Finalizou a captura de Processos Novos com Problema.
+Reservando Processamento Solicitacao 1376 04/11/2020 12:33:13
+Reservou Processamento Solicitacao 1376 no processamento 101351 04/11/2020 12:33
+:14
+Vai Processar a Solicitação 1376.
+Vai Gerar os Novos Processos a Capturar.
+Gerou os Novos Processos a Capturar.
+Identifica os Processos Antigos da Solicitação.
+Vai Capturar os 5 Processos Antigos.
+Vai Logar ESAJ.
+Pagina Login
+Identifica a Primeira Instancia
+Pasta Base para Baixa Copias
+Abre a Pagina Inicial do Tribunal no Firefox
+Abrindo Inicial do Tribunal no Firefox
+montando no Firefox
+
+Iniciando processo de Captura
+==================================
+Processo ID 11832
+Buscando Solicitações a Processar.
+Buscando Solicitacoes Disponiveis 04/11/2020 12:28:04
+Buscando Solicitações Disponiveis 04/11/2020 12:28:04
+montando 10 solicitacoes 04/11/2020 12:28:05
+montou  10 solicitacoes 04/11/2020 12:28:05
+Buscou Solicitacoes Disponiveis 04/11/2020 12:28:05
+Reservando Processamento Solicitacao 1375 04/11/2020 12:28:05
+Reservou Processamento Solicitacao 1375 no processamento 101350 04/11/2020 12:28
+:07
+Vai Processar a Solicitação 1375.
+Vai Gerar os Novos Processos a Capturar.
+Gerou os Novos Processos a Capturar.
+Identifica os Processos Antigos da Solicitação.
+Vai Capturar os 0 Processos Antigos.
+Identifica os Processos Novos da Solicitação.
+Vai Capturar os 50 Processos Novos.
+Vai Logar ESAJ.
+Pagina Login
+Identifica a Primeira Instancia
+Pasta Base para Baixa Copias
+Abre a Pagina Inicial do Tribunal no Firefox
+Abrindo Inicial do Tribunal no Firefox
+montando no Firefox
+1604503701970   mozrunner::runner       INFO    Running command: "C:\\Program Fi
+les\\Mozilla Firefox\\firefox.exe" "-marionette" "-foreground" "-no-remote" "-pr
+ofile" "C:\\Users\\VERAS\\AppData\\Local\\Temp\\rust_mozprofileYgBivy"
+Processo 0050694-29.2020.8.06.0163 - 12:28
+Processo 0050695-14.2020.8.06.0163 - 12:31
+Element <i id="setaVoltar" class="icon-back"> is not clickable at point (415,70)
+ because another element <div class="blockUI blockOverlay"> obscures it
+Finalizou a captura de Processos Novos com Problema.
+Reservando Processamento Solicitacao 1376 04/11/2020 12:33:13
+Reservou Processamento Solicitacao 1376 no processamento 101351 04/11/2020 12:33
+:14
+Vai Processar a Solicitação 1376.
+Vai Gerar os Novos Processos a Capturar.
+Gerou os Novos Processos a Capturar.
+Identifica os Processos Antigos da Solicitação.
+Vai Capturar os 5 Processos Antigos.
+Vai Logar ESAJ.
+Pagina Login
+Identifica a Primeira Instancia
+Pasta Base para Baixa Copias
+Abre a Pagina Inicial do Tribunal no Firefox
+Abrindo Inicial do Tribunal no Firefox
+montando no Firefox
+1604504010834   mozrunner::runner       INFO    Running command: "C:\\Program Fi
+les\\Mozilla Firefox\\firefox.exe" "-marionette" "-foreground" "-no-remote" "-pr
+ofile" "C:\\Users\\VERAS\\AppData\\Local\\Temp\\rust_mozprofile0rgO2B"
+Processo 0050577-96.2020.8.06.0176 - 12:33
+
+
+
+
+
+---- modal segredo justica
+
+
+<input type="button" name="btFechar" 
+value="Cancelar" onclick="" 
+onmouseover="B_mOver(this);" onmouseout="B_mOut(this);" class="spwBotao " id="botaoFecharPopupSenha" tabindex="7">
+
+<input type="button" name="btFechar" 
+value="Cancelar" onclick="" onmouseover="B_mOver(this);" onmouseout="B_mOut(this);" class="spwBotao " id="botaoFecharPopupSenha" tabindex="7">
+
+
+----------------------------------------------------------------------------------------------------
+
+Conferencia gravacao tabelas para o processo ESAJ:
+
+tabelas envolvidas:
+Processo
+ProcessoMovimento
+ProcessoParte
+TermoTribunalProcesso
+
+
+Processos a conferir:
+0608240-83.2020.8.06.0001
+0608238-16.2020.8.06.0001
+0608234-76.2020.8.06.0001 
+0608199-19.2020.8.06.0001
+0050990-98.2020.8.06.0115 ->> TIM COM SEGREDO DE JUSTICA -- DEU ERRO
+
+select pp.criadoEm,
+       pp.id, 
+       pp.IdProcesso, 
+	   p.Numero,
+	   ppa.IdProcessoParte, 
+       pp.Nome, 
+	   pp.Qualificacao, 
+	   pa.id, 
+	   ppa.IdProcessoAdvogado, 
+	   pa.Nome, 
+	   pa.Qualificacao,
+	   pa.OAB
+  from ProcessoParte pp
+  left join ProcessoParteAdvogado ppa on ppa.IdProcessoParte = pp.Id
+  left join ProcessoAdvogado pa on pa.Id = ppa.IdProcessoAdvogado
+  join Processo p on p.Id = pp.IdProcesso
+where pp.IdProcesso  = 140291
+
+
+O processo não pode acessar o arquivo 'D:\Processos\Processamento\782BCBED96BD\101402' 
+porque ele está sendo usado por outro processo.
+
+O processo não pode acessar o arquivo 
+porque ele está sendo usado por outro processo.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

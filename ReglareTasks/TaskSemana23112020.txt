@@ -1,0 +1,877 @@
+Find all "throw new ApplicationException", Subfolders, Find Results 1, Entire Solution, ""
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Models\Model.cs(25):                throw new ApplicationException("Uma exception deve ser infomarda nesse método.");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Models\Model.cs(46):                throw new ApplicationException("Uma mensagem de erro deve ser informada nesse método.");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Models\Model.cs(60):                throw new ApplicationException("Duas ou mais mensagens de erro devem ser informadas nesse método.");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\CaptchaService.cs(68):                    throw new ApplicationException("Não encontramos nenhum parametro Key 2Captcha.");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\CaptchaService.cs(72):                    throw new ApplicationException("Não encontramos nenhum parametro URL Envio 2Captcha.");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\CaptchaService.cs(99):                    throw new ApplicationException("Não encontramos nenhum parametro Key 2Captcha.");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\CaptchaService.cs(103):                    throw new ApplicationException("Não encontramos nenhum parametro URL Retorno 2Captcha.");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\CaptchaService.cs(130):                    throw new ApplicationException("Não encontramos nenhum parametro Key 2Captcha.");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\CaptchaService.cs(134):                    throw new ApplicationException("Não encontramos nenhum parametro URL Envio 2Captcha.");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\CapturarDistribuicaoService.cs(78):                throw new ApplicationException("Não encontramos nenhum login para o usuário do sistema.");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\CapturarDistribuicaoService.cs(93):                    throw new ApplicationException($"Não encontramos nenhuma Equipamento para {macAddr} informado.");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\CapturarDistribuicaoService.cs(106):                    throw new ApplicationException("Não encontramos nenhum parametro de diretório padrão.");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\CapturarDistribuicaoService.cs(117):                        throw new ApplicationException("Não encontramos nenhuma configuração para Processamento no Equipamento.");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\CapturarProcessosService.cs(112):                throw new ApplicationException("Não encontramos nenhum login para o usuário do sistema.");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\CapturarProcessosService.cs(128):                    throw new ApplicationException($"Não encontramos nenhuma Equipamento para {macAddr} informado.");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\CapturarProcessosService.cs(145):                        throw new ApplicationException("Não encontramos nenhuma configuração para Processamento no Equipamento.");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\CapturarProcessosService.cs(153):                        throw new ApplicationException("Não encontramos nenhum parametro de diretório padrão.");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\CommonService.cs(884):                throw new ApplicationException("Cliente não Localizada");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\CommonService.cs(888):                throw new ApplicationException("Advogados não Localizados");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\CommonService.cs(930):                    throw new ApplicationException($"Não encontramos nenhuma Solicitação com o Id {idSolicitacaoCaptura}.");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\CommonService.cs(962):                    throw new ApplicationException($"Não encontramos nenhum Processamento com o Id {idProcessamento}.");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\CommonService.cs(968):                    throw new ApplicationException($"Não encontramos nenhuma Solicitação com o Id {processamento.SolicitacaoCaptura.Id}.");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\CommonService.cs(1453):                    throw new ApplicationException("Não encontramos nenhum parametro de diretório padrão.");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\ConfirmarProcessamentoService.cs(54):                    throw new ApplicationException("Não encontramos nenhum login para o usuário do sistema.");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\ConfirmarProcessamentoService.cs(64):                    throw new ApplicationException($"Não encontramos nenhuma Equipamento para {macAddr} informado.");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\ContaService.cs(46):                    throw new ApplicationException("Não encontramos nenhum login com essa combinação de email e senha.");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\ContaService.cs(57):                    throw new ApplicationException("Não encontramos nenhum login com essa combinação de email e senha.");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\ContaService.cs(92):                    throw new ApplicationException("Já existe uma conta criada com o email informado.");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\ContaService.cs(98):                    throw new ApplicationException("Usuário para inclusão não localizado.");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\ContaService.cs(103):                    throw new ApplicationException("URL do Site não localizado.");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\ContaService.cs(107):                    throw new ApplicationException("Conta de Email não localizado.");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\ContaService.cs(121):                    throw new ApplicationException("Não foi localizado o login com o email informado.");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\ContaService.cs(168):                    throw new ApplicationException("Não foi localizado o login com o email informado.");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\ContaService.cs(172):                    throw new ApplicationException("URL do Site não localizado.");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\ContaService.cs(176):                    throw new ApplicationException("Conta de Email não localizado.");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\ContaService.cs(218):                    throw new ApplicationException($"O email {login.Login} já foi confirmado anteriormente.");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\ContaService.cs(227):                    throw new ApplicationException($"Chave de Ativação da Conta está inválida.");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\ContaService.cs(230):                    throw new ApplicationException($"Chave de Ativação da Conta está inválida.");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\ContaService.cs(235):                        throw new ApplicationException($"Chave de Ativação expirou. Solicite um novo email para a confirmação de sua conta.");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\ContaService.cs(238):                    throw new ApplicationException($"Chave de Ativação da Conta está inválida.");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\ContaService.cs(261):                //            throw new ApplicationException("Usuário Sistema não localizado.");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\ContaService.cs(287):                        throw new ApplicationException("Usuário Sistema não localizado.");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\ContaService.cs(306):                        throw new ApplicationException("Usuário Sistema não localizado.");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\ContaService.cs(331):                throw new ApplicationException("URL do Site não localizado.");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\ContaService.cs(335):                throw new ApplicationException("Conta de Email não localizado.");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\ContaService.cs(387):                    throw new ApplicationException($"Chave de Recuperação da Senha da Conta está inválida.");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\ContaService.cs(390):                    throw new ApplicationException($"Chave de Recuperação da Senha da Conta está inválida.");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\ContaService.cs(395):                        throw new ApplicationException($"Chave de Recuperação da Senha expirou. Solicite um novo email para a alterar a senha de sua conta.");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\ContaService.cs(398):                    throw new ApplicationException($"Chave de Recuperação da Senha da Conta está inválida.");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\ContaService.cs(454):                    throw new ApplicationException("Não encontramos nenhuma login para o id informado.");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\ContaService.cs(479):                    throw new ApplicationException("Não encontramos nenhuma login para o id informado.");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\ContaService.cs(510):                    throw new ApplicationException("Não encontramos nenhum login com essa combinação de email e senha.");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\ContaService.cs(515):                    throw new ApplicationException("Não encontramos nenhum login com essa combinação de email e senha.");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\ContaService.cs(518):                    throw new ApplicationException("Acesso API não liberado.");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\ContaService.cs(574):                    throw new ApplicationException("Não encontramos nenhum login com essa combinação de email e senha.");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\ContaService.cs(582):                    throw new ApplicationException("Não encontramos nenhum Acesso liberado.");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\ContaService.cs(585):                    throw new ApplicationException("Token Invalido.");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\DesmembrarArquivoService.cs(46):                throw new ApplicationException("Não encontramos nenhum login para o usuário do sistema.");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\DesmembrarArquivoService.cs(56):                throw new ApplicationException($"Não encontramos nenhuma Equipamento para {macAddr} informado.");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\DesmembrarArquivoService.cs(64):                throw new ApplicationException("Não encontramos nenhum parametro de diretório padrão.");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\DesmembrarArquivoService.cs(147):                throw new ApplicationException("Não encontramos nenhum login para o usuário do sistema.");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\DesmembrarArquivoService.cs(157):                throw new ApplicationException($"Não encontramos nenhuma Equipamento para {macAddr} informado.");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\DesmembrarArquivoService.cs(165):                throw new ApplicationException("Não encontramos nenhum parametro de diretório padrão.");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\DisponibilizarDistribuicaoService.cs(54):                    throw new ApplicationException("Não encontramos nenhum login para o usuário do sistema.");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\DisponibilizarDistribuicaoService.cs(64):                    throw new ApplicationException($"Não encontramos nenhuma Equipamento para {macAddr} informado.");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\EquipamentoProcessamentoService.cs(42):                    throw new ApplicationException("Não encontramos nenhuma conta com o Id informado.");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\EquipamentoProcessamentoService.cs(85):                throw new ApplicationException("Não encontramos nenhum usuario com o Id informado.");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\EquipamentoProcessamentoService.cs(93):                    throw new ApplicationException("Não encontramos nenhum Equipamento para o Id informado.");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\EquipamentoProcessamentoService.cs(116):                throw new ApplicationException("Não encontramos nenhum usuario com o Id informado.");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\EquipamentoProcessamentoService.cs(124):                    throw new ApplicationException("Não encontramos nenhum usuário para o id informado.");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\EquipamentoProcessamentoService.cs(134):                        throw new ApplicationException("Não encontramos nenhum Tribunal para o id informado.");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\EquipamentoProcessamentoService.cs(140):                        throw new ApplicationException("Não encontramos nenhuma Tecnologia para o id informado.");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\EquipamentoProcessamentoService.cs(172):                throw new ApplicationException("Não encontramos nenhum usuario com o Id informado.");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\EquipamentoProcessamentoService.cs(180):                    throw new ApplicationException("Não encontramos nenhum usuário para o id informado.");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\EquipamentoProcessamentoService.cs(186):                    throw new ApplicationException("Não encontramos nenhum Equipamento para o Id informado.");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\EquipamentoProcessamentoService.cs(206):                        throw new ApplicationException("Não encontramos nenhum Tribunal para o id informado.");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\EquipamentoProcessamentoService.cs(212):                        throw new ApplicationException("Não encontramos nenhuma Tecnologia para o id informado.");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\EquipamentoProcessamentoService.cs(229):                        throw new ApplicationException("Não encontramos nenhum Tribunal para o id informado.");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\EquipamentoProcessamentoService.cs(235):                        throw new ApplicationException("Não encontramos nenhuma Tecnologia para o id informado.");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\EquipamentoProcessamentoService.cs(268):                throw new ApplicationException("Não encontramos nenhum usuario com o Id informado.");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\EquipamentoProcessamentoService.cs(276):                    throw new ApplicationException("Não encontramos nenhum usuário para o id informado.");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\EquipamentoProcessamentoService.cs(282):                    throw new ApplicationException("Não encontramos nenhum Equipamento para o Id informado.");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\EquipamentoProcessamentoService.cs(376):                    throw new ApplicationException("Não encontramos nenhum usuário para o id informado.");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\EquipamentoProcessamentoService.cs(382):                    throw new ApplicationException("Não encontramos nenhum Processamento para o Id informado.");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\EquipamentoProcessamentoService.cs(388):                    throw new ApplicationException($"Não encontramos nenhuma Solicitação com o Id {processamento.SolicitacaoCaptura.Id}.");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\EquipamentoProcessamentoService.cs(420):                    throw new ApplicationException("Não encontramos nenhum usuario com o Id informado.");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\EquipamentoProcessamentoService.cs(426):                    throw new ApplicationException("Não encontramos nenhum Equipamento para o Id informado.");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\ExpressaoRegularService.cs(76):                throw new ApplicationException("Não encontramos nenhum usuario com o Id informado.");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\ExpressaoRegularService.cs(84):                    throw new ApplicationException("Não encontramos nenhum usuário para o id informado.");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\ExpressaoRegularService.cs(90):                    throw new ApplicationException("Não encontramos nenhuma Expressão Regular para o Id informado.");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\ExpressaoRegularService.cs(122):                throw new ApplicationException("Não encontramos nenhum usuario com o Id informado.");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\ExpressaoRegularService.cs(130):                    throw new ApplicationException("Não encontramos nenhum usuário para o id informado.");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\ExpressaoRegularService.cs(136):                    throw new ApplicationException("Não encontramos nenhum Termo.");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\ExpressaoRegularService.cs(167):                throw new ApplicationException("Não encontramos nenhum usuario com o Id informado.");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\ExpressaoRegularService.cs(175):                    throw new ApplicationException("Não encontramos nenhum usuário para o id informado.");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\ExpressaoRegularService.cs(181):                    throw new ApplicationException("Não encontramos nenhuma Expressão Regular para o Id informado.");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\ForumTribunalService.cs(45):                    throw new ApplicationException("Não encontramos nenhuma conta com o Id informado.");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\ForumTribunalService.cs(89):                throw new ApplicationException("Não encontramos nenhum usuario com o Id informado.");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\ForumTribunalService.cs(97):                    throw new ApplicationException("Não encontramos nenhum Tribunal para o Identificador informado.");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\ForumTribunalService.cs(120):                throw new ApplicationException("Não encontramos nenhum usuario com o Id informado.");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\ForumTribunalService.cs(128):                    throw new ApplicationException("Não encontramos nenhum usuário para o id informado.");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\ForumTribunalService.cs(134):                    throw new ApplicationException("Não encontramos nenhum Tribunal para o Identificador informado.");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\ForumTribunalService.cs(146):                        throw new ApplicationException("Não encontramos nenhuma Instancia para o Id Informado.");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\ForumTribunalService.cs(181):                throw new ApplicationException("Não encontramos nenhum usuario com o Id informado.");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\ForumTribunalService.cs(189):                    throw new ApplicationException("Não encontramos nenhum usuário para o id informado.");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\ForumTribunalService.cs(195):                    throw new ApplicationException("Não encontramos nenhum Fórum para o Id informado.");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\ForumTribunalService.cs(215):                        throw new ApplicationException("Não encontramos nenhuma Instancia para o Id Informado.");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\ForumTribunalService.cs(236):                        throw new ApplicationException("Não encontramos nenhuma Instancia para o Id Informado.");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\ForumTribunalService.cs(269):                throw new ApplicationException("Não encontramos nenhum usuario com o Id informado.");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\ForumTribunalService.cs(277):                    throw new ApplicationException("Não encontramos nenhum usuário para o id informado.");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\ForumTribunalService.cs(283):                    throw new ApplicationException("Não encontramos nenhum Tribunal para o Identificador informado.");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\FTPService.cs(34):                throw new ApplicationException("Não encontramos nenhum login para o usuário do sistema.");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\FTPService.cs(38):                throw new ApplicationException("Não encontramos nenhum usuário FTP.");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\FTPService.cs(42):                throw new ApplicationException("Não encontramos nenhum PWD FTP.");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\FTPService.cs(46):                throw new ApplicationException("Não encontramos nenhum Host FTP.");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\FTPService.cs(50):                throw new ApplicationException("Não encontramos nenhuma Pasta base dos processos.");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\FTPService.cs(109):                throw new ApplicationException("Não encontramos nenhum usuário FTP.");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\FTPService.cs(113):                throw new ApplicationException("Não encontramos nenhum PWD FTP.");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\FTPService.cs(117):                throw new ApplicationException("Não encontramos nenhum Host FTP.");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\GerarSolicitcaoCapturaCopiaService.cs(39):                    throw new ApplicationException("Não encontramos nenhum login para o usuário do sistema.");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\GerarSolicitcaoCapturaCopiaService.cs(47):                    throw new ApplicationException("Não encontramos nenhuma Quantidade Processos Solicitacao Captura Copia.");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\GerarSolicitcaoCapturaCopiaService.cs(65):                        throw new ApplicationException("Não encontramos nenhum login para o usuário da Solicitação.");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\LoginCertificadoDigitalService.cs(33):                throw new ApplicationException("Não encontramos Pasta Imagem Login Digital");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\LoginCertificadoDigitalService.cs(41):                throw new ApplicationException("Imagens do Login não localizadas");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\NumeracaoAnualService.cs(46):                    throw new ApplicationException("Não encontramos nenhuma conta com o Id informado.");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\NumeracaoAnualService.cs(95):                throw new ApplicationException("Não encontramos nenhum usuario com o Id informado.");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\NumeracaoAnualService.cs(103):                    throw new ApplicationException("Não encontramos nenhuma Numeração Anual para o Id informado.");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\NumeracaoAnualService.cs(134):                throw new ApplicationException("Não encontramos nenhum usuario com o Id informado.");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\NumeracaoAnualService.cs(142):                //    throw new ApplicationException("Não encontramos nenhum usuário para o id informado.");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\NumeracaoAnualService.cs(148):                    throw new ApplicationException("Não encontramos nenhuma Faixa para o Id Informado.");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\NumeracaoAnualService.cs(179):        //        throw new ApplicationException("Não encontramos nenhum usuario com o Id informado.");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\NumeracaoAnualService.cs(187):        //            throw new ApplicationException("Não encontramos nenhuma Faixa para o Id informado.");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\ProfileService.cs(38):                    throw new ApplicationException("Não encontramos nenhuma conta com o Id informado.");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\ProfileService.cs(100):                    throw new ApplicationException("Não encontramos nenhuma conta com o Id informado.");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\ProfileService.cs(106):                    throw new ApplicationException("Não encontramos nenhum usuario com o Id informado.");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\ProfileService.cs(112):                    throw new ApplicationException("Não encontramos nenhuma UF com o Id informado.");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\ProfileService.cs(178):                    throw new ApplicationException("Não encontramos nenhuma conta com o Id informado.");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\ProfileService.cs(184):                    throw new ApplicationException("Não encontramos nenhum usuario com o Id informado.");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\ProfileService.cs(190):                    throw new ApplicationException("Não encontramos nenhum cliente com o Id informado.");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\ProfileService.cs(208):                    throw new ApplicationException("Não encontramos nenhum endereco com o Id informado.");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\ProfileService.cs(244):                        throw new ApplicationException("Não encontramos nenhuma UF com o Id informado.");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\S3BucketService.cs(41):                    throw new ApplicationException($"Não encontramos nenhum Usuário do Local de Aramazenamento");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\SikuliService.cs(36):                throw new ApplicationException("Não encontramos Pasta Imagem Login Digital");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\SolicitacaoCapturaService.cs(43):                    throw new ApplicationException("Não encontramos nenhum login para o usuário do sistema.");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\SolicitacaoCapturaService.cs(47):                    throw new ApplicationException("Não encontramos nenhuma Solicitação para o Id informado.");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\SolicitacaoCapturaService.cs(233):                    throw new ApplicationException("Não encontramos nenhuma solicitação de captura para o id informado.");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\SolicitacaoCapturaService.cs(236):                    throw new ApplicationException($"Não é possível Cancelar a solicitação de captura que não esteja no status Pendente Pagamento.");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\SolicitacaoCapturaService.cs(242):                    throw new ApplicationException("Não encontramos nenhuma login para o id informado.");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\SolicitacaoCapturaService.cs(273):                throw new ApplicationException("Não encontramos nenhum parametro de diretório padrão.");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\SolicitacaoCapturaService.cs(283):                    throw new ApplicationException("Não encontramos nenhuma solicitação de captura para o id informado.");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\SolicitacaoCapturaService.cs(315):                    throw new ApplicationException("Não encontramos nenhuma inconsistência para o id informado.");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\SolicitacaoCapturaService.cs(336):                throw new ApplicationException("Não encontramos nenhum usuario com o Id informado.");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\SolicitacaoCapturaService.cs(342):                throw new ApplicationException("Não encontramos nenhum parametro de diretório padrão.");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\SolicitacaoCapturaService.cs(346):                throw new ApplicationException("URL do Site não localizado.");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\SolicitacaoCapturaService.cs(350):                throw new ApplicationException("Conta de Email não localizado.");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\SolicitacaoCapturaService.cs(354):                throw new ApplicationException("Conta de Email não localizado.");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\SolicitacaoCapturaService.cs(363):                    throw new ApplicationException("Não encontramos nenhum usuário para o id informado.");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\SolicitacaoCapturaService.cs(370):                    throw new ApplicationException("Você excedeu o seu limite máximo de Solicitação de Cópia por dia.");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\SolicitacaoCapturaService.cs(418):                    throw new ApplicationException("Usuário Sistema não localizado.");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\SolicitacaoCapturaService.cs(515):                    throw new ApplicationException("Não encontramos nenhum usuario com o Id informado.");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\SolicitacaoCapturaService.cs(518):                    throw new ApplicationException("Acesso não liberado para criar Requisição.");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\SolicitacaoCapturaService.cs(522):                    throw new ApplicationException("Não encontramos nenhum parametro de diretório padrão.");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\SolicitacaoCapturaService.cs(526):                    throw new ApplicationException("Conta de Email não localizado.");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\SolicitacaoCapturaService.cs(530):                    throw new ApplicationException("URL do Site não localizado.");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\SolicitacaoCapturaService.cs(534):                    throw new ApplicationException("Conta de Email não localizado.");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\SolicitacaoCapturaService.cs(542):                    throw new ApplicationException("Você excedeu o seu limite máximo de Solicitação de Cópia por dia.");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\SolicitacaoCapturaService.cs(545):                    throw new ApplicationException("Acesso não liberado para criar Requisição.");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\SolicitacaoCapturaService.cs(622):                    throw new ApplicationException("Não encontramos nenhum usuario com o Id informado.");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\SolicitacaoCapturaService.cs(664):                    throw new ApplicationException("Não encontramos nenhum usuario com o Id informado.");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\SolicitacaoCapturaService.cs(667):                    throw new ApplicationException("Acesso não liberado para criar Requisição.");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\SolicitacaoCapturaService.cs(670):                    throw new ApplicationException("Acesso não liberado para criar Requisição.");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\SolicitacaoCapturaService.cs(804):                    throw new ApplicationException("Não encontramos nenhum usuario com o Id informado.");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\SolicitacaoCapturaService.cs(807):                    throw new ApplicationException("Acesso não liberado para criar Requisição.");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\SolicitacaoCapturaService.cs(810):                    throw new ApplicationException("Acesso não liberado para criar Requisição.");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\SolicitacaoCapturaService.cs(870):                    throw new ApplicationException("Não encontramos nenhum usuario com o Id informado.");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\SolicitacaoCopiaService.cs(49):                    throw new ApplicationException("Não encontramos nenhum usuario com o Id informado.");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\SolicitacaoCopiaService.cs(52):                    throw new ApplicationException("Acesso não liberado para criar Requisição.");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\SolicitacaoCopiaService.cs(62):                    throw new ApplicationException("Não encontramos nenhum parametro de diretório padrão.");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\SolicitacaoCopiaService.cs(66):                    throw new ApplicationException("Conta de Email não localizado.");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\SolicitacaoCopiaService.cs(70):                    throw new ApplicationException("URL do Site não localizado.");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\SolicitacaoCopiaService.cs(74):                    throw new ApplicationException("Conta de Email não localizado.");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\SolicitacaoCopiaService.cs(82):                    throw new ApplicationException("Você excedeu o seu limite máximo de Solicitação de Cópia por dia.");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\SolicitacaoCopiaService.cs(85):                    throw new ApplicationException("Acesso não liberado para criar Requisição.");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\SolicitacaoCopiaService.cs(165):                    throw new ApplicationException("Não encontramos nenhum usuario com o Id informado.");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\SolicitacaoLocalizacaoService.cs(123):                throw new ApplicationException("Não encontramos nenhum usuario com o Id informado.");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\SolicitacaoLocalizacaoService.cs(131):                    throw new ApplicationException("Não encontramos nenhum usuário para o id informado.");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\SolicitacaoLocalizacaoService.cs(137):                    throw new ApplicationException("Não encontramos nenhuma Solicitação para o Id informado.");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\TecnologiaBAService.cs(74):                throw new ApplicationException("Solicitação não Localizada");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\TecnologiaBAService.cs(197):                        throw new ApplicationException("Solicitação não Localizada");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\TecnologiaBAService.cs(1384):                    throw new ApplicationException("Pagina LogIn não localizada");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\TecnologiaBAService.cs(1393):                    throw new ApplicationException("Primeira Instancia não localizada");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\TecnologiaEProcService.cs(61):                    throw new ApplicationException("Pagina LogIn não localizada");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\TecnologiaEProcService.cs(70):                    throw new ApplicationException("Primeira Instancia não localizada");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\TecnologiaEProcService.cs(229):                        throw new ApplicationException("Solicitação não Localizada");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\TecnologiaEsajService.cs(107):                        throw new ApplicationException("Não localizou Captcha vez.");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\TecnologiaEsajService.cs(111):                        throw new ApplicationException("Não localizou Captcha outras vezes.");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\TecnologiaEsajService.cs(138):                            throw new ApplicationException("Solicitação não Localizada");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\TecnologiaEsajService.cs(330):                    throw new ApplicationException("Pagina LogIn não localizada");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\TecnologiaEsajService.cs(339):                    throw new ApplicationException("Primeira Instancia não localizada");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\TecnologiaEsajService.cs(2651):                    throw new ApplicationException("Não encontramos nenhum parametro de diretório padrão.");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\TecnologiaESService.cs(44):                throw new ApplicationException("Pasta Base Profile FireFox.");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\TecnologiaESService.cs(48):                throw new ApplicationException("Pasta Base Chrome.");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\TecnologiaESService.cs(56):                throw new ApplicationException("Pasta Base FireFox.");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\TecnologiaESService.cs(85):                throw new ApplicationException("Qualificação das Partes não localizada.");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\TecnologiaESService.cs(107):                        throw new ApplicationException("Solicitação não Localizada");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\TecnologiaESService.cs(897):                    throw new ApplicationException("Não encontramos nenhum parametro de diretório padrão.");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\TecnologiaGOService.cs(43):                throw new ApplicationException("Pasta Base Profile FireFox.");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\TecnologiaGOService.cs(47):                throw new ApplicationException("Pasta Base Chrome.");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\TecnologiaGOService.cs(51):                throw new ApplicationException("Pasta Base FireFox.");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\TecnologiaGOService.cs(59):                throw new ApplicationException("Pagina LogIn.");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\TecnologiaGOService.cs(73):                throw new ApplicationException("Qualificação das Partes não localizada.");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\TecnologiaGOService.cs(139):                        throw new ApplicationException("Solicitação não Localizada");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\TecnologiaGOService.cs(158):                        throw new ApplicationException("Cliente não Localizada");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\TecnologiaGOService.cs(162):                        throw new ApplicationException("Advogados não Localizados");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\TecnologiaMGService.cs(41):                throw new ApplicationException("Pasta Base Profile FireFox.");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\TecnologiaMGService.cs(45):                throw new ApplicationException("Pasta Base Chrome.");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\TecnologiaMGService.cs(49):                throw new ApplicationException("Pasta Base FireFox.");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\TecnologiaMGService.cs(82):                throw new ApplicationException("Qualificação das Partes não localizada.");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\TecnologiaMGService.cs(113):                throw new ApplicationException("Não localizou Captcha MG.");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\TecnologiaMGService.cs(130):                        throw new ApplicationException("Solicitação não Localizada");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\TecnologiaMGService.cs(149):                        throw new ApplicationException("Cliente não Localizada");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\TecnologiaMGService.cs(153):                        throw new ApplicationException("Advogados não Localizados");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\TecnologiaMGService.cs(895):                    throw new ApplicationException("Não encontramos nenhum parametro de diretório padrão.");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\TecnologiaPJETJSemOfficeService.cs(54):                throw new ApplicationException("Pasta Base Profile FireFox.");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\TecnologiaPJETJSemOfficeService.cs(62):                throw new ApplicationException("Pasta Base FireFox.");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\TecnologiaPJETJSemOfficeService.cs(87):                throw new ApplicationException("Qualificação das Partes não localizada.");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\TecnologiaPJETJSemOfficeService.cs(141):                        throw new ApplicationException("Solicitação não Localizada");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\TecnologiaPJETJSemOfficeService.cs(166):                        throw new ApplicationException("Cliente não Localizada");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\TecnologiaPJETJSemOfficeService.cs(170):                        throw new ApplicationException("Advogados não Localizados");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\TecnologiaPJETJService.cs(79):                    throw new ApplicationException("Pagina LogIn não localizada");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\TecnologiaPJETJService.cs(88):                    throw new ApplicationException("Primeira Instancia não localizada");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\TecnologiaPJETJService.cs(303):                        throw new ApplicationException("Solicitação não Localizada");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\TecnologiaPJETRTService.cs(42):                throw new ApplicationException("Pasta Base Profile FireFox.");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\TecnologiaPJETRTService.cs(46):                throw new ApplicationException("Pasta Base Chrome.");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\TecnologiaPJETRTService.cs(52):                throw new ApplicationException("Pasta Base FireFox.");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\TecnologiaPJETRTService.cs(77):                throw new ApplicationException("Qualificação das Partes não localizada.");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\TecnologiaPJETRTService.cs(140):                        throw new ApplicationException("Solicitação não Localizada");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\TecnologiaPJETRTService.cs(159):                        throw new ApplicationException("Cliente não Localizada");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\TecnologiaPJETRTService.cs(163):                        throw new ApplicationException("Advogados não Localizados");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\TecnologiaPJEV2Service.cs(77):                    throw new ApplicationException("Blocagem Pixel Captcha não Localizada");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\TecnologiaPJEV2Service.cs(96):                    throw new ApplicationException("Não foi possível criar OCR");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\TecnologiaPJEV2Service.cs(129):                        throw new ApplicationException("Solicitação não Localizada");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\TecnologiaPJEV2Service.cs(309):                    throw new ApplicationException("Pagina LogIn não localizada");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\TecnologiaPJEV2Service.cs(319):                    throw new ApplicationException("Primeira Instancia não localizada");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\TecnologiaProjudiService.cs(66):                    throw new ApplicationException("Pagina LogIn não localizada");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\TecnologiaProjudiService.cs(75):                    throw new ApplicationException("Primeira Instancia não localizada");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\TecnologiaProjudiService.cs(186):                throw new ApplicationException("Solicitação não Localizada");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\TecnologiaPRService.cs(63):                throw new ApplicationException("Solicitação não Localizada");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\TecnologiaPRService.cs(383):                    throw new ApplicationException("Pagina LogIn não localizada");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\TecnologiaPRService.cs(392):                    throw new ApplicationException("Primeira Instancia não localizada");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\TecnologiaRSService.cs(41):                throw new ApplicationException("Pasta Base Profile FireFox.");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\TecnologiaRSService.cs(45):                throw new ApplicationException("Pasta Base Chrome.");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\TecnologiaRSService.cs(49):                throw new ApplicationException("Pasta Base FireFox.");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\TecnologiaRSService.cs(57):                throw new ApplicationException("Pagina LogIn.");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\TecnologiaRSService.cs(61):            //    throw new ApplicationException("Pagina Logou.");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\TecnologiaRSService.cs(75):                throw new ApplicationException("Qualificação das Partes não localizada.");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\TecnologiaRSService.cs(105):                throw new ApplicationException("Não localizou Captcha RS.");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\TecnologiaRSService.cs(121):                        throw new ApplicationException("Solicitação não Localizada");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\TecnologiaRSService.cs(140):                        throw new ApplicationException("Cliente não Localizada");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\TecnologiaRSService.cs(144):                        throw new ApplicationException("Advogados não Localizados");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\TecnologiaRSService.cs(1068):                    throw new ApplicationException("Não encontramos nenhum parametro de diretório padrão.");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\TecnologiaSEService.cs(41):                throw new ApplicationException("Pasta Base Profile FireFox.");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\TecnologiaSEService.cs(45):                throw new ApplicationException("Pasta Base Chrome.");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\TecnologiaSEService.cs(49):                throw new ApplicationException("Pasta Base FireFox.");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\TecnologiaSEService.cs(68):                throw new ApplicationException("Qualificação das Partes não localizada.");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\TecnologiaSEService.cs(90):                throw new ApplicationException("Não localizou Captcha vez.");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\TecnologiaSEService.cs(94):                throw new ApplicationException("Não localizou Captcha outras vezes.");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\TecnologiaSEService.cs(111):                        throw new ApplicationException("Solicitação não Localizada");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\TecnologiaSEService.cs(130):                        throw new ApplicationException("Cliente não Localizada");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\TecnologiaSEService.cs(134):                        throw new ApplicationException("Advogados não Localizados");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\TecnologiaSEService.cs(926):                    throw new ApplicationException("Não encontramos nenhum parametro de diretório padrão.");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\TecnologiaTjRjService.cs(76):                    throw new ApplicationException("Solicitação não Localizada");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\TecnologiaTjRjService.cs(577):                throw new ApplicationException(ex.Message);
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\TecnologiaTjRjService.cs(783):                    throw new ApplicationException("Pagina LogIn não localizada");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\TecnologiaTjRjService.cs(792):                    throw new ApplicationException("Primeira Instancia não localizada");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\TecnologiaTRT5Service.cs(40):                throw new ApplicationException("Pasta Base Profile FireFox.");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\TecnologiaTRT5Service.cs(44):                throw new ApplicationException("Pasta Base Chrome.");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\TecnologiaTRT5Service.cs(50):                throw new ApplicationException("Pasta Base FireFox.");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\TecnologiaTRT5Service.cs(75):                throw new ApplicationException("Qualificação das Partes não localizada.");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\TecnologiaTRT5Service.cs(102):                        throw new ApplicationException("Solicitação não Localizada");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\TecnologiaTRT5Service.cs(121):                        throw new ApplicationException("Cliente não Localizada");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\TecnologiaTRT5Service.cs(125):                        throw new ApplicationException("Advogados não Localizados");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\TecnologiaTRT8FisicoService.cs(101):                        throw new ApplicationException("Solicitação não Localizada");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\TecnologiaTRT8FisicoService.cs(219):                //    throw new ApplicationException("Pagina LogIn não localizada");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\TecnologiaTRT8FisicoService.cs(229):                    throw new ApplicationException("Primeira Instancia não localizada");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\TecnologiaTRTService.cs(40):                throw new ApplicationException("Pasta Base Profile FireFox.");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\TecnologiaTRTService.cs(44):                throw new ApplicationException("Pasta Base Chrome.");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\TecnologiaTRTService.cs(50):                throw new ApplicationException("Pasta Base FireFox.");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\TecnologiaTRTService.cs(75):                throw new ApplicationException("Qualificação das Partes não localizada.");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\TecnologiaTRTService.cs(102):                        throw new ApplicationException("Solicitação não Localizada");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\TecnologiaTRTService.cs(121):                        throw new ApplicationException("Cliente não Localizada");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\TecnologiaTRTService.cs(125):                        throw new ApplicationException("Advogados não Localizados");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\TransferirProcessoService.cs(51):                    throw new ApplicationException("Não encontramos nenhum login para o usuário do sistema.");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\TransferirProcessoService.cs(61):                    throw new ApplicationException($"Não encontramos nenhuma Equipamento para {macAddr} informado.");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\TransferirProcessoService.cs(69):                    throw new ApplicationException("Não encontramos nenhum parametro de diretório padrão.");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\TransferirProcessoService.cs(132):                    throw new ApplicationException("Não encontramos nenhum login para o usuário do sistema.");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\TransferirProcessoService.cs(142):                    throw new ApplicationException($"Não encontramos nenhuma Equipamento para {macAddr} informado.");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\TransferirProcessoService.cs(150):                    throw new ApplicationException("Não encontramos nenhum parametro de diretório padrão.");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\TransferirProcessoService.cs(158):                    throw new ApplicationException("Não encontramos nenhum parametro de Bucket Padrão S3.");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\TribunalJusticaService.cs(45):                    throw new ApplicationException("Não encontramos nenhuma conta com o Id informado.");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\TribunalJusticaService.cs(73):                    throw new ApplicationException("Não encontramos nenhuma conta com o Id informado.");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\TribunalJusticaService.cs(101):                    throw new ApplicationException("Não encontramos nenhuma conta com o Id informado.");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Core\Entidades\Cliente.cs(38):                throw new ApplicationException("O usuário não pode atuar como Cliente.");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Core\Entidades\Cliente.cs(41):                throw new ApplicationException("O usuário inativo.");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Core\Entidades\Cliente.cs(76):                throw new ApplicationException("O Advogado já esta Bloqueado.");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Core\Entidades\Cliente.cs(86):                throw new ApplicationException("O Advogado não esta Bloqueado.");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Core\Entidades\Cliente.cs(96):                throw new ApplicationException("O Advogado já esta Ativo.");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Core\Entidades\Cliente.cs(106):                throw new ApplicationException("O Advogado não esta Ativo.");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Core\Entidades\Cliente.cs(116):                throw new ApplicationException("O Advogado já acessa API.");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Core\Entidades\Cliente.cs(126):                throw new ApplicationException("O Advogado não acessa API.");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Core\Entidades\EquipamentoProcessamentoParametro.cs(11):            throw new ApplicationException("Não é possível criar um parametro para o Equipamento.");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Core\Entidades\Forum.cs(11):            throw new ApplicationException("Não é possível criar Fórum.");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Core\Entidades\ForumFaixaNumeroAno.cs(33):                throw new ApplicationException("Ultimo Numero Processo Invalido.");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Core\Entidades\ImagemLoginCertificado.cs(11):            throw new ApplicationException("Não é possível criar Imagem do Login Usuário de Acesso.");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Core\Entidades\InstanciaTribunal.cs(12):            throw new ApplicationException("Não é possível criar Instancia do Tribunal Justiça.");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Core\Entidades\ProcessamentoCaptura.cs(109):                throw new ApplicationException("Não é possível Atualizar Solicitação de Captura com Processo.");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Core\Entidades\ProcessamentoCaptura.cs(120):                throw new ApplicationException("Não é possível Atualizar Processo sem Solicitação de Captura.");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Core\Entidades\Processo.cs(178):                    throw new ApplicationException("O status do Processo não pode mudar para Em Processamento devido ao Status que se encontra.");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Core\Entidades\Processo.cs(195):                throw new ApplicationException("O status do Processo não pode mudar para Capturado devido ao Status que se encontra.");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Core\Entidades\Processo.cs(210):            //    throw new ApplicationException("O status do Processo não pode mudar para Não Localizado devido ao Status que se encontra.");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Core\Entidades\Processo.cs(224):                throw new ApplicationException("O status do Processo não pode mudar para Cancelado devido ao Status que se encontra.");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Core\Entidades\Processo.cs(238):                throw new ApplicationException("O status do Processo não pode mudar para Inconsistente devido ao Status que se encontra.");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Core\Entidades\Processo.cs(252):                throw new ApplicationException("O status do Processo não pode mudar para Download Disponivel devido ao Status que se encontra.");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Core\Entidades\Processo.cs(262):                throw new ApplicationException("O status do Processo não pode mudar para Em Segredo de Justiça devido ao Status que se encontra.");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Core\Entidades\Processo.cs(276):            //    throw new ApplicationException("O Processo não pode ser alterado para Físico pois não é Eletrônico.");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Core\Entidades\ProcessoSolicitacaoCopia .cs(93):                    throw new ApplicationException("O status do Processo não pode mudar para Em Processamento devido ao Status que se encontra.");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Core\Entidades\ProcessoSolicitacaoCopia .cs(112):                throw new ApplicationException("O status do Processo não pode mudar para Capturado devido ao Status que se encontra.");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Core\Entidades\ProcessoSolicitacaoCopia .cs(128):            //    throw new ApplicationException("O status do Processo não pode mudar para Não Localizado devido ao Status que se encontra.");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Core\Entidades\ProcessoSolicitacaoCopia .cs(143):                throw new ApplicationException("O status do Processo não pode mudar para Cancelado devido ao Status que se encontra.");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Core\Entidades\ProcessoSolicitacaoCopia .cs(158):                throw new ApplicationException("O status do Processo não pode mudar para Inconsistente devido ao Status que se encontra.");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Core\Entidades\ProcessoSolicitacaoCopia .cs(174):                throw new ApplicationException("O status do Processo não pode mudar para Download Disponivel devido ao Status que se encontra.");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Core\Entidades\ProcessoSolicitacaoCopia .cs(185):                throw new ApplicationException("O status do Processo não pode mudar para Em Segredo de Justiça devido ao Status que se encontra.");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Core\Entidades\SituacaoProcesso.cs(13):            throw new ApplicationException("Não é possível criar Situação Processo.");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Core\Entidades\SolicitacaoCaptura.cs(118):                throw new ApplicationException("É preciso informar uma Data Válida.");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Core\Entidades\SolicitacaoCaptura.cs(126):                throw new ApplicationException("É preciso informar uma Data Válida.");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Core\Entidades\SolicitacaoCaptura.cs(134):                throw new ApplicationException("É preciso informar uma descrição da solicitação de pedido.");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Core\Entidades\SolicitacaoCaptura.cs(142):                throw new ApplicationException("O status da Solicitação não pode mudar para Liberado Processamento devido ao Status que se encontra.");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Core\Entidades\SolicitacaoCaptura.cs(152):                throw new ApplicationException("O status da Solicitação não pode mudar para Pendente de Pagamento devido ao Status que se encontra.");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Core\Entidades\SolicitacaoCaptura.cs(162):                throw new ApplicationException("O status da Solicitação não pode mudar para Aguardando Pagamento devido ao Status que se encontra.");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Core\Entidades\SolicitacaoCaptura.cs(172):                throw new ApplicationException("O status da Solicitação não pode mudar para Em Processamento devido ao Status que se encontra.");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Core\Entidades\SolicitacaoCaptura.cs(182):                throw new ApplicationException("O status da Solicitação não pode mudar para Capturado com Sucesso se não estiver no status Em Processamento.");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Core\Entidades\SolicitacaoCaptura.cs(192):                throw new ApplicationException("O status da Solicitacao não pode mudar para Capturado com Inconsistência se não estiver no status Em Processamento.");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Core\Entidades\SolicitacaoCaptura.cs(202):                throw new ApplicationException("O status da Solicitação não pode mudar para Processado se não estiver no status de Capturado.");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Core\Entidades\SolicitacaoCaptura.cs(212):                throw new ApplicationException("O status da Solicitacao não pode mudar para Cancelado se não estiver no status Em Aberto ou Importado.");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Core\Entidades\SolicitacaoCopia.cs(51):                throw new ApplicationException("O status da Solicitação não pode mudar para Em Processamento devido ao Status que se encontra.");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Core\Entidades\SolicitacaoCopia.cs(61):                throw new ApplicationException("O status da Solicitação não pode mudar para Processado se não estiver no status de Capturado.");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Core\Entidades\SolicitacaoCopia.cs(71):                throw new ApplicationException("O status da Solicitacao não pode mudar para Cancelado se não estiver no status Em Aberto ou Importado.");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Core\Entidades\SolicitacaoLocalizacao.cs(16):            throw new ApplicationException("Não é possível criar Solicitação Solicitação");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Core\Entidades\SolicitacaoLocalizacao.cs(22):                throw new ApplicationException("O status da Solicitação não pode mudar para Em Processamento devido ao Status que se encontra.");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Core\Entidades\SolicitacaoLocalizacao.cs(34):                throw new ApplicationException("O status da Solicitação não pode mudar para Em Processamento devido ao Status que se encontra.");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Core\Entidades\SolicitacaoMovimentacao.cs(29):                throw new ApplicationException("O status da Solicitação não pode mudar para Liberado Processamento devido ao Status que se encontra.");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Core\Entidades\SolicitacaoMovimentacao.cs(39):                throw new ApplicationException("O status da Solicitação não pode mudar para Em Processamento devido ao Status que se encontra.");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Core\Entidades\SolicitacaoMovimentacao.cs(49):                throw new ApplicationException("O status da Solicitação não pode mudar para Processado devido ao Status que se encontra.");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Core\Entidades\TecnologiaSite.cs(15):            throw new ApplicationException("Não é possível criar Tecnologia de Site.");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Core\Entidades\TermoExpressaoRegular.cs(12):                throw new ApplicationException("Sequencia Invalido.");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Core\Entidades\TermoExpressaoRegular.cs(35):                throw new ApplicationException("Sequencia Invalido.");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Core\Entidades\TermoLocalizacao.cs(15):            throw new ApplicationException("Não é possível criar Termo");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Core\Entidades\TermoTribunal.cs(15):            throw new ApplicationException("Não é possível associar Tribunal ao Termo");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Core\Entidades\TribunalJustica.cs(17):            throw new ApplicationException("Não é possível criar Tribunal Justiça.");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Core\Entidades\Uf.cs(12):            throw new ApplicationException("Não é possível criar ufs.");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Core\Entidades\Usuario.cs(76):                throw new ApplicationException("O usuário já esta Ativo.");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Core\Entidades\Usuario.cs(84):                throw new ApplicationException("O usuário já esta Inativo.");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Core\Entidades\Usuario.cs(95):                throw new ApplicationException("A conta não está ativa.");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Core\Entidades\Usuario.cs(98):                throw new ApplicationException("A conta ainda não foi Confirmada.");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Core\Entidades\Usuario.cs(108):                throw new ApplicationException($"O email {Login} já foi confirmado anteriormente.");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Core\Entidades\UsuarioAcesso.cs(14):            throw new ApplicationException("Não é possível criar Usuário de Acesso.");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Core\Entidades\UsuarioCallBack.cs(11):            throw new ApplicationException("Não é possível criar Usuário de CallBack.");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Core\Entidades\UsuarioLocalArmazenamento.cs(12):            throw new ApplicationException("Não é possível criar Usuário de Armazenamento.");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\apps\Web\Controllers\ProfileController.cs(81):                        throw new ApplicationException(ex.Message);
+  Matching lines: 369    Matching files: 67    Total files searched: 846
+
+Find all "catch (Exception ex)", Subfolders, Find Results 1, Entire Solution, ""
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\BrowserService.cs(39):            catch (Exception ex) { }
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\BrowserService.cs(61):            catch (Exception ex) { }
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\BrowserService.cs(82):            catch (Exception ex) { }
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\BrowserService.cs(104):            catch (Exception ex) { }
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\BrowserService.cs(121):            catch (Exception ex)
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\BrowserService.cs(468):            catch (Exception ex)
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\CaptchaService.cs(51):            catch (Exception ex)
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\CaptchaService.cs(84):            catch (Exception ex)
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\CaptchaService.cs(113):            catch (Exception ex)
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\CaptchaService.cs(148):            catch (Exception ex)
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\CaptchaService.cs(180):            catch (Exception ex)
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\CaptchaService.cs(210):            catch (Exception ex) {}
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\CapturarDistribuicaoService.cs(428):            catch (Exception ex)
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\CapturarDistribuicaoService.cs(462):            catch (Exception ex)
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\CapturarDistribuicaoService.cs(583):            catch (Exception ex)
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\CapturarProcessosService.cs(198):            catch (Exception ex)
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\CapturarProcessosService.cs(267):            catch (Exception ex)
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\CapturarProcessosService.cs(292):            catch (Exception ex)
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\CommonService.cs(94):            catch (Exception ex)
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\CommonService.cs(230):            catch (Exception ex) { }
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\CommonService.cs(384):            catch (Exception ex) { }
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\CommonService.cs(448):            catch (Exception ex) { }
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\CommonService.cs(461):        //    catch (Exception ex) { }
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\CommonService.cs(666):            catch (Exception ex) { }
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\CommonService.cs(750):            catch (Exception ex)
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\CommonService.cs(945):            catch (Exception ex)
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\CommonService.cs(981):            catch (Exception ex) { }
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\CommonService.cs(1088):            catch (Exception ex)
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\CommonService.cs(1138):            catch (Exception ex)
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\CommonService.cs(1461):            catch (Exception ex) { }
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\CommonService.cs(1486):            catch (Exception ex) { }
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\ConfirmarProcessamentoService.cs(98):            catch (Exception ex)
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\ConfirmarProcessamentoService.cs(140):            catch (Exception ex)
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\ConfirmarProcessamentoService.cs(193):            catch (Exception ex)
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\ConfirmarProcessamentoService.cs(219):            catch (Exception ex)
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\ConfirmarProcessamentoService.cs(272):            catch (Exception ex)
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\ConfirmarProcessamentoService.cs(298):            catch (Exception ex)
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\ContaService.cs(69):            catch (Exception ex)
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\ContaService.cs(147):            catch (Exception ex)
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\ContaService.cs(200):            catch (Exception ex)
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\ContaService.cs(316):            catch (Exception ex)
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\ContaService.cs(360):            catch (Exception ex)
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\ContaService.cs(404):            catch (Exception ex)
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\ContaService.cs(433):            catch (Exception ex)
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\ContaService.cs(458):            catch (Exception ex)
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\ContaService.cs(483):            catch (Exception ex)
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\ContaService.cs(546):            catch (Exception ex)
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\ContaService.cs(587):            catch (Exception ex)
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\DesmembrarArquivoService.cs(274):            catch (Exception ex)
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\DesmembrarArquivoService.cs(383):            catch (Exception ex)
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\DesmembrarArquivoService.cs(432):            catch (Exception ex)
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\DesmembrarArquivoService.cs(553):            catch (Exception ex)
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\DesmembrarArquivoService.cs(572):            catch (Exception ex)
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\DesmembrarArquivoService.cs(753):            catch (Exception ex)
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\DesmembrarArquivoService.cs(776):            catch (Exception ex)
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\DesmembrarArquivoService.cs(803):            catch (Exception ex)
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\DesmembrarArquivoService.cs(831):            catch (Exception ex)
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\DesmembrarArquivoService.cs(902):            catch (Exception ex)
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\DesmembrarArquivoService.cs(973):            catch (Exception ex)
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\DesmembrarArquivoService.cs(1010):            catch (Exception ex)
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\DisponibilizarDistribuicaoService.cs(383):            catch (Exception ex)
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\DisponibilizarDistribuicaoService.cs(407):            catch (Exception ex)
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\DropBoxService.cs(103):            catch (Exception ex)
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\DropBoxService.cs(208):            catch (Exception ex)
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\EquipamentoProcessamentoService.cs(66):            catch (Exception ex)
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\EquipamentoProcessamentoService.cs(97):            catch (Exception ex)
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\EquipamentoProcessamentoService.cs(153):            catch (Exception ex)
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\EquipamentoProcessamentoService.cs(249):            catch (Exception ex)
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\EquipamentoProcessamentoService.cs(290):            catch (Exception ex)
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\EquipamentoProcessamentoService.cs(355):            catch (Exception ex)
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\EquipamentoProcessamentoService.cs(399):            catch (Exception ex)
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\EquipamentoProcessamentoService.cs(436):            catch (Exception ex)
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\ExpressaoRegularService.cs(57):            catch (Exception ex)
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\ExpressaoRegularService.cs(103):            catch (Exception ex)
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\ExpressaoRegularService.cs(148):            catch (Exception ex)
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\ExpressaoRegularService.cs(189):            catch (Exception ex)
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\ForumTribunalService.cs(70):            catch (Exception ex)
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\ForumTribunalService.cs(101):            catch (Exception ex)
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\ForumTribunalService.cs(162):            catch (Exception ex)
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\ForumTribunalService.cs(250):            catch (Exception ex)
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\ForumTribunalService.cs(291):            catch (Exception ex)
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\FTPService.cs(160):                catch (Exception ex) { Console.WriteLine(ex.ToString()); }
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\FTPService.cs(167):            catch (Exception ex) { Console.WriteLine(ex.ToString()); }
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\FTPService.cs(216):            catch (Exception ex) { Console.WriteLine(ex.ToString()); }
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\FTPService.cs(243):            catch (Exception ex) { Console.WriteLine(ex.ToString()); }
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\FTPService.cs(270):            catch (Exception ex) { Console.WriteLine(ex.ToString()); }
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\FTPService.cs(302):                catch (Exception ex) { Console.WriteLine(ex.ToString()); }
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\FTPService.cs(310):                catch (Exception ex) { Console.WriteLine(ex.ToString()); }
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\FTPService.cs(312):            catch (Exception ex) { Console.WriteLine(ex.ToString()); }
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\GerarSolicitcaoCapturaCopiaService.cs(136):            catch (Exception ex)
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\GerenciarFisicoService.cs(75):            catch (Exception ex)
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\GerenciarFisicoService.cs(123):            catch (Exception ex)
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\GerenciarFisicoService.cs(161):            catch (Exception ex)
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\GerenciarFisicoService.cs(199):            catch (Exception ex)
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\GerenciarFisicoService.cs(241):            catch (Exception ex)
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\GerenciarFisicoService.cs(270):            catch (Exception ex) { }
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\GerenciarFisicoService.cs(322):            catch (Exception ex) { }
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\GerenciarFisicoService.cs(349):            catch (Exception ex)
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\GerenciarFisicoService.cs(365):            catch (Exception ex) { }
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\GerenciarFisicoService.cs(379):            catch (Exception ex) { }
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\GerenciarFisicoService.cs(393):            catch (Exception ex) { }
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\GerenciarFisicoService.cs(413):            catch (Exception ex) { }
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\GerenciarFisicoService.cs(429):            catch (Exception ex)
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\GerenciarFisicoService.cs(447):            catch (Exception ex)
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\GerenciarFisicoService.cs(470):            catch (Exception ex)
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\GerenciarFisicoService.cs(493):            catch (Exception ex)
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\GerenciarFisicoService.cs(518):            catch (Exception ex)
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\GerenciarFisicoService.cs(543):            catch (Exception ex)
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\GerenciarFisicoService.cs(568):            catch (Exception ex)
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\GerenciarFisicoService.cs(677):            catch (Exception ex)
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\GerenciarFisicoService.cs(695):            catch (Exception ex)
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\GerenciarFisicoService.cs(712):            catch (Exception ex)
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\GerenciarFisicoService.cs(757):            catch (Exception ex)
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\GerenciarFisicoService.cs(810):            catch (Exception ex)
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\GerenciarFisicoService.cs(894):            catch (Exception ex)
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\GerenciarFisicoService.cs(939):            catch (Exception ex)
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\GerenciarFisicoService.cs(966):            catch (Exception ex)
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\LoginCertificadoDigitalService.cs(63):                catch (Exception ex)
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\LoginCertificadoDigitalService.cs(81):                catch (Exception ex)
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\LoginCertificadoDigitalService.cs(93):                catch (Exception ex)
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\LoginCertificadoDigitalService.cs(111):            catch (Exception ex)
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\LoginCertificadoDigitalService.cs(133):            catch (Exception ex)
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\LoginCertificadoDigitalService.cs(150):            catch (Exception ex)
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\NumeracaoAnualService.cs(76):            catch (Exception ex)
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\NumeracaoAnualService.cs(115):            catch (Exception ex)
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\NumeracaoAnualService.cs(160):            catch (Exception ex)
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\NumeracaoAnualService.cs(191):        //    catch (Exception ex)
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\ParametrosService.cs(39):            catch (Exception ex)
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\ParametrosService.cs(85):            catch (Exception ex)
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\ProfileService.cs(79):            catch (Exception ex)
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\ProfileService.cs(156):            catch (Exception ex)
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\ProfileService.cs(327):            catch (Exception ex)
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\S3BucketService.cs(114):            catch (Exception ex)
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\SikuliService.cs(51):            catch (Exception ex)
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\SikuliService.cs(68):            catch (Exception ex)
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\SikuliService.cs(89):            catch (Exception ex)
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\SikuliService.cs(101):            catch (Exception ex)
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\SikuliService.cs(117):            catch (Exception ex)
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\SikuliService.cs(129):            catch (Exception ex)
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\SikuliService.cs(145):            catch (Exception ex)
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\SikuliService.cs(157):            catch (Exception ex)
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\SolicitacaoCapturaService.cs(101):            catch (Exception ex)
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\SolicitacaoCapturaService.cs(119):            catch (Exception ex)
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\SolicitacaoCapturaService.cs(137):            catch (Exception ex)
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\SolicitacaoCapturaService.cs(205):            catch (Exception ex)
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\SolicitacaoCapturaService.cs(254):            catch (Exception ex)
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\SolicitacaoCapturaService.cs(290):            catch (Exception ex)
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\SolicitacaoCapturaService.cs(319):            catch (Exception ex)
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\SolicitacaoCapturaService.cs(433):            catch (Exception ex)
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\SolicitacaoCapturaService.cs(491):            catch (Exception ex)
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\SolicitacaoCapturaService.cs(598):            catch (Exception ex)
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\SolicitacaoCapturaService.cs(640):            catch (Exception ex)
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\SolicitacaoCapturaService.cs(780):            catch (Exception ex)
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\SolicitacaoCapturaService.cs(846):            catch (Exception ex)
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\SolicitacaoCapturaService.cs(901):            catch (Exception ex)
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\SolicitacaoCopiaService.cs(141):            catch (Exception ex)
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\SolicitacaoCopiaService.cs(183):            catch (Exception ex)
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\SolicitacaoDistribuicaoService.cs(64):            catch (Exception ex)
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\SolicitacaoLocalizacaoService.cs(60):            catch (Exception ex)
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\SolicitacaoLocalizacaoService.cs(81):            catch (Exception ex)
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\SolicitacaoLocalizacaoService.cs(104):            catch (Exception ex)
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\SolicitacaoLocalizacaoService.cs(150):            catch (Exception ex)
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\TecnologiaBAService.cs(1363):            catch (Exception ex) { }
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\TecnologiaBAService.cs(1516):            catch (Exception ex)
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\TecnologiaBAService.cs(1586):        //    catch (Exception ex) { }
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\TecnologiaBAService.cs(1601):            catch (Exception ex) { }
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\TecnologiaEProcService.cs(181):            catch (Exception ex)
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\TecnologiaEProcService.cs(381):            catch (Exception ex)
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\TecnologiaEProcService.cs(499):            catch (Exception ex)
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\TecnologiaEProcService.cs(530):            catch (Exception ex)
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\TecnologiaEProcService.cs(574):            catch (Exception ex)
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\TecnologiaEProcService.cs(814):            catch (Exception ex)
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\TecnologiaEsajService.cs(303):            catch (Exception ex)
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\TecnologiaEsajService.cs(463):            catch (Exception ex)
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\TecnologiaEsajService.cs(2127):            catch (Exception ex) { }
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\TecnologiaEsajService.cs(2208):            catch (Exception ex)
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\TecnologiaEsajService.cs(2302):            catch (Exception ex) { }
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\TecnologiaEsajService.cs(2336):            catch (Exception ex) { }
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\TecnologiaEsajService.cs(2631):            catch (Exception ex) { }
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\TecnologiaEsajService.cs(2659):            catch (Exception ex) { }
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\TecnologiaEsajService.cs(2684):            catch (Exception ex) { }
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\TecnologiaEsajService.cs(2732):            catch (Exception ex)
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\TecnologiaESService.cs(877):            catch (Exception ex) { }
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\TecnologiaESService.cs(905):            catch (Exception ex) { }
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\TecnologiaESService.cs(930):            catch (Exception ex) { }
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\TecnologiaGOService.cs(1005):            catch (Exception ex) { }
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\TecnologiaGOService.cs(1018):            catch (Exception ex) { }
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\TecnologiaMGService.cs(827):            catch (Exception ex) { }
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\TecnologiaMGService.cs(875):            catch (Exception ex) { }
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\TecnologiaMGService.cs(903):            catch (Exception ex) { }
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\TecnologiaMGService.cs(928):            catch (Exception ex) { }
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\TecnologiaMGService.cs(941):            catch (Exception ex) { }
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\TecnologiaPJETJSemOfficeService.cs(727):            catch (Exception ex) { }
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\TecnologiaPJETJService.cs(234):            catch (Exception ex)
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\TecnologiaPJETJService.cs(1184):            catch (Exception ex) { }
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\TecnologiaPJETJService.cs(1202):            catch (Exception ex)
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\TecnologiaPJETJService.cs(1215):            catch (Exception ex)
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\TecnologiaPJETRTService.cs(885):            catch (Exception ex) { }
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\TecnologiaPJEV2Service.cs(282):            catch (Exception ex)
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\TecnologiaPJEV2Service.cs(459):            catch (Exception ex)
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\TecnologiaPJEV2Service.cs(631):            catch (Exception ex)
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\TecnologiaPJEV2Service.cs(678):            catch (Exception ex)
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\TecnologiaPJEV2Service.cs(936):            catch (Exception ex)
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\TecnologiaPJEV2Service.cs(1132):            catch (Exception ex) { }
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\TecnologiaPJEV2Service.cs(1236):            catch (Exception ex)
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\TecnologiaPJEV2Service.cs(1462):            catch (Exception ex)
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\TecnologiaPJEV2Service.cs(1763):            catch (Exception ex)
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\TecnologiaProjudiService.cs(155):            catch (Exception ex)
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\TecnologiaProjudiService.cs(1028):            catch (Exception ex)
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\TecnologiaProjudiService.cs(1119):            catch (Exception ex)
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\TecnologiaProjudiService.cs(1197):            catch (Exception ex)
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\TecnologiaPRService.cs(476):            catch (Exception ex)
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\TecnologiaPRService.cs(920):            catch (Exception ex) { }
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\TecnologiaPRService.cs(1162):            catch (Exception ex)
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\TecnologiaPRService.cs(1253):            catch (Exception ex)
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\TecnologiaRSService.cs(983):            catch (Exception ex) { }
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\TecnologiaRSService.cs(1048):            catch (Exception ex) { }
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\TecnologiaRSService.cs(1076):            catch (Exception ex) { }
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\TecnologiaRSService.cs(1101):            catch (Exception ex) { }
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\TecnologiaSEService.cs(906):            catch (Exception ex) { }
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\TecnologiaSEService.cs(934):            catch (Exception ex) { }
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\TecnologiaSEService.cs(959):            catch (Exception ex) { }
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\TecnologiaTjRjService.cs(234):            catch (Exception ex) { }
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\TecnologiaTjRjService.cs(352):            catch (Exception ex) { }
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\TecnologiaTjRjService.cs(575):            catch (Exception ex)
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\TecnologiaTjRjService.cs(869):            catch (Exception ex)
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\TecnologiaTjRjService.cs(969):            catch (Exception ex) { }
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\TecnologiaTjRjService.cs(1137):            catch (Exception ex)
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\TecnologiaTjRjService.cs(1176):            catch (Exception ex) { }
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\TecnologiaTjRjService.cs(1202):            catch (Exception ex) { }
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\TecnologiaTRT5Service.cs(740):            catch (Exception ex) { }
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\TecnologiaTRT8FisicoService.cs(192):            catch (Exception ex)
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\TecnologiaTRT8FisicoService.cs(345):            catch (Exception ex)
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\TecnologiaTRT8FisicoService.cs(551):            catch (Exception ex)
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\TecnologiaTRT8FisicoService.cs(637):            catch (Exception ex)
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\TecnologiaTRTService.cs(675):            catch (Exception ex) { }
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\TransferirProcessoService.cs(112):            catch (Exception ex)
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\TransferirProcessoService.cs(176):            catch (Exception ex)
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\TribunalJusticaService.cs(52):            catch (Exception ex)
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\TribunalJusticaService.cs(80):            catch (Exception ex)
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\TribunalJusticaService.cs(108):            catch (Exception ex)
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Core\Entidades\Processo.cs(185):            catch (Exception ex)
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Core\Entidades\ProcessoSolicitacaoCopia .cs(79):            catch (Exception ex)
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Core\Entidades\ProcessoSolicitacaoCopia .cs(102):            catch (Exception ex)
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\apps\Web\Controllers\ProfileController.cs(79):                    catch (Exception ex)
+  Matching lines: 245    Matching files: 49    Total files searched: 846
+
+Find all ".writeline", Subfolders, Find Results 1, Entire Solution, ""
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\configuration\Database\Migrations\Runner.cs(51):            var announcer = new TextWriterAnnouncer(x => System.Diagnostics.Debug.WriteLine(x));
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\BrowserService.cs(462):                Console.WriteLine("montando no Firefox");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\BrowserService.cs(470):                Console.WriteLine("não montou o Firefox");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\BrowserService.cs(471):                Console.WriteLine(ex.Message);
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\CaptchaService.cs(53):                Console.WriteLine(ex.Message);
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\CaptchaService.cs(118):            Console.WriteLine(retorno);
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\CapturarDistribuicaoService.cs(83):                Console.WriteLine("Iniciando processo de Captura");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\CapturarDistribuicaoService.cs(84):                Console.WriteLine("==================================");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\CapturarDistribuicaoService.cs(128):                            Console.WriteLine("Processamento encerrado por maquina inativa");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\CapturarDistribuicaoService.cs(138):                            Console.WriteLine($"Processo ID {idProcessoWindows.ToString()}");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\CapturarDistribuicaoService.cs(145):                            Console.WriteLine("Buscando Solicitações a Processar.");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\CapturarDistribuicaoService.cs(149):                            Console.WriteLine($"Buscando Solicitacoes Disponiveis {System.DateTime.Now.ToString()}");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\CapturarDistribuicaoService.cs(151):                            Console.WriteLine($"Buscou Solicitacoes Disponiveis {System.DateTime.Now.ToString()}");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\CapturarDistribuicaoService.cs(161):                                    Console.WriteLine("Processamento encerrado por maquina inativa");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\CapturarDistribuicaoService.cs(174):                                Console.WriteLine($"Reservando Processamento Solicitacao {solicitacaoAProcessar.Id} {System.DateTime.Now.ToString()}");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\CapturarDistribuicaoService.cs(179):                                    Console.WriteLine($"Reservou Processamento Solicitacao {solicitacaoAProcessar.Id} no processamento {idProcessamento} {System.DateTime.Now.ToString()}");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\CapturarDistribuicaoService.cs(186):                                    Console.WriteLine($"Vai Processar a Solicitação {solicitacaoAProcessar.Id}.");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\CapturarDistribuicaoService.cs(193):                                        Console.WriteLine($"Vai Gerar os Novos Processos a Capturar.");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\CapturarDistribuicaoService.cs(196):                                            Console.WriteLine("Não foi possível criar novos numeros Processos.");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\CapturarDistribuicaoService.cs(198):                                            Console.WriteLine($"Gerou os Novos Processos a Capturar.");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\CapturarDistribuicaoService.cs(204):                                            Console.WriteLine($"Identifica os Processos Antigos da Solicitação.");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\CapturarDistribuicaoService.cs(207):                                            Console.WriteLine($"Vai Capturar os {processosAntigos.Count()} Processos Antigos.");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\CapturarDistribuicaoService.cs(217):                                                            Console.WriteLine($"Vai Logar PJe2.");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\CapturarDistribuicaoService.cs(223):                                                            Console.WriteLine($"Vai Logar ESAJ.");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\CapturarDistribuicaoService.cs(230):                                                            Console.WriteLine($"Vai Logar Tecnologia Rio.");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\CapturarDistribuicaoService.cs(236):                                                            Console.WriteLine($"Vai Logar Tecnologia EProc.");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\CapturarDistribuicaoService.cs(242):                                                            Console.WriteLine($"Vai Logar Tecnologia PJE TJ.");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\CapturarDistribuicaoService.cs(248):                                                            Console.WriteLine($"Vai Logar Tecnologia Projudi.");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\CapturarDistribuicaoService.cs(258):                                                        Console.WriteLine($"Finalizou a captura de Processos Antigos.");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\CapturarDistribuicaoService.cs(279):                                                        Console.WriteLine($"Finalizou a captura de Processos Antigos com Problema.");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\CapturarDistribuicaoService.cs(286):                                        Console.WriteLine($"Identifica os Processos Novos da Solicitação.");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\CapturarDistribuicaoService.cs(288):                                        Console.WriteLine($"Vai Capturar os {processosACapturar.Count()} Processos Novos.");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\CapturarDistribuicaoService.cs(297):                                                    Console.WriteLine($"Vai Logar PJe2.");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\CapturarDistribuicaoService.cs(303):                                                    Console.WriteLine($"Vai Logar ESAJ.");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\CapturarDistribuicaoService.cs(309):                                                    Console.WriteLine($"Vai Logar Tecnologia Rio.");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\CapturarDistribuicaoService.cs(315):                                                    Console.WriteLine($"Vai Logar Tecnologia EProc.");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\CapturarDistribuicaoService.cs(321):                                                    Console.WriteLine($"Vai Logar Tecnologia PJE TJ.");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\CapturarDistribuicaoService.cs(327):                                                    Console.WriteLine($"Vai Logar Tecnologia Projudi.");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\CapturarDistribuicaoService.cs(339):                                                    Console.WriteLine($"Captura de Processos Novos encerradas.");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\CapturarDistribuicaoService.cs(346):                                                        Console.WriteLine($"Finalizou a captura de Processos Novos.");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\CapturarDistribuicaoService.cs(351):                                                        Console.WriteLine($"Vai Regerar os Novos Processos a Capturar.");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\CapturarDistribuicaoService.cs(355):                                                            Console.WriteLine("Não foi possível Regerar novos numeros Processos.");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\CapturarDistribuicaoService.cs(360):                                                            Console.WriteLine($"Regerou os Novos Processos a Capturar.");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\CapturarDistribuicaoService.cs(390):                                                    Console.WriteLine($"Finalizou a captura de Processos Novos com Problema.");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\CapturarDistribuicaoService.cs(403):                                        Console.WriteLine($"Não foi possível Atualizar Final do Processamento.");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\CapturarDistribuicaoService.cs(423):                    Console.WriteLine($"Não Houve Processamento. Existem {quantidadeProessamentoEmAberto} em Execução");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\CapturarDistribuicaoService.cs(424):                    Console.WriteLine("==================================");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\CapturarDistribuicaoService.cs(434):                Console.WriteLine(ex.Message);
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\CapturarDistribuicaoService.cs(446):                Console.WriteLine($"Buscando Solicitacoes Disponiveis {System.DateTime.Now.ToString()}");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\CapturarDistribuicaoService.cs(448):                Console.WriteLine($"Buscou Solicitacoes Disponiveis {System.DateTime.Now.ToString()}");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\CapturarDistribuicaoService.cs(451):                    Console.WriteLine($"Reservando Processamento Solicitacao {solicitacao.Id} {System.DateTime.Now.ToString()}");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\CapturarDistribuicaoService.cs(457):                        Console.WriteLine($"Reservou Processamento Solicitacao {solicitacao.Id} no processamento {idProcessamento} {System.DateTime.Now.ToString()}");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\CapturarDistribuicaoService.cs(473):            Console.WriteLine($"Buscando Solicitações Disponiveis {System.DateTime.Now.ToString()}");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\CapturarDistribuicaoService.cs(490):            Console.WriteLine($"montando {solicitacoesDistribuicao.Count()} solicitacoes {System.DateTime.Now.ToString()}");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\CapturarDistribuicaoService.cs(492):            Console.WriteLine($"montou  {retorno.Count()} solicitacoes {System.DateTime.Now.ToString()}");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\CapturarDistribuicaoService.cs(586):                Console.WriteLine(ex.Message);
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\CapturarProcessosService.cs(118):                Console.WriteLine("Iniciando processo de copias");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\CapturarProcessosService.cs(119):                Console.WriteLine("==================================");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\CapturarProcessosService.cs(164):                            Console.WriteLine("Buscando Solicitações a Processar.");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\CapturarProcessosService.cs(168):                            Console.WriteLine($"Buscando Solicitacoes Disponiveis {System.DateTime.Now.ToString()}");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\CapturarProcessosService.cs(170):                            Console.WriteLine($"Buscou Solicitacoes Disponiveis {System.DateTime.Now.ToString()}");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\CapturarProcessosService.cs(174):                                //Console.WriteLine($"Reservando Processamento Solicitacao {solicitacaoAProcessar.Id} {System.DateTime.Now.ToString()}");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\CapturarProcessosService.cs(180):                                    Console.WriteLine($"Reservou Processamento Solicitacao {solicitacaoAProcessar.Id} no processamento {idProcessamento} {System.DateTime.Now.ToString()}");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\CapturarProcessosService.cs(191):                                        Console.WriteLine($"Não foi possível Atualizar Final do Processamento.");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\CapturarProcessosService.cs(248):            Console.WriteLine($"Buscando Solicitações Disponiveis {System.DateTime.Now.ToString()}");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\CapturarProcessosService.cs(263):                Console.WriteLine($"montando {solicitacoesCopia.Count()} solicitacoes {System.DateTime.Now.ToString()}");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\CapturarProcessosService.cs(265):                Console.WriteLine($"montou  {retorno.Count()} solicitacoes {System.DateTime.Now.ToString()}");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\CommonService.cs(309):                        Console.WriteLine(retornoCaptcha);
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\CommonService.cs(947):                Console.WriteLine($"erro na geração do ProcessamentoCaptura {ex.Message}");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\CommonService.cs(1222):                    Console.WriteLine(frase);
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\CommonService.cs(1456):                Console.WriteLine("Resolvendo Captcha");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\CommonService.cs(1495):            Console.WriteLine("Abrindo Inicial do Tribunal no Firefox");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\CommonService.cs(1509):                    Console.WriteLine("Aguarda <ENTER> para Prossegui");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\ConfirmarProcessamentoService.cs(44):            Console.WriteLine("Iniciando processo de Confirmação");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\ConfirmarProcessamentoService.cs(45):            Console.WriteLine("==================================");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\ConfirmarProcessamentoService.cs(158):                    Console.WriteLine($"Confirmando Processo {processo.Numero}");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\ConfirmarProcessamentoService.cs(166):                    Console.WriteLine($"Vai Chamar Serviço");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\ConfirmarProcessamentoService.cs(176):                        Console.WriteLine($"Executou com Sucesso");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\ConfirmarProcessamentoService.cs(237):                    Console.WriteLine($"Confirmando Processo {processo.Numero}");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\ConfirmarProcessamentoService.cs(245):                    Console.WriteLine($"Vai Chamar Serviço");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\ConfirmarProcessamentoService.cs(255):                        Console.WriteLine($"Executou com Sucesso");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\DesmembrarArquivoService.cs(38):            Console.WriteLine("Iniciando processo de Desmembramento de Processo Copia");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\DesmembrarArquivoService.cs(39):            Console.WriteLine("==================================");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\DesmembrarArquivoService.cs(77):                Console.WriteLine($"Verifica se Processo {processoCopia.Numero} esta na maquina ");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\DesmembrarArquivoService.cs(84):                    Console.WriteLine($"Vai Desmembrar {processoCopia.Numero}");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\DesmembrarArquivoService.cs(139):            Console.WriteLine("Iniciando processo de Desmembramento de Processo Distribuido");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\DesmembrarArquivoService.cs(140):            Console.WriteLine("==================================");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\DesmembrarArquivoService.cs(182):                Console.WriteLine($"Verifica se Processo {processoDistribuido.Numero} esta na maquina ");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\DesmembrarArquivoService.cs(189):                    Console.WriteLine($"Vai Desmembrar {processoDistribuido.Numero}");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\DesmembrarArquivoService.cs(246):                    Console.WriteLine($"Vai Desmembrar Arquivo {folderProcesso}");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\DesmembrarArquivoService.cs(293):                    Console.WriteLine($"Vai Desmembrar Arquivo {folderProcesso}");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\DesmembrarArquivoService.cs(399):                    Console.WriteLine($"Vai Desmembrar Arquivo {folderProcesso}");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\DesmembrarArquivoService.cs(434):                Console.WriteLine($"DesmembrarDocumentoDistribuidoComIndice: {ex.Message}");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\DesmembrarArquivoService.cs(452):                    Console.WriteLine($"Vai Desmembrar Arquivo {folderProcesso}");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\DesmembrarArquivoService.cs(1012):                Console.WriteLine($"AtualizarProcessoPeca: {ex.Message}");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\DisponibilizarDistribuicaoService.cs(43):            Console.WriteLine("Iniciando processo de Disponibilização Distribuição");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\DisponibilizarDistribuicaoService.cs(44):            Console.WriteLine("==================================");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\DisponibilizarDistribuicaoService.cs(112):                        Console.WriteLine($"Confirmando Processo: {processo.Numero}");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\DisponibilizarDistribuicaoService.cs(365):                                    Console.WriteLine(taskEnviarCallback.Result.ToString());
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\DisponibilizarDistribuicaoService.cs(375):                                writer.WriteLine(processoModelJson);
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\DropBoxService.cs(106):                Console.WriteLine(ex.ToString());
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\DropBoxService.cs(126):                    Console.WriteLine("Start uploading chunk {0}", idx);
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\DropBoxService.cs(211):                Console.WriteLine(ex.ToString());
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\FTPService.cs(160):                catch (Exception ex) { Console.WriteLine(ex.ToString()); }
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\FTPService.cs(167):            catch (Exception ex) { Console.WriteLine(ex.ToString()); }
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\FTPService.cs(216):            catch (Exception ex) { Console.WriteLine(ex.ToString()); }
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\FTPService.cs(243):            catch (Exception ex) { Console.WriteLine(ex.ToString()); }
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\FTPService.cs(270):            catch (Exception ex) { Console.WriteLine(ex.ToString()); }
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\FTPService.cs(302):                catch (Exception ex) { Console.WriteLine(ex.ToString()); }
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\FTPService.cs(310):                catch (Exception ex) { Console.WriteLine(ex.ToString()); }
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\FTPService.cs(312):            catch (Exception ex) { Console.WriteLine(ex.ToString()); }
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\GerarSolicitcaoCapturaCopiaService.cs(29):            Console.WriteLine("Iniciando processo de Geração de Solicitação");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\GerarSolicitcaoCapturaCopiaService.cs(30):            Console.WriteLine("==================================");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\GerarSolicitcaoCapturaCopiaService.cs(61):                    Console.WriteLine($"Processando a Solicitação de Copia {solicitacaoCopia.Id}");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\GerarSolicitcaoCapturaCopiaService.cs(75):                        Console.WriteLine($"Processando o Tribunal {tribunalProcesso.Sigla}");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\GerarSolicitcaoCapturaCopiaService.cs(98):                                Console.WriteLine($"Processando o Processo {processoAProcessar.Numero}");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\GerenciarFisicoService.cs(961):                    writer.WriteLine("banco instavel ao gerar o processo " + numeroProcesso + " e solicitacao " + idSolicitacao);
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\IBMBucketService.cs(31):                Console.WriteLine("Iniciando processo Bucket IBM");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\IBMBucketService.cs(32):                Console.WriteLine("==================================");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\IBMBucketService.cs(57):                                Console.WriteLine($"Vai Transferir {processo.Numero}");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\IBMBucketService.cs(72):                                        Console.WriteLine($"Vai Transferir Arquivo {arquivosPasta[intArray]}");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\IBMBucketService.cs(125):                Console.WriteLine("Upload Finalizado");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\IBMBucketService.cs(129):                Console.WriteLine("Error encountered on server. Message:'{0}' when writing an object", e.Message);
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\IBMBucketService.cs(133):                Console.WriteLine("Unknown encountered on server. Message:'{0}' when writing an object", e.Message);
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\S3BucketService.cs(32):                Console.WriteLine("Iniciando processo Bucket S3");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\S3BucketService.cs(33):                Console.WriteLine("==================================");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\S3BucketService.cs(55):                        Console.WriteLine($"Vai Transferir {processo.Numero}");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\S3BucketService.cs(79):                                    Console.WriteLine($"Vai Transferir Arquivo {arquivosPasta[intArray]}");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\S3BucketService.cs(137):                Console.WriteLine("Upload Finalizado");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\S3BucketService.cs(141):                Console.WriteLine("Error encountered on server. Message:'{0}' when writing an object", e.Message);
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\S3BucketService.cs(145):                Console.WriteLine("Unknown encountered on server. Message:'{0}' when writing an object", e.Message);
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\TecnologiaBAService.cs(141):                Console.WriteLine("vai começar varrer looping");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\TecnologiaBAService.cs(157):            //Console.WriteLine("Aguarda mudar Frame após Fechar reCaptcha");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\TecnologiaBAService.cs(161):            //    Console.WriteLine("Vericando Frame após Fechar reCaptcha");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\TecnologiaBAService.cs(170):            //Console.WriteLine("Mudou Frame após Fechar reCaptcha");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\TecnologiaBAService.cs(212):                    Console.WriteLine("vai começar varrer looping");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\TecnologiaBAService.cs(218):                        Console.WriteLine("vai processar instancia");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\TecnologiaBAService.cs(310):            Console.WriteLine("vai abrir pagina processo");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\TecnologiaBAService.cs(475):                    Console.WriteLine("monta a primeira vez");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\TecnologiaBAService.cs(492):                Console.WriteLine("erro na montagem");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\TecnologiaBAService.cs(1381):                Console.WriteLine("Pagina Login");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\TecnologiaBAService.cs(1390):                Console.WriteLine("Identifica a Primeira Instancia");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\TecnologiaBAService.cs(1401):                Console.WriteLine("Pasta Base para Baixa Copias");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\TecnologiaBAService.cs(1421):                Console.WriteLine("Abre a Pagina Inicial do Tribunal");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\TecnologiaBAService.cs(1508):                    Console.WriteLine("Vai dormir");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\TecnologiaBAService.cs(1510):                    Console.WriteLine("espera imput para seguir");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\TecnologiaBAService.cs(1512):                    Console.WriteLine("vai seguir");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\TecnologiaBAService.cs(1520):                Console.WriteLine(ex.Message);
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\TecnologiaBAService.cs(1551):        //            Console.WriteLine("Verifica se trocou de Frame após o Click Login");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\TecnologiaBAService.cs(1554):        //                Console.WriteLine("Aguarda Troca de Frame após o Click Login");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\TecnologiaBAService.cs(1576):        //            Console.WriteLine("Aguardando fechar o ReCaptcha");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\TecnologiaBAService.cs(1584):        //        Console.WriteLine("fechou o ReCaptcha");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\TecnologiaEProcService.cs(58):                Console.WriteLine("Pagina Login");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\TecnologiaEProcService.cs(67):                Console.WriteLine("Identifica a Primeira Instancia");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\TecnologiaEProcService.cs(77):                Console.WriteLine("Pasta Base para Baixa Copias");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\TecnologiaEProcService.cs(119):                Console.WriteLine("Abre a Pagina Inicial do Tribunal no Firefox");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\TecnologiaEProcService.cs(185):                Console.WriteLine(ex.Message);
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\TecnologiaEProcService.cs(255):                            Console.WriteLine($"Capturando Processo {processoAProcessar.Numero}");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\TecnologiaEProcService.cs(302):                            Console.WriteLine($"Processo {processoAProcessar.Status}");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\TecnologiaEProcService.cs(385):                Console.WriteLine(ex.Message);
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\TecnologiaEsajService.cs(180):                            Console.WriteLine($"Processo {processoAProcessar.Numero} - {System.DateTime.Now.ToShortTimeString()}");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\TecnologiaEsajService.cs(307):                Console.WriteLine(ex.Message);
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\TecnologiaEsajService.cs(327):                Console.WriteLine("Pagina Login");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\TecnologiaEsajService.cs(336):                Console.WriteLine("Identifica a Primeira Instancia");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\TecnologiaEsajService.cs(347):                Console.WriteLine("Pasta Base para Baixa Copias");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\TecnologiaEsajService.cs(391):                Console.WriteLine("Abre a Pagina Inicial do Tribunal no Firefox");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\TecnologiaEsajService.cs(467):                Console.WriteLine(ex.Message);
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\TecnologiaEsajService.cs(854):                    Console.WriteLine("espera imput para seguir");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\TecnologiaEsajService.cs(856):                    Console.WriteLine("vai seguir");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\TecnologiaEsajService.cs(2654):                Console.WriteLine(pathImagemCaptcha);
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\TecnologiaESService.cs(900):                Console.WriteLine(pathImagemCaptcha);
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\TecnologiaGOService.cs(171):                    Console.WriteLine("vai começar varrer looping");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\TecnologiaGOService.cs(177):                        Console.WriteLine("vai processar instancia");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\TecnologiaGOService.cs(444):                Console.WriteLine("erro na montagem");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\TecnologiaMGService.cs(162):                    Console.WriteLine("vai começar varrer looping");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\TecnologiaMGService.cs(168):                        Console.WriteLine($"vai processar instancia - {processoAProcessar.Numero}");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\TecnologiaMGService.cs(345):                Console.WriteLine("erro na montagem");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\TecnologiaMGService.cs(898):                Console.WriteLine(pathImagemCaptcha);
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\TecnologiaPJETJService.cs(76):                Console.WriteLine("Pagina Login");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\TecnologiaPJETJService.cs(85):                Console.WriteLine("Identifica a Primeira Instancia");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\TecnologiaPJETJService.cs(95):                Console.WriteLine("Pasta Base para Baixa Copias");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\TecnologiaPJETJService.cs(137):                Console.WriteLine("Abre a Pagina Inicial do Tribunal no Firefox");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\TecnologiaPJETJService.cs(238):                Console.WriteLine(ex.Message);
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\TecnologiaPJETJService.cs(338):                        Console.WriteLine($"Processando Processo {processoAProcessar.Numero} - {System.DateTime.Now.ToShortTimeString()}");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\TecnologiaPJETJService.cs(343):                        Console.WriteLine($"Processo {processoProcessado.Numero} - {processoProcessado.Status} - {System.DateTime.Now.ToShortTimeString()}");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\TecnologiaPJETRTService.cs(989):                            Console.WriteLine("aguardar abrir a nova tela com os dados");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\TecnologiaPJEV2Service.cs(157):                            Console.WriteLine($"Capturando Processo {processoAProcessar.Numero}");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\TecnologiaPJEV2Service.cs(204):                            Console.WriteLine($"Processo {processoAProcessar.Status}");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\TecnologiaPJEV2Service.cs(286):                Console.WriteLine(ex.Message);
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\TecnologiaPJEV2Service.cs(306):                Console.WriteLine("Pagina Login");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\TecnologiaPJEV2Service.cs(316):                Console.WriteLine("Identifica a Primeira Instancia");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\TecnologiaPJEV2Service.cs(327):                Console.WriteLine("Pasta Base para Baixa Copias");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\TecnologiaPJEV2Service.cs(371):                Console.WriteLine("Abre a Pagina Inicial do Tribunal no Firefox");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\TecnologiaPJEV2Service.cs(463):                Console.WriteLine(ex.Message);
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\TecnologiaProjudiService.cs(63):                Console.WriteLine("Pagina Login");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\TecnologiaProjudiService.cs(72):                Console.WriteLine("Identifica a Primeira Instancia");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\TecnologiaProjudiService.cs(82):                Console.WriteLine("Pasta Base para Baixa Copias");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\TecnologiaProjudiService.cs(101):                Console.WriteLine("Abre a Pagina Inicial do Tribunal");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\TecnologiaProjudiService.cs(159):                Console.WriteLine(ex.Message);
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\TecnologiaProjudiService.cs(263):                Console.WriteLine("vai começar varrer looping");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\TecnologiaProjudiService.cs(268):                    Console.WriteLine("vai processar instancia");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\TecnologiaProjudiService.cs(356):            Console.WriteLine("vai abrir pagina processo");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\TecnologiaProjudiService.cs(519):                Console.WriteLine("erro na montagem");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\TecnologiaProjudiService.cs(1121):                Console.WriteLine(ex.Message);
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\TecnologiaProjudiService.cs(1199):                Console.WriteLine(ex.Message);
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\TecnologiaPRService.cs(138):                Console.WriteLine("vai começar varrer looping");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\TecnologiaPRService.cs(143):                    Console.WriteLine("vai processar instancia");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\TecnologiaPRService.cs(236):            Console.WriteLine("vai abrir pagina processo");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\TecnologiaPRService.cs(380):                Console.WriteLine("Pagina Login");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\TecnologiaPRService.cs(389):                Console.WriteLine("Identifica a Primeira Instancia");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\TecnologiaPRService.cs(400):                Console.WriteLine("Pasta Base para Baixa Copias");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\TecnologiaPRService.cs(420):                Console.WriteLine("Abre a Pagina Inicial do Tribunal");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\TecnologiaPRService.cs(480):                Console.WriteLine(ex.Message);
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\TecnologiaPRService.cs(504):                Console.WriteLine("erro na montagem");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\TecnologiaPRService.cs(1255):                Console.WriteLine(ex.Message);
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\TecnologiaPRService.cs(1335):                Console.WriteLine(ex.Message);
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\TecnologiaRSService.cs(154):                    Console.WriteLine("vai começar varrer looping");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\TecnologiaRSService.cs(179):                        Console.WriteLine("vai processar instancia");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\TecnologiaRSService.cs(282):            Console.WriteLine($"vai abrir pagina processo {processo.Numero}");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\TecnologiaRSService.cs(411):                    Console.WriteLine("monta a primeira vez");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\TecnologiaRSService.cs(447):                Console.WriteLine("erro na montagem");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\TecnologiaRSService.cs(1071):                Console.WriteLine(pathImagemCaptcha);
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\TecnologiaSEService.cs(143):                    Console.WriteLine("vai começar varrer looping");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\TecnologiaSEService.cs(153):                        Console.WriteLine("vai processar instancia");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\TecnologiaSEService.cs(245):            Console.WriteLine($"vai pesquisar processo {processo.Numero}");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\TecnologiaSEService.cs(396):                    Console.WriteLine("monta a primeira vez");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\TecnologiaSEService.cs(435):                Console.WriteLine("erro na montagem");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\TecnologiaSEService.cs(929):                Console.WriteLine(pathImagemCaptcha);
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\TecnologiaTjRjService.cs(780):                Console.WriteLine("Pagina Login");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\TecnologiaTjRjService.cs(789):                Console.WriteLine("Identifica a Primeira Instancia");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\TecnologiaTjRjService.cs(800):                Console.WriteLine("Pasta Base para Baixa Copias");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\TecnologiaTjRjService.cs(821):                Console.WriteLine("Abre a Pagina Inicial do Tribunal");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\TecnologiaTjRjService.cs(873):                Console.WriteLine(ex.Message);
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\TecnologiaTjRjService.cs(1139):                Console.WriteLine(ex.Message);
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\TecnologiaTRT8FisicoService.cs(196):                Console.WriteLine(ex.Message);
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\TecnologiaTRT8FisicoService.cs(216):                //Console.WriteLine("Pagina Login");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\TecnologiaTRT8FisicoService.cs(226):                Console.WriteLine("Identifica a Primeira Instancia");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\TecnologiaTRT8FisicoService.cs(237):                Console.WriteLine("Pasta Base para Baixa Copias");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\TecnologiaTRT8FisicoService.cs(257):                Console.WriteLine("Abre a Pagina Inicial do Tribunal no Firefox");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\TecnologiaTRT8FisicoService.cs(349):                Console.WriteLine(ex.Message);
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\TransferirProcessoService.cs(43):                Console.WriteLine("Iniciando processo de Upload");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\TransferirProcessoService.cs(44):                Console.WriteLine("==================================");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\TransferirProcessoService.cs(110):                Console.WriteLine("Finaliza processo de Upload");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\TransferirProcessoService.cs(114):                Console.WriteLine(ex.ToString());
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\TransferirProcessoService.cs(124):                Console.WriteLine("Iniciando processo de Upload Distribuido");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\TransferirProcessoService.cs(125):                Console.WriteLine("==================================");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\TransferirProcessoService.cs(174):                Console.WriteLine("Finaliza processo de Upload Distribuido");
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\domain\Facade\Services\TransferirProcessoService.cs(178):                Console.WriteLine(ex.ToString());
+  D:\Projetos\ReglareSolution\capturadadosprocesso\src\apps\API\Handle\WebApiControllerActionInvoker.cs(32):                    Debug.WriteLine(baseException);
+  Matching lines: 249    Matching files: 32    Total files searched: 846
+
+
+
+
+
+

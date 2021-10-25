@@ -1,0 +1,8 @@
+https://pt.stackoverflow.com/questions/64517/asp-net-trust-level
+
+
+
+as nossas maquinas rodam em "Full Trust" e no servidor só roda "Medium Trust"
+
+
+fuslogvw
