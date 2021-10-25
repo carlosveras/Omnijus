@@ -13,9 +13,14 @@ git status
 ver as configuracoes do git na maquina local:
 git config --list --show-origin
 
+---- setar usuario e email global
 configurar o usuario e email:
 git config --global user.name "carlosveras"
 git config --global user.email "carlos.veras@reglare.com.br"
+
+---- setar usuario e email para cada repositorio
+git config user.name "carlosveras"
+git config user.email "carlos.veras@outlook.com"
 
 para setar o repositorio remoto:
 git remote set-url origin https://carlosveras@bitbucket.org/ragpmartins/capturadadosprocesso.git
@@ -484,7 +489,9 @@ update solicitacaocaptura
   set idstatus = 3 -----> sempre verificar o status
 where id = 761
 
-delete from ProcessamentoCaptura where idEquipamentoProcessamento = 26 and DataTermino is null
+
+delete from ProcessamentoCaptura where idEquipamentoProcessamento in (26,31) and DataTermino is null
+
 
 ---- insert na solicitacaocaptura
 insert into SolicitacaoCaptura values (GETDATE(),1,'Captura Distribuição - TJRJ - 0042 - 0800000',0,3,null,0,1,0,0,0,1,1,0,0,null,null,null)
