@@ -135,27 +135,18 @@ Usuário: omnijus.com.br\bot_reglare
 Senha: Kolim@050607&$
 
 25 -- 002248210BF9 -- 172.13.0.7 -- maquina testada -- erro captcha -- 24-03-2021
-
 27 -- 000D3A8E1DAE -- 172.13.0.8 -- maquina testada -- erro captcha -- 24-03-2021
-
 28 -- 000D3A99DE70 -- 172.13.0.9 -- maquina testada -- erro captcha -- 24-03-2021
-
 29 -- 000D3A9B0473 -- 172.13.0.10 - maquina testada -- erro captcha -- 24-03-2021
-
 30 -- 000D3A8A8326 -- 172.13.0.11 - maquina testada -- erro captcha -- 24-03-2021
-
 31 -- 000D3A9E9470 -- 172.13.0.12 - maquina testada -- erro captcha -- 24-03-2021
-
 32 -- 000D3A98AC56 -- 172.13.0.13 - maquina testada -- erro captcha -- 24-03-2021
-
 33 -- 000D3A98A6F4 -- 172.13.0.14 - maquina testada -- erro captcha -- 24-03-2021
 
 34 -- 000D3A8E1FD3 -- 172.13.0.15 - maquina testada -- erro captcha -- 24-03-2021
 
 35 -- 000D3A99DA38 -- 172.13.0.16 - maquina testada -- erro captcha -- 24-03-2021
-
 36 -- 000D3A8A4295 -- 172.13.0.17 - maquina testada -- erro captcha -- 24-03-2021
-
 37 -- 000D3A10FE65 -- 172.13.0.18 - maquina testada -- erro captcha -- 24-03-2021
 
 ---- BANCO DE HOMOLOGACAO 
