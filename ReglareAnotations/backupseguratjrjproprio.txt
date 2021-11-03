@@ -1,0 +1,2578 @@
+using AutoMapper;
+using CapturaDadosProcesso.Core.Entidades;
+using CapturaDadosProcesso.Core.Enumeradores;
+using CapturaDadosProcesso.Facade.Models;
+using CapturaDadosProcesso.Facade.Models.SolicitacaoLocalizacao;
+using CapturaDadosProcesso.Facade.Models.SolicitacoesCopia;
+using CapturaDadosProcesso.Facade.Models.TecnologiaSite;
+using CapturaDadosProcesso.Facade.Services.Interfaces;
+using NHibernate;
+using NHibernate.Linq;
+using OpenQA.Selenium;
+using OpenQA.Selenium.Support.UI;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Net;
+using System.IO;
+using OpenQA.Selenium.Interactions;
+using System.Drawing;
+
+namespace CapturaDadosProcesso.Facade.Services
+{
+    public class TecnologiaTjRjProprioService : ITecnologiaTjRjProprioService
+    {
+        private readonly IMapper _mapper;
+        private readonly ISession _session;
+        private readonly IGerenciarFisicoService _gerenciarFisicoService;
+        private readonly IBrowserService _browserService;
+        private readonly ICaptchaService _captchaService;
+        private readonly ICommonService _commonService;
+        private readonly IParametrosService _parametrosService;
+        private readonly ISolicitacaoLocalizacaoService _solicitacaoLocalizacaoService;
+        private readonly IControleLog _controleLog;
+
+        public TecnologiaTjRjProprioService(ISession session,
+                                            IMapper mapper,
+                                            IGerenciarFisicoService gerenciarFisicoService,
+                                            IBrowserService browserService,
+                                            ICaptchaService captchaService,
+                                            ICommonService commonService,
+                                            IParametrosService parametrosService,
+                                            ISolicitacaoLocalizacaoService solicitacaoLocalizacaoService,
+                                            IControleLog controleLog)
+
+        {
+            _session = session;
+            _mapper = mapper;
+            _gerenciarFisicoService = gerenciarFisicoService;
+            _browserService = browserService;
+            _captchaService = captchaService;
+            _commonService = commonService;
+            _parametrosService = parametrosService;
+            _solicitacaoLocalizacaoService = solicitacaoLocalizacaoService;
+            _controleLog = controleLog;
+        }
+
+        public DadosLoginModel Capturar(DadosLoginModel dadosLoginModel, List<ProcessoModel> processos, EquipamentoProcessamentoTribunal configuracao, Usuario login, string folderBase, string macAddr, int taskId, int quantidadeMaxinaNaoLocalizado, int idProcessoWindows)
+        {
+            try
+            {
+                bool atualizar = false;
+
+                //====================================================================================
+                // Carrega parametros Captcha Processo e Captcha Visualizar Documento
+                //====================================================================================
+
+                var posicaoImagemProcesso = _commonService.ParametroEquipamento("Posicao Imagem TJRJ", configuracao.EquipamentoProcessamento.Id);
+                if (string.IsNullOrWhiteSpace(posicaoImagemProcesso))
+                    posicaoImagemProcesso = "0#0#0#0";
+
+                var posicaoImagemDocumento = _commonService.ParametroEquipamento("Posicao Imagem Visualizar Documento TJRJ", configuracao.EquipamentoProcessamento.Id);
+                if (string.IsNullOrWhiteSpace(posicaoImagemDocumento))
+                    posicaoImagemDocumento = "0#0#0#0";
+
+                //====================================================================================
+
+                //====================================================================================
+                //Monta a Lista de Qualificação das Partes
+                //====================================================================================
+                List<string> partesAtiva = new List<string>();
+                List<string> partesPassiva = new List<string>();
+
+                if (processos.Any(p => p.CapturarPartes))
+                {
+                    partesAtiva = _commonService.ListarQualificacaoPartes("Parte Ativa");
+                    partesPassiva = _commonService.ListarQualificacaoPartes("Parte Passiva");
+                }
+                //====================================================================================
+
+                //====================================================================================
+                // Atualiza Inicio de Processamento na Solicitação e Status do Processo
+                //====================================================================================
+                var solicitacao = _session.Query<SolicitacaoCaptura>().FirstOrDefault(p => p.Id == processos.FirstOrDefault().IdSolicitacao);
+                if (solicitacao == null)
+                    throw new ApplicationException("Solicitação não Localizada");
+
+                if (solicitacao.Status == StatusSolicitacaoCaptura.LiberadoProcessamento)
+                {
+                    solicitacao.AlterarStatusParaEmProcessamento(login);
+                    using (var transaction = _session.BeginTransaction())
+                    {
+                        _session.SaveOrUpdate(solicitacao);
+                        transaction.Commit();
+                    }
+                }
+                //====================================================================================
+
+                //====================================================================================
+                // Carrega Advogados Se Precisar Validar
+                //====================================================================================
+                List<string> advogados = new List<string>();
+                if (solicitacao.VerificarAdvogado)
+                    advogados = _commonService.ListarAdvogados(solicitacao.CriadoPor.Id);
+                //====================================================================================
+
+                //====================================================================================
+                // Carrega expressoes regulares 
+                //====================================================================================
+                List<TermoExpressaoRegularModel> expressoes = new List<TermoExpressaoRegularModel>();
+                if (solicitacao.CapturarDistribuicao)
+                    expressoes = _solicitacaoLocalizacaoService.ListarExpressaoPorTribunal(configuracao.Tribunal.Id, configuracao.Tecnologia.Id);
+                //====================================================================================
+
+                //====================================================================================
+                //Faz Loop nas instancias do tribunal, vai abrir pagina inicial e logar no site
+                //====================================================================================
+                var instancias = configuracao.Tribunal.Instancias.Where(i => i.Situacao == SituacaoInstancia.Implementado &&
+                                                                        i.Tecnologia.Id == configuracao.Tecnologia.Id
+                                                                        && i.SequenciaProcessamento > 0).OrderBy(o => o.SequenciaProcessamento).ToList();
+
+                if (solicitacao.CapturarDistribuicao)
+                {
+                    instancias = instancias.Where(i => i.SequenciaProcessamento == 1).ToList();
+                }
+
+                foreach (var instancia in instancias.OrderBy(i => i.SequenciaProcessamento))
+                {
+                    if (dadosLoginModel.Driver == null)
+                    {
+                        dadosLoginModel = LogarSite(configuracao, folderBase, macAddr, taskId, processos.FirstOrDefault().Numero, idProcessoWindows);
+                        dadosLoginModel.FecharBrowser = true;
+                    }
+
+                    if (!dadosLoginModel.Sucesso)
+                    {
+                        dadosLoginModel.Sucesso = false;
+                        dadosLoginModel.MenssagemErro = "Não foi possível logar no Tribunal.";
+                        return dadosLoginModel;
+                    }
+
+                    var URLPesquisa = dadosLoginModel.PrimeiraInstancia.URL;
+                    WebDriverWait navegador = new WebDriverWait(dadosLoginModel.Driver, TimeSpan.FromSeconds(30));
+
+
+                    var processosAProcessar = _mapper.Map<List<ProcessoModel>>(processos.Where(p => p.IdTecnologiaSite == configuracao.Tecnologia.Id &&
+                                                                                                    !p.Numero.StartsWith("9999999-00.") &&
+                                                                                                    (p.IdInstanciaTribunal == null || (p.IdInstanciaTribunal != null && p.IdInstanciaTribunal == instancia.Id)) &&
+                                                                                                    (p.Status == StatusProcesso.EmProcessamento || p.Status == StatusProcesso.Pendente)).ToList());
+
+                    int quantidadeNaoLocalizado = 0;
+                    foreach (var processoAProcessar in processosAProcessar.OrderBy(p => (int)p.Status).OrderBy(p => p.Id))
+                    {
+                        Console.WriteLine("========================================================");
+                        Console.WriteLine($"Vai Processar Processo: {processoAProcessar.Numero} - {DateTime.Now.ToString()}");
+
+                        if (quantidadeMaxinaNaoLocalizado != 0 && quantidadeMaxinaNaoLocalizado < quantidadeNaoLocalizado)
+                            break;
+
+                        atualizar = _commonService.AtualizarSituacaoProcesso(processoAProcessar.Id, login, dadosLoginModel.PrimeiraInstancia, StatusProcesso.EmProcessamento, "", true);
+
+                        //No TJRJ o site processa a primeira e segunda Instância.
+
+                        ProcessoModel processoProcessado = ProcessarInstancia(dadosLoginModel.Driver, navegador, processoAProcessar, login, URLPesquisa, macAddr, advogados, partesAtiva, partesPassiva, posicaoImagemProcesso, dadosLoginModel.FolderProcessamento, folderBase, expressoes, posicaoImagemDocumento, idProcessoWindows);
+                        Console.WriteLine($"Processo {processoProcessado.Status}");
+
+                        if (processoProcessado.Status == StatusProcesso.EmProcessamento || processoProcessado.Status == StatusProcesso.Pendente)
+                            quantidadeNaoLocalizado = quantidadeNaoLocalizado + 1;
+                        else
+                            quantidadeNaoLocalizado = 0;
+
+                        if (processoProcessado.Status != StatusProcesso.Pendente && processoProcessado.Status != StatusProcesso.EmProcessamento)
+                        {
+                            string inconsistena = "";
+                            bool atualizadoPossuiDocumento = false;
+
+                            if (processoProcessado.Status == StatusProcesso.Inconsistente)
+                                inconsistena = processoProcessado.Inconsistencia;
+
+                            bool atualizado = _commonService.AtualizarSituacaoProcesso(processoProcessado.Id, login, instancia, processoProcessado.Status, inconsistena, processoProcessado.Eletronico);
+
+                            if (processoProcessado.CapturarDado && processoProcessado.Status != StatusProcesso.Inconsistente)
+                            {
+                                atualizadoPossuiDocumento = true;
+                                atualizar = AtualizarDadosProcesso(processoProcessado.Id, processoProcessado.DadosProcesso, configuracao, processoProcessado.PossuiDocumento);
+
+                                if (processoProcessado.TermoProcesso != null && processoProcessado.TermoProcesso.IdTermoLocalizacao > 0)
+                                {
+                                    atualizar = _commonService.AtualizarProcessoDistribuidoTermo(login, processoProcessado.TermoProcesso.IdTermoLocalizacao, configuracao.Tribunal.Id, processoProcessado.IdTecnologiaSite, processoProcessado.Numero, processoProcessado.TermoProcesso.TermoExpressao, processoProcessado.TermoProcesso.NomeParte, processoProcessado.TermoProcesso.Afirmacao, solicitacao);
+                                }
+                            }
+
+                            if (processoProcessado.CapturarMovimento && processoProcessado.Movimentos != null && processoProcessado.Movimentos.Count() > 0)
+                            {
+                                atualizar = _commonService.AtualizarMovimentos(processoProcessado.Movimentos, processoProcessado.Numero, login);
+                                atualizar = _commonService.AtualizarEventoCapturado(processoProcessado.Id, processoProcessado);
+
+                                if (!atualizadoPossuiDocumento && processoProcessado.PossuiDocumento)
+                                {
+                                    atualizar = AtualizarPossuiDocumento(processoProcessado.Id, configuracao);
+                                }
+                            }
+
+                            if (processoProcessado.MovimentosNovos != null)
+                            {
+                                if (processoProcessado.MovimentosNovos.Count() > 0)
+                                {
+                                    atualizar = AtualizarMovimentosNovos(processoProcessado.Id, processoProcessado.MovimentosNovos, login);
+                                }
+                            }
+
+                            if (processoProcessado.Status != StatusProcesso.Segredo && processoProcessado.CapturarPartes && processoProcessado.Status != StatusProcesso.Inconsistente)
+                            {
+                                if (solicitacao.VerificarAdvogado)
+                                {
+                                    foreach (var parte in processoProcessado.Partes)
+                                    {
+                                        parte.ClienteEscritorio = false;
+                                        if (parte.Advogados != null)
+                                            foreach (var advogado in parte.Advogados)
+                                                if (advogados.Contains(advogado.Nome.ToUpper()))
+                                                    parte.ClienteEscritorio = true;
+                                    }
+                                }
+
+                                atualizar = AtualizarDadosParte(processoProcessado.Id, processoProcessado.Partes, login);
+                            }
+                        }
+                    }
+
+                    if (!solicitacao.CapturarDistribuicao)
+                    {
+                        dadosLoginModel.Driver.Close();
+                        dadosLoginModel.Driver.Dispose();
+                        dadosLoginModel.Driver = null;
+                    }
+                }
+
+                //====================================================================================
+                // Atualiza os não localizados
+                //====================================================================================
+                foreach (var processo in processos.Where(p => p.Status == StatusProcesso.EmProcessamento))
+                    atualizar = _commonService.AtualizarSituacaoProcesso(processo.Id, login, dadosLoginModel.PrimeiraInstancia, StatusProcesso.NaoLocalizado, "Processo não Localizado.", true);
+                //====================================================================================
+
+                //Finaliza o Browser
+                if (dadosLoginModel.FecharBrowser)
+                {
+                    dadosLoginModel.Driver.Close();
+                    dadosLoginModel.Driver.Dispose();
+                }
+
+                //====================================================================================
+                // Atualiza Situação das Solicitaçoes
+                //====================================================================================
+                if (solicitacao != null)
+                {
+                    if (solicitacao.Processos.Where(x => x.Status == StatusProcesso.Pendente || x.Status == StatusProcesso.EmProcessamento).Count() == 0)
+                    {
+                        if (solicitacao.Processos.Where(x => x.Status == StatusProcesso.NaoLocalizado || x.Status == StatusProcesso.Inconsistente).Count() > 0)
+                            solicitacao.AlterarStatusParaCapturadoComInconsistencia(login);
+                        else
+                            solicitacao.AlterarStatusParaCapturadoComSucesso(login);
+
+                        using (var transaction = _session.BeginTransaction())
+                        {
+                            _session.SaveOrUpdate(solicitacao);
+                            transaction.Commit();
+                        }
+                    }
+                }
+
+            }
+            catch (Exception ex)
+            {
+                bool gerouLog = _controleLog.GeraLog(processos[0].Numero, processos[0].IdSolicitacao, processos[0].IdEquipamentoProcessamento, ex);
+            }
+
+            return dadosLoginModel;
+        }
+
+        private ProcessoModel ProcessarInstancia(IWebDriver driver, WebDriverWait navegador, ProcessoModel processo, Usuario login, string URL, string mcAddress, List<string> advogadosLBCA, List<string> partesAtiva, List<string> partesPassiva, string posicaoImagemProcesso, string folderProcessamento, String folderBase, List<TermoExpressaoRegularModel> expressoes, string posicaoImagemDocumento, int idProcessoWindows)
+        {
+            try
+            {
+                //bool apenasComplementarPartes = false;
+                //string ufTribunal = processo.DadosProcesso.UF;
+                //Pesquisa o numero do processo
+                IWebDriver janelaPesquisa = PesquisarProcesso(driver, navegador, processo.Numero, posicaoImagemProcesso);
+
+                if (janelaPesquisa != null)
+                {
+                    driver.Manage().Window.Maximize();
+
+                    WebDriverWait navegadorProcesso = new WebDriverWait(janelaPesquisa, TimeSpan.FromSeconds(60));
+
+                    IWebDriver tabelaGeral = janelaPesquisa;
+
+                    ////if (tabelaGeral.Text.Contains($"PROCESSO EM FASE DE INQUÉRITO"))
+                    ////{
+                    ////    processo.Inconsistencia = "PROCESSO EM FASE DE INQUÉRITO";
+                    ////    processo.Status = StatusProcesso.Inconsistente;
+                    ////    processo.Eletronico = false;
+                    ////    return processo;
+                    ////}
+                    //precisa ajustar para identificar o segredo de justiça
+                    ////IWebElement linkProcessoSegredoJustica = _browserService.ElementVerify(navegador, "LinkText", "segredo", "ElementToBeClickable", TimeSpan.FromSeconds(10));
+
+                    if (processo.CapturarDado || processo.CapturarPartes)
+                    {
+                        List<LinhaProcessoRJModel> linhasProcesso = MontarLinhaProcesso(tabelaGeral.FindElements(By.XPath($"table//tbody//tr")));
+
+                        if (processo.CapturarDado)
+                        {
+                            processo.DadosProcesso = MontarDadosProcesso(janelaPesquisa);
+                            processo.Instancia = processo.DadosProcesso.Instancia;
+                        }
+
+                        if (processo.CapturarPartes)
+                        {
+                            List<ProcessoParteModel> partes = new List<ProcessoParteModel>();
+                            IWebElement linkMostrarPersonagens = _browserService.ElementVerify(navegador, "XPath", "//.[contains(text(),'Listar todos')]", "ElementToBeClickable", TimeSpan.FromSeconds(2));
+                            if (linkMostrarPersonagens == null)
+                            {
+                                partes = MontaPartesUnicas(janelaPesquisa, partesAtiva, partesPassiva);
+                            }
+                            else
+                            {
+                                linkMostrarPersonagens.Click();
+                                IWebElement divPersonagens = _browserService.ElementVerify(navegador, "XPath", "//.[@class='p-element p-datatable-tbody']", "ElementIsVisible", TimeSpan.FromSeconds(2));
+                                partes = MontaPartesMultiplas(divPersonagens, partesAtiva, partesPassiva);
+
+                                System.Threading.Thread.Sleep(2000);
+
+                                IWebElement btnFecharPopup = _browserService.ElementVerify(navegador, "XPath", "//.[@id='lista-historico-personagens']/preceding::i[1]", "ElementToBeClickable", TimeSpan.FromSeconds(2));
+                                btnFecharPopup.Click();
+
+                            }
+
+                            processo.Partes = partes;
+
+                            #region IdentificarTermoParte
+                            processo.TermoProcesso = _commonService.IdentificarTermoParte(expressoes, processo.Partes);
+
+                            if (processo.TermoProcesso.IdTermoLocalizacao > 0)
+                            {
+                                processo.CapturarDado = processo.TermoProcesso.CapturarDado;
+                                if (processo.CapturarDado)
+                                {
+                                    if (processo.TermoProcesso.BaixarCopia)
+                                        processo.BaixarCopia = true;
+
+                                    if (processo.TermoProcesso.CapturarMovimento)
+                                        processo.CapturarMovimento = true;
+                                }
+                            }
+                            #endregion
+
+                            #region PARATESTAR
+                            //processo.CapturarMovimento = true;
+                            #endregion
+
+                            processo.Status = StatusProcesso.Capturado;
+                        }
+                    }
+
+                    ProcessoMovimentacaoModel movimentosDocumento = new ProcessoMovimentacaoModel();
+                    movimentosDocumento.Numero = processo.Numero;
+
+                    ProcessoMovimentacaoModel movimentosProcesso = new ProcessoMovimentacaoModel();
+                    movimentosProcesso.Numero = processo.Numero;
+
+                    if (processo.CapturarMovimento)
+                    {
+                        if (!processo.ProcessoDistribuido)
+                        {
+                            movimentosProcesso.UltimoDocumento = UltimoIdMovimento(processo.Numero);
+                            processo.UltimoDocumento = LocalizaIdUltimoDocumentoProcesso(processo.Numero);
+                            processo.BaixarCopia = true;
+                        }
+
+                        var movimentosLocalizados = MovimentosProcesso(driver, navegador, movimentosProcesso, processo);
+
+                        if (!processo.ProcessoDistribuido && movimentosLocalizados.Movimentos.Count() > 0)
+                        {
+                            processo.MovimentosNovos = MovimentosExsistente(movimentosLocalizados, processo.Id);
+                            if (processo.MovimentosNovos.Count() == 0)
+                            {
+                                processo.Inconsistencia = "";
+                                processo.PossuiDocumento = true;
+                                processo.Status = StatusProcesso.Capturado;
+                                processo.Movimentos = new List<ProcessoMovimentoModel>();
+                                processo.BaixarCopia = false;
+                            }
+                        }
+                    }
+
+                    ////if (processo.BaixarCopia && linkProcessoSegredoJustica == null)
+                    if (processo.BaixarCopia)
+                    {
+                        IWebDriver janelaProcesso = AcessarProcesso(janelaPesquisa, navegador, processo.Numero, posicaoImagemDocumento);
+
+                        if (janelaProcesso != null)
+                        {
+
+                            //if (DownloadProcesso(driver, navegadorProcesso, folderProcessamento, processo.UltimoDocumento, processo.Id, processo.IdentificaoExterna, movimentosDocumento))
+                            if (DownloadProcessoProp(driver, navegadorProcesso, folderProcessamento, processo.UltimoDocumento, processo.Id, processo.IdentificaoExterna, movimentosDocumento))
+                            {
+                                string folderProcesso = _gerenciarFisicoService.CriarDiretorioProcesso(folderBase, processo.EmailCriadoPor, processo.IdSolicitacao, processo.Numero.Replace("-", "").Replace(".", ""));
+                                janelaProcesso.Close();
+                                janelaProcesso = driver.SwitchTo().Window(driver.WindowHandles.ToList().Last());
+
+                                string complementoNome = $"_{System.DateTime.Now.Year.ToString()}{System.DateTime.Now.Month.ToString()}{System.DateTime.Now.Day.ToString()}{System.DateTime.Now.Hour.ToString()}{System.DateTime.Now.Minute.ToString()}";
+                                string prefixoNome = "Processo_";
+                                string nome = processo.Numero;
+
+                                if (_gerenciarFisicoService.CompactarArquivos(folderProcessamento, $"{prefixoNome}{nome}{complementoNome}.zip"))
+                                {
+                                    var deleteArquivos = _gerenciarFisicoService.DeletarArquivo(folderProcesso, "*.zip");
+                                    if (_gerenciarFisicoService.TransferirArquivo(folderProcessamento, $"{prefixoNome}{nome}{complementoNome}.zip", $"{folderProcesso}", "", "", "", false))
+                                    {
+                                        //processo.PossuiDocumento = true; //\\
+                                        processo.Inconsistencia = "";
+                                        processo.PossuiDocumento = true;
+                                        processo.Status = StatusProcesso.Capturado;
+                                        processo.NomeFisico = $"{prefixoNome}{nome}{complementoNome}.zip";
+                                    }
+                                }
+
+                            }
+                            else
+                            {
+                                janelaProcesso.Close();
+                                janelaProcesso = driver.SwitchTo().Window(driver.WindowHandles.ToList().Last());
+                                if (processo.Status == StatusProcesso.Capturado)
+                                {
+                                    processo.Status = StatusProcesso.EmProcessamento;
+                                    processo.Eletronico = false;
+                                }
+                            }
+
+                            if (movimentosProcesso.Movimentos.Count() > 0 || movimentosDocumento.Movimentos.Count() > 0)
+                            {
+                                var movimentosUnificados = UnificarMovimentos(movimentosProcesso, movimentosDocumento);
+                                processo.Movimentos = movimentosUnificados.Movimentos;
+                                processo.Status = StatusProcesso.Capturado;
+                            }
+                        }
+                        else
+                        {
+                            if (processo.Status != StatusProcesso.Capturado)
+                            {
+                                processo.Inconsistencia = "Processo não possuí documentos para Download";
+                                processo.Status = StatusProcesso.Inconsistente;
+                                processo.Eletronico = false;
+                            }
+                        }
+                    }
+
+                    ////if (linkProcessoSegredoJustica != null)
+                    ////    processo.Status = StatusProcesso.Segredo;
+
+                }
+
+            }
+            catch (Exception ex)
+            {
+                bool gerouLog = _controleLog.GeraLog(processo.Numero, processo.IdSolicitacao, processo.IdEquipamentoProcessamento, ex);
+            }
+
+            return processo;
+        }
+
+        private DadosProcessoModel MontarDadosProcesso(IWebDriver janelaPesquisa)
+        {
+            DadosProcessoModel dadosProcesso = new DadosProcessoModel();
+            dadosProcesso.Area = "Cível";
+
+            try
+            {
+                var instancia = janelaPesquisa.FindElement(By.XPath("//.[contains(text(),'Distribuído')]")).Text;
+                if (instancia != null)
+                {
+                    dadosProcesso.Instancia = "";
+
+                    if (instancia.Contains("Primeira instância"))
+                        dadosProcesso.Instancia = "1ª Instância";
+
+                    if (instancia.Contains("Segunda instância"))
+                        dadosProcesso.Instancia = "2ª Instância";
+
+                    dadosProcesso.Distribuicao = instancia.Substring(instancia.IndexOf("Distribuído em") + 15, 10);
+                }
+                else
+                {
+                    dadosProcesso.Instancia = "1ª Instância";
+                }
+
+                dadosProcesso.Assunto = janelaPesquisa.FindElement(By.XPath("//.[@name='classe']/preceding::label[@name='assunto']")).Text;
+                dadosProcesso.Comarca = janelaPesquisa.FindElement(By.XPath("//.[@name='comarca']")).Text;
+                dadosProcesso.Area = janelaPesquisa.FindElement(By.XPath("//.[@name='acao']//following::label[@name='serventia']")).Text;
+                dadosProcesso.Vara = janelaPesquisa.FindElement(By.XPath("//.[@name='vara']")).Text;
+
+                dadosProcesso.UF = "RJ";
+                dadosProcesso.Capturado = true;
+            }
+            catch (Exception ex)
+            {
+                bool gerouLog = _controleLog.GeraLog("0", 0, 0, ex);
+            }
+
+            return dadosProcesso;
+        }
+
+        private List<ProcessoParteModel> MontaPartesUnicas(IWebDriver driver, List<string> partesAtiva, List<string> partesPassiva)
+        {
+            System.Threading.Thread.Sleep(2000);
+
+            //List<string> partesAdvogado = new List<string>(new string[] { "ADVOGADO", "ADVOGADO(S)" });
+            List<ProcessoParteModel> partes = new List<ProcessoParteModel>();
+
+            try
+            {
+                int divNumero = 2;
+                string[] qPersonagem;
+
+                for (int i = 0; i < 7; i++)
+                {
+                    try
+                    {
+                        IWebElement div2D = driver.FindElement(By.XPath($"//.[contains(text(),'Dados dos')]/following::div[{divNumero}]"));
+                        divNumero++;
+
+                        qPersonagem = div2D.Text.Split(new[] { Environment.NewLine }, StringSplitOptions.None);
+
+                        if (partesAtiva.Contains(qPersonagem[0].ToUpper()))
+                        {
+                            ProcessoParteModel parteAtv = new ProcessoParteModel();
+                            parteAtv.Sequencia = 1;
+                            parteAtv.Tipo = TipoParte.Autora;
+                            parteAtv.Qualificacao = qPersonagem[0].ToUpper();
+                            parteAtv.Nome = qPersonagem[1].ToUpper();
+                            parteAtv.Nome = parteAtv.Nome.Substring(0, parteAtv.Nome.Length > 100 ? 100 : parteAtv.Nome.Length);
+                            parteAtv.ClienteEscritorio = false;
+
+                            partes.Add(parteAtv);
+                        }
+                        else if (partesPassiva.Contains(qPersonagem[0].ToUpper()))
+                        {
+                            ProcessoParteModel partePass = new ProcessoParteModel();
+                            partePass.Sequencia = 1;
+                            partePass.Tipo = TipoParte.Reu;
+                            partePass.Qualificacao = qPersonagem[0].ToUpper();
+                            partePass.Nome = qPersonagem[1].ToUpper();
+                            partePass.Nome = partePass.Nome.Substring(0, partePass.Nome.Length > 100 ? 100 : partePass.Nome.Length);
+                            partePass.ClienteEscritorio = false;
+
+                            partes.Add(partePass);
+                        }
+
+                        #region AdvogadoBloqueado
+                        //else if (partesAdvogado.Contains(qPersonagem[0].ToUpper()))
+                        //{
+                        //ProcessoParteModel parteAdv = new ProcessoParteModel();
+                        //string[] dadosAdv;
+
+                        //foreach (var persUnico in qPersonagem.Skip(1))
+                        //{
+                        //    dadosAdv = persUnico.Split('-');
+
+                        //    ProcessoAdvogadoModel advogadoModel = new ProcessoAdvogadoModel();
+
+                        //    advogadoModel.Nome = dadosAdv[0];
+                        //    advogadoModel.Oab = dadosAdv[1];
+                        //    advogadoModel.Qualificacao = "Advogado";
+                        //    parteAdv.Advogados.Add(advogadoModel);
+                        //    partes.Add(parteAdv);
+                        //}
+                        //}
+                        #endregion
+
+                    }
+                    catch (Exception ex)
+                    {
+                        bool gerouLog = _controleLog.GeraLog("0", 0, 0, ex);
+                    }
+
+                }
+            }
+            catch (Exception ex)
+            {
+                bool gerouLog = _controleLog.GeraLog("0", 0, 0, ex);
+            }
+
+            return partes;
+        }
+
+        private List<ProcessoParteModel> MontaPartesMultiplas(IWebElement divPersonagens, List<string> partesAtiva, List<string> partesPassiva)
+        {
+            List<ProcessoParteModel> partes = new List<ProcessoParteModel>();
+
+            try
+            {
+                int sequenciaAutor = 1;
+                int sequenciaReu = 1;
+                string qualificacao = "";
+                TipoParte tipoParte = TipoParte.Autora;
+                int sequenciaParte = 0;
+
+                var linhas = divPersonagens.FindElements(By.XPath($"//tbody//tr"));
+                foreach (var linha in linhas)
+                {
+                    var colunas = linha.FindElements(By.XPath($"td"));
+
+                    if (colunas.Count() == 2)
+                    {
+                        if (partesAtiva.Contains(colunas.FirstOrDefault().Text.ToUpper().Trim()) || partesPassiva.Contains(colunas.FirstOrDefault().Text.ToUpper().Trim()))
+                        {
+                            if (partesAtiva.Contains(colunas.FirstOrDefault().Text.ToUpper().Trim()))
+                            {
+                                tipoParte = TipoParte.Autora;
+                                sequenciaParte = sequenciaAutor;
+                                sequenciaAutor += 1;
+                                qualificacao = colunas.FirstOrDefault().Text.Trim();
+                            }
+
+                            if (partesPassiva.Contains(colunas.FirstOrDefault().Text.ToUpper().Trim()))
+                            {
+                                tipoParte = TipoParte.Reu;
+                                sequenciaParte = sequenciaReu;
+                                sequenciaReu += 1;
+                                qualificacao = colunas.FirstOrDefault().Text.Trim();
+                            }
+
+                            ProcessoParteModel parteAtiva = new ProcessoParteModel();
+                            parteAtiva.Sequencia = sequenciaParte;
+                            parteAtiva.Qualificacao = qualificacao;
+                            parteAtiva.Tipo = tipoParte;
+                            parteAtiva.Nome = colunas.LastOrDefault().Text.Trim();
+                            parteAtiva.Nome = parteAtiva.Nome.Substring(0, parteAtiva.Nome.Length > 100 ? 100 : parteAtiva.Nome.Length);
+                            parteAtiva.ClienteEscritorio = false;
+                            parteAtiva.SemAdvogado = true;
+                            parteAtiva.Advogados = new List<ProcessoAdvogadoModel>();
+                            partes.Add(parteAtiva);
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                bool gerouLog = _controleLog.GeraLog("0", 0, 0, ex);
+            }
+
+            return partes;
+        }
+
+        public DadosLoginModel LogarSite(EquipamentoProcessamentoTribunal configuracao, string folderBase, string macAddr, int taskId, string numeroProcesso, int idProcessoWindows)
+        {
+            DadosLoginModel retorno = new DadosLoginModel();
+
+            try
+            {
+                string usuarioInstancia = "";
+                string pwdInstancia = "";
+                retorno.Sucesso = true;
+
+                //============================================================================
+                // Identifica a Pagina de Login
+                //============================================================================
+                Console.WriteLine("Pagina Login");
+                var paginaLogin = _commonService.PaginaLogin(configuracao, null);
+                if (paginaLogin == null)
+                    throw new ApplicationException("Pagina LogIn não localizada");
+                //============================================================================
+
+                //============================================================================
+                // Identifica a Primeira Instancia
+                //============================================================================
+                Console.WriteLine("Identifica a Primeira Instancia");
+                var primeiraInstancia = _commonService.PrimeiraInstanciaTribunal(configuracao);
+                if (primeiraInstancia == null)
+                    throw new ApplicationException("Primeira Instancia não localizada");
+                retorno.PrimeiraInstancia = primeiraInstancia;
+                //============================================================================
+
+                //============================================================================
+                // Cria a Pasta Base para Baixar Copias
+                //============================================================================
+                Console.WriteLine("Pasta Base para Baixa Copias");
+                string folderProcessamento = "";
+                folderProcessamento = _gerenciarFisicoService.CriarDiretorioProcessamento(folderBase, macAddr, idProcessoWindows, System.Convert.ToInt32(taskId));
+                retorno.FolderProcessamento = folderProcessamento;
+                //============================================================================
+
+                //============================================================================
+                // Identifica se Precisa Exibir o Navegador
+                //============================================================================
+                bool exibirNavegador = false;
+                var parametroExibirNavegador = _commonService.ParametroEquipamento("Exibir Navegador", configuracao.EquipamentoProcessamento.Id);
+                if (!string.IsNullOrWhiteSpace(parametroExibirNavegador) && parametroExibirNavegador.ToUpper() == "SIM")
+                    exibirNavegador = true;
+                //============================================================================
+
+                //============================================================================
+                // Abre a Pagina Inicial do Tribunal no Firefox
+                //============================================================================
+                Console.WriteLine("Abre a Pagina Inicial do Tribunal");
+                IWebDriver driver = _commonService.AbrePaginaInicial(paginaLogin.URL, folderProcessamento, primeiraInstancia.NavegadorWeb, configuracao.EquipamentoProcessamento.Id, primeiraInstancia.VersaoNavegadorWeb, "", exibirNavegador);
+                if (driver == null)
+                {
+                    retorno.Sucesso = false;
+                    retorno.MenssagemErro = "Não foi possível abrir a pagina inicial.";
+                    return retorno;
+                }
+                WebDriverWait navegador = new WebDriverWait(driver, TimeSpan.FromSeconds(30));
+                retorno.Driver = driver;
+                //============================================================================
+
+                //============================================================================
+                //Identifica o Usuario de Acesso a Instancia do Site
+                //============================================================================
+                UsuarioAcesso usuarioAcesso = _commonService.UsuarioAcesso(configuracao.Tribunal.Id, primeiraInstancia.Id, 0);
+                if (usuarioAcesso != null)
+                {
+                    usuarioInstancia = usuarioAcesso.User;
+                    pwdInstancia = usuarioAcesso.PWD;
+                }
+                //============================================================================
+
+                //============================================================================
+                // Faz o Login no site
+                //============================================================================
+                System.Threading.Thread.Sleep(1000);
+
+                List<WebElementModel> objetosLogin = new List<WebElementModel>();
+                objetosLogin.Add(new WebElementModel() { identificador = "Id", idElemento = "btnEnviar", action = "ElementToBeClickable", tipoObjeto = "BotaoEnviar", timeout = new TimeSpan(0, 0, 15) });
+                objetosLogin.Add(new WebElementModel() { identificador = "Id", idElemento = "txtLogin", action = "ElementToBeClickable", tipoObjeto = "InputUsuario", timeout = new TimeSpan(0, 0, 15) });
+                objetosLogin.Add(new WebElementModel() { identificador = "Id", idElemento = "txtSenha", action = "ElementToBeClickable", tipoObjeto = "InputPWD", timeout = new TimeSpan(0, 0, 15) });
+                objetosLogin.Add(new WebElementModel() { identificador = "XPath", idElemento = "//.[@class='autocomplete-serventia focus ng-untouched ng-pristine ng-valid']", action = "ElementToBeClickable", tipoObjeto = "comboTipoUsuario", timeout = new TimeSpan(0, 0, 15) });
+
+                if (!_commonService.Login(driver, navegador, usuarioInstancia, pwdInstancia, objetosLogin, true, false))
+                {
+                    retorno.Sucesso = false;
+                    retorno.MenssagemErro = "Não foi possível logar no Tribunal.";
+
+                    driver.Close();
+                    driver.Dispose();
+                    //return retorno;
+                }
+
+                System.Threading.Thread.Sleep(2000);
+                var tiposUsuario = _browserService.ElementVerify(navegador, "XPath", "//.[contains(text(),'Tipo de Usuário')]", "ElementIsVisible", TimeSpan.FromSeconds(5));
+                if (tiposUsuario != null)
+                {
+                    IWebElement comboTipoUsuario = _browserService.ElementVerify(navegador, "XPath", "//.[@class='autocomplete-serventia focus ng-untouched ng-pristine ng-valid']", "ElementToBeClickable", TimeSpan.FromSeconds(5));
+                    if (comboTipoUsuario != null)
+                    {
+                        comboTipoUsuario.SendKeys(Keys.Enter);
+                        System.Threading.Thread.Sleep(2000);
+
+                        comboTipoUsuario.FindElement(By.XPath("//span[@class='color-def']")).Click();
+                        comboTipoUsuario.SendKeys(Keys.Enter);
+
+                        if (comboTipoUsuario != null)
+                        {
+
+                            var botaoOkTipoUsuario = _browserService.ElementVerify(navegador, "XPath", "//.[contains(text(),'Entrar')]", "ElementToBeClickable", TimeSpan.FromSeconds(5));
+                            if (botaoOkTipoUsuario != null)
+                            {
+                                botaoOkTipoUsuario.Click();
+                                System.Threading.Thread.Sleep(2000);
+                            }
+                            else
+                            {
+                                Console.WriteLine("Não Solucionou Tipo de Usuário");
+                                retorno.Sucesso = false;
+                                retorno.MenssagemErro = "Não Solucionou Tipo de Usuário";
+                            }
+                        }
+                    }
+                }
+
+                System.Threading.Thread.Sleep(2000);
+                //============================================================================
+
+            }
+            catch (Exception ex)
+            {
+                retorno.Sucesso = false;
+                retorno.MenssagemErro = ex.Message;
+                Console.WriteLine(ex.Message);
+
+                bool gerouLog = _controleLog.GeraLog(numeroProcesso, 0, 0, ex);
+            }
+
+            return retorno;
+        }
+
+        private IWebDriver PesquisarProcesso(IWebDriver driver, WebDriverWait navegador, string numeroProcesso, string parametrosCaptcha)
+        {
+            //numeroProcesso = "0029621-60.2021.8.19.0209";
+            //numeroProcesso = "0006843-30.2021.8.19.0037";
+            //numeroProcesso = "0044023-31.2021.8.19.0021";
+            //numeroProcesso = "0043429-17.2021.8.19.0021";
+            //numeroProcesso = "0030323-03.2021.8.19.0210";
+            //numeroProcesso = "0044285-78.2021.8.19.0021";
+            numeroProcesso = "0029764-46.2021.8.19.0210";
+
+            IWebDriver janelaProcesso = null;
+            try
+            {
+                System.Threading.Thread.Sleep(2000);
+
+                var linkConsultasProcessuais = _browserService.ElementVerify(navegador, "XPath", "//li[@id='CONSULTAS']", "ElementToBeClickable", TimeSpan.FromSeconds(5));
+                if (linkConsultasProcessuais == null)
+                {
+                    var botaoVoltar = _browserService.ElementVerify(navegador, "XPath", "//*//img[@src='http://www.tjrj.jus.br/imagens/ico-busca-arquivo.gif']", "ElementToBeClickable", TimeSpan.FromSeconds(5));
+                    if (botaoVoltar != null)
+                    {
+                        botaoVoltar.Click();
+                        System.Threading.Thread.Sleep(2000);
+                    }
+
+                    IWebElement frameConsulta1 = _browserService.ElementVerify(navegador, "Id", "parte1ProcCNJ", "ElementToBeClickable", TimeSpan.FromSeconds(5));
+                    if (frameConsulta1 == null)
+                        return janelaProcesso;
+                }
+                else
+                {
+                    linkConsultasProcessuais.Click();
+
+                    IWebElement imgPesquisarProcesso = _browserService.ElementVerify(navegador, "XPath", "//.[@alt='Consultas Processuais']", "ElementToBeClickable", TimeSpan.FromSeconds(5));
+                    imgPesquisarProcesso.Click();
+
+                    System.Threading.Thread.Sleep(3000);
+
+                    IWebElement framePesqProc = _browserService.ElementVerify(navegador, "XPath", "//iframe[contains(@src, 'https://www3.tjrj.jus.br/consultaprocessual/#/consultaportal')]", "ElementIsVisible", TimeSpan.FromSeconds(5));
+
+                    driver.SwitchTo().Frame(framePesqProc);
+                    System.Threading.Thread.Sleep(2000);
+                }
+
+                IWebElement parte1ProcCNJ = _browserService.ElementVerify(navegador, "Name", "numeroProcesso", "ElementToBeClickable", TimeSpan.FromSeconds(10));
+                IWebElement parte2ProcCNJ = _browserService.ElementVerify(navegador, "Id", "inputSufixoUnica3", "ElementToBeClickable", TimeSpan.FromSeconds(10));
+                IWebElement btnPesquisar = _browserService.ElementVerify(navegador, "XPath", "//.[@id='botaoPesquisarProcesso']", "ElementToBeClickable", TimeSpan.FromSeconds(10));
+
+                if (parte1ProcCNJ == null ||
+                    parte2ProcCNJ == null ||
+                    btnPesquisar == null)
+                    return janelaProcesso;
+
+                parte1ProcCNJ.Clear();
+                parte2ProcCNJ.Clear();
+
+                parte1ProcCNJ.SendKeys(numeroProcesso.Substring(0, 15).Replace("-", "").Replace(".", ""));
+                parte2ProcCNJ.SendKeys(numeroProcesso.Substring(21, 4));
+                btnPesquisar.Click();
+
+                System.Threading.Thread.Sleep(4000);
+                IWebElement msgErro = _browserService.ElementVerify(navegador, "XPath", "//.[@role='alert']", "ElementIsVisible", new TimeSpan(0, 0, 5));
+                if (msgErro.Text == "O processo informado não foi encontrado.")
+                {
+                    driver.SwitchTo().Window(driver.WindowHandles.Last());
+                    janelaProcesso = null;
+                }
+                else if (msgErro == null || msgErro.Text != "O processo informado não foi encontrado.")
+                    janelaProcesso = driver;
+            }
+            catch (Exception ex)
+            {
+                bool gerouLog = _controleLog.GeraLog(numeroProcesso, 0, 0, ex);
+            }
+
+            return janelaProcesso;
+        }
+
+        private ProcessoMovimentacaoModel MovimentosProcesso(IWebDriver driver, WebDriverWait navegador, ProcessoMovimentacaoModel movimentosProcesso, ProcessoModel processo)
+        {
+            try
+            {
+                if (!MontarMovimentosProcesso(driver, navegador, movimentosProcesso, processo))
+                    return movimentosProcesso;
+            }
+            catch (Exception ex)
+            {
+                bool gerouLog = _controleLog.GeraLog(processo.Numero, processo.IdSolicitacao, processo.IdEquipamentoProcessamento, ex);
+            }
+
+            return movimentosProcesso;
+        }
+
+        private bool MontarMovimentosProcesso(IWebDriver driver, WebDriverWait navegador, ProcessoMovimentacaoModel movimentosProcesso, ProcessoModel processo)
+        {
+            try
+            {
+                System.Threading.Thread.Sleep(3000);
+
+                IJavaScriptExecutor js = ((IJavaScriptExecutor)driver);
+                var btnDetalhes = _browserService.ElementVerify(navegador, "XPath", " //.[contains(text(),'Detalhes do')]", "ElementIsVisible", TimeSpan.FromSeconds(5));
+                js.ExecuteScript("arguments[0].scrollIntoView();", btnDetalhes);
+
+                var botaoTodasMovimentacoes = _browserService.ElementVerify(navegador, "XPath", "//.[contains(text(),'Todos os Movi')]", "ElementIsVisible", TimeSpan.FromSeconds(5));
+
+                if (botaoTodasMovimentacoes == null)
+                    return false;
+
+                botaoTodasMovimentacoes.Click();
+
+                System.Threading.Thread.Sleep(3000);
+
+                IWebElement comboMaisMovimentos = _browserService.ElementVerify(navegador, "XPath", "//.[contains(text(),'Os autos')]/preceding::div[1]", "ElementToBeClickable", TimeSpan.FromSeconds(5));
+                if (comboMaisMovimentos != null)
+                {
+                    comboMaisMovimentos.Click();
+
+                    IWebElement opSelecionada = _browserService.ElementVerify(navegador, "XPath", "//span[@class='ng-star-inserted'][text()='500']", "ElementToBeClickable", TimeSpan.FromSeconds(5));
+                    opSelecionada.Click();
+
+                    System.Threading.Thread.Sleep(3000);
+                }
+
+                List<string> movimentosPr = new List<string>();
+
+                IWebElement divMovimentacoes = driver.FindElement(By.XPath("//.[contains(text(),'Para visualizar')]/following::div[1]"));
+                if (divMovimentacoes == null)
+                    return false;
+
+                movimentosPr = divMovimentacoes.Text.Split(new[] { Environment.NewLine }, StringSplitOptions.None).ToList();
+                movimentosPr.Remove("Movimentação");
+                movimentosPr.Remove("Ato Assinado");
+                movimentosPr.Remove("Visualizar Ato Assinado Digitalmente");
+                movimentosPr.Remove("1");
+                movimentosPr.Remove("500");
+                movimentosPr.Remove("10");
+
+                ProcessoMovimentoModel movimento = new ProcessoMovimentoModel();
+                int sequencia = 0;
+                int posicao = 0;
+                String analisar = string.Empty;
+
+                foreach (var item in movimentosPr)
+                {
+                    if (!String.IsNullOrEmpty(item))
+                    {
+                        string conteudo = item;
+                        posicao = conteudo.IndexOf(":");
+                        analisar = conteudo.Substring(0, posicao + 1);
+
+                        if (analisar == "Tipo do Movimento:")
+                        {
+                            int indiceAPegar = 0;
+                            sequencia++;
+
+                            indiceAPegar = movimentosPr.IndexOf(item) + 2;
+
+                            var data = movimentosPr.ElementAt(indiceAPegar);
+                            var descricao = movimentosPr.ElementAt(indiceAPegar + 2);
+
+                            if (descricao.Contains("Tipo do Movimento:") || descricao.StartsWith("Data ") || descricao.StartsWith("Data:"))
+                            {
+                                descricao = movimentosPr.ElementAt(indiceAPegar - 2).Replace("Tipo do Movimento:", "").TrimStart();
+                            }
+
+                            movimento.Sequencia = sequencia;
+                            movimento.Descricao = descricao;
+                            movimento.Data = data;
+                            movimento.PossuiLinkDownload = false;
+
+                            movimentosProcesso.Movimentos.Add(movimento);
+                            movimento = new ProcessoMovimentoModel();
+                        }
+                    }
+                }
+
+                //===================================================================================
+                // Localizar Proxima Audiência
+                //===================================================================================
+
+                IWebElement divAudiencia = _browserService.ElementVerify(navegador, "XPath", "//.[contains(text(),'Audiência do')]/following::div[2]", "ElementIsVisible", TimeSpan.FromSeconds(5));
+
+                if (divAudiencia != null)
+                {
+                    movimento = new ProcessoMovimentoModel();
+                    List<string> qAudiencia = new List<string>();
+                    qAudiencia = divAudiencia.Text.Split(new[] { Environment.NewLine }, StringSplitOptions.None).ToList();
+
+                    foreach (var item in qAudiencia.First())
+                    {
+                        var data = qAudiencia.ElementAt(1);
+                        data += " " + qAudiencia.ElementAt(3);
+                        var descricao = qAudiencia.ElementAt(5);
+
+                        movimento.Sequencia = 99999;
+                        movimento.Data = data;
+                        movimento.Descricao = descricao;
+                        movimento.PossuiLinkDownload = false;
+                    }
+                    movimentosProcesso.Movimentos.Add(movimento);
+                }
+            }
+            catch (Exception ex)
+            {
+                bool gerouLog = _controleLog.GeraLog(processo.Numero, processo.IdSolicitacao, processo.IdEquipamentoProcessamento, ex);
+            }
+
+            return true;
+        }
+
+        private ProcessoMovimentacaoModel UnificarMovimentos(ProcessoMovimentacaoModel movimentosProcesso, ProcessoMovimentacaoModel movimentosDocumento)
+        {
+            ProcessoMovimentacaoModel unificado = movimentosDocumento;
+
+
+            foreach (var movimentoProcesso in movimentosProcesso.Movimentos)
+            {
+                ProcessoMovimentoModel existeDocumento = new ProcessoMovimentoModel();
+
+                if (movimentoProcesso.Descricao.StartsWith("Juntada"))
+                {
+                    existeDocumento = movimentosDocumento.Movimentos.FirstOrDefault(x => x.Data == movimentoProcesso.Data && x.Descricao.Contains(" - Juntada"));
+                    if (existeDocumento == null)
+                    {
+                        existeDocumento = movimentosDocumento.Movimentos.FirstOrDefault(x => x.Data == movimentoProcesso.Data && x.Descricao.Contains("Juntada - "));
+                        if (existeDocumento == null)
+                        {
+                            existeDocumento = movimentosDocumento.Movimentos.FirstOrDefault(x => x.Data == movimentoProcesso.Data && x.Descricao == "Juntada");
+                        }
+                    }
+                }
+
+                if (movimentoProcesso.Descricao.StartsWith("Distribuição"))
+                {
+                    existeDocumento = movimentosDocumento.Movimentos.FirstOrDefault(x => x.Data == movimentoProcesso.Data && x.Descricao.Contains(" - Distribuição"));
+                    if (existeDocumento == null)
+                    {
+                        existeDocumento = movimentosDocumento.Movimentos.FirstOrDefault(x => x.Data == movimentoProcesso.Data && x.Descricao.Contains("Distribuição "));
+                        if (existeDocumento == null)
+                        {
+                            existeDocumento = movimentosDocumento.Movimentos.FirstOrDefault(x => x.Data == movimentoProcesso.Data && x.Descricao == "Distribuição");
+                        }
+                    }
+                }
+                else
+                {
+                    existeDocumento = movimentosDocumento.Movimentos.FirstOrDefault(x => x.Data == movimentoProcesso.Data && x.Descricao.Contains($"- {movimentoProcesso.Descricao}"));
+                }
+
+                if (movimentoProcesso.Descricao.StartsWith("Conclusão ao Juiz"))
+                {
+                    existeDocumento = movimentosDocumento.Movimentos.FirstOrDefault(x => x.Data == movimentoProcesso.Data && x.Descricao.Contains(" - Conclusão ao Juiz"));
+                }
+
+                if (existeDocumento == null || existeDocumento.Descricao == null)
+                {
+                    var existeUnificado = unificado.Movimentos.FirstOrDefault(x => x.Data == movimentoProcesso.Data && x.Descricao == movimentoProcesso.Descricao);
+                    if (existeUnificado == null)
+                    {
+                        if (movimentoProcesso.Sequencia == 99999)
+                        {
+                            string tipoAudiencia = movimentoProcesso.Descricao;
+                            if (movimentoProcesso.Descricao.Contains("Conciliação"))
+                                tipoAudiencia = "Conciliação";
+                            movimentoProcesso.Descricao = $"Audiência Designada {tipoAudiencia} {movimentoProcesso.Data}";
+                        }
+                        unificado.Movimentos.Add(movimentoProcesso);
+                    }
+                }
+            }
+
+            //=======================================================================================================
+            // Elimina o que já estão no ProcessoMovimento
+            //=======================================================================================================
+            ProcessoMovimentacaoModel resultado = new ProcessoMovimentacaoModel();
+            foreach (var movimentoUnificado in unificado.Movimentos)
+            {
+                bool existeMovimento = false;
+                if (movimentoUnificado.IdEvento != null)
+                {
+                    var existe = _session.Query<ProcessoMovimento>().FirstOrDefault(x => x.Numero == unificado.Numero && x.IdEvento == movimentoUnificado.IdEvento);
+                    if (existe != null)
+                    {
+                        existeMovimento = true;
+                    }
+                }
+                else
+                {
+                    string descrico = movimentoUnificado.Descricao;
+                    if (movimentoUnificado.Descricao.StartsWith("Juntada"))
+                    {
+                        descrico = "Juntada";
+                    }
+                    if (movimentoUnificado.Descricao.StartsWith("Distribuição"))
+                    {
+                        descrico = "Distribuição";
+                    }
+                    if (movimentoUnificado.Descricao.StartsWith("Conclusão ao Juiz"))
+                    {
+                        descrico = "Conclusão ao Juiz";
+                    }
+                    var existe = _session.Query<ProcessoMovimento>().FirstOrDefault(x => x.Numero == unificado.Numero && x.Data == movimentoUnificado.Data && x.Descricao == descrico);
+                    if (existe != null)
+                    {
+                        existeMovimento = true;
+                    }
+                    else
+                    {
+                        if (descrico == "Conclusão ao Juiz")
+                        {
+                            existe = _session.Query<ProcessoMovimento>().FirstOrDefault(x => x.Numero == unificado.Numero && x.Data == movimentoUnificado.Data && x.Descricao.StartsWith(descrico));
+                            if (existe != null)
+                            {
+                                existeMovimento = true;
+                            }
+                        }
+                        else
+                        {
+                            existe = _session.Query<ProcessoMovimento>().FirstOrDefault(x => x.Numero == unificado.Numero && x.Data == movimentoUnificado.Data && x.Descricao == movimentoUnificado.Descricao);
+                            if (existe != null)
+                            {
+                                existeMovimento = true;
+                            }
+                        }
+                    }
+                }
+
+                if (!existeMovimento)
+                {
+                    if (movimentoUnificado.IdEvento != null)
+                        movimentoUnificado.Descricao = movimentoUnificado.Descricao.Replace($"{movimentoUnificado.IdEvento} - ", "");
+
+                    resultado.Movimentos.Add(movimentoUnificado);
+                }
+            }
+
+            if (movimentosProcesso.Movimentos.Count() > 0 && movimentosDocumento.Movimentos.Count() == 0 && resultado.Movimentos.Count() > 0)
+            {
+                Console.Write("Novo Documento sem Novo Movimento");
+            }
+
+            return resultado;
+        }
+
+        private IWebDriver AcessarProcesso(IWebDriver driver, WebDriverWait navegador, string numeroProcesso, string posicaoImagem)
+        {
+            IWebDriver janelaProcesso = null;
+
+            try
+            {
+                IWebElement linkProcessoEletronico = _browserService.ElementToBeClickable(navegador, "XPath", "//.[contains(text(),'Processo Eletrônico - Novo')]");
+                if (linkProcessoEletronico == null)
+                    return janelaProcesso;
+
+                linkProcessoEletronico.Click();
+
+                System.Threading.Thread.Sleep(2000);
+
+                //if (driver.WindowHandles.ToList().Count() <= 1)
+                //{
+                //    int loop = 0;
+                //    while (loop < 10)
+                //    {
+                //        if (driver.WindowHandles.ToList().Count() > 1)
+                //        {
+                //            loop = 11;
+                //        }
+                //        System.Threading.Thread.Sleep(100);
+                //        loop += 1;
+                //    }
+                //}
+                //driver.SwitchTo().Window(driver.WindowHandles.ToList().Last());
+                //int parametroY = System.Convert.ToInt16(posicaoImagem.Split('#')[0]);
+                //int parametroX = System.Convert.ToInt16(posicaoImagem.Split('#')[1]);
+                //int parametroWidth = System.Convert.ToInt16(posicaoImagem.Split('#')[2]);
+                //int parametroHeight = System.Convert.ToInt16(posicaoImagem.Split('#')[3]);
+                //===================================================================================
+                //Verifica se o montou a arvore se o Captcah
+                //===================================================================================
+                //IWebElement montouArqvore = _browserService.ElementVerify(navegador, "ClassName", "x-tree-root-node", "ElementExists", new TimeSpan(0, 0, 10));
+                //if (montouArqvore == null)
+                //{
+                //    if (!ResolverCaptcha(navegador, numeroProcesso, driver, parametroY, parametroX, parametroWidth, parametroHeight, MetodoResolverCaptcha.CaptchaTJRJ))
+                //        return janelaProcesso;
+                //}
+
+
+                //===================================================================================
+                //Verifica se abriu popup para digitacao motivo download
+                //===================================================================================
+                IWebElement popUpVisiDoc = _browserService.ElementIsVisible(navegador, "Id", "senhaProvisoria");
+                if (popUpVisiDoc == null)
+                    return janelaProcesso;
+
+                IWebElement motivoVisualizar = _browserService.ElementIsVisible(navegador, "Id", "motivo");
+                IWebElement btnVisualizar = _browserService.ElementVerify(navegador, "XPath", "//.[@id='motivo']/following::button[1]", "ElementToBeClickable", TimeSpan.FromSeconds(2));
+
+                if (motivoVisualizar == null ||
+                    btnVisualizar == null)
+                    return janelaProcesso;
+
+
+                motivoVisualizar.SendKeys("consulta processual");
+                btnVisualizar.Click();
+
+                //Aguarda a arvore de documento ficar pronta
+                //IWebElement divDocumento = _browserService.ElementIsVisible(navegador, "ClassName", "tree-nested-node");
+                //if (divDocumento == null)
+                //    return janelaProcesso;
+
+                System.Threading.Thread.Sleep(3000);
+
+                janelaProcesso = driver.SwitchTo().Window(driver.WindowHandles.ToList().Last());
+                driver.Manage().Window.Maximize();
+
+            }
+            catch (Exception ex)
+            {
+                bool gerouLog = _controleLog.GeraLog(numeroProcesso, 0, 0, ex);
+            }
+
+            return janelaProcesso;
+        }
+
+        //parei aqui
+        private bool DownloadProcessoProp(IWebDriver driver, WebDriverWait navegadorProcesso, string folderProcessamento, string ultimoDocumento, int idProcesso, string nomeExterno, ProcessoMovimentacaoModel movimentacaoProcesso)
+        {
+            bool retorno = false;
+
+            try
+            {
+                List<string> extensoesEsperadas = _commonService.ExtensoesArquivosExperadas("8.19");
+
+                //Verifica se a Pasta de Processamento possui arquivo e deleta
+                if (!_gerenciarFisicoService.DeletarArquivo($"{folderProcessamento}", "*.*"))
+                    return retorno;
+
+                //Verifica se a Pasta de Download possui arquivo e deleta
+                if (!_gerenciarFisicoService.DeletarArquivo($"{folderProcessamento}\\Download", "*.*"))
+                    if (!_gerenciarFisicoService.DeletarArquivo($"{folderProcessamento}\\Download", "*.*"))
+                        return retorno;
+
+                //=================================================
+                //aguarda o botão de proximo documento ficar disponivel
+                //=================================================
+                //IWebElement btnProximo = _browserService.ElementToBeClickable(navegadorProcesso, "Id", "ext-gen48");
+                //if (btnProximo == null)
+                //    return retorno;
+                //=================================================
+                //aguarda o botão de expandir documento ficar disponivel
+                //=================================================
+
+                ///parei aqui
+                ///
+                #region DIFERENTETJRJPROPRIO
+                //IWebElement lnkAbrirMenuNavegacao = _browserService.ElementToBeClickable(navegadorProcesso, "XPath", "//.[contains(text(),'Dados do')]/following::div[3]");
+                //if (lnkAbrirMenuNavegacao == null)
+                //    return retorno;
+
+                //IWebElement btnExpandir = _browserService.ElementVerify(navegadorProcesso, "Id", "ext-gen40", "ElementToBeClickable", TimeSpan.FromSeconds(20));
+                //if (btnExpandir == null)
+                //    return retorno;
+
+                //btnExpandir.Click();
+                //System.Threading.Thread.Sleep(3000);
+                //bool aguardar = true;
+                //while (aguardar)
+                //{
+                //    IWebElement spinAguardar = _browserService.ElementVerify(navegadorProcesso, "Id", "pEsquerda", "ElementExists", new TimeSpan(0, 0, 5));
+                //    if (spinAguardar == null)
+                //    {
+                //        aguardar = false;
+                //    }
+                //    else
+                //    {
+                //        IWebElement spinAguardando = _commonService.LocalizaXPath(spinAguardar, "/*//div[@class='ext-el-mask-msg x-mask-loading']");
+                //        if (spinAguardando != null)
+                //        {
+                //            Console.WriteLine("Aguardando Arqvore ficar pronta");
+                //            System.Threading.Thread.Sleep(1000);
+                //        }
+                //        else
+                //        {
+                //            aguardar = false;
+                //        }
+                //    }
+                //}
+                #endregion
+
+                if (!_gerenciarFisicoService.DeletarArquivo($"{folderProcessamento}\\Download", "*.tmp"))
+                    return retorno;
+
+
+                //estou aqui 
+                var docDisponiveis = driver.FindElements(By.XPath("//.[contains(text(),'expand_more')]/following::div[contains(@class, 'mat-tree-node')]"));
+
+
+
+                IWebElement listaDocumentos = _browserService.ElementVerify(navegadorProcesso, "XPath", "//.[contains(text(),'expand_more')]/following::div[contains(@class, 'mat-tree-node')]", "ElementToBeClickable", TimeSpan.FromSeconds(20));
+                if (listaDocumentos == null)
+                    return retorno;
+
+                bool loop = true;
+
+                //while (loop)
+                //{
+                //    listaDocumentos = _browserService.ElementVerify(navegadorProcesso, "Id", "ext-gen112", "ElementToBeClickable", TimeSpan.FromSeconds(20));
+
+                //    var precisaExpandir = listaDocumentos.FindElements(By.XPath("div[@class='x-tree-root-node']//div[@class='x-tree-node-el x-unselectable x-tree-node-collapsed']"));
+                //    if (precisaExpandir.Count() == 0)
+                //        loop = false;
+                //    else
+                //    {
+                //        //btnExpandir.Click();
+                //        System.Threading.Thread.Sleep(2000);
+                //        //aguardar = true;
+                //        while (aguardar)
+                //        {
+                //            IWebElement spinAguardar = _browserService.ElementVerify(navegadorProcesso, "Id", "pEsquerda", "ElementExists", new TimeSpan(0, 0, 5));
+                //            if (spinAguardar == null)
+                //            {
+                //                aguardar = false;
+                //            }
+                //            else
+                //            {
+                //                IWebElement spinAguardando = _commonService.LocalizaXPath(spinAguardar, "/*//div[@class='ext-el-mask-msg x-mask-loading']");
+                //                if (spinAguardando != null)
+                //                {
+                //                    Console.WriteLine("Aguardando Arqvore ficar pronta");
+                //                    System.Threading.Thread.Sleep(1000);
+                //                }
+                //                else
+                //                {
+                //                    aguardar = false;
+                //                }
+                //            }
+
+                //        }
+
+                //    }
+
+                //}
+                System.Threading.Thread.Sleep(3000);
+
+                var objetosClicaveis = listaDocumentos.FindElements(By.XPath("//.[@class='mat-tree-node']"));
+
+                bool localizouUltimoDocumento = true;
+                bool atualizacaoAutos = false;
+                string novoNome = "";
+
+                if (!string.IsNullOrEmpty(ultimoDocumento))
+                {
+                    localizouUltimoDocumento = false;
+                    atualizacaoAutos = true;
+                }
+
+                //var lixo = objetosClicaveis.ElementAt(0);
+                //var tst = lixo.GetAttribute("id");
+                //var id = objetosClicaveis.ElementAt(0).GetAttribute("id");
+
+                #region funcionandoparaclicarnosdocs
+                var textoAClicar = objetosClicaveis.ElementAt(0).Text;
+
+                IWebElement text = listaDocumentos.FindElement(By.XPath($"//.[contains(text(),'{textoAClicar}')]"));
+                text.Click();
+                #endregion
+
+
+
+                IWebElement item1 = objetosClicaveis.FirstOrDefault();
+                //item1.Click();
+                //System.Threading.Thread.Sleep(1000);
+                //btnExpandir.Click();
+                System.Threading.Thread.Sleep(1000);
+
+                if (!_gerenciarFisicoService.DeletarArquivo($"{folderProcessamento}\\Download", "*.*"))
+                    return retorno;
+
+                List<ProcessoResumoModel> documentosJaBaixados = new List<ProcessoResumoModel>();
+
+                int sequenciaMovimento = 1;
+                bool primeraVezLoop = true;
+                foreach (IWebElement item in objetosClicaveis)
+                {
+                    if (!primeraVezLoop)
+                    {
+                        item1.SendKeys(Keys.Down);
+                    }
+                    primeraVezLoop = false;
+
+                    if (!localizouUltimoDocumento && item.Text.Length > 0)
+                    {
+                        if (item.Text.Substring(0, item.Text.Length > 200 ? 200 : item.Text.Length).StartsWith(ultimoDocumento))
+                        {
+                            localizouUltimoDocumento = true;
+                            continue;
+                        }
+                    }
+
+                    bool itemPagina = false;
+                    if (item.Text.Length >= 7)
+                    {
+                        int primeiroGrupo = item.Text.IndexOf(" - ");
+                        if (primeiroGrupo == 7)
+                            itemPagina = item.Text.Substring(0, 7).Where(c => char.IsLetter(c)).Count() == 0;
+                    }
+
+                    if (itemPagina && localizouUltimoDocumento)
+                    {
+                        //Verifica se ocorreu erro ao renomear arquivo
+                        if (_gerenciarFisicoService.VerificarTemArquivo($"{folderProcessamento}\\Download"))
+                            return retorno;
+
+                        //=======================================================
+                        // Verifica se o Objeto esta disponivel para clickar
+                        //========================================================
+                        //int quantiLoop = 0;
+                        //while (quantiLoop <= 20)
+                        //{
+                        //    if (ClickDownloadDocumento(driver, navegadorProcesso, item))
+                        //    {
+                        //        break;
+                        //    }
+                        //    quantiLoop += 1;
+                        //}
+                        //if (quantiLoop > 20)
+                        //{
+                        //   continue;
+                        //}
+
+                        loop = true;
+                        string linkDocumento = "";
+                        string paginaAnterior = "";
+
+                        bool gerarMovimento = false;
+                        if (item.Text.ToLower().Contains(" - distribuição - "))
+                        {
+                            gerarMovimento = true;
+                        }
+                        else
+                        {
+                            //=================================
+                            // Buscar Item Pai no xPath
+                            //=================================
+                            IWebElement parent = _commonService.LocalizaXPath(item, "./..");
+                            if (parent != null)
+                            {
+                                IWebElement iconePasta = _commonService.LocalizaXPath(parent, "img[@class='x-tree-node-icon icon-folder']");
+                                if (iconePasta != null)
+                                {
+                                    gerarMovimento = true;
+                                    atualizacaoAutos = false;
+                                }
+                                else
+                                {
+                                    if (atualizacaoAutos)
+                                    {
+                                        gerarMovimento = true;
+                                    }
+                                }
+                            }
+                        }
+
+                        if (gerarMovimento)
+                        {
+
+                            ProcessoMovimentoModel movimento = new ProcessoMovimentoModel();
+
+
+                            string diaMovimento = FormatarDiaEvento(item.Text.Trim());
+                            string eventoMovimento = FormatarIdEvento(item.Text.Trim(), diaMovimento);
+                            string descricao = item.Text.Trim().Replace(" - dia ", "").Replace(diaMovimento, "");
+
+                            if (movimentacaoProcesso.Movimentos.Where(x => x.IdEvento == eventoMovimento).Count() == 0)
+                            {
+                                movimento.Sequencia = sequenciaMovimento;
+                                movimento.Data = diaMovimento;
+                                movimento.Responsavel = null;
+                                movimento.Descricao = descricao;
+                                movimento.Documento = null;
+                                movimento.PossuiLinkDownload = false;
+                                movimento.IdEvento = eventoMovimento;
+                                movimentacaoProcesso.Movimentos.Add(movimento);
+                                sequenciaMovimento += 1;
+                            }
+
+                        }
+
+
+                        while (loop)
+                        {
+                            IWebElement hidenDadosDocumento = _browserService.ElementVerify(navegadorProcesso, "Id", "TreePanel1_SM", "ElementExists", null);
+                            if (hidenDadosDocumento == null)
+                                return retorno;
+
+                            string[] parametroLink = hidenDadosDocumento.GetAttribute("value").Split(',');
+                            foreach (string str in parametroLink)
+                            {
+                                if (str.Contains("idGed"))
+                                {
+                                    string[] link = str.Split('"');
+                                    linkDocumento = link[3];
+                                    break;
+                                }
+                            }
+
+                            if (paginaAnterior != linkDocumento || string.IsNullOrWhiteSpace(linkDocumento))
+                                loop = false;
+                            else
+                                paginaAnterior = linkDocumento;
+                        }
+
+
+                        if (!linkDocumento.StartsWith("http:") && !string.IsNullOrWhiteSpace(linkDocumento))
+                        {
+                            string prefixo = "Pagina";
+                            ultimoDocumento = item.Text.Substring(0, item.Text.Length > 200 ? 200 : item.Text.Length);
+                            novoNome = $"{prefixo}_{item.Text.Replace("/", " ").Replace(":", " ").Replace("\"", "").Replace("|", "")}";
+                            if (novoNome.IndexOf(" - dia") > 0)
+                                novoNome = novoNome.Substring(0, novoNome.IndexOf(" - dia"));
+
+                            novoNome = $"{novoNome.Substring(0, novoNome.Length > 100 ? 100 : novoNome.Length)}.pdf";
+
+                            if (documentosJaBaixados.Where(x => x.NomeFisico == novoNome).Count() == 0)
+                            {
+                                ProcessoResumoModel documentoBaixado = new ProcessoResumoModel
+                                {
+                                    NomeFisico = novoNome
+                                };
+                                documentosJaBaixados.Add(documentoBaixado);
+
+                                Console.WriteLine($"Vai baixar Arquivo {System.DateTime.Now.ToString()} {item.Text}");
+                                WebClient client = new WebClient();
+                                Uri ur = new Uri($"http://www1.tjrj.jus.br/gedcacheweb/default.aspx?GEDID={linkDocumento}&LOGINSEG=usuario&LOGINSO=usuario&SIGLASIST=ABREDOCWEB&CODORG=1&HOST=191.193.33.200&UZIP=1&INLINE=1&EXIBEERROS=0");
+                                client.DownloadFile(ur, $"{folderProcessamento}\\Download\\{linkDocumento}.pdf");
+
+
+                                //=================================================================================
+                                // Verifica se o Download Começou
+                                //=================================================================================
+                                if (_gerenciarFisicoService.FinalizouDownload($"{folderProcessamento}\\Download", extensoesEsperadas))
+                                {
+                                    if (_gerenciarFisicoService.RenomearArquivo($"{folderProcessamento}\\Download", $"{linkDocumento}.pdf", novoNome))
+                                    {
+                                        if (_gerenciarFisicoService.TransferirArquivo($"{folderProcessamento}\\Download", novoNome, folderProcessamento, "", ".pdf", "", true))
+                                        {
+                                            if (_gerenciarFisicoService.DeletarArquivo($"{folderProcessamento}\\Download", "*.*"))
+                                            {
+                                                Console.WriteLine($"Processou o Arquivo {System.DateTime.Now.ToString()} {novoNome}");
+                                                retorno = true;
+                                            }
+                                            else
+                                            {
+                                                Console.WriteLine($"Erro ao Limpar o Diretório de Download");
+                                            }
+                                        }
+                                        else
+                                        {
+                                            Console.WriteLine($"Erro ao Transferir Documento de Pasta");
+                                        }
+                                    }
+                                    else
+                                    {
+                                        Console.WriteLine($"Erro ao Renomear Documento");
+                                    }
+                                }
+                                else
+                                {
+                                    Console.WriteLine($"Erro ao fazer Download Documento");
+                                }
+                            }
+                            else
+                            {
+                                Console.WriteLine($"Documento já Baixado {novoNome}");
+                            }
+                        }
+                    }
+                }
+
+                var atualizado = true;
+                //if (!string.IsNullOrEmpty(ultimoDocumento))
+                //    atualizado = AtualizarUltimoDocumento(idProcesso, ultimoDocumento);
+            }
+            catch (Exception ex)
+            {
+                bool gerouLog = _controleLog.GeraLog(idProcesso.ToString(), 0, 0, ex);
+                Console.WriteLine(ex.Message);
+                retorno = false;
+            }
+
+            return retorno;
+        }
+
+
+
+        #region DonwAntiga
+        private bool DownloadProcesso(IWebDriver driver, WebDriverWait navegadorProcesso, string folderProcessamento, string ultimoDocumento, int idProcesso, string nomeExterno, ProcessoMovimentacaoModel movimentacaoProcesso)
+        {
+            bool retorno = false;
+
+
+            try
+            {
+                List<string> extensoesEsperadas = _commonService.ExtensoesArquivosExperadas("8.19");
+
+                //Verifica se a Pasta de Processamento possui arquivo e deleta
+                if (!_gerenciarFisicoService.DeletarArquivo($"{folderProcessamento}", "*.*"))
+                    return retorno;
+
+                //Verifica se a Pasta de Download possui arquivo e deleta
+                if (!_gerenciarFisicoService.DeletarArquivo($"{folderProcessamento}\\Download", "*.*"))
+                    if (!_gerenciarFisicoService.DeletarArquivo($"{folderProcessamento}\\Download", "*.*"))
+                        return retorno;
+
+
+                
+
+
+                //=================================================
+                //aguarda o botão de proximo documento ficar disponivel
+                //=================================================
+                //IWebElement btnProximo = _browserService.ElementToBeClickable(navegadorProcesso, "Id", "ext-gen48");
+                //if (btnProximo == null)
+                //    return retorno;
+
+                //=================================================
+                //aguarda o botão de expandir documento ficar disponivel
+                //=================================================
+                IWebElement btnExpandir = _browserService.ElementVerify(navegadorProcesso, "Id", "ext-gen40", "ElementToBeClickable", TimeSpan.FromSeconds(20));
+                if (btnExpandir == null)
+                    return retorno;
+
+                btnExpandir.Click();
+                System.Threading.Thread.Sleep(3000);
+                bool aguardar = true;
+                while (aguardar)
+                {
+                    IWebElement spinAguardar = _browserService.ElementVerify(navegadorProcesso, "Id", "pEsquerda", "ElementExists", new TimeSpan(0, 0, 5));
+                    if (spinAguardar == null)
+                    {
+                        aguardar = false;
+                    }
+                    else
+                    {
+                        IWebElement spinAguardando = _commonService.LocalizaXPath(spinAguardar, "/*//div[@class='ext-el-mask-msg x-mask-loading']");
+                        if (spinAguardando != null)
+                        {
+                            Console.WriteLine("Aguardando Arqvore ficar pronta");
+                            System.Threading.Thread.Sleep(1000);
+                        }
+                        else
+                        {
+                            aguardar = false;
+                        }
+                    }
+                }
+
+                if (!_gerenciarFisicoService.DeletarArquivo($"{folderProcessamento}\\Download", "*.tmp"))
+                    return retorno;
+
+                IWebElement listaDocumentos = _browserService.ElementVerify(navegadorProcesso, "Id", "ext-gen112", "ElementToBeClickable", TimeSpan.FromSeconds(20));
+                if (listaDocumentos == null)
+                    return retorno;
+
+                bool loop = true;
+                while (loop)
+                {
+                    listaDocumentos = _browserService.ElementVerify(navegadorProcesso, "Id", "ext-gen112", "ElementToBeClickable", TimeSpan.FromSeconds(20));
+
+                    var precisaExpandir = listaDocumentos.FindElements(By.XPath("div[@class='x-tree-root-node']//div[@class='x-tree-node-el x-unselectable x-tree-node-collapsed']"));
+                    if (precisaExpandir.Count() == 0)
+                        loop = false;
+                    else
+                    {
+                        btnExpandir.Click();
+                        System.Threading.Thread.Sleep(2000);
+                        aguardar = true;
+                        while (aguardar)
+                        {
+                            IWebElement spinAguardar = _browserService.ElementVerify(navegadorProcesso, "Id", "pEsquerda", "ElementExists", new TimeSpan(0, 0, 5));
+                            if (spinAguardar == null)
+                            {
+                                aguardar = false;
+                            }
+                            else
+                            {
+                                IWebElement spinAguardando = _commonService.LocalizaXPath(spinAguardar, "/*//div[@class='ext-el-mask-msg x-mask-loading']");
+                                if (spinAguardando != null)
+                                {
+                                    Console.WriteLine("Aguardando Arqvore ficar pronta");
+                                    System.Threading.Thread.Sleep(1000);
+                                }
+                                else
+                                {
+                                    aguardar = false;
+                                }
+                            }
+
+                        }
+
+                    }
+
+                }
+
+                var objetosClicaveis = listaDocumentos.FindElements(By.XPath("div[@class='x-tree-root-node']//a"));
+
+                bool localizouUltimoDocumento = true;
+                bool atualizacaoAutos = false;
+                string novoNome = "";
+
+                if (!string.IsNullOrEmpty(ultimoDocumento))
+                {
+                    localizouUltimoDocumento = false;
+                    atualizacaoAutos = true;
+                }
+
+
+                var item1 = objetosClicaveis.FirstOrDefault();
+                item1.Click();
+                System.Threading.Thread.Sleep(1000);
+                btnExpandir.Click();
+                System.Threading.Thread.Sleep(1000);
+
+                if (!_gerenciarFisicoService.DeletarArquivo($"{folderProcessamento}\\Download", "*.*"))
+                    return retorno;
+
+                List<ProcessoResumoModel> documentosJaBaixados = new List<ProcessoResumoModel>();
+
+                int sequenciaMovimento = 1;
+                bool primeraVezLoop = true;
+                foreach (IWebElement item in objetosClicaveis)
+                {
+                    if (!primeraVezLoop)
+                    {
+                        item1.SendKeys(Keys.Down);
+                    }
+                    primeraVezLoop = false;
+
+                    if (!localizouUltimoDocumento && item.Text.Length > 0)
+                    {
+                        if (item.Text.Substring(0, item.Text.Length > 200 ? 200 : item.Text.Length).StartsWith(ultimoDocumento))
+                        {
+                            localizouUltimoDocumento = true;
+                            continue;
+                        }
+                    }
+
+                    bool itemPagina = false;
+                    if (item.Text.Length >= 7)
+                    {
+                        int primeiroGrupo = item.Text.IndexOf(" - ");
+                        if (primeiroGrupo == 7)
+                            itemPagina = item.Text.Substring(0, 7).Where(c => char.IsLetter(c)).Count() == 0;
+                    }
+
+                    if (itemPagina && localizouUltimoDocumento)
+                    {
+                        //Verifica se ocorreu erro ao renomear arquivo
+                        if (_gerenciarFisicoService.VerificarTemArquivo($"{folderProcessamento}\\Download"))
+                            return retorno;
+
+                        //=======================================================
+                        // Verifica se o Objeto esta disponivel para clickar
+                        //========================================================
+                        //int quantiLoop = 0;
+                        //while (quantiLoop <= 20)
+                        //{
+                        //    if (ClickDownloadDocumento(driver, navegadorProcesso, item))
+                        //    {
+                        //        break;
+                        //    }
+                        //    quantiLoop += 1;
+                        //}
+                        //if (quantiLoop > 20)
+                        //{
+                        //   continue;
+                        //}
+
+                        loop = true;
+                        string linkDocumento = "";
+                        string paginaAnterior = "";
+
+                        bool gerarMovimento = false;
+                        if (item.Text.ToLower().Contains(" - distribuição - "))
+                        {
+                            gerarMovimento = true;
+                        }
+                        else
+                        {
+                            //=================================
+                            // Buscar Item Pai no xPath
+                            //=================================
+                            IWebElement parent = _commonService.LocalizaXPath(item, "./..");
+                            if (parent != null)
+                            {
+                                IWebElement iconePasta = _commonService.LocalizaXPath(parent, "img[@class='x-tree-node-icon icon-folder']");
+                                if (iconePasta != null)
+                                {
+                                    gerarMovimento = true;
+                                    atualizacaoAutos = false;
+                                }
+                                else
+                                {
+                                    if (atualizacaoAutos)
+                                    {
+                                        gerarMovimento = true;
+                                    }
+                                }
+                            }
+                        }
+
+                        if (gerarMovimento)
+                        {
+
+                            ProcessoMovimentoModel movimento = new ProcessoMovimentoModel();
+
+
+                            string diaMovimento = FormatarDiaEvento(item.Text.Trim());
+                            string eventoMovimento = FormatarIdEvento(item.Text.Trim(), diaMovimento);
+                            string descricao = item.Text.Trim().Replace(" - dia ", "").Replace(diaMovimento, "");
+
+                            if (movimentacaoProcesso.Movimentos.Where(x => x.IdEvento == eventoMovimento).Count() == 0)
+                            {
+                                movimento.Sequencia = sequenciaMovimento;
+                                movimento.Data = diaMovimento;
+                                movimento.Responsavel = null;
+                                movimento.Descricao = descricao;
+                                movimento.Documento = null;
+                                movimento.PossuiLinkDownload = false;
+                                movimento.IdEvento = eventoMovimento;
+                                movimentacaoProcesso.Movimentos.Add(movimento);
+                                sequenciaMovimento += 1;
+                            }
+
+                        }
+
+
+                        while (loop)
+                        {
+                            IWebElement hidenDadosDocumento = _browserService.ElementVerify(navegadorProcesso, "Id", "TreePanel1_SM", "ElementExists", null);
+                            if (hidenDadosDocumento == null)
+                                return retorno;
+
+                            string[] parametroLink = hidenDadosDocumento.GetAttribute("value").Split(',');
+                            foreach (string str in parametroLink)
+                            {
+                                if (str.Contains("idGed"))
+                                {
+                                    string[] link = str.Split('"');
+                                    linkDocumento = link[3];
+                                    break;
+                                }
+                            }
+
+                            if (paginaAnterior != linkDocumento || string.IsNullOrWhiteSpace(linkDocumento))
+                                loop = false;
+                            else
+                                paginaAnterior = linkDocumento;
+                        }
+
+
+                        if (!linkDocumento.StartsWith("http:") && !string.IsNullOrWhiteSpace(linkDocumento))
+                        {
+                            string prefixo = "Pagina";
+                            ultimoDocumento = item.Text.Substring(0, item.Text.Length > 200 ? 200 : item.Text.Length);
+                            novoNome = $"{prefixo}_{item.Text.Replace("/", " ").Replace(":", " ").Replace("\"", "").Replace("|", "")}";
+                            if (novoNome.IndexOf(" - dia") > 0)
+                                novoNome = novoNome.Substring(0, novoNome.IndexOf(" - dia"));
+
+                            novoNome = $"{novoNome.Substring(0, novoNome.Length > 100 ? 100 : novoNome.Length)}.pdf";
+
+                            if (documentosJaBaixados.Where(x => x.NomeFisico == novoNome).Count() == 0)
+                            {
+                                ProcessoResumoModel documentoBaixado = new ProcessoResumoModel
+                                {
+                                    NomeFisico = novoNome
+                                };
+                                documentosJaBaixados.Add(documentoBaixado);
+
+                                Console.WriteLine($"Vai baixar Arquivo {System.DateTime.Now.ToString()} {item.Text}");
+                                WebClient client = new WebClient();
+                                Uri ur = new Uri($"http://www1.tjrj.jus.br/gedcacheweb/default.aspx?GEDID={linkDocumento}&LOGINSEG=usuario&LOGINSO=usuario&SIGLASIST=ABREDOCWEB&CODORG=1&HOST=191.193.33.200&UZIP=1&INLINE=1&EXIBEERROS=0");
+                                client.DownloadFile(ur, $"{folderProcessamento}\\Download\\{linkDocumento}.pdf");
+
+
+                                //=================================================================================
+                                // Verifica se o Download Começou
+                                //=================================================================================
+                                if (_gerenciarFisicoService.FinalizouDownload($"{folderProcessamento}\\Download", extensoesEsperadas))
+                                {
+                                    if (_gerenciarFisicoService.RenomearArquivo($"{folderProcessamento}\\Download", $"{linkDocumento}.pdf", novoNome))
+                                    {
+                                        if (_gerenciarFisicoService.TransferirArquivo($"{folderProcessamento}\\Download", novoNome, folderProcessamento, "", ".pdf", "", true))
+                                        {
+                                            if (_gerenciarFisicoService.DeletarArquivo($"{folderProcessamento}\\Download", "*.*"))
+                                            {
+                                                Console.WriteLine($"Processou o Arquivo {System.DateTime.Now.ToString()} {novoNome}");
+                                                retorno = true;
+                                            }
+                                            else
+                                            {
+                                                Console.WriteLine($"Erro ao Limpar o Diretório de Download");
+                                            }
+                                        }
+                                        else
+                                        {
+                                            Console.WriteLine($"Erro ao Transferir Documento de Pasta");
+                                        }
+                                    }
+                                    else
+                                    {
+                                        Console.WriteLine($"Erro ao Renomear Documento");
+                                    }
+                                }
+                                else
+                                {
+                                    Console.WriteLine($"Erro ao fazer Download Documento");
+                                }
+                            }
+                            else
+                            {
+                                Console.WriteLine($"Documento já Baixado {novoNome}");
+                            }
+                        }
+                    }
+                }
+
+                var atualizado = true;
+                //if (!string.IsNullOrEmpty(ultimoDocumento))
+                //    atualizado = AtualizarUltimoDocumento(idProcesso, ultimoDocumento);
+            }
+            catch (Exception ex)
+            {
+                bool gerouLog = _controleLog.GeraLog(idProcesso.ToString(), 0, 0, ex);
+                Console.WriteLine(ex.Message);
+                retorno = false;
+            }
+
+            return retorno;
+        }
+        #endregion
+
+
+
+
+
+        #region FuncoesNaoAnalisadas
+        private List<LinhaProcessoRJModel> MontarLinhaProcesso(System.Collections.ObjectModel.ReadOnlyCollection<IWebElement> linhas)
+        {
+            List<LinhaProcessoRJModel> linhasProcesso = new List<LinhaProcessoRJModel>();
+
+            try
+            {
+                int sequencia = 1;
+                foreach (var linha in linhas)
+                {
+                    if (linha.Text.Trim() != "")
+                    {
+                        LinhaProcessoRJModel linhaProcesso = new LinhaProcessoRJModel();
+                        linhaProcesso.Sequencia = sequencia;
+                        var colunas = linha.FindElements(By.XPath($"div")); //td
+                        int numeroColuna = 1;
+                        foreach (var coluna in colunas)
+                        {
+                            if (numeroColuna == 1)
+                                linhaProcesso.Parte1 = coluna.Text.Trim();
+
+                            if (numeroColuna == 2)
+                                linhaProcesso.Parte2 = coluna.Text.Trim();
+
+                            numeroColuna += 1;
+                        }
+                        linhasProcesso.Add(linhaProcesso);
+                        sequencia += 1;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                bool gerouLog = _controleLog.GeraLog("0", 0, 0, ex);
+            }
+
+            return linhasProcesso;
+        }
+
+        private bool AtualizarDadosProcesso(int idProcesso, DadosProcessoModel dadosProcesso, EquipamentoProcessamentoTribunal configuracao, bool possuiDocumento)
+        {
+            bool retorno = false;
+
+            try
+            {
+                var processo = _session.Query<Processo>().FirstOrDefault(x => x.Id == idProcesso);
+
+                var equipamentoProcessamento = _session.Query<EquipamentoProcessamento>()
+                                                   .FirstOrDefault(x => x.Id == configuracao.EquipamentoProcessamento.Id);
+
+                if (processo != null)
+                {
+                    processo.AlterarDadosProcesso(dadosProcesso.Forum, dadosProcesso.Vara, dadosProcesso.Comarca, dadosProcesso.UF, dadosProcesso.Classe, dadosProcesso.Area, dadosProcesso.Assunto, dadosProcesso.OutrosAssuntos, dadosProcesso.Distribuicao, dadosProcesso.Controle, dadosProcesso.ValorAcao, dadosProcesso.Juiz, null, dadosProcesso.Situacao, null, dadosProcesso.JusticaGratuita, possuiDocumento, equipamentoProcessamento, dadosProcesso.OrgaoJulgador);
+
+                    using (var transaction = _session.BeginTransaction())
+                    {
+                        _session.SaveOrUpdate(processo);
+                        transaction.Commit();
+                    }
+
+                    retorno = true;
+                }
+
+            }
+            catch (Exception ex)
+            {
+                bool gerouLog = _controleLog.GeraLog(idProcesso.ToString(), 0, configuracao.EquipamentoProcessamento.Id, ex);
+            }
+
+            return retorno;
+        }
+
+        private bool AtualizarDadosParte(int idProcesso, List<ProcessoParteModel> dadosParte, Usuario login)
+        {
+            bool retorno = false;
+            try
+            {
+
+                var processo = _session.Query<Processo>().FirstOrDefault(x => x.Id == idProcesso);
+
+                if (processo != null)
+                {
+                    foreach (var parte in dadosParte.OrderBy(o => o.Sequencia))
+                    {
+                        ProcessoParte processoParte = new ProcessoParte(processo, parte.Nome, parte.Tipo, parte.Sequencia, parte.Qualificacao, login, parte.ClienteEscritorio, null, null);
+
+                        if (parte.Advogados != null)
+                        {
+                            foreach (var advogadoParte in parte.Advogados)
+                            {
+                                var advogado = _session.Query<ProcessoAdvogado>().FirstOrDefault(x => x.Processo.Id == idProcesso && x.Nome == advogadoParte.Nome);
+                                if (advogado == null)
+                                {
+                                    advogado = new ProcessoAdvogado(processo, advogadoParte.Nome, advogadoParte.Qualificacao, advogadoParte.Documento, advogadoParte.Oab, login);
+                                    processo.AdicionarAdvogado(advogado);
+                                }
+                                processoParte.AdcionarAdvogado(advogado, advogadoParte.Sequencia, login);
+                            }
+                        }
+
+                        processo.AdicionarParte(processoParte);
+                    }
+
+                    using (var transaction = _session.BeginTransaction())
+                    {
+                        _session.SaveOrUpdate(processo);
+                        transaction.Commit();
+                    }
+
+                    retorno = true;
+                }
+
+
+            }
+            catch (Exception ex)
+            {
+                bool gerouLog = _controleLog.GeraLog(idProcesso.ToString(), 0, 0, ex);
+            }
+
+            return retorno;
+        }
+
+        private bool AtualizarMovimentosNovos(int idProcesso, List<ProcessoMovimentoModel> movimentosNovos, Usuario login)
+        {
+            bool retorno = false;
+            try
+            {
+
+                var processo = _session.Query<Processo>().FirstOrDefault(x => x.Id == idProcesso);
+
+                if (processo != null)
+                {
+                    foreach (var movimentoNovo in movimentosNovos)
+                    {
+                        processo.AdicionarMovimento(login, movimentoNovo.Data, movimentoNovo.Descricao);
+                    }
+
+                    using (var transaction = _session.BeginTransaction())
+                    {
+                        _session.SaveOrUpdate(processo);
+                        transaction.Commit();
+                    }
+
+                    retorno = true;
+                }
+
+
+            }
+            catch (Exception ex)
+            {
+                bool gerouLog = _controleLog.GeraLog(idProcesso.ToString(), 0, 0, ex);
+            }
+
+            return retorno;
+        }
+
+        private string MontarAdvogado(LinhaProcessoRJModel linhaAdvogado, TipoParte tipoParte, List<string> advogadosLBCA)
+        {
+            string retorno = "";
+
+            try
+            {
+                string[] advogadosLinha = linhaAdvogado.Parte2.Replace("\r\n", "#").Split('#');
+                if (advogadosLinha.Count() == 2)
+                {
+                    int indice = tipoParte == TipoParte.Autora ? 0 : 1;
+                    retorno = advogadosLinha[indice].Substring(advogadosLinha[indice].IndexOf(" - ") + 4, (advogadosLinha[indice].Length - advogadosLinha[indice].IndexOf(" - ")) - 4);
+                }
+
+                if (advogadosLinha.Count() != 2)
+                {
+                    foreach (var advogado in advogadosLinha)
+                    {
+                        var advogadoString = advogado.Replace("  -  ", "#");
+                        string[] advogadoSplit = advogadoString.Split('#');
+                        if (tipoParte == TipoParte.Autora && !advogadosLBCA.Contains(advogadoSplit[1].Trim().ToUpper()))
+                        {
+                            retorno = advogadoSplit[1].Trim();
+                            break;
+                        }
+
+                        if (tipoParte == TipoParte.Reu && advogadosLBCA.Contains(advogadoSplit[1].Trim().ToUpper()))
+                        {
+                            retorno = advogadoSplit[1].Trim();
+                            break;
+                        }
+                    }
+                }
+
+            }
+            catch (Exception ex)
+            {
+                bool gerouLog = _controleLog.GeraLog("0", 0, 0, ex);
+            }
+
+            return retorno;
+        }
+
+        private bool ResolverCaptcha(WebDriverWait navegador, string numeroProcesso, IWebDriver driver, int parametroY, int parametroX, int parametroWidth, int parametroHeight, MetodoResolverCaptcha metodoResolverCaptcha)
+        {
+            bool capturado = false;
+
+            try
+            {
+                List<WebElementModel> objetosCaptcha = new List<WebElementModel>();
+                objetosCaptcha.Add(new WebElementModel() { identificador = "Id", idElemento = "imgCaptcha", action = "ElementIsVisible", tipoObjeto = "Frame", timeout = new TimeSpan(0, 0, 15) });
+                objetosCaptcha.Add(new WebElementModel() { identificador = "Id", idElemento = "jcaptcha_response", action = "ElementToBeClickable", tipoObjeto = "InputCaptcha", timeout = new TimeSpan(0, 0, 15) });
+                objetosCaptcha.Add(new WebElementModel() { identificador = "Id", idElemento = "captcha", action = "ElementToBeClickable", tipoObjeto = "ImagemCaptcha", timeout = new TimeSpan(0, 0, 15) });
+                objetosCaptcha.Add(new WebElementModel() { identificador = "Id", idElemento = "btn_jcaptcha_response", action = "ElementIsVisible", tipoObjeto = "BtnVisualizar", timeout = new TimeSpan(0, 0, 15) });
+                objetosCaptcha.Add(new WebElementModel() { identificador = "ClassName", idElemento = "x-tree-root-node", action = "ElementIsVisible", tipoObjeto = "ElementoAguardado", timeout = new TimeSpan(0, 0, 5) });
+                objetosCaptcha.Add(new WebElementModel() { identificador = "Id", idElemento = "jcaptcha_response", action = "ElementToBeClickable", tipoObjeto = "ElementoCaptchaNaoAceito", timeout = new TimeSpan(0, 0, 5) });
+                objetosCaptcha.Add(new WebElementModel() { identificador = "Id", idElemento = "btnTocar", action = "ElementToBeClickable", tipoObjeto = "btnDesafioVencido", timeout = new TimeSpan(0, 0, 5) });
+                objetosCaptcha.Add(new WebElementModel() { identificador = "Id", idElemento = "btn-voltar", action = "ElementToBeClickable", tipoObjeto = "btnVoltar", timeout = new TimeSpan(0, 0, 5) });
+                objetosCaptcha.Add(new WebElementModel() { identificador = "Id", idElemento = "txtDescricao", action = "ElementIsVisible", tipoObjeto = "TxtJustificar", timeout = new TimeSpan(0, 0, 5) });
+
+                if (!_commonService.ResolverCaptcha(navegador, numeroProcesso, driver, parametroY, parametroX, parametroWidth, parametroHeight, false, objetosCaptcha, true, "Consultas processuais", false, metodoResolverCaptcha, 0))
+                    return capturado;
+
+                capturado = true;
+            }
+            catch (Exception ex)
+            {
+                bool gerouLog = _controleLog.GeraLog(numeroProcesso, 0, 0, ex);
+            }
+
+            return capturado;
+        }
+
+        private bool ResolverCaptchaProcesso(WebDriverWait navegador, string numeroProcesso, IWebDriver driver, int parametroY, int parametroX, int parametroWidth, int parametroHeight)
+        {
+            bool capturado = false;
+
+            try
+            {
+                List<WebElementModel> objetosCaptcha = new List<WebElementModel>();
+                objetosCaptcha.Add(new WebElementModel() { identificador = "Id", idElemento = "captcha", action = "ElementToBeClickable", tipoObjeto = "InputCaptcha", timeout = new TimeSpan(0, 0, 15) });
+                objetosCaptcha.Add(new WebElementModel() { identificador = "Id", idElemento = "imgCaptcha", action = "ElementIsVisible", tipoObjeto = "ImagemCaptcha", timeout = new TimeSpan(0, 0, 15) });
+                objetosCaptcha.Add(new WebElementModel() { identificador = "XPath", idElemento = "//*[@id='captcha']/following::input", action = "ElementToBeClickable", tipoObjeto = "BtnVisualizar", timeout = new TimeSpan(0, 0, 15) });
+                objetosCaptcha.Add(new WebElementModel() { identificador = "Id", idElemento = "captcha", action = "ElementIsVisible", tipoObjeto = "ElementoCaptchaNaoAceito", timeout = new TimeSpan(0, 0, 5) });
+                objetosCaptcha.Add(new WebElementModel() { identificador = "XPath", idElemento = ".//h3[contains(.,'Consulta')]", action = "ElementIsVisible", tipoObjeto = "ElementoAguardado", timeout = new TimeSpan(0, 0, 5) });
+
+
+                if (!_commonService.ResolverCaptcha(navegador, numeroProcesso, driver, parametroY, parametroX, parametroWidth, parametroHeight, false, objetosCaptcha, true, null, false, MetodoResolverCaptcha.CaptchaTJRJProcesso, 0))
+                    return capturado;
+
+                capturado = true;
+            }
+            catch (Exception ex)
+            {
+                bool gerouLog = _controleLog.GeraLog(numeroProcesso, 0, 0, ex);
+            }
+
+            return capturado;
+        }
+
+        private bool ClickDownloadDocumento(IWebDriver driver, WebDriverWait navegadorProcesso, IWebElement item)
+        {
+            bool retorno = false;
+
+            try
+            {
+                bool aguardar = true;
+                while (aguardar)
+                {
+                    IWebElement spinAguardar = _browserService.ElementVerify(navegadorProcesso, "Id", "pEsquerda", "ElementExists", new TimeSpan(0, 0, 5));
+                    if (spinAguardar == null)
+                    {
+                        aguardar = false;
+                    }
+                    else
+                    {
+                        IWebElement spinAguardando = _commonService.LocalizaXPath(spinAguardar, "/*//div[@class='ext-el-mask-msg x-mask-loading']");
+                        if (spinAguardando != null)
+                        {
+                            Console.WriteLine("Aguardando Link ficar disponivel");
+                            System.Threading.Thread.Sleep(1000);
+                        }
+                        else
+                        {
+                            aguardar = false;
+                        }
+                    }
+
+                }
+
+                //=======================================================
+                // Verifica se o Objeto esta disponivel para clickar
+                //========================================================
+                IJavaScriptExecutor js = ((IJavaScriptExecutor)driver);
+
+                //presence in DOM
+                navegadorProcesso.Until(ExpectedConditions.PresenceOfAllElementsLocatedBy(By.ClassName("x-tree-node-anchor")));
+
+                //scrolling
+                IWebElement element = driver.FindElement(By.ClassName("x-tree-node-anchor"));
+                js.ExecuteScript("arguments[0].scrollIntoView(true);", element);
+                //========================================================
+
+                item.Click();
+
+                retorno = true;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                System.Threading.Thread.Sleep(1000);
+            }
+
+
+            return retorno;
+        }
+
+        private bool CapturarCitação(WebDriverWait navegador, string textoDataInicial, string textoDataFinal, string arquivoSaida)
+        {
+            bool retorno = false;
+            try
+            {
+                //Localizar o Botão Principal  de Pesquisa de Citações
+                IWebElement gridIntimacoes = _browserService.ElementVerify(navegador, "Id", "idPortletIntimacoes", "ElementToBeClickable", TimeSpan.FromSeconds(10));
+                if (gridIntimacoes == null)
+                {
+                    return retorno;
+                }
+
+                IWebElement botaoPrincipalPesquisa = _commonService.LocalizaXPath(gridIntimacoes, "div//div//img[@src='images/icones/play30x30.jpg']");
+                if (botaoPrincipalPesquisa == null)
+                {
+                    botaoPrincipalPesquisa = _commonService.LocalizaXPath(gridIntimacoes, "//table[@id='filtrarPortletButtonIntimacoes']/tbody/tr/td[@class='x-btn-mc']/em/button");
+                    if (botaoPrincipalPesquisa == null)
+                    {
+                        return retorno;
+                    }
+                }
+                botaoPrincipalPesquisa.Click();
+
+                IWebElement framePesquisa = _browserService.ElementVerify(navegador, "Id", "ext-comp-1044", "ElementIsVisible", TimeSpan.FromSeconds(15));
+                if (framePesquisa == null)
+                {
+                    return retorno;
+                }
+
+                IWebElement divPeriodo = _browserService.ElementVerify(navegador, "Id", "ext-gen337", "ElementToBeClickable", TimeSpan.FromSeconds(15));
+                if (divPeriodo == null)
+                {
+                    return retorno;
+                }
+
+                IWebElement imagemDownCombo = _commonService.LocalizaXPath(divPeriodo, "img[@src='extjs/resources/images/default/s.gif']");
+                if (imagemDownCombo == null)
+                {
+                    return retorno;
+                }
+                imagemDownCombo.Click();
+
+                IWebElement cboPeriodo = _browserService.ElementVerify(navegador, "ClassName", "x-combo-list-inner", "ElementToBeClickable", TimeSpan.FromSeconds(15));
+                if (cboPeriodo == null)
+                {
+                    return retorno;
+                }
+                var listaOpçoes = cboPeriodo.FindElements(By.ClassName("x-combo-list-item"));
+                foreach (var opcao in listaOpçoes)
+                {
+                    if (opcao.Text == "Outros Períodos")
+                    {
+                        opcao.Click();
+                        break;
+                    }
+                }
+
+                //IWebElement textoPeriodo = _browserService.ElementVerify(navegador, "Id", "ext-gen455", "ElementExists", TimeSpan.FromSeconds(15));
+                //if (textoPeriodo == null)
+                //{
+                //    return retorno;
+                //}
+                //textoPeriodo.Click();
+
+                IWebElement dataInicial = _browserService.ElementVerify(navegador, "Name", "dtInicialFiltroIntimacoes", "ElementExists", TimeSpan.FromSeconds(15));
+                if (dataInicial == null)
+                {
+                    return retorno;
+                }
+                dataInicial.Clear();
+                dataInicial.SendKeys(textoDataInicial);
+
+                IWebElement dataFinal = _browserService.ElementVerify(navegador, "Name", "dtFinalFiltroIntimacoes", "ElementExists", TimeSpan.FromSeconds(15));
+                if (dataFinal == null)
+                {
+                    return retorno;
+                }
+                dataFinal.Clear();
+                dataFinal.SendKeys(textoDataFinal);
+
+                System.Threading.Thread.Sleep(2000);
+                IWebElement botaoFiltrar = _browserService.ElementVerify(navegador, "Id", "ext-gen319", "ElementToBeClickable", TimeSpan.FromSeconds(15));
+                if (botaoFiltrar == null)
+                {
+                    return retorno;
+                }
+                botaoFiltrar.Click();
+
+                bool continuar = true;
+                while (continuar)
+                {
+                    framePesquisa = _browserService.ElementVerify(navegador, "Id", "ext-comp-1044", "ElementIsVisible", TimeSpan.FromSeconds(5));
+                    if (framePesquisa == null)
+                    {
+                        continuar = false;
+                    }
+                }
+                System.Threading.Thread.Sleep(2000);
+
+                //IWebElement reduzirTela = _browserService.ElementVerify(navegador, "Id", "idOestePortal", "ElementToBeClickable", TimeSpan.FromSeconds(10));
+                //if (reduzirTela != null)
+                //{
+                //    IWebElement botaoRezuzirTela = reduzirTela.FindElement(By.XPath("*//div[@class='x-tool x-tool-toggle x-tool-collapse-west ']"));
+                //    if (botaoRezuzirTela != null)
+                //    {
+                //        botaoRezuzirTela.Click();
+                //    }
+                //}
+
+
+                //System.Threading.Thread.Sleep(2000);
+                IWebElement divMaster = _browserService.ElementVerify(navegador, "Id", "idGridIntimacoes", "ElementIsVisible", TimeSpan.FromSeconds(15));
+                if (divMaster == null)
+                {
+                    return retorno;
+                }
+
+                //IWebElement divCarregada = _commonService.LocalizaXPath(divMaster, "div[@class='x-grid3-body']");
+                ////IWebElement divCarregada = _browserService.ElementVerify(navegador, "ClassName", "x-panel-bwrap", "ElementIsVisible", TimeSpan.FromSeconds(15));
+                //if (divCarregada == null)
+                //{
+                //    return retorno;
+                //}
+
+                var linhasDadosProcesso = divMaster.FindElements(By.XPath("*//div[@class='x-grid3-body']/div/table/tbody/tr"));
+                if (linhasDadosProcesso == null)
+                {
+                    return retorno;
+                }
+
+                using (StreamWriter writer = new StreamWriter(arquivoSaida))
+                {
+                    foreach (var linha in linhasDadosProcesso)
+                    {
+                        var colunas = linha.FindElements(By.XPath("td"));
+
+                        string coluna0 = "";
+                        IWebElement status = _commonService.LocalizaXPath(colunas[0], "div/img");
+                        if (status != null)
+                        {
+                            coluna0 = status.GetAttribute("title");
+                        }
+
+                        string processo = $"{coluna0}#{colunas[1].Text}#{colunas[2].Text}#{colunas[3].Text}#{colunas[4].Text}#{colunas[5].Text}";
+                        Console.WriteLine($"{colunas[2].Text} - {colunas[1].Text}");
+
+                        writer.WriteLine(processo);
+                    }
+                }
+
+                retorno = true;
+
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+
+            return retorno;
+        }
+
+        private string UltimoIdMovimento(string processo)
+        {
+            string retorno = "";
+
+            try
+            {
+                var ultimoMovimento = _session.Query<ProcessoMovimento>().Where(m => m.Numero == processo && m.IdEvento != null).ToList();
+                if (ultimoMovimento.Count() == 0)
+                {
+                    ultimoMovimento = _session.Query<ProcessoMovimento>().Where(m => m.Numero == processo && m.Data != null).ToList();
+                    if (ultimoMovimento.Count() > 0)
+                    {
+                        retorno = ultimoMovimento.OrderByDescending(o => System.Convert.ToDateTime(o.IdEvento)).FirstOrDefault().Data;
+                    }
+                }
+                else
+                {
+                    retorno = ultimoMovimento.OrderByDescending(o => System.Convert.ToDouble(o.IdEvento)).FirstOrDefault().IdEvento;
+                }
+            }
+            catch (Exception ex)
+            {
+                bool gerouLog = _controleLog.GeraLog(processo, 0, 0, ex);
+            }
+
+            return retorno;
+        }
+
+        private string LocalizaIdUltimoDocumentoProcesso(string numeroProcesso)
+        {
+            string retorno = "";
+
+            try
+            {
+                var processoDistribuido = LocalizaProcessoDistribuido(numeroProcesso);
+                if (processoDistribuido == null)
+                {
+                    return retorno;
+                }
+
+                var pecasProcesso = _session.Query<ProcessoPeca>().Where(x => x.Processo.Id == processoDistribuido.Id).OrderByDescending(x => x.PaginaFinal).ToList();
+                if (pecasProcesso != null && pecasProcesso.Count() > 0)
+                {
+                    retorno = pecasProcesso.FirstOrDefault().Identificacao;
+                }
+
+            }
+            catch (Exception ex)
+            {
+                bool gerouLog = _controleLog.GeraLog(numeroProcesso, 0, 0, ex);
+            }
+
+            return retorno;
+        }
+
+        private Processo LocalizaProcessoDistribuido(string numeroProcesso)
+        {
+            try
+            {
+                var processo = _session.Query<Processo>().FirstOrDefault(x => x.Numero == numeroProcesso &&
+                                                                               x.Status == StatusProcesso.Capturado &&
+                                                                               x.Solicitacao.CapturarDistribuicao);
+                return processo;
+
+            }
+            catch (Exception ex)
+            {
+                bool gerouLog = _controleLog.GeraLog(numeroProcesso, 0, 0, ex);
+                return null;
+            }
+        }
+
+        private string FormatarDiaEvento(string linhaGrid)
+        {
+            string diaMovimento = "";
+            if (linhaGrid.Trim().Substring(linhaGrid.Trim().Length - 17, 7).ToLower() == " - dia ")
+            {
+                diaMovimento = linhaGrid.Trim().Substring(linhaGrid.Trim().Length - 10, 10);
+            }
+            return diaMovimento;
+        }
+
+        private string FormatarIdEvento(string linhaGrid, string diaMovimento)
+        {
+            string eventoMovimento = null;
+            string descricao = linhaGrid.Trim().Replace(" - dia ", "").Replace(diaMovimento, "");
+
+            if (linhaGrid.Trim().Substring(7, 3).ToLower() == " - ")
+            {
+                eventoMovimento = linhaGrid.Trim().Substring(0, 7);
+                descricao = descricao.Replace($"{eventoMovimento} - ", "");
+            }
+
+            return eventoMovimento;
+        }
+
+        private bool AtualizarPossuiDocumento(int idProcesso, EquipamentoProcessamentoTribunal configuracao)
+        {
+            bool retorno = false;
+
+            try
+            {
+                var processo = _session.Query<Processo>().FirstOrDefault(x => x.Id == idProcesso);
+
+                if (processo != null)
+                {
+                    processo.AlterarProcessoPossuiDocumento(configuracao.EquipamentoProcessamento);
+
+                    using (var transaction = _session.BeginTransaction())
+                    {
+                        _session.SaveOrUpdate(processo);
+                        transaction.Commit();
+                    }
+
+                    retorno = true;
+                }
+
+            }
+            catch (Exception ex)
+            {
+                bool gerouLog = _controleLog.GeraLog(idProcesso.ToString(), 0, configuracao.EquipamentoProcessamento.Id, ex);
+            }
+
+            return retorno;
+        }
+
+        private List<ProcessoMovimentoModel> MovimentosExsistente(ProcessoMovimentacaoModel MovimentosLocalizados, int idProcesso)
+        {
+            List<ProcessoMovimentoModel> movimentos = new List<ProcessoMovimentoModel>();
+
+            var movimentosBase = _session.Query<Movimento>().Where(x => x.Processo.Id == idProcesso).ToList();
+            if (movimentosBase.Count() == 0)
+            {
+                movimentos = MovimentosLocalizados.Movimentos.Where(x => x.Sequencia != 99999).ToList();
+                return movimentos;
+            }
+
+            foreach (var movimentoLocalizado in MovimentosLocalizados.Movimentos.Where(x => x.Sequencia != 99999).ToList())
+            {
+                var existe = movimentosBase.FirstOrDefault(x => x.Data == movimentoLocalizado.Data && x.Descricao == movimentoLocalizado.Descricao);
+                if (existe == null)
+                {
+                    movimentos.Add(movimentoLocalizado);
+                }
+            }
+
+            return movimentos;
+        }
+        #endregion
+
+    }
+}
