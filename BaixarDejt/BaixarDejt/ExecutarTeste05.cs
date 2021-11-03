@@ -34,6 +34,52 @@ namespace BaixarDejt
 
             //montaMovimentos();
             montarMovimentosNew();
+            //montarAudiencia();
+
+            Console.ReadKey();
+
+        }
+
+        private static void montarAudiencia()
+        {
+            #region arraylist
+            List<string> listVal = new List<string>()
+            {"Próxima Audiência",
+             "11/11/2021",
+             "Hora da Audiência",
+             "12:10",
+             "Tipo da audiencia",
+             "Conciliação"};
+            #endregion
+
+            var data = listVal.ElementAt(1);
+            data += " " + listVal.ElementAt(3);
+            var descricao = listVal.ElementAt(5);
+
+            #region Antigo
+            //foreach (var item in listVal)
+            //{
+            //    if (item != null)
+            //    {
+            //        string conteudo = item;
+
+            //        if (item == "Próxima Audiência")
+            //        {
+            //            int indiceAPegar = 0;
+            //            sequencia++;
+
+            //            var data = listVal.ElementAt(indiceAPegar + 1);
+            //            data += " " + listVal.ElementAt(indiceAPegar + 3);
+            //            var descricao = listVal.ElementAt(indiceAPegar + 5);
+
+            //            if (descricao.Contains("Tipo do Movimento:") || descricao.StartsWith("Data "))
+            //            {
+            //                descricao = "";
+            //            }
+            //        }
+            //    }
+            //}
+            #endregion
 
         }
 
@@ -512,62 +558,171 @@ namespace BaixarDejt
             Console.ReadKey();
         }
 
-
-
         private static void montarMovimentosNew()
         {
+            #region listaValores
+            List<string> listVal = new List<string>()
+            {
+                "Tipo do Movimento: Digitação de Documentos",
+                "Data da digitação:",
+                "15/10/2021",
+                "Tipo do Movimento: Ato Ordinatório Praticado",
+                "Data:",
+                "15/10/2021",
+                "Descrição:",
+                "Em cumprimento à determinação de fls. 54 e 69, certifico que deixo de citar o Banco Itaú, uma vez que já citado eletronicamente às fls. 55/56. Passo o feito à citação postal do segundo réu: WAGNER BARROS MALAQUIAS",
+                "Tipo do Movimento: Envio de Documento Eletrônico",
+                "Data da remessa:",
+                "07/10/2021",
+                "Tipo do Movimento: Recebimento",
+                "Data de Recebimento:",
+                "06/10/2021",
+                "Descrição",
+                "Cumpra-se o despacho de fl. 54.",
+                "Ato Assinado",
+                "Visualizar Ato Assinado Digitalmente",
+                "Tipo do Movimento: Despacho - Proferido despacho de mero expediente",
+                "Data Despacho:",
+                "04/10/2021",
+                "Tipo do Movimento: Conclusão ao Juiz",
+                "Data da conclusão:",
+                "04/10/2021",
+                "Juiz:",
+                "GABRIEL ALMEIDA MATOS DE CARVALHO",
+                "Tipo do Movimento: Juntada - Petição",
+                "Data da juntada:",
+                "04/10/2021",
+                "Tipo do Movimento: Envio de Documento Eletrônico",
+                "Data da remessa:",
+                "01/10/2021",
+                "Tipo do Movimento: Recebimento",
+                "Data de Recebimento:",
+                "29/09/2021",
+                "Descrição",
+                "Recebo os embargos de declaração de fls. 58/60, já que tempestivos. No mérito, deixo de acolhê-los, por não estarem configuradas na decisão de fl. 54, as hipóteses descritas no art. 1.022 do CPC. Cumpre destacar que ...",
+                "Ver Íntegra Do(a) Decisão",
+                "Ato Assinado",
+                "Visualizar Ato Assinado Digitalmente",
+                "Tipo do Movimento: Decisão - Não Concedida a Antecipação de tutela",
+                "Data Decisão:",
+                "29/09/2021",
+                "Tipo do Movimento: Conclusão ao Juiz",
+                "Data da conclusão:",
+                "29/09/2021",
+                "Juiz:",
+                "GABRIEL ALMEIDA MATOS DE CARVALHO",
+                "Tipo do Movimento: Juntada - Petição",
+                "Data da juntada:",
+                "29/09/2021",
+                "Tipo do Movimento: Envio de Documento Eletrônico",
+                "Data da remessa:",
+                "27/09/2021",
+                "Tipo do Movimento: Recebimento",
+                "Data de Recebimento:",
+                "24/09/2021",
+                "Descrição",
+                "Custas devidamente recolhidas. 1. Relego a apreciação do pedido de tutela de urgência para momento posterior ao exercício do contraditório, tendo em vista que não há qualquer risco de perecimento do direito invocado d...",
+                "Ver Íntegra Do(a) Despacho",
+                "Ato Assinado",
+                "Visualizar Ato Assinado Digitalmente",
+                "Tipo do Movimento: Despacho - Proferido despacho de mero expediente",
+                "Data Despacho:",
+                "23/09/2021",
+                "Tipo do Movimento: Conclusão ao Juiz",
+                "Data da conclusão:",
+                "22/09/2021",
+                "Juiz:",
+                "GABRIEL ALMEIDA MATOS DE CARVALHO",
+                "Tipo do Movimento: Juntada - Extrato da GRERJ",
+                "Data da juntada:",
+                "22/09/2021",
+                "Tipo do Movimento: Juntada - Petição",
+                "Data da juntada:",
+                "21/09/2021",
+                "Descrição da Juntada:",
+                "Documento eletrônico juntado de forma automática.",
+                "Tipo do Movimento: Envio de Documento Eletrônico",
+                "Data da remessa:",
+                "20/09/2021",
+                "Tipo do Movimento: Ato Ordinatório Praticado",
+                "Data:",
+                "20/09/2021",
+                "Descrição:",
+                "Ao autor para que complemente as custas iniciais: Atos dos Escrivães - 1102-3 - R$ 407,47 (*) CAARJ - 2001-6 - R$ 40,74 Distribuidor (registro/baixa) - 2102-2 - R$ 1,04 20% (FETJ) - 6246-0088009-4 - R$ 0,20 2%(DISTRIB)L6370/12 - 2701-1 - R$ 0,02 FUNPERJ - 6898-0000208-9 - R$ 20,42 FUNDPERJ - 6898-0000215-1 - R$ 20,42 Taxa Judiciária - 2101-4 - R$ 170,20 (**) Diversos - 2212-9 - R$ 21,12 (***) (*) Duas naturezas jurídicas diversas (obrigacional e indenizatória + 1 litisconsórcio excedente) (**) 10% honorários + 1 taxa mínima pelo pedido Obrigacional. (***) Citação eletrônica do 1º réu.",
+                "Tipo do Movimento: Juntada - Extrato da GRERJ",
+                "Data da juntada:",
+                "20/09/2021",
+                "Tipo do Movimento: Alteração de Classe Processual",
+                "Data do movimento:",
+                "20/09/2021",
+                "Tipo do Movimento: Distribuição Sorteio",
+                "Data da Distribuição:",
+                "17/09/2021",
+                "Serventia:",
+                "Cartório da 4ª Vara Cível - 4ª Vara Cível",
+                "1",
+                "500",
+                "Os autos de processos findos terão como destinação final a guarda permanente ou a eliminação, depois de cumpridos os respectivos prazos de guarda definidos na Tabela de Temporalidade de Documentos do PJERJ."
+            };
+            #endregion
+
+            listVal.Remove("Ato Assinado");
+            listVal.Remove("Visualizar Ato Assinado Digitalmente");
+            listVal.Remove("Movimentação");
+            listVal.Remove("1");
+            listVal.Remove("10");
+
             int sequencia = 0;
             int posicao = 0;
             String analisar = string.Empty;
-
-            #region arraylist
-            List<string> listVal = new List<string>()
-            {"Próxima Audiência",
-             "11/11/2021",
-             "Hora da Audiência",
-             "12:10",
-             "Tipo da audiencia",
-             "Conciliação"};
-            #endregion
 
             foreach (var item in listVal)
             {
                 if (!String.IsNullOrEmpty(item))
                 {
                     string conteudo = item;
-                    //posicao = conteudo.IndexOf(":");
-                    //analisar = conteudo.Substring(0, posicao + 1);
+                    posicao = conteudo.IndexOf(":");
+                    analisar = conteudo.Substring(0, posicao + 1);
 
-                    if (item == "Próxima Audiência")
+                    if (analisar == "Tipo do Movimento:")
                     {
                         int indiceAPegar = 0;
                         sequencia++;
 
-                        //indiceAPegar = v + 2
+                        indiceAPegar = listVal.IndexOf(item) + 2;
 
-                        var data = listVal.ElementAt(indiceAPegar+1);
-                        data += " " + listVal.ElementAt(indiceAPegar + 3);
-                        var descricao = listVal.ElementAt(indiceAPegar + 5);
+                        var data = listVal.ElementAt(indiceAPegar);
+                        var descricao = listVal.ElementAt(indiceAPegar + 2);
 
                         //posicao = descricao.IndexOf(":");
                         //analisar = descricao.Substring(0, posicao + 1);
-
                         //if (descricao.Contains("Tipo do Movimento:") || descricao.Contains("Data da conclusão:") ||
                         //    descricao.Contains("Aguardando Publicação:") || descricao.Contains("Data da Distribuição:") ||
                         //    descricao.Contains("Data da juntada:") || descricao.Contains("Data Decisão:") || descricao.Contains("Data da remessa:"))
-                        if (descricao.Contains("Tipo do Movimento:") || descricao.StartsWith("Data "))
+
+                        if (descricao.Contains("Tipo do Movimento:") || descricao.StartsWith("Data"))
                         {
-                            descricao = "";
+                            descricao = listVal.ElementAt(indiceAPegar - 2);
                         }
 
+                        //movimento.Sequencia = sequencia;
+                        //movimento.Descricao = descricao;
+                        //movimento.Data = data;
+                        //movimento.PossuiLinkDownload = false;
 
+                        //movimentosProcesso.Movimentos.Add(movimento);
+                        //movimento = new ProcessoMovimentoModel();
                     }
                 }
             }
 
 
-        }
 
+
+
+
+
+        }
 
     }
 }
