@@ -60,8 +60,6 @@ executar o comando no git-bash
 
 $git difftool origin/master
 
-
-
 ---- comandos XPATH exemplos
 /*
 
@@ -146,6 +144,7 @@ Senha: Kolim@050607&$
 34 -- 000D3A8E1FD3 -- 172.13.0.15 - maquina testada -- erro captcha -- 24-03-2021
 
 35 -- 000D3A99DA38 -- 172.13.0.16 - maquina testada -- erro captcha -- 24-03-2021
+
 36 -- 000D3A8A4295 -- 172.13.0.17 - maquina testada -- erro captcha -- 24-03-2021
 37 -- 000D3A10FE65 -- 172.13.0.18 - maquina testada -- erro captcha -- 24-03-2021
 
@@ -162,6 +161,14 @@ Senha: Captura909
 host: reglare-prd.privatelink.database.windows.net
 User: admomnijus
 Senha: Ag3xH%a5A8Oq!9Y
+
+---- tabelas envolvidas no processo de desmembrar arquivo PDF
+
+HistoricoStatusProcessoCopia
+HistoricoStatusProcesso
+ProcessoPeca
+ProcessoMovimento
+ProcessoCapturado
 
 ---- maquinas capturando processos
 select pc.Id as idprocessamento
@@ -446,29 +453,6 @@ select @@IDENTITY
 insert into Processo (IdSolicitacaoCaptura,Numero,IdTribunalJustica,IdStatus,Eletronico,IdTecnologiaSite,IdFaixaNumeroProcesso, IdInstanciaTribunal, justicagratuita)
 values (8864,'9999999-00.2021.8.19.0206',2,1,1,20,8628, 5319, 0)
 --===================================================================================================
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 ---- query gerar novos PROCESSOS
 
@@ -1064,12 +1048,6 @@ select *
   from TermoExpressaoRegular
 
 
----- tabelas envolvidas no processo de desmembrar arquivo PDF
-HistoricoStatusProcessoCopia
-HistoricoStatusProcesso
-ProcessoPeca
-ProcessoMovimento
-ProcessoCapturado
 
 select * 
   from Processo p
