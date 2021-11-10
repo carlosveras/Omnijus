@@ -4,11 +4,11 @@
     {
         static void Main(string[] args)
         {
-            //ExecutarTeste01.Capturar();
+            ExecutarTeste01.Capturar();
             //ExecutarTeste02.Capturar();
             //ExecutarTeste03.Testar();
             //ExecutarTeste04.Testar04();
-            ExecutarTeste05.Testar05();
+            /////ExecutarTeste05.Testar05();
             //ExecutarTeste06.Testar06();
             //ExecutarTeste07.Testar07();
             //ExecutarTeste08.Testar08();

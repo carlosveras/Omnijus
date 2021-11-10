@@ -148,6 +148,10 @@ Senha: Kolim@050607&$
 36 -- 000D3A8A4295 -- 172.13.0.17 - maquina testada -- erro captcha -- 24-03-2021
 37 -- 000D3A10FE65 -- 172.13.0.18 - maquina testada -- erro captcha -- 24-03-2021
 
+
+34 -- 172.13.0.15 
+
+
 ---- BANCO DE HOMOLOGACAO 
 
 Host: reglare-hml.privatelink.database.windows.net
@@ -1204,13 +1208,19 @@ declare @ultimoNumeroFaixa int;
 
 --===================================================================================================
 -- Configura as variaveis de Acordo com o Numero do Processo que será gerado o intervalo
+-- 0800601-82.2021.8.19.0211 <-- exemplo
+-- 5000286-58.2021.8.08.0065 <-- exemplo
 --===================================================================================================
-select @identificacaoProcesso = '8.19'
+--select @identificacaoProcesso = '8.19'
+select @identificacaoProcesso = '8.08'
 select @ano = 2021;
 select @IdTecnologiaSite = 20;  
-select @Numeracao = '0800000';
-select @ultimoNumeroFaixa = 0800146;
-select @Forum = '0208';
+--select @Numeracao = '0800000';
+select @Numeracao = '0500000';
+--select @ultimoNumeroFaixa = 0800600;
+select @ultimoNumeroFaixa = 5000285;
+--select @Forum = '0211';
+select @Forum = '0065';
 --===================================================================================================
 
 select @idtribunal = id , @siglaTribunal = Sigla

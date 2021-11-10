@@ -19,15 +19,15 @@ namespace BaixarDejt
             List<string> opcoesCombo = new List<string>();
 
             #region Firefox
-            FirefoxOptions options = new FirefoxOptions();
-            options.SetPreference("browser.download.folderList", 2);
-            options.SetPreference("browser.download.dir", "C:\\Pastas de Trabalho\\Projetos\\Captura Dados Processo\\DiarioOficialALer");
-            options.SetPreference("browser.download.useDownloadDir", true);
-            options.SetPreference("browser.download.viewableInternally.enabledTypes", "");
-            options.SetPreference("browser.helperApps.neverAsk.saveToDisk", "application/pdf;text/plain;application/text;text/xml;application/xml");
-            options.SetPreference("pdfjs.disabled", true);
+            //FirefoxOptions options = new FirefoxOptions();
+            //options.SetPreference("browser.download.folderList", 2);
+            //options.SetPreference("browser.download.dir", "C:\\Pastas de Trabalho\\Projetos\\Captura Dados Processo\\DiarioOficialALer");
+            //options.SetPreference("browser.download.useDownloadDir", true);
+            //options.SetPreference("browser.download.viewableInternally.enabledTypes", "");
+            //options.SetPreference("browser.helperApps.neverAsk.saveToDisk", "application/pdf;text/plain;application/text;text/xml;application/xml");
+            //options.SetPreference("pdfjs.disabled", true);
             #endregion
-
+                        
             #region pegaIdsFirefoxAntes
             IEnumerable<int> pidsFfAntes = Process.GetProcessesByName("firefox").Select(p => p.Id);
             #endregion
@@ -36,7 +36,9 @@ namespace BaixarDejt
             IEnumerable<int> pidsGcAntes = Process.GetProcessesByName("geckodriver").Select(p => p.Id);
             #endregion
 
-            IWebDriver driver = new FirefoxDriver(options);
+            IWebDriver driver = ConfigFirefox.ConfigureFirefox();
+
+            //IWebDriver driver = new FirefoxDriver(options);
             driver.Url = "https://dejt.jt.jus.br/dejt/f/n/diariocon";
 
             driver.Manage().Window.Maximize();

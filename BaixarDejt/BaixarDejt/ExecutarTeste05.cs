@@ -9,7 +9,6 @@ namespace BaixarDejt
     public class ExecutarTeste05
     {
 
-
         public static String[] qPersonagem = new String[2];
         public static String[] qMovimento = new String[40];
 
@@ -32,12 +31,12 @@ namespace BaixarDejt
             int position = lixo.IndexOf(":");
             String substring = lixo.Substring(0, position + 1);
 
-            montaMovimentos();
-            //montarAudiencia();
+            MontaMovimentos();
+            //MontarAudiencia();
 
         }
 
-        private static void montarAudiencia()
+        private static void MontarAudiencia()
         {
            
             String analisar = string.Empty;
@@ -57,7 +56,7 @@ namespace BaixarDejt
             var descricao = listVal.ElementAt(5);
         }
 
-        private static void montaMovimentos()
+        private static void MontaMovimentos()
         {
             #region mstring
             qMovimento[1] = "Movimentação";
@@ -255,7 +254,7 @@ namespace BaixarDejt
 
         }
 
-        private static void recuperaDados(List<string> listVal, int v)
+        private static void RecuperaDados(List<string> listVal, int v)
         {
             int indiceAPegar = v + 2;
 
@@ -280,7 +279,7 @@ namespace BaixarDejt
             // Console.ReadKey();
         }
 
-        private static void pegaParcial()
+        private static void PegaParcial()
         {
             //string nomeCompleto = "RJ060094 - DEWETT CATRAMBY FILHO";
             string oabCorreto = string.Empty;

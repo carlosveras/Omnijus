@@ -1,4 +1,5 @@
-﻿using OpenQA.Selenium.Firefox;
+﻿using OpenQA.Selenium;
+using OpenQA.Selenium.Firefox;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,10 +8,12 @@ using System.Threading.Tasks;
 
 namespace BaixarDejt
 {
-    class ConfigFirefox
+    public class ConfigFirefox
     {
-        public static FirefoxOptions Options ()
+        public static IWebDriver ConfigureFirefox()
         {
+            IWebDriver driver = null;
+
             #region Firefox
             FirefoxOptions options = new FirefoxOptions();
             options.SetPreference("browser.download.folderList", 2);
@@ -21,8 +24,10 @@ namespace BaixarDejt
             options.SetPreference("pdfjs.disabled", true);
             #endregion
 
-            return options;
+            driver = new FirefoxDriver(options);
 
+            return driver;
         }
+
     }
 }

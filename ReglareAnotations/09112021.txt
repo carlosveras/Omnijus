@@ -1,0 +1,18 @@
+update EquipamentoProcessamentoTribunal
+set Ativo = 0 
+where id in (3558,3864)
+
+rio de janeiro -- 2
+3669
+3863
+
+espirito santo -- 5008
+3558
+3864
+
+
+34	45172	2021-11-09 08:08:09.000	NULL	2	8452	NULL	Inicio do Processamento	20	0	1	0	1
+
+
+
+
