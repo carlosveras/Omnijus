@@ -620,6 +620,13 @@ select pp.id,
   left join ProcessoAdvogado pa on pa.Id = ppa.IdProcessoAdvogado
 where pp.IdProcesso in (96643)
 
+--- query para pegar campo distribuicao sem hora:minuto
+
+SELECT top 1000 p.Numero, p.IdInstanciaTribunal, p.Forum, p.Distribuicao
+  FROM Processo p 
+ WHERE LEN(p.Distribuicao) = 10
+order by id desc
+
 --- query para ver parametros para captura imagem captcha
 select * from EquipamentoProcessamentoParametro
 where IdEquipamentoProcessamento = 26
@@ -1210,6 +1217,7 @@ declare @ultimoNumeroFaixa int;
 -- Configura as variaveis de Acordo com o Numero do Processo que será gerado o intervalo
 -- 0800601-82.2021.8.19.0211 <-- exemplo
 -- 5000286-58.2021.8.08.0065 <-- exemplo
+-- 0012765-98.2021.8.19.0054
 --===================================================================================================
 --select @identificacaoProcesso = '8.19'
 select @identificacaoProcesso = '8.08'
@@ -1279,4 +1287,90 @@ commit transaction;
 
 
 
+---- 17.11.2021
+begin transaction;
+
+declare @descricao varchaR(100);
+declare @Forum varchar(4);
+declare @Numeracao varchar(7);
+declare @IdEquipamentoProcessamento int;
+declare @IdSolicitacao int;
+declare @NumeroProcesso varchar(25);
+declare @IdFaixaNumeracao int;
+declare @idtribunal int;
+declare @idInstanciaTribunal int;
+declare @siglaTribunal varchar(10);
+declare @identificacaoProcesso varchar(10);
+declare @IdTecnologiaSite int;
+declare @ano int;
+declare @idForum int;
+declare @ultimoNumeroFaixa int;
+
+--===================================================================================================
+-- Configura as variaveis de Acordo com o Numero do Processo que será gerado o intervalo
+-- 0800601-82.2021.8.19.0211 <-- exemplo
+-- 5000286-58.2021.8.08.0065 <-- exemplo
+-- 0800429-67.2021.8.19.0203	
+--===================================================================================================
+select @identificacaoProcesso = '8.19'
+select @ano = 2021;
+select @IdTecnologiaSite = 20;  
+select @Numeracao = '0800000';
+select @ultimoNumeroFaixa = 0800428;
+select @Forum = '0203';
+--===================================================================================================
+
+select @idtribunal = id , @siglaTribunal = Sigla
+   from TribunalJustica
+where IdentificacaoProcesso = @identificacaoProcesso;
+
+select @idInstanciaTribunal = id 
+		--,@IdTecnologiaSite = IdTecnologiaSite
+   from InstanciaTribunal
+where IdTribunal = @idtribunal
+and Descricao in ('1ª e 2ª Instância', '1ª instância','1ª Instância')
+and (@IdTecnologiaSite is null or @IdTecnologiaSite = IdTecnologiaSite);
+
+select @idForum = id 
+   from ForumTribunal ft
+where ft.IdTribunal = @idtribunal
+and ft.Numero = @Forum;
+
+
+--===================================================================================================
+--Incluir a Faixa de Numerçao
+--===================================================================================================
+insert into ForumFaixaNumeroProcesso (CriadoEm,CriadoPor,AlteradoEm,AlteradoPor,IdForumTribunal
+							,QuantidadeProcessoPendente,Ativo,QuantidadeProcessoNaoLocalizado,FaixaNumeroProcesso
+							,IdInstanciaTribunal,QuantidadeRepeticaoProcessamento,QuantidadeDiaRetrocessoPesquisa)
+values (getdate(),1,null,null,@idForum,1,1,1,@Numeracao,@idInstanciaTribunal,1,3);
+
+select @IdFaixaNumeracao = @@IDENTITY;
+--===================================================================================================
+
+--===================================================================================================
+--Incluir a Faixa de Numerçao no Ano
+--===================================================================================================
+insert into ForumFaixaNumeroAno (CriadoEm,CriadoPor,AlteradoEm,AlteradoPor,IdForumFaixaNumeroProcesso,Ano,UltimoNumeroProcesso)
+values (getdate(),1,null,null,@IdFaixaNumeracao,@ano,@ultimoNumeroFaixa);
+--===================================================================================================
+
+--===================================================================================================
+--Incluir a Solicitação de Captura
+--===================================================================================================
+select @descricao = 'Captura Distribuição - ' + @siglaTribunal + ' - ' + @Forum + ' - ' + @Numeracao;
+
+insert into SolicitacaoCaptura values
+(getdate(),1,@descricao,1,3,null,0,1,0,0,0,1,1,0,0,null,null,null)
+
+select @IdSolicitacao = @@IDENTITY;
+--===================================================================================================
+select @NumeroProcesso = '9999999-00.' + convert(varchar(4),@ano) + '.' + @identificacaoProcesso + '.' + @Forum;
+
+insert into Processo (IdSolicitacaoCaptura,Numero,IdTribunalJustica,IdStatus,Eletronico,IdTecnologiaSite,IdFaixaNumeroProcesso, IdInstanciaTribunal, justicagratuita)
+values (@IdSolicitacao,@NumeroProcesso,@idtribunal,1,1,@IdTecnologiaSite,@IdFaixaNumeracao, @idInstanciaTribunal, 0)
+--===================================================================================================
+
+--rollback transaction;
+commit transaction;
 
