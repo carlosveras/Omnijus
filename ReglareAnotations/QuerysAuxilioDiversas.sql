@@ -60,24 +60,14 @@ executar o comando no git-bash
 
 $git difftool origin/master
 
----- comandos XPATH exemplos
-/*
+<---- comandos XPATH exemplos -->
+
 
 com span e texto:
 //span[@class='ng-star-inserted'][text()='50']
 
-//.[@class='esajCelulaConteudoServico']
-
-//.[@class='rc-image-tile-33']
-
-//.[@class='rc-imageselect-desc-no-canonical']/strong
-
-//.[@class='rc-imageselect-desc']/strong
-
-//.[@class='rich-messages-label']
 
 //.[contains(text(),'A verificação de captcha não está correta.')]
-
 //.[contains(text(),'Atendimento ao usuário do DEJT:')]
 
 para inspecionar por href:
@@ -95,15 +85,15 @@ para inspecionar por id:
 
 //para inspecionar elementos seguintes no caso um input
 //abaixo da class
-//*[@id="captcha"]/following::input
+//[@id="captcha"]/following::input
 
 //input[@id='imgCaptcha']
 
-//*[@id="portalTabs__consultaUnificada"]/child::a[1]
+//[@id="portalTabs__consultaUnificada"]/child::a[1]
 
 div//table//tbody//tr//td[@class='modalTitulo']
 
-//*[@id="content100"]//h3[.="Erro"]
+//[@id="content100"]//h3[.="Erro"]
 
 //div[@id='idOestePortal']
 
@@ -112,6 +102,11 @@ div//table//tbody//tr//td[@class='modalTitulo']
 //span[@class='title']
 
 //.[@class='modalTitulo']
+//.[@class='esajCelulaConteudoServico']
+//.[@class='rc-image-tile-33']
+//.[@class='rc-imageselect-desc-no-canonical']/strong
+//.[@class='rc-imageselect-desc']/strong
+//.[@class='rich-messages-label']
 
 //.[@id='corpo:formulario:dataFim']//following::button[1]
 
@@ -119,11 +114,96 @@ div//table//tbody//tr//td[@class='modalTitulo']
 
 //div[@id='diarioCon']//fieldset[@class='plc-fieldset']
 
-//*[@id="corpo:formulario:tribunal"]//following::td[@class='celulaFormulario']//span[@class='ico iNavProximo']
+//[@id="corpo:formulario:tribunal"]//following::td[@class='celulaFormulario']//span[@class='ico iNavProximo']
 
-//*[@id='diarioInferiorNav']/preceding::tbody[1]
+//[@id='diarioInferiorNav']/preceding::tbody[1]
 
-*/
+
+//.[contains(text(),'A verificação de captcha não está correta.')]
+//.[contains(text(),'Atendimento ao usuário do DEJT:')]
+
+para inspecionar por href:
+//a[text()='Compare']
+
+para inspecionar por input:
+//input[@type='text' and @name='email']
+
+para inspecionar por id:
+//div[@id='rc-imageselect']
+
+com span e texto:
+//span[@class='ng-star-inserted'][text()='50']
+
+//para inspecionar elementos filhos - no caso a 2 div abaixo da class
+//.[@class='primary-controls']/child::div[2]
+//.[@class='esajCelulaConteudoServico']
+//.[@class='app-detalhes-processo.ng-tns-c115-5']
+//.[@class='rc-image-tile-33']
+//.[@class='rc-imageselect-desc-no-canonical']/strong
+//.[@class='rc-imageselect-desc']/strong
+//.[@class='rich-messages-label']
+
+//[@id="captcha"]/following::input
+
+//input[@id='imgCaptcha']
+
+
+div//table//tbody//tr//td[@class='modalTitulo']
+
+
+//.[@class='rc-imageselect-error-dynamic-more']
+
+//span[@class='title']
+
+//.[@class='modalTitulo']
+
+//[@id="content100"]//h3[.="Erro"]
+//.[@id='corpo:formulario:dataFim']//following::button[1]
+//[@id="corpo:formulario:tribunal"]//following::td[@class='celulaFormulario']//span[@class='ico iNavProximo']
+//[@id='diarioInferiorNav']/preceding::tbody[1]
+//.[@id='senhaProvisoria']
+//.[@id='motivo']
+//.[@id='motivo']/following::button[1]
+
+//select[@id='corpo:formulario:tribunal']//following::td[@class='celulaFormulario'][1]
+//div[@id='diarioCon']//fieldset[@class='plc-fieldset']
+//div[@id='idOestePortal']
+//[@id="portalTabs__consultaUnificada"]/child::a[1]
+
+//span[text()='Listar todos os personagens']
+
+//a[text()='Listar todos os personagens']
+
+//.[@id='lista-historico-personagens']/preceding::i[1]
+
+//.[contains(text(),'Localização')]/following::div[1]
+//.[contains(text(),'Réu')]/following::div[1]
+//.[contains(text(),'Dados dos')]/following::div[2]
+//.[contains(text(),'Dados dos')]/following::div[3]
+//.[contains(text(),'Dados dos')]/following::div[5]
+//.[contains(text(),'Dados dos')]/following::div[5]
+//.[contains(text(),'Dados dos')]/following::div[4]
+//.[contains(text(),'Dados dos')]/following::div[4]
+//.[contains(text(),'Dados dos')]/following::div[2]
+//.[contains(text(),'Dados dos')]/following::div[9] 
+//.[contains(text(),'Para visualizar')]/following::div[1] 
+//.[contains(text(),'específica')]
+//.[contains(text(),'Dados do')]/following::div[2]
+//.[contains(text(),'expand_more')]/following::div[contains(@class, 'mat-tree-node')]
+//.[contains(@aria-label,'Salvar Cópia')]
+//.[contains(text(),'O processo informado não foi encontrado')]
+//.[contains(text(),'Processo Eletrônico - Novo')]
+
+//.[@class='row box-conteudo box-rb ng-tns-c115-1 ng-star-inserted']
+
+.tree-branch>ul>li:nth-of-type(3) 
+
+//.[app-detalhes-processo]/following::div/div/div[3]
+/html/body/app-root/app-detalhes-processo/section/div/div/div[3]
+
+//.[@class='row box-conteudo box-rb ng-tns-c115-5 ng-star-inserted']
+//.[@role='alert']
+
 
 ---- MAQUINAS NOVAS REGLARE
 Usuário: admomnijus
@@ -1059,7 +1139,6 @@ select *
   from TermoExpressaoRegular
 
 
-
 select * 
   from Processo p
  where p.numero in
@@ -1284,8 +1363,6 @@ values (@IdSolicitacao,@NumeroProcesso,@idtribunal,1,1,@IdTecnologiaSite,@IdFaix
 
 --rollback transaction;
 commit transaction;
-
-
 
 ---- 17.11.2021
 begin transaction;

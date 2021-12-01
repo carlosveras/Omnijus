@@ -68,6 +68,8 @@
     <Compile Include="ExecutarTeste09.cs" />
     <Compile Include="ExecutarTeste10.cs" />
     <Compile Include="ExecutarTeste11.cs" />
+    <Compile Include="ExecutarTeste13.cs" />
+    <Compile Include="ExecutarTeste14.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ExecutarTeste06.cs" />

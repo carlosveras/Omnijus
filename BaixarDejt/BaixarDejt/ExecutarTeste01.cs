@@ -27,7 +27,7 @@ namespace BaixarDejt
             //options.SetPreference("browser.helperApps.neverAsk.saveToDisk", "application/pdf;text/plain;application/text;text/xml;application/xml");
             //options.SetPreference("pdfjs.disabled", true);
             #endregion
-                        
+
             #region pegaIdsFirefoxAntes
             IEnumerable<int> pidsFfAntes = Process.GetProcessesByName("firefox").Select(p => p.Id);
             #endregion
@@ -38,7 +38,9 @@ namespace BaixarDejt
 
             IWebDriver driver = ConfigFirefox.ConfigureFirefox();
 
+
             //IWebDriver driver = new FirefoxDriver(options);
+
             driver.Url = "https://dejt.jt.jus.br/dejt/f/n/diariocon";
 
             driver.Manage().Window.Maximize();
@@ -56,7 +58,7 @@ namespace BaixarDejt
 
             IWebElement dataInicio = driver.FindElement(By.Id("corpo:formulario:dataIni"));
             dataInicio.Click();
-            dataInicio.SendKeys("18/06/2021");
+            dataInicio.SendKeys("01/11/2021");
 
             #region CalendarioFim
             /////abre o calendariofim
@@ -70,7 +72,7 @@ namespace BaixarDejt
 
             IWebElement dataFim = driver.FindElement(By.Id("corpo:formulario:dataFim"));
             dataFim.Click();
-            dataFim.SendKeys("21/06/2021");
+            dataFim.SendKeys("05/11/2021");
 
             //pesquisa e seleciona o tipo de caderno
             IWebElement cbPesquisaTipoCaderno = driver.FindElement(By.Id("corpo:formulario:tipoCaderno"));
@@ -93,7 +95,6 @@ namespace BaixarDejt
 
                 if (!string.IsNullOrEmpty(numeroTrt))
                     trtAtual = Convert.ToInt16(numeroTrt);
-
 
                 if (trtAtual > 0)
                 {
