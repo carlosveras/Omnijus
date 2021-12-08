@@ -1,3 +1,7 @@
+----
+admin
+0mn1#Local 
+
 ---- para debugar com o site aberto
 na linha de comando --> cmd
 chrome.exe -remote-debugging-port=9014 --user-data-dir="D:\Selenium\Chrome_Test"
@@ -220,11 +224,8 @@ Senha: Kolim@050607&$
 31 -- 000D3A9E9470 -- 172.13.0.12 - maquina testada -- erro captcha -- 24-03-2021
 32 -- 000D3A98AC56 -- 172.13.0.13 - maquina testada -- erro captcha -- 24-03-2021
 33 -- 000D3A98A6F4 -- 172.13.0.14 - maquina testada -- erro captcha -- 24-03-2021
-
 34 -- 000D3A8E1FD3 -- 172.13.0.15 - maquina testada -- erro captcha -- 24-03-2021
-
 35 -- 000D3A99DA38 -- 172.13.0.16 - maquina testada -- erro captcha -- 24-03-2021
-
 36 -- 000D3A8A4295 -- 172.13.0.17 - maquina testada -- erro captcha -- 24-03-2021
 37 -- 000D3A10FE65 -- 172.13.0.18 - maquina testada -- erro captcha -- 24-03-2021
 
@@ -1073,13 +1074,28 @@ select * from Processo p
 where p.idstatus = 2
 
 
+---- outra query traduzida
 
+_session.Query<Processo>()
+        .Where(x => x.Status == StatusProcesso.Capturado &&
+       x.PossuiDocumento &&
+       x.Solicitacao.CapturarDistribuicao &&
+      (x.EquipamentoProcessamento == null || x.EquipamentoProcessamento == equipamento) &&
+      !x.Historicos.Any(h => h.Status == StatusProcesso.ProcessoDesmembrado)).ToList();
 
-
+select p.Id , 
+       p.Numero , 
+	   p.Forum , 
+	   p.Vara , 
+	   p.IdFaixaNumeroProcesso  
+  from Processo p inner join SolicitacaoCaptura solicitaca1_ on p.idSolicitacaoCaptura=solicitaca1_.Id 
+where p.IdStatus= 2
+  and p.PossuiDocumento=1 
+  and solicitaca1_.CapturarDistribuicao=1 
+  and (p.IdEquipamentoProcessamento is null or p.IdEquipamentoProcessamento=34) 
+  and  not (exists (select hpp.Id from HistoricoStatusProcesso hpp where p.Id=hpp.IdProcesso and hpp.IdStatus=15))
 
 ----
-
-
 
 ---- sequencia para verificar parametros para captura dos processos
 select * from EquipamentoProcessamentoTribunal 
@@ -1137,7 +1153,6 @@ where id in (3,4,6)
 
 select *
   from TermoExpressaoRegular
-
 
 select * 
   from Processo p

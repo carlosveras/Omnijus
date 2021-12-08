@@ -1,0 +1,144 @@
+template[TEMP_Analise_de_liminar] { 
+	metainfo { 
+		language = "pt_BR"
+		name = "Análise de Liminar"
+		declarations {
+			+<objetoLiminar> : Struct {
+				name = "Objeto da Liminar"
+				request = "Informe o objeto da liminar"
+				fields {
+					+[objetos] : List("Para que a PicPay efetue o depósito pendente na própria carteira do cliente (Cash In)" , 
+					                 "Exclusão de conta já criada em nome do cliente, sem sua autorização" ,
+									  "Exclusão do nome do autor de órgãos de proteção ao crédito",
+									  "Para que a PicPay restitua a diferença entre o valor sacado e o valor disponibilizado" ,
+									   "Outros") {
+
+						name = "Objeto de Liminar"
+						request = "Informe o objeto da liminar"
+						help = "É considerada liminar toda decisão que defere alguma medida de urgência ou a antecipação (parcial ou não) do julgamento"
+						atomic = false
+					},
+					if([objetos] == "Outros") {
+						+[outros] : String {
+							name = "Outros objetos da Liminar"
+							request = "Indique de forma objetiva o objeto da liminar"
+						}
+					}
+				}
+			},
+			+<prazoParaCumprimento> : Struct {
+				name = "Prazos"
+				request = "Informe o tipo de prazo da liminar"
+				fields {
+					+[prazo] : List("Dias" , "Horas" , "Não foi fixado prazo") {
+						name = "Prazo para Cumprimento da Liminar"
+						request = "Indique como foi fixado o prazo para cumprimento"
+						atomic = true
+						},
+					if([prazo] == "Dias") {
+						+[dias] : Integer {
+							name = "Dias para cumprimento da liminar"
+							request = "Quanto dias a empresa tem para cumprir a liminar?"
+						}
+					},
+					if([prazo] == "Horas") {
+						+[horas] : Real {
+							name = "Prazo para Cumprimento da Liminar"
+							request = "Quantas horas a empresa te para cumprir a liminar?"
+						}
+					}
+					
+				}
+			},
+			+<penalidadePorDescumprimento> : Struct {
+				name = "Penalidades"
+				request = "Informe a penalidade da liminar"
+				fields {
+					+[penalidades] : List("Multa" , "Busca e apreensão" , "Não foi fixada penalidade" , "Outros") {
+						name = "Penalidade por descumprimento de Liminar"
+						request = "Informe a penalidade fixada em caso de descumprimento"
+						atomic = true
+					},
+					if([penalidades] == "Multa") {
+						+[multas] : Struct {
+							fields {
+								+[multa] : List("Pecuniaria" , "Salário mínimo") {
+									name = "Tipo de multa"
+									request = "Informe a natureza da multa"
+									atomic = true
+								},
+								if([multa] == "Pecuniaria") {
+									+[pecuniaria] : Currency {
+										name = "Pecuniaria"
+										request = "Informe o valor da multa"
+									},
+									+[periodicidade] : List("Parcela única",
+										"Diária",
+										"Mensal"
+										) {
+										request = "Informe a periodicidade da multa: "
+										atomic = true
+									}
+								},
+								if([multa] == "Salário mínimo") {
+									+[salarioMinimo] : Integer {
+										name = "Salário mínimo"
+										request = "Informe a quantidade de salários mínimos"
+									}
+								}
+							}
+						}
+					},			
+					if([penalidades] == "Busca e apreensão") {
+						-[buscaEApreensao] : String
+					},
+					if([penalidades] == "Não foi fixada penalidae") {
+						-[penalidadeNaoFixada] : String
+					},
+					if([penalidades] == "Outros") {
+						+[penalidadeOutros] : String {
+							request = "Indique de forma objetiva a penalidade em caso de descumprimento da liminar"
+						}
+					}
+				}
+			},
+
+			branch[BRC_Objeto] {
+				operations {
+					print "A liminar tem como objeto: " & <objetoLiminar> & "\n\n"
+				}
+			},
+			branch[BRC_PrazoCumprimento] {
+				operations {
+                    if(<prazoParaCumprimento.prazo> == "Não foi fixado prazo") { 
+						print "Prazo para cumprimento:"
+					},	  
+					if(<prazoParaCumprimento.prazo> == "Dias") {
+						print <prazoParaCumprimento.dias> & " dias" 
+					},
+					if(<prazoParaCumprimento.prazo> == "Horas") {
+						print <prazoParaCumprimento.horas> & " horas" 
+					}else {
+						print " Não foi fixado prazo para comprimento.\n\n"
+					} 
+				}
+			},
+			branch[BRC_Penalidades] {
+				operations {
+					print "A penalidade por descumprimento é: " & <penalidadePorDescumprimento> & "\n\n"
+				}
+			}
+		} 
+	}	
+	head { 
+		title = "Análise de Liminar" 
+ 	} 
+ 	body {
+		operations {
+			
+			use branch[BRC_Objeto],
+			use branch[BRC_PrazoCumprimento],
+			use branch[BRC_Penalidades] 
+		}
+ 	}
+}

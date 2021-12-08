@@ -1,0 +1,33 @@
+template[TEMP_AGR_CV_Teste01] { 
+	metainfo { 
+		language = "pt_BR"
+		name = "Agregação Teste 01"
+		declarations {
+			+<pessoa> : Struct {
+				id = [nome] & ", inscrito no CPF " & [cpf] & ", residente na " & [end]
+				fields {
+					+[nome] : String,
+					+[cpf] : String,
+					+[end] : Struct {
+						name = "Endereço"
+						fields {
+							+[rua] : String,
+							+[numero] : String,
+							+[cidade] : String,
+							+[uf] : String,
+							+[cep] : String
+						}
+					}
+				}
+			}
+		} 
+	} 
+	head { 
+		title = "Agregação Teste 01" 
+ 	} 
+ 	body {
+		operations {
+			print <pessoa>
+		}
+ 	}
+}

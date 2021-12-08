@@ -1,0 +1,31 @@
+template[TEMP_Exercicio01_CSR] { 
+	metainfo { 
+		language = "pt_BR"
+		name = "Exercicio 01 - CSR"
+		declarations {
+			branch[BRC_Qualificacao] {
+				name = "Qualificação"
+				operations {
+					print "Pelo presente instrumento particular, as partes abaixo assinadas, de um lado: \n
+\n
+[●], sociedade constituída segundo as leis do Brasil, inscrita no CNPJ/MF sob o nº [●], com sede [●], neste ato representada [opção genérica: na forma de seu contrato/estatuto social] [opção específica: por seu(s) diretor(es)/ administrador(es)/ procurador(es)  incluir nomes], doravante denominada simplesmente “Sócia Ostensiva”; \n
+\n
+e, de outro lado, \n
+\n
+[NOME COMPLETO], [nacionalidade], [estado civil], [profissão], portador da cédula de identidade RG nº[●], inscrito no CPF/MF sob o nº [●], residente e domiciliado na [endereço completo], doravante denominado simplesmente “Sócio Participante”; \n
+\n
+Sendo a Sócia Ostensiva e o Sócio Participante denominados, em conjunto, “Partes” ou “Sócios”, e, individualmente, “Parte”;
+"
+				}
+			}
+		} 
+	} 
+	head { 
+		title = "Exercicio 1" 
+ 	} 
+ 	body {
+		operations {
+			use branch[BRC_Qualificacao]
+		}
+ 	}
+}

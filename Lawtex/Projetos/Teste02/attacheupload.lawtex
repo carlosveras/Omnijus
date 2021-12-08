@@ -1,0 +1,27 @@
+template[TEMP_AttachEUpload_CSR] { 
+	metainfo { 
+		language = "pt_BR"
+	} 
+	head { 
+		title = "Tube Upload e Attach" 
+ 	} 
+ 	body {
+		declarations {
+			+<serahSentireiFalta> : Boolean {
+				name = "Falta das aulas"
+				request = "Você vai sentir falta das nossas aulinhas de programação?"
+			}
+		}
+		operations {
+			if (<serahSentireiFalta>) {
+				print "Nós também iremos sentir a falta de vocês!!!",
+				upload("Saudades dos aluninhos", "saudades.png","Faça upload da imagem de amor", "+"),
+				attach("saudades.png")
+			} else {
+				print "Eu nem queria ver você mesmo...",
+				upload("Não tenho saudades dos aluninhos", "SemSaudades.png", "Faça o upload da imagem de beijinho no ombro", "+"),
+				attach("SemSaudades.png")
+			}
+		}
+ 	}
+}

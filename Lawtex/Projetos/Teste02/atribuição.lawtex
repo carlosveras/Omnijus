@@ -1,0 +1,24 @@
+template[TEMP_Atribuicao_CSR] { 
+	metainfo { 
+		language = "pt_BR"
+		name = "Teste de atribuição - CSR"
+		declarations {
+			+<nome> : String {
+				name = "Primeiro nome"
+				request = "Informe seu primeiro nome"
+			},
+			+<nomeCompleto> : String {
+				name = "Nome completo"
+			}
+		} 
+	} 
+	head { 
+		title = "Atribuição" 
+ 	} 
+ 	body {
+		operations {
+			<nomeCompleto>.request = <nome> & ", informe seu nome completo",
+			print <nomeCompleto>
+		}
+ 	}
+}

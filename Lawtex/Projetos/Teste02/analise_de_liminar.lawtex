@@ -1,0 +1,84 @@
+template[TEMP_Analise_de_liminar] { 
+	metainfo { 
+		language = "pt_BR"
+		name = "Análise de Liminar"
+		declarations {
+			+<objetoLiminar> : List("Para que a PicPay efetue o depósito pendente na própria carteira do cliente (Cash In)" , "Exclusão de conta já criada em nome do cliente, sem sua autorização" , "Exclusão do nome do autor de órgãos de proteção ao crédito" , "Para que a PicPay restitua a diferença entre o valor sacado e o valor disponibilizado" , "Outros") {
+				name = "Objeto de Liminar"
+				request = ""
+				help = "É considerada liminar toda decisão que defere alguma medida de urgência ou a antecipação (parcial ou não) do julgamento"
+				atomic = false
+			},
+			if([objetoLiminar] == "Outros") {
+				+[outros] : String {
+					name = "Outros objetos da Liminar"
+					request = "Indique de forma objetiva o objeto da liminar"
+				}
+			},
+			+<prazoParaCumprimento> : List("Dias" , "Horas" , "Não foi fixado prazo") {
+				name = "Prazo para Cumprimento da Liminar"
+				request = "Indique como foi fixado o prazo para cumprimento"
+				atomic = true
+			},
+			if([prazoParaCumprimento] == "Dias") {
+				+[dias] : Integer {
+					name = "Dias para cumprimento da liminar"
+					request = "Quanto dias a empresa tem para cumprir a liminar?"
+				}
+			},
+			if([prazoParaCumprimento] == "Horas") {
+				+[horas] : Real {
+				name = "Prazo para Cumprimento da Liminar"
+				request = "Quantas horas a empresa te para cumprir a liminar?"
+				}
+			} else {
+				+[semPrazo] : Struct {
+					print "Não foi fixado prazo"
+				}
+			},
+			+<penalidePorDescumprimento> : List("Multa" , "Busca e apreensão" , "Não foi fixada penalidade" , "Outros") {
+				name = "Penalidade por descumprimento de Liminar"
+				request = "Informe a penalidade fixada em caso de descumprimento"
+				atomic = true
+			},
+			if([penalidePorDescumprimento] == "Multa") {
+				+[multa] : List("Pecuniaria" , "Salário mínimo") {
+					name = "Tipo de multa"
+					request = "Informe a natureza da multa"
+					atomic = true
+				},
+				if([multa] == "Pecuniaria") {
+					+[pecuniaria] : Currency {
+						name = "Pecuniaria"
+						request = "Informe o valor da multa"
+					}
+				},
+				if([multa] == "Salário mínimo") {
+					+[salarioMinimo] : Integer {
+						name = "Salário mínimo"
+						request = "Informe a quantidade de salários mínimos"
+					}
+				}
+			},
+			if([penalidePorDescumprimento] == "Busca e apreensão") {
+				-[buscaEApreensao] : String
+			},
+			if([penalidePorDescumprimento] == "Não foi fixada penalidae") {
+				-[penalidadeNaoFixada] : String
+			},
+			if([penalidePorDescumprimento] == "Outros") {
+				+[penalidadeOutros] : String {
+					request = "Indique de forma objetiva a penalidade em caso de descumprimento da liminar"
+				}
+			}
+		} 
+	} 
+	head { 
+		title = "Análise de Liminar" 
+ 	} 
+ 	body {
+		operations {
+			...
+		}
+ 	}
+}

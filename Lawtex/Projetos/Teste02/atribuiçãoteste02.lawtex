@@ -1,0 +1,24 @@
+template[TEMP_Atribuicao_Teste02] { 
+	metainfo { 
+		language = "pt_BR"
+		name = "Teste de atribuição 02"
+		declarations {
+			+<nome> : String {
+				name = "Primeiro nome"
+				request = "Informe seu primeiro nome"
+			},
+			+<nomeCompleto> : String {
+				name = "Nome completo"
+			}
+		} 
+	} 
+	head { 
+		title = "Atribuição" 
+ 	} 
+ 	body {
+		operations {
+			<nomeCompleto>.request = <nome> & ", informe seu nome completo",
+			print <nomeCompleto>
+		}
+ 	}
+}

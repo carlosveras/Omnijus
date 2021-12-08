@@ -1,0 +1,32 @@
+template[TEMP_Agregacao_CSR] { 
+	metainfo { 
+		language = "pt_BR"
+		name = "Agregação - CSR"
+		declarations {
+			+<pessoa> : Struct {
+				id = [nome] & ", inscrito no CPF " & [cpf] & ", residente na " & [end]
+				fields {
+					+[nome] : String,
+					+[cpf] : String,
+					+[end] : Struct {
+						name = "Endereço"
+						fields {
+							+[rua] : String,
+							+[numero] : String,
+							+[cidade] : String,
+							+[uf] : String
+						}
+					}
+				}
+			}
+		} 
+	} 
+	head { 
+		title = "Agregação" 
+ 	} 
+ 	body {
+		operations {
+			print <pessoa>
+		}
+ 	}
+}

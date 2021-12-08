@@ -1,0 +1,73 @@
+<disposicoesFinais.local> <disposicoesFinais.data>
+<escritorio.nomeEmMaiuscula> <escritorio.nome>
+<cliente.representanteLegal.nomeCompletoEmMaiuscula>
+<cliente.representanteLegal.nomeCompleto>
+<escritorio.nomeEmMaiuscula>
+<cliente.representanteLegal.nomeCompletoEmMaiuscula>
+<cliente.representanteLegal.nome>
+<escritorio.nome>
+<proposta.dataDaSolicitacao> <proposta.modoDeEnvio>
+<proposta.dataDeValidadePorExtenso> <proposta.dataDeValidade>
+<proposta.dataDeValidadePorExtenso>
+<disposicoesFinais.advogadoPrincipal.nome>
+
+<escritorio.numeroDeAdvogadosPorExtenso>
+<escritorio.numeroDeAdvogados>
+<escritorio.numeroDeEstagiariosPorExtenso>
+<escritorio.numeroDeEstagiarios>
+<escritorio.nome> <escritorio.nome>
+<escritorio.nome> <escritorio.tempoDeAtuacao>
+<escritorio.numeroDeAdvogadosPorExtenso> 
+<escritorio.numeroDeEstagiariosPorExtenso>
+<escritorio.nome>
+<proposta.haveraPrestacaoDeServicosExtrajudiciais>
+<proposta.haveraPrestacaoDeServicosExtrajudiciais>
+<cliente.nome>
+<area>
+<area> 
+<escritorio.nome>
+<proposta.servicosConsultoriaPrestados>
+
+<membro>
+<membro.nome> <membro.cargo> <membro.temEmail> <membro.email>
+
+
+
+<proposta.tipoDePrestacao>
+
+<pgtoMensal.numDeSalMinPorExtenso>
+<pgtoMensal.numDeSalMin>
+<pgtoMensal.valorSalMinPorExtenso>
+<pgtoMensal.valorSalMin>
+<pgtoMensal.total> <pgtoMensal.valorSalMin> <pgtoMensal.numDeSalMin>
+<pgtoMensal.total> <pgtoMensal.total>
+<pgtoMensal.totalPorExtenso>
+<pgtoMensal.total>
+<pgtoMensal.numDeSalMinPorExtenso>
+<pgtoMensal.valorSalMin> <pgtoMensal.valorSalMinPorExtenso>
+<pgtoMensal.total> <pgtoMensal.totalPorExtenso>
+
+<pgtoProj.horasTrabalhadas> <pgtoProj.horasTrabalhadas>
+<pgtoProj.total> <pgtoProj.horasTrabalhadas> <pgtoProj.valorDaHora>
+<pgtoProj.total> <pgtoProj.total>
+<pgtoProj.totalPorExtenso> <pgtoProj.totalPorExtenso>
+<pgtoProj.horasTrabalhadas>
+<pgtoProj.valorDaHora> <pgtoProj.valorDaHoraPorExtenso>
+<pgtoProj.total> <pgtoProj.totalPorExtenso>
+
+
+
+
+<contrato.validadePorExtenso> <contrato.validade>
+<contrato.validade> <contrato.validadePorExtenso>
+<escritorio.nome>
+<proposta.validade>
+<proposta.desejaAdicionarServicosAdicionais>
+<servico>
+<servico>
+
+
+
+
+
+<disposicoesFinais.advogadoPrincipal.nome>

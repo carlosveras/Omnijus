@@ -1,0 +1,48 @@
+template[TEMP_Agregacao_CSR] { 
+	metainfo { 
+		language = "pt_BR"
+		name = "Agregação - CSR - Vector"
+		declarations {
+			+|pessoa| : Vector[Struct] {
+				name = "PJ"
+				id = [nome] & ", inscrito no CNPJ " & [cnpj] & ", com a razão social " & [razaoSocial] & ", residente na " & [end]
+				fields {
+					+[nome] : String {
+						name = "Nome"
+					},
+					+[cnpj] : Integer {
+						name = "CNPJ"
+					},
+					+[razaoSocial] : String {
+						name = "Razão Social"
+					},
+					+[end] : Struct {
+						name = "Endereço"
+						fields {
+							+[rua] : String {
+								name = "Rua"
+							},
+							+[numero] : String {
+								name = "Número"
+							},
+							+[cidade] : String {
+								name = "Cidade"
+							},
+							+[uf] : String {
+								name = "UF"
+							}
+						}
+					}
+				}
+			}
+		} 
+	} 
+	head { 
+		title = "Teste Vector" 
+ 	} 
+ 	body {
+		operations {
+			print |pessoa|
+		}
+ 	}
+}

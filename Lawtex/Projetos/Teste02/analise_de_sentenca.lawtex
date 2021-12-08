@@ -1,0 +1,274 @@
+template[TEMP_Analise_De_Sentenca] { 
+	metainfo { 
+		language = "pt_BR"
+		name = "Analise de Sentença"
+		declarations {
+			list[Acolhida_ou_rejeitada] {
+				options = (
+					 "Foi acolhida",
+					 "Foi rejeitada",
+					 "Não foi apreciada"
+				)
+				type = "String"
+			},
+			
+            +<dados_do_cliente> : Document[Dados_do_cliente_picpay] {
+				name = "Dados do Cliente"
+				request = "Selecione o template Dados do Cliente"
+		    },
+			+<produtos> : Document[Produtos_picpay] {
+				name = "Produtos Picpay"
+				request = "Selecione o template Produtos"
+		    },
+			//hipotese1
+		    +<diferente_de_adicao_nao_concluida_vicios_de_sentenca> : Struct {
+		        name = "Vicios de sentença"
+				fields {
+					+[alegacao_de_vedacao] : List[Acolhida_ou_rejeitada] {
+						  request = "Sobre a alegação de vedação de comportamento contraditório contida na contestação, informe: "
+		                  atomic = true 
+					},
+					+[alegacao_de_inexistenca] : List[Acolhida_ou_rejeitada] {
+						  request = "Sobre a alegação de inexistência de descumprimento contratual contida na contestação, informe: "
+		                  atomic = true 
+					},
+					+[alegacao_a_mero_descumprimento] : List[Acolhida_ou_rejeitada] {
+						  request = "Sobre a alegação de que mero descumprimento contratual não gera dano moral contida na contestação, informe: "
+		                  atomic = true 
+					},
+					if([alegacao_de_vedacao] == "Foi rejeitada" OR 
+					   [alegacao_de_inexistenca] == "Foi rejeitada" OR 
+					   [alegacao_a_mero_descumprimento] == "Foi rejeitada") {
+						+[condenacao_contida_na_sentenca] : List(
+							"Foi fixada indenização por danos morais",
+							"Foi fixada indenização por danos materiais",
+							"Não houve fixação de indenização",
+							"Outros") {
+						    request = "Sobre a condenação contida na sentença, informe:"
+		                    atomic = false 
+					        },
+					        if([condenacao_contida_na_sentenca] == "Foi fixada indenização por danos morais") {
+					        	+[condenacao_danos_morais] : Struct {
+					        		name = "Condenação por Danos Morais"
+					        		fields {
+					        			+[valor_dano_moral] : Currency {
+					        				request = "Indique o valor da condenação em danos morais"
+					        			},
+					        			+[sobre_condenacao_danos_morais] : List(
+					        				"A sentença menciona a utilização da proporcionalidade e razoabilidade na fixação da condenação",
+					        				"O valor fixado a título de indenização é maior que o pleiteado na petição inicial",
+					        				"O pedido de dano moral foi formulado de forma genérica") {
+					        				request = "Sobre a condenação em danos morais, informe: "
+					        				atomic = false
+					        			}
+					        		}
+					        	}
+					        },
+					        if([condenacao_contida_na_sentenca] == "Foi fixada indenização por danos materiais") {
+					        	+[condenacao_danos_materiais] : Struct {
+					        		name = "Condenação por Danos Materiais"
+					        		fields {
+					        			+[sobre_condenacao_danos_materiais] : List(
+					        				"O valor fixado a título de indenização é maior que os prejuízos indicados na petição inicial",
+					        				"O valor fixado a título de indenização não guarda relação com o valor indicado na petição inicial",
+					        				"Não foi fixada indenização por danos materiais") {
+					        			request = "Sobre a indenização a título de danos materiais, informe: "
+					        			atomic = true
+					        			},
+						        		if([sobre_condenacao_danos_materiais] ~= "Não foi fixada indenização por danos materiais") {
+						        			+[valor_danos_materiais] : Currency {
+						        				request = "Indique o valor dos danos materiais fixados na sentença"
+						        			}
+						        		}		
+					        		}
+					        	}
+					        }	
+					   	}
+				}
+			},
+			+<diferente_de_adicao_nao_concluida_resultado_do_julgamento> : Struct {
+				name = "Resultado do julgamento"
+				fields {
+					+[resultado_do_julgamento] : List(
+						"Procedente",
+						"Improcedente",
+						"Parcialmente procedente") {
+						request = "Indique o resultado do julgamento:"
+						atomic = true 
+						}
+		        }
+			},
+
+			//hipotese2 
+			+<adicao_nao_concluida> : Struct {
+               	name = "Vicios da sentença"
+			   	fields {
+                    +[mero_descumprimento_contratual] : List[Acolhida_ou_rejeitada] {
+						  request = ": Sobre a alegação de que mero descumprimento contratual não gera dano moral contida na contestação, informe: "
+		                  atomic = true 
+					},
+					if([mero_descumprimento_contratual] == "Foi rejeitada") {
+						+[condenacao_sentenca] : List("Foi fixada indenização por danos morais",
+							"Foi fixada indenização por danos materiais",
+							"Não houve fixação de indenização",
+							"Outros"
+							) {
+							request = "Sobre a condenação contida na sentença, informe: "
+							atomic = false
+							}
+					},
+					//if([condenacao_sentenca] == "Não houve fixação de indenização" OR
+						//[condenacao_sentenca] == "Outros") {
+						//Avisar a arquitetura
+					//}
+					if([condenacao_sentenca] == "Foi fixada indenização por danos morais") {
+						+[condenao_danos_morais_2] : Currency {
+							request = "Indique o valor da condenação em danos morais"
+						},
+						+[sobre_condenacao_danos_morais_2] : List("A sentença menciona a utilização da proporcionalidade e razoabilidade na fixação da condenação",
+							"O valor fixado a título de indenização é maior que o pleiteado na petição inicial",
+							"O pedido de dano moral foi formulado de forma genérica"
+							) {
+							request = "Sobre a condenação de pagamento por danos morais, informe: "
+							atomic = false
+						}
+					},
+					if([condenacao_sentenca] == "Foi fixada indenização por danos materiais") {
+						+[sobre_condenacao_danos_materiais_2] : List("O valor fixado a título de indenização é maior que os prejuízos indicados na petição inicial",
+							"O valor fixado a título de indenização não guarda relação com o valor indicado na petição inicial",
+							"Não foi fixada indenização por danos materiais"
+							) {
+							request = "Sobre a indenização a título de danos materiais, informe: "
+							atomic = true
+						}
+					},
+					if([condenacao_sentenca] ~= "Não foi fixada indenização por danos materiais") {
+						+[valor_danos_materiais_2] : Currency {
+							request = "Indique o valor dos danos materiais fixados na sentença"
+						}
+					}
+			   	}
+			},   	
+			+<adicao_nao_concluida_resultado_do_julgamento> : Struct {
+				name = "Resultado do julgamento"
+				fields {
+					+[resultado_do_julgamento] : List(
+						"Procedente",
+						"Improcedente",
+						"Parcialmente procedente") {
+						request = "Indique o resultado do julgamento:"
+						atomic = true 
+						}
+					}
+			},
+			//CASH OUT
+			+<cash_out> : Struct {
+				name = "Vicios da sentença"
+				fields {
+					+[mero_descumprimento_contratual] : List[Acolhida_ou_rejeitada] {
+						request = "Sobre a alegação de que mero descumprimento contratual não gera dano moral contida na contestação, informe:"
+						atomic = true
+					},
+					if([mero_descumprimento_contratual] == "Foi refeitada") {
+						+[condenacao_contida_na_sentenca_1] : List("Foi fixada indenização por danos morais",
+							"Foi fixada indenização por danos materiais",
+							"Não houve fixação de indenização",
+							"Outros"
+							) {
+							request = "Sobre a condenação contida na sentença, informe: "
+							atomic = false
+							}	
+					},	
+					//if([condenacao_contida_na_sentenca_1] == "Outros") {
+							//avisar arquiterura
+					//}
+					if([condenacao_contida_na_sentenca_1] == "Foi fixada indenização por danos morais") {
+						+[condenacao_danos_morais_3] : Struct {
+							name = "Condenação Danos Morais"
+							fields {
+								+[valor_dano_moral_3] : Currency {
+									request = "Indique o valor da condenação em danos morais"
+								},
+								+[sobre_condenacao_danos_morais_3] : List("A sentença menciona a utilização da proporcionalidade e razoabilidade na fixação da condenação",
+									"O valor fixado a título de indenização é maior que o pleiteado na petição inicial",
+									"O pedido de dano moral foi formulado de forma genérica"
+									) {
+									request = "Sobre a condenação em danos morais, informe: "
+									atomic = false
+								}
+							}
+						}
+					},
+					if([condenacao_contida_na_sentenca_1] == "Foi fixada indenização por danos materiais") {
+						+[condenacao_danos_materiais_3] : List("O valor fixado a título de indenização é maior que os prejuízos indicados na petição inicial",
+							"O valor fixado a título de indenização não guarda relação com o valor indicado na petição inicial",
+							"Não foi fixada indenização por danos materiais"
+							) {
+							request = "Sobre a indenização a título de danos materiais, informe: "
+							atomic = true
+							}
+					},
+					if([condenacao_contida_na_sentenca_1] ~= "Não foi fixada indenização por danos materiais") {
+						+[valor_danos_materiais_3] : Currency {
+							request = "Indique o valor dos danos materiais fixados na sentença"
+						}
+					}
+				}	
+			},
+			+<cash_out_resultado_do_julgamento> : Struct {
+				name = "Resultado do julgamento"
+				fields {
+					+[resultado_do_julgamento] : List(
+						"Procedente",
+						"Improcedente",
+						"Parcialmente procedente") {
+						request = "Indique o resultado do julgamento:"
+						atomic = true 
+						}
+					}
+			},	
+			branch[Cash_in] {
+				operations {
+                   	<dados_do_cliente$Metainfo:dados_do_cliente>.ask(),
+				    <produtos$Metainfo:produtos_pic_pay>.ask(),
+			          	if(<dados_do_cliente$Metainfo:dados_do_cliente.assunto_envolvido_no_processo>
+					    	== "Depósito efetuado na própria carteira do cliente (Cash In)") {
+                            if(<produtos$Metainfo:deposito_efetuado_na_propria_carteira.causa_raiz> ~= "Adição não concluída") {
+								//hipotese1
+							    <diferente_de_adicao_nao_concluida_vicios_de_sentenca>,
+								<diferente_de_adicao_nao_concluida_resultado_do_julgamento>
+							}
+							else {
+								//hipotese2
+                                <adicao_nao_concluida>	
+							}
+					   	}
+		    	}
+			},
+			branch[Cash_out] {
+				operations {
+					<dados_do_cliente$Metainfo:dados_do_cliente>.ask(),
+					<produtos$Metainfo:produtos_pic_pay>.ask(),
+						if(<dados_do_cliente$Metainfo:dados_do_cliente.assunto_envolvido_no_processo>
+							== "Saque caixa eletrônico (Cash Out)" OR
+							<dados_do_cliente$Metainfo:dados_do_cliente.assunto_envolvido_no_processo>
+							== "Conta já criada em nome do cliente, sem sua autorização") {
+								//hipotese1
+								<diferente_de_adicao_nao_concluida_vicios_de_sentenca>,
+								<diferente_de_adicao_nao_concluida_resultado_do_julgamento>
+						}
+				}
+			}
+		} 
+	} 
+	head { 
+		title = "..." 
+ 	} 
+ 	body {
+		operations {
+			use branch[Cash_in],
+			use branch[Cash_out]
+
+		}
+ 	}
+}

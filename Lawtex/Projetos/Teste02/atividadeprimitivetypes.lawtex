@@ -1,0 +1,24 @@
+template[TEMP_PrimitiveTypes_CSR] { 
+	metainfo { 
+		language = "pt_BR"
+		name = "Exercicios de tipos primitivos - CSR"
+		declarations {
+			+<s> : String,
+			+<t> : Text,
+			+<b> : Boolean,
+			+<i> : Integer,
+			+<r> : Real, 
+			+<c> : Currency,
+			+<d> : Date,
+			+<h> : Time
+		} 
+	} 
+	head { 
+		title = "Tipos primitivos de operandos" 
+ 	} 
+ 	body {
+		operations {
+			print <s> & ", " & <t> & ", " & <b> & ", " & <i> & ", " & <r> & ", " & ", " & <d> & ", " & <h>
+		}
+ 	}
+}

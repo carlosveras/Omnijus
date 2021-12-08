@@ -159,7 +159,9 @@ animation-name: mat-progress-spinner-stroke-rotate-100; stroke-dasharray: 282.74
 
 /html/body/app-root/main/div/app-visualizador/div/mat-spinner/svg/circle
 
-
+<----- ultimos XPATH´s inspecionados ----->
+ 
+//.[contains(text(),'último Movimento')]/following::td[1]/a[1]
 
 -------------------------------------------
 https://www3.tjrj.jus.br/segweb/faces/login.jsp?indGet=true&SIGLASISTEMA=PORTALSERVICOS
@@ -357,6 +359,27 @@ processo com varios personagens: 0044273642021 8.19.0021
 0030633-40.2021.8.19.0038
 0006843-30.2021.8.19.0037
 
+
+<--- numeros levantados no banco ---->
+
+0012148-76.2021.8.19.0204
+0012365-16.2021.8.19.0206 --nao 
+0012542-68.2021.8.19.0209
+0012765-98.2021.8.19.0054
+0012770-23.2021.8.19.0054
+0012819-08.2021.8.19.0202
+0012841-25.2021.8.19.0054
+0012885-88.2021.8.19.0007
+0012887-37.2021.8.19.0014
+0012932-35.2021.8.19.0210
+0012941-03.2021.8.19.0208
+0012948-89.2021.8.19.0209
+
+
+
+
+
+
 <--- QUERYS AUXILIARES --->
 
 SELECT top 1000 p.Numero, p.IdInstanciaTribunal, p.Forum, p.Distribuicao
@@ -478,9 +501,6 @@ processo com varios personagens: 0044273-64.2021.8.19.0021
 listar todos os personagens:
 //span[text()='Listar todos os personagens']
 
-
-
-
 combo personagens:
 //.[@class='autocomplete-serventia focus ng-untouched ng-pristine ng-valid']
 var comboPersonagens = janelaNova.FindElement(By.XPath("//.[@class='autocomplete-serventia focus ng-untouched ng-pristine ng-valid']"));
@@ -488,8 +508,6 @@ comboPersonagens.Click();
 System.Threading.Thread.Sleep(2000);
 
 //.[@class='ng-tns-c57-2 p-dropdown-label p-inputtext ng-star-inserted']
-
-
 
 
 requerente:
@@ -513,6 +531,14 @@ advogados:
 
 botao voltar a pesquisar:
 //.[contains(text(),'Voltar')]
+
+
+<---- dados dos movimentos ---->
+//.[contains(text(),'Tipo do Movimento:')]
+
+
+<---- fim dados dos movimentos --->
+
 
 Palavras de exclusao
 
