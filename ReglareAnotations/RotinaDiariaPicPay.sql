@@ -8,8 +8,9 @@ senha: Mudar@123
 
 1-Realizar captura com robo da maquina 34 -- 172.13.0.15
 
-2-Pegar email do dia anterior e conferir os processos 
-  da planilha com o que capturamos utilizar a query abaixo
+2-Pegar email do dia anterior, este e-mail chega em torno das 8:00hrs
+  e conferir os processos da planilha com o que capturamos.
+  utilizar a query abaixo:
 
 select pro.id as idprocesso
 		,ttp.Numero
@@ -28,14 +29,36 @@ where ttp.Numero = pro.Numero
 and ttp.IdSolicitacaoCaptura = pro.IdSolicitacaoCaptura
 and ttp.NomeParte like 'PIC%'
 and ttp.CriadoEm >= '2021-10-01 00:00:00'
---and (select count(1) from HistoricoStatusProcesso hsp where hsp.idprocesso = pro.Id and hsp.IdStatus = 21) = 0
 and pro.Numero in 
-('5018802-22.2021.8.08.0035',
-'5000909-27.2021.8.08.0032',
-'0801943-27.2021.8.19.0083')
+('5012433-81.2021.8.08.0012',
+'5027969-96.2021.8.08.0024',
+'0801616-13.2021.8.19.0203',
+'0801439-25.2021.8.19.0211',
+'0801427-11.2021.8.19.0211',
+'0804241-81.2021.8.19.0021',
+'0803500-17.2021.8.19.0029',
+'5018841-77.2021.8.08.0048')
 order by ttp.CriadoEm desc
 
-3- Antes de executar o disponibilizarDistribuicao, verificar se 
+3- Rodar a query abaixo e se certificar 
+   que so retornem status 2.
+   Se retornar registro com status 10, 
+   basta rodar na maquina final 15 ou na 16 a rotina 
+   CapturarProcesso.
+   
+   select sc.Descricao,
+		pro.IdSolicitacaoCaptura, 
+		pro.IdStatus, 
+		count(1) as qutdade
+  from processo pro
+		,SolicitacaoCaptura sc
+where pro.IdSolicitacaoCaptura in (8764,8866,8765,8867,8868,8840,8869,8870,8881,8882,8883)
+and pro.IdSolicitacaoCaptura = sc.Id
+and pro.IdStatus != 9
+group by sc.Descricao, pro.IdSolicitacaoCaptura, pro.IdStatus
+order by sc.Descricao,pro.IdSolicitacaoCaptura, pro.IdStatus
+
+4- Antes de executar o disponibilizarDistribuicao, verificar se 
    forum, vara e comarca estao com a nomeclatura certa com base
    no campo orgaojulgador, utilizar a query abaixo:
 
@@ -45,7 +68,7 @@ select pro.id as idprocesso
 		,ttp.CriadoEm
 		,pro.IdSolicitacaoCaptura
 		,(select count(1) from HistoricoStatusProcesso hsp where hsp.idprocesso = pro.Id and hsp.IdStatus = 15) as DMB
-		,(select count(1) from HistoricoStatusProcesso hsp where hsp.idprocesso = pro.Id and hsp.IdStatus = 5) as DPZ
+		,(select count(1) from HistoricoStatusProcesso hsp where hsp.idprocesso = pro.Id and hsp.IdStatus = 5)  as DPZ
 		,(select count(1) from HistoricoStatusProcesso hsp where hsp.idprocesso = pro.Id and hsp.IdStatus = 21) as ITG
         ,pro.Forum
 		,pro.Vara
@@ -56,12 +79,13 @@ select pro.id as idprocesso
 where ttp.Numero = pro.Numero
 and ttp.IdSolicitacaoCaptura = pro.IdSolicitacaoCaptura
 and ttp.NomeParte like 'PIC%'
-and ttp.CriadoEm >= '2021-10-01 00:00:00'
+and ttp.CriadoEm >= '2021-11-01 00:00:00'
 and (select count(1) from HistoricoStatusProcesso hsp where hsp.idprocesso = pro.Id and hsp.IdStatus = 21) = 0
 order by ttp.CriadoEm desc
 
-/*
--- encontrar anteriores para correcao de forum vara e comarca
+
+ Query para encontrar anteriores para correcao 
+ de forum vara e comarca
 
 select top 100 *
   from Processo p
@@ -69,11 +93,8 @@ select top 100 *
 order by id desc
 
 
---3º Juizado Especial Cível da Comarca de Duque de Caxias
+ Para alterar os campos se necessario.
 
-*/
-
-/*
 begin transaction
 
 update Processo
@@ -84,140 +105,8 @@ set
 where id = 1889200
 
 commit transaction
-*/
 
-   SE NAO ESTIVER CORRETO OS CAMPOS FORUM VARA E COMARCA,
-   PEGAR PELO ORGAO JULGADOR E DESMEMBRAR O CONTEUDO NOS 3 CAMPOS
-   E FAZER O UPDTE NA BASE.
-
-begin transaction
-
-update Processo
-set 
-	vara = '17º Juizado Especial Cível'
-	,forum = 'Bangu'
-	,comarca = 'Capital'
-where id in (1889138)
-
-commit transaction
-
-begin transaction
-
-update Processo
-set 
-	vara = '12º JUIZADO ESPECIAL CÍVEL'
-	,forum = 'Méier'
-	,comarca = 'Capital'
-where id in (1889138)
-
-commit transaction
-
---14º Juizado Especial Cível da Regional de Jacarepaguá
---17º Juizado Especial Cível da Regional de Bangu
---12º Juizado Especial Cível da Regional do Méier
---20º Juizado Especial Cível da Regional da Ilha do Governador
---2º Juizado Especial Cível da Comarca de São Gonçalo
-
-
-JUIZADO ESPECIAL CÍVEL, CRIMINAL E FAZENDA PÚBLICA	NOVA VENÉCIA	NOVA VENÉCIA	Nova Venécia - Juizado Especial Cível, Criminal e Fazenda Pública
-
-1	1889147	0800577-81.2021.8.19.0202	2	15º Juizado Especial Cível	Madureira	Capital	   15º Juizado Especial Cível da Regional de Madureira
-2	1889140	0801186-61.2021.8.19.0203	2	14º Juizado Especial Cível	Jacarepaguá	Capital	   14º Juizado Especial Cível da Regional de Jacarepaguá
-3	1889138	0803011-37.2021.8.19.0204	2	17º Juizado Especial Cível	Bangu	    Capital	   17º Juizado Especial Cível da Regional de Bangu
-4	1889141	0807631-14.2021.8.19.0036	2	1º JUIZADO ESPECIAL CÍVEL	NILÓPOLIS	NILÓPOLIS	1º Juizado Especial Cível da Comarca de Nilópolis
-5	1889139	5007309-63.2021.8.08.0030	2	2º JUIZADO ESPECIAL CÍVEL	LINHARES	LINHARES	Linhares - 2º Juizado Especial Cível
-
-<------------------------------------->
-
-0- ANTES DE RODAR O DISPONIBILIZARDISTRIBUICAO VERIFICAR SE FORUM VARA E COMARCA ESTA CORRETOS!!
-
-select pro.id		
-	,pro.Numero
-	,pro.IdStatus
-	,pro.Vara
-	,pro.Forum
-	,pro.Comarca
-	,pro.OrgaoJulgador
-  from processo pro
-where pro.numero in 
-('0800577-81.2021.8.19.0202',
-'0801186-61.2021.8.19.0203',
-'5007309-63.2021.8.08.0030',
-'0807631-14.2021.8.19.0036')
-
-
-4- SE NAO ESTIVER CORRETO OS CAMPOS FORUM VARA E COMARCA,
-   PEGAR PELO ORGAO JULGADOR E DESMEMBRAR O CONTEUDO NOS 3 CAMPOS
-   E FAZER O UPDTE NA BASE.
-
-begin transaction
-
-update Processo
-set 
-	vara = '17º Juizado Especial Cível'
-	,forum = 'Bangu'
-	,comarca = 'Capital'
-where id in (1889138)
-commit transaction
---14º Juizado Especial Cível da Regional de Jacarepaguá
---17º Juizado Especial Cível da Regional de Bangu
-JUIZADO ESPECIAL CÍVEL, CRIMINAL E FAZENDA PÚBLICA	NOVA VENÉCIA	NOVA VENÉCIA	Nova Venécia - Juizado Especial Cível, Criminal e Fazenda Pública
-
-1	1889147	0800577-81.2021.8.19.0202	2	15º Juizado Especial Cível	Madureira	Capital	   15º Juizado Especial Cível da Regional de Madureira
-2	1889140	0801186-61.2021.8.19.0203	2	14º Juizado Especial Cível	Jacarepaguá	Capital	   14º Juizado Especial Cível da Regional de Jacarepaguá
-3	1889138	0803011-37.2021.8.19.0204	2	17º Juizado Especial Cível	Bangu	    Capital	   17º Juizado Especial Cível da Regional de Bangu
-4	1889141	0807631-14.2021.8.19.0036	2	1º JUIZADO ESPECIAL CÍVEL	NILÓPOLIS	NILÓPOLIS	1º Juizado Especial Cível da Comarca de Nilópolis
-5	1889139	5007309-63.2021.8.08.0030	2	2º JUIZADO ESPECIAL CÍVEL	LINHARES	LINHARES	Linhares - 2º Juizado Especial Cível
-
-Cariacica - Comarca da Capital - 4º Juizado Especial Cível
-Vila Velha - Comarca da Capital - 2º Juizado Especial Cível
-
-
-begin transaction
-
-update Processo
-set 
-	vara = '26º JUIZADO ESPECIAL CÍVEL'
-	,forum = 'CAMPO GRANDE'
-	,comarca = 'CAPITAL'
-where id in (1889138)
-commit transaction
-
-26º Juizado Especial Cível da Regional de Campo Grande
-
-1- CONFERIR PLANILHA VINDA DA OITO PARA CONFRONTAR CAPTURAS COM O QUE FOI CAPTURADO 
-   PELA NOSSA FERRAMENTA E PELA FERRAMENTA EXTERNA
-   USAR A QUERY ABAIXO PARA REALIZAR O CONFRONTO DE DADOS
- 
-select pro.id as idprocesso
-		,ttp.Numero
-		,pro.IdStatus as IdProcesso
-		,pro.Distribuicao
-		,ttp.CriadoEm
-		,(select count(1) from HistoricoStatusProcesso hsp where hsp.idprocesso = pro.Id and hsp.IdStatus = 15) as Desmenbrado
-		,(select count(1) from HistoricoStatusProcesso hsp where hsp.idprocesso = pro.Id and hsp.IdStatus = 5) as DisponibilizadoS3
-		,(select count(1) from HistoricoStatusProcesso hsp where hsp.idprocesso = pro.Id and hsp.IdStatus = 21) as IntegradoOmnijus
-		,pro.IdEquipamentoProcessamento
-		,pro.PossuiDocumento
-		,pro.IdSolicitacaoCaptura
-		,pro.Area
-  from TermoTribunalProcesso ttp
-		,Processo pro
-where ttp.Numero = pro.Numero
-and ttp.IdSolicitacaoCaptura = pro.IdSolicitacaoCaptura
-and ttp.NomeParte like 'PIC%'
-and ttp.CriadoEm >= '2021-09-01 00:00:00'
---and (select count(1) from HistoricoStatusProcesso hsp where hsp.idprocesso = pro.Id and hsp.IdStatus = 21) = 0
-and pro.Numero in 
-('0800577-81.2021.8.19.0202',
-'0801186-61.2021.8.19.0203',
-'5007309-63.2021.8.08.0030',
-'0807631-14.2021.8.19.0036')
-
-order by ttp.CriadoEm desc
-
-
-2- TIRAR OS ESPACOS EM BRANCO DO FORUM VARA E COMARCA
+5- TIRAR OS ESPACOS EM BRANCO DO FORUM VARA E COMARCA
 
 begin transaction
 update processo
@@ -231,51 +120,6 @@ where numero in (
 '5007309-63.2021.8.08.0030',
 '0807631-14.2021.8.19.0036')
 commit transaction
-
-
-3- QUERY PARA VALIDAR SE FORUM VARA E COMARCA ESTAO CORRETOS
-
-select pro.id		
-	,pro.Numero
-	,pro.IdStatus
-	,pro.Vara
-	,pro.Forum
-	,pro.Comarca
-	,pro.OrgaoJulgador
-  from processo pro
-where pro.numero in 
-('0800577-81.2021.8.19.0202',
-'0801186-61.2021.8.19.0203',
-'5007309-63.2021.8.08.0030',
-'0807631-14.2021.8.19.0036')
-
-
-4- SE NAO ESTIVER CORRETO OS CAMPOS FORUM VARA E COMARCA,
-   PEGAR PELO ORGAO JULGADOR E DESMEMBRAR O CONTEUDO NOS 3 CAMPOS
-   E FAZER O UPDTE NA BASE.
-
-begin transaction
-
-update Processo
-set 
-	vara = '17º Juizado Especial Cível'
-	,forum = 'Bangu'
-	,comarca = 'Capital'
-where id in (1889138)
-commit transaction
---14º Juizado Especial Cível da Regional de Jacarepaguá
---17º Juizado Especial Cível da Regional de Bangu
---Cariacica - Comarca da Capital - 2º Juizado Especial Cível
-
-1	1889147	0800577-81.2021.8.19.0202	2	15º Juizado Especial Cível	Madureira	Capital	   15º Juizado Especial Cível da Regional de Madureira
-2	1889140	0801186-61.2021.8.19.0203	2	14º Juizado Especial Cível	Jacarepaguá	Capital	   14º Juizado Especial Cível da Regional de Jacarepaguá
-3	1889138	0803011-37.2021.8.19.0204	2	17º Juizado Especial Cível	Bangu	    Capital	   17º Juizado Especial Cível da Regional de Bangu
-4	1889141	0807631-14.2021.8.19.0036	2	1º JUIZADO ESPECIAL CÍVEL	NILÓPOLIS	NILÓPOLIS	1º Juizado Especial Cível da Comarca de Nilópolis
-5	1889139	5007309-63.2021.8.08.0030	2	2º JUIZADO ESPECIAL CÍVEL	LINHARES	LINHARES	Linhares - 2º Juizado Especial Cível
-
-
-
-
 
 ----- MONITORAMENTO APOS EMAIL DAS 13:00 HRS
 
@@ -306,6 +150,7 @@ insert into #ativoOmnijus (numero) values
 ('5016462-66.2021.8.08.0048'),
 ('0007740-05.2021.8.19.0087'),
 ('0801391-72.2021.8.19.0209')
+
 --===============================================
 
 --===============================================
@@ -362,10 +207,8 @@ and pro.id = (select min(pro1.id)
                 where pro1.IdSolicitacaoCaptura = a.IdSolicitacaoCaptura)
 --==============================================
 
-
 drop table #ativoOmnijus
 --==============================================
-
 
 --======= QUERY PARA LEVANTAR FORUM VARA E COMARCA CORRIGIDOS
 --======= ANTERIORMENTE
@@ -382,7 +225,6 @@ select top 1000
  where p.OrgaoJulgador like '%Ilha do Governador%'
     or p.OrgaoJulgador like '%São Gonçalo%'
  order by id desc
- 
  
 --====== QUERY GERA PROCESSOS GENERICOS TJRJ SQL
 
