@@ -3,6 +3,50 @@ http://dashboard.omnijus.com.br:3000/d/2341bDBMzA/omnijus-operacional-producao?o
 login: carlos.silva
 senha: Mudar@123
 
+<-- observacao importante 18.12.2021 --->
+
+processo abaixo:
+1889317	PICPAY SERVICOS S.A	1	1	EMBARGANTE
+
+nao esta sendo disponibilizarDistribuicao pois o cliente é 
+EMBARGANTE
+
+<---- QUERY PARA RELATORIO WARLEY DIARIO ------------------>
+
+select 
+       p.Numero
+	  ,hsp.Data 
+	  ,tj.Sigla
+	  ,p.Vara
+  from HistoricoStatusProcesso hsp
+  join Processo p on p.id = hsp.IdProcesso 
+  join TribunalJustica tj on tj.Id = p.IdTribunalJustica
+where hsp.IdStatus = 2 --<-- Capturado
+--and cast(hsp.Data AS DATE) = '2021-12-17'
+and year(hsp.Data) = 2021
+and month(hsp.Data) = 12
+and day(hsp.Data) = 15
+order by hsp.Id desc
+
+<---- QUERY PARA ENCONTRAR MAIOR IDSTATUS POR GRUPO DE REGISTROS --->
+
+
+ WITH ranked_hsp AS (
+  SELECT m.*, ROW_NUMBER() OVER (PARTITION BY IdProcesso ORDER BY IdStatus DESC) AS rn
+  FROM HistoricoStatusProcesso AS m where m.IdProcesso in 
+ (1889321,
+1889318,
+1889317,
+1889315,
+1889312)
+)
+SELECT * FROM ranked_hsp 
+join StatusProcesso sp on sp.Id = ranked_hsp.IdStatus
+WHERE rn = 3; --<< escolher o rank 1,2,3 etc
+
+
+
+
 
 <---- Maquinas Ativas para captura e processamento PICPAY ---->
 
@@ -17,6 +61,7 @@ senha: Mudar@123
 1-Realizar captura com robo da maquina 34 -- 172.13.0.15
 
 2-Pegar email do dia anterior, este e-mail chega em torno das 8:00hrs
+  email -- PicPay - Processos Distribuídos
   e conferir os processos da planilha com o que capturamos.
   utilizar a query abaixo:
 
@@ -144,6 +189,7 @@ commit transaction
 
 ----- incluir processo no monitoramento
 -- com base em email recebido entre 13:00 
+-- Notificação: OMNIJUS - Processos Ativos PicPay
 --===============================================
 -- Cria a tabela temporario de trabalho
 --===============================================
@@ -576,7 +622,15 @@ and DataTermino is null
 
 <----- ROTINA PARA PEGAR PROCESSO TJRJ PROPRIO MANUALMENTE --->
 
+Na maquina que rodar esse procedimento, deve-se 
+rodar tambem o DesmembrarArquivo e TransferirProcesso,
+sempre lembrando que os projetos devem estar apontando
+para o ambiente de producao.
+
 --select * from SolicitacaoCaptura where id = 8863
+
+Colocar a frase abaixo na propriedade do projeto
+Capturar distribuicao para capturar o TJRJ Proprio
 --"Captura Distribuição - TJRJ - Generico"
 
 drop table #CapturaTJRJ
@@ -644,3 +698,123 @@ select *
   from solicitacaocaptura
 where id = 8863
 */ 
+
+
+---- query para pesquisar processos
+---- com base e-mail Notificação: OMNIJUS - Relatório de Movimentações PicPay
+
+
+---para testar tempo de execucao da query
+select top 200
+       pro.id 
+      ,pro.Numero
+      ,pro.Forum
+	  ,pro.Vara
+	  ,pro.OrgaoJulgador
+	  ,hsp.IdStatus
+	  ,sp.Descricao
+	  ,hsp.Data CriadoEm
+  from Processo pro
+  join HistoricoStatusProcesso hsp on hsp.IdProcesso = pro.id 
+  join StatusProcesso sp on sp.Id = hsp.IdStatus
+and hsp.IdStatus = 23
+--and cast(hsp.Data AS DATE) = '2021-12-17'
+and year(hsp.Data) = 2021
+and month(hsp.Data) = 12
+and day(hsp.Data) = 17
+order by hsp.Id desc
+
+
+
+
+
+
+select pro.id 
+      ,pro.Numero
+      ,pro.Forum
+	  ,pro.Vara
+	  ,pro.OrgaoJulgador
+	  ,hsp.IdStatus
+	  ,sp.Descricao
+	  ,cast(hsp.Data AS DATE) as CriadoEm
+  from Processo pro
+  join HistoricoStatusProcesso hsp on hsp.IdProcesso = pro.id 
+  join StatusProcesso sp on sp.Id = hsp.IdStatus
+where pro.Numero in
+('0006436-90.2021.8.19.0209',
+'0006851-82.2021.8.19.0206',
+'0029621-60.2021.8.19.0209',
+'0029856-39.2021.8.19.0205',
+'0038022-66.2021.8.19.0203',
+'0049204-13.2021.8.19.0021',
+'0800072-78.2021.8.19.0206',
+'0800776-52.2021.8.19.0025',
+'0801117-60.2021.8.19.0031',
+'0801131-70.2021.8.19.0087',
+'0801289-62.2021.8.19.0205',
+'0801517-34.2021.8.19.0206',
+'0801922-47.2021.8.19.0052',
+'0801947-62.2021.8.19.0213',
+'0802586-36.2021.8.19.0066',
+'0802589-96.2021.8.19.0031',
+'0802616-85.2021.8.19.0029',
+'0802641-98.2021.8.19.0029',
+'0803500-17.2021.8.19.0029',
+'0804466-34.2021.8.19.0011',
+'0804898-80.2021.8.19.0002',
+'0805963-59.2021.8.19.0213',
+'0807007-06.2021.8.19.0087',
+'0807516-77.2021.8.19.0008',
+'0809500-06.2021.8.19.0038',
+'0809707-10.2021.8.19.0004',
+'0810247-67.2021.8.19.0001',
+'0813442-51.2021.8.19.0004',
+'0814636-95.2021.8.19.0001',
+'0830238-15.2021.8.19.0038',
+'0834083-55.2021.8.19.0038',
+'5005038-81.2021.8.08.0030',
+'5006510-20.2021.8.08.0030',
+'5014975-61.2021.8.08.0048',
+'5015543-77.2021.8.08.0048',
+'5017248-13.2021.8.08.0048',
+'5022937-13.2021.8.08.0024')
+and hsp.IdStatus = 23
+and cast(hsp.Data AS DATE) = '2021-12-16'
+--order by 
+--select * from StatusProcesso
+
+
+create table #CapturaOmnijus (numero varchar(30), CapturadoEm date)
+insert into #CapturaOmnijus (numero, CapturadoEm) values
+('0813948-36.2021.8.19.0001','2021-12-10'),
+('5028260-96.2021.8.08.0024','2021-12-10'),
+('5001957-64.2021.8.08.0050','2021-12-10'),
+('0801930-35.2021.8.19.0210','2021-12-10'),
+('0813993-40.2021.8.19.0001','2021-12-10'),
+('0804906-57.2021.8.19.0002','2021-12-10'),
+('0804898-80.2021.8.19.0002','2021-12-10'),
+('0311783-73.2021.8.19.0001','2021-12-10'),
+('0800832-39.2021.8.19.0202','2021-12-13'),
+('0801792-89.2021.8.19.0203','2021-12-13'),
+('0806136-14.2021.8.19.0042','2021-12-13'),
+('0802733-35.2021.8.19.0075','2021-12-13'),
+('0804656-64.2021.8.19.0021','2021-12-14'),
+('0807605-57.2021.8.19.0087','2021-12-14'),
+('0814299-09.2021.8.19.0001','2021-12-14'),
+('5001144-98.2021.8.08.0062','2021-12-14'),
+('5006013-33.2021.8.08.0021','2021-12-15'),
+('5001770-62.2021.8.08.0048','2021-12-15'),
+('5028935-59.2021.8.08.0024','2021-12-15'),
+('5019903-94.2021.8.08.0035','2021-12-15'),
+('5028800-47.2021.8.08.0024','2021-12-15'),
+('0814636-95.2021.8.19.0001','2021-12-15'),
+('0028255-07.2021.8.19.0202','2021-12-15'),
+('0804208-27.2021.8.19.0204','2021-12-16'),
+('0804265-45.2021.8.19.0204','2021-12-16'),
+('0813442-51.2021.8.19.0004','2021-12-16'),
+('0835918-78.2021.8.19.0038','2021-12-16'),
+('5012813-07.2021.8.08.0012','2021-12-16'),
+('5019521-62.2021.8.08.0048','2021-12-16'),
+('5028990-10.2021.8.08.0024','2021-12-16'),
+('5029260-34.2021.8.08.0024','2021-12-16')
+
