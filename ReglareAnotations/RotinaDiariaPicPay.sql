@@ -4,14 +4,11 @@ login: carlos.silva
 senha: Mudar@123
 
 <-- observacao importante 18.12.2021 --->
-
 processo abaixo:
-1889317	PICPAY SERVICOS S.A	1	1	EMBARGANTE
+1889317	PICPAY SERVICOS S.A	1	1	EMBARGANTE 0813598-39.2021.8.19.0004 --- > embargante
+nao esta sendo disponibilizarDistribuicao pois o cliente é EMBARGANTE
 
-nao esta sendo disponibilizarDistribuicao pois o cliente é 
-EMBARGANTE
-
-<---- QUERY PARA RELATORIO WARLEY DIARIO ------------------>
+<---- QUERY PARA RELATORIO WARLEY DIARIO --  CAPTURADOS REGLARE  -->
 
 select 
        p.Numero
@@ -21,32 +18,28 @@ select
   from HistoricoStatusProcesso hsp
   join Processo p on p.id = hsp.IdProcesso 
   join TribunalJustica tj on tj.Id = p.IdTribunalJustica
-where hsp.IdStatus = 2 --<-- Capturado
+ where hsp.IdStatus = 2 --<-- Capturado -- 21.Distribuido -- 23.Movimentado
 --and cast(hsp.Data AS DATE) = '2021-12-17'
 and year(hsp.Data) = 2021
 and month(hsp.Data) = 12
-and day(hsp.Data) = 15
+and day(hsp.Data) = 20
 order by hsp.Id desc
 
-<---- QUERY PARA ENCONTRAR MAIOR IDSTATUS POR GRUPO DE REGISTROS --->
-
+<---- QUERY PARA ENCONTRAR MAIOR IDSTATUS POR GRUPO DE REGISTROS DENTRO DE UMA DATA --->
 
  WITH ranked_hsp AS (
-  SELECT m.*, ROW_NUMBER() OVER (PARTITION BY IdProcesso ORDER BY IdStatus DESC) AS rn
-  FROM HistoricoStatusProcesso AS m where m.IdProcesso in 
- (1889321,
-1889318,
-1889317,
-1889315,
-1889312)
+  SELECT m.*,   ROW_NUMBER() OVER (PARTITION BY IdProcesso ORDER BY IdStatus DESC) AS rn
+  FROM HistoricoStatusProcesso AS m where cast(m.Data AS DATE) = '2021-12-20'
 )
-SELECT * FROM ranked_hsp 
-join StatusProcesso sp on sp.Id = ranked_hsp.IdStatus
-WHERE rn = 3; --<< escolher o rank 1,2,3 etc
-
-
-
-
+SELECT ranked_hsp.IdProcesso, 
+       ranked_hsp.Data, 
+	   ranked_hsp.IdStatus, 
+	   sp.Descricao, 
+	   p.Numero 
+  FROM ranked_hsp
+  join StatusProcesso sp on sp.Id = ranked_hsp.IdStatus
+  join Processo p on p.id = ranked_hsp.IdProcesso
+ WHERE rn = 1; --<< escolher o rank 1,2,3 etc
 
 <---- Maquinas Ativas para captura e processamento PICPAY ---->
 
@@ -86,6 +79,12 @@ and pro.Numero in
 ('5012433-81.2021.8.08.0012',
 '5027969-96.2021.8.08.0024',
 '5018841-77.2021.8.08.0048')
+
+0802435-29.2021.8.19.0209
+5029754-93.2021.8.08.0024
+0803493-76.2021.8.19.0206
+5005988-39.2021.8.08.0047
+
 order by ttp.CriadoEm desc
 
 3- Rodar a query abaixo e se certificar 
@@ -111,10 +110,6 @@ order by sc.Descricao,pro.IdSolicitacaoCaptura, pro.IdStatus
    esta maquina estiver down executar na maquina local 
    apontando a connection string para o banco de 
    producao.
-
-
-
-
 
 
 5- Antes de executar o disponibilizarDistribuicao, verificar se 
@@ -267,23 +262,6 @@ and pro.id = (select min(pro1.id)
 
 drop table #ativoOmnijus
 --==============================================
-
---======= QUERY PARA LEVANTAR FORUM VARA E COMARCA CORRIGIDOS
---======= ANTERIORMENTE
-
-select top 1000 
-        p.id		
-	   ,p.Numero
-	   ,p.IdStatus
-	   ,p.Vara
-	   ,p.Forum
-	   ,p.Comarca
-       ,p.OrgaoJulgador
-  from Processo p
- where p.OrgaoJulgador like '%Ilha do Governador%'
-    or p.OrgaoJulgador like '%São Gonçalo%'
- order by id desc
- 
  
 <------ PARA CAPTURAR PROCESSO TJRJ PROPRIO --------->
 
@@ -336,35 +314,7 @@ and IdStatus not in (9,2)
 
 select * from SolicitacaoCaptura where id = 8863
 
-/*
 
-update ProcessamentoCaptura
-   set DataTermino = getdate()
-where IdEquipamentoProcessamento = 39
-and DataTermino is null
-
-
-update EquipamentoProcessamento
-   set Address = 'A463A1513F02'
-where id = 39
---A463A1513F02
-
-select * 
-  from equipamentoprocessamentotribunal
-where idequipamentoprocessamento = 39
-and ativo = 1
-
-select * 
-  from equipamentoprocessamentotribunal
-where idequipamentoprocessamento = 39
-and idtribunal = 2
-
-update equipamentoprocessamentotribunal set ativo = 1 where id = 3858
-
-select *
-  from solicitacaocaptura
-where id = 8863
-*/
 
 <----- ROTINA PESQUISAR MOVIMENTACAO ------->
 
@@ -420,33 +370,12 @@ select pm.Numero
  left join Processo p on p.Numero = pm.Numero
 where cast(pm.CriadoEm AS DATE) = '2021-12-14'
 --and pm.Integrado <> 1
---where p.IdSolicitacaoCaptura in  ( 8764, 8765,8840, 8866, 8867,8868 ,8869, 8870)
+--where p.IdSolicitacaoCaptura in  (8764, 8765,8840, 8866, 8867,8868 ,8869, 8870)
 order by pm.AlteradoEm desc
 --group by pm.Descricao, pm.Numero
 
 
 /*
---=============================================
--- Ajusta a Maquina 21 para Processar
---=============================================
-update EquipamentoProcessamentoTribunal
-   set ativo = 0
-where IdEquipamentoProcessamento = 39
-
-update EquipamentoProcessamentoTribunal
-   set ativo = 1
-where IdEquipamentoProcessamento = 39
-and IdTribunal in (5008,2)
-and IdTecnologiaSite = 5
-and ativo = 0
-
-update EquipamentoProcessamentoTribunal
-   set ativo = 1
-where IdEquipamentoProcessamento = 39
-and IdTribunal in (2)
-and IdTecnologiaSite = 2
-and ativo = 0
---=============================================
 
 --===========================================
 -- Limpa o Processamento da Maquina
@@ -669,44 +598,13 @@ and IdStatus not in (9,2)
 
 select * from SolicitacaoCaptura where id = 8863
 
-/*
-
-update ProcessamentoCaptura
-   set DataTermino = getdate()
-where IdEquipamentoProcessamento = 39
-and DataTermino is null
-
-
-update EquipamentoProcessamento
-   set Address = 'A463A1513F02'
-where id = 39
---A463A1513F02
-
-select * 
-  from equipamentoprocessamentotribunal
-where idequipamentoprocessamento = 39
-and ativo = 1
-
-select * 
-  from equipamentoprocessamentotribunal
-where idequipamentoprocessamento = 39
-and idtribunal = 2
-
-update equipamentoprocessamentotribunal set ativo = 1 where id = 3858
-
-select *
-  from solicitacaocaptura
-where id = 8863
-*/ 
 
 
 ---- query para pesquisar processos
 ---- com base e-mail Notificação: OMNIJUS - Relatório de Movimentações PicPay
-
-
 ---para testar tempo de execucao da query
-select top 200
-       pro.id 
+
+select pro.id 
       ,pro.Numero
       ,pro.Forum
 	  ,pro.Vara
@@ -724,97 +622,58 @@ and month(hsp.Data) = 12
 and day(hsp.Data) = 17
 order by hsp.Id desc
 
+--------- QUERY PARA PLANILHA DIARIA - COMPARATIVO OITO x REGLARE
+drop table #CapturaOmnijus
+
+create table #CapturaOmnijus (numero varchar(30), CapturadoEm DATETIME)
+insert into #CapturaOmnijus (CapturadoEm, numero) values
+('2021-12-21 9:12:24','0802435-29.2021.8.19.0209'),
+('2021-12-21 9:23:19','5029754-93.2021.8.08.0024'),
+('2021-12-21 9:23:21','0803493-76.2021.8.19.0206'),
+('2021-12-21 9:23:19','5005988-39.2021.8.08.0047')
+
+select p.Numero, 
+       format(co.CapturadoEm, ('dd/MM/yyyy')) As CaptOito, 
+	   tj.Sigla,
+       format(hsp.Data, ('dd/MM/yyyy')) As CaptReglare,
+	   DATEDIFF(DAY, HSP.Data, co.CapturadoEm) as diasDif
+  from #CapturaOmnijus co
+ left join Processo p on p.Numero = co.numero
+ join HistoricoStatusProcesso hsp on hsp.IdProcesso = p.Id
+ join TribunalJustica tj on tj.Id = p.IdTribunalJustica
+where hsp.IdStatus = 2
+and p.vara is not null
+
+--------- QUERY PARA PLANILHA DIARIA - CAPTURADOS REGLARE
+
+select p.Numero, 
+       hsp.Data As CaptReglare,
+	   tj.Sigla
+  from HistoricoStatusProcesso hsp
+ join Processo p on p.Id = hsp.IdProcesso
+ join TribunalJustica tj on tj.Id = p.IdTribunalJustica
+where hsp.IdStatus = 2
+and cast(hsp.Data AS DATE) = '2021-12-21'
+and p.vara is not null
+
+-------- QUERY PARA A PLANILHA DIARIA - MOVIMENTOS REGLARE
+
+select p.Numero
+	  ,hsp.Data 
+	  ,tj.Sigla
+	  ,p.Vara
+  from HistoricoStatusProcesso hsp
+  join Processo p on p.id = hsp.IdProcesso 
+  join TribunalJustica tj on tj.Id = p.IdTribunalJustica
+ where hsp.IdStatus = 23 --<-- Capturado -- 21.Distribuido -- 23.Movimentado
+   and year(hsp.Data) = 2021
+   and month(hsp.Data) = 12
+   and day(hsp.Data) = 22
+ order by hsp.Id desc
 
 
 
 
 
-select pro.id 
-      ,pro.Numero
-      ,pro.Forum
-	  ,pro.Vara
-	  ,pro.OrgaoJulgador
-	  ,hsp.IdStatus
-	  ,sp.Descricao
-	  ,cast(hsp.Data AS DATE) as CriadoEm
-  from Processo pro
-  join HistoricoStatusProcesso hsp on hsp.IdProcesso = pro.id 
-  join StatusProcesso sp on sp.Id = hsp.IdStatus
-where pro.Numero in
-('0006436-90.2021.8.19.0209',
-'0006851-82.2021.8.19.0206',
-'0029621-60.2021.8.19.0209',
-'0029856-39.2021.8.19.0205',
-'0038022-66.2021.8.19.0203',
-'0049204-13.2021.8.19.0021',
-'0800072-78.2021.8.19.0206',
-'0800776-52.2021.8.19.0025',
-'0801117-60.2021.8.19.0031',
-'0801131-70.2021.8.19.0087',
-'0801289-62.2021.8.19.0205',
-'0801517-34.2021.8.19.0206',
-'0801922-47.2021.8.19.0052',
-'0801947-62.2021.8.19.0213',
-'0802586-36.2021.8.19.0066',
-'0802589-96.2021.8.19.0031',
-'0802616-85.2021.8.19.0029',
-'0802641-98.2021.8.19.0029',
-'0803500-17.2021.8.19.0029',
-'0804466-34.2021.8.19.0011',
-'0804898-80.2021.8.19.0002',
-'0805963-59.2021.8.19.0213',
-'0807007-06.2021.8.19.0087',
-'0807516-77.2021.8.19.0008',
-'0809500-06.2021.8.19.0038',
-'0809707-10.2021.8.19.0004',
-'0810247-67.2021.8.19.0001',
-'0813442-51.2021.8.19.0004',
-'0814636-95.2021.8.19.0001',
-'0830238-15.2021.8.19.0038',
-'0834083-55.2021.8.19.0038',
-'5005038-81.2021.8.08.0030',
-'5006510-20.2021.8.08.0030',
-'5014975-61.2021.8.08.0048',
-'5015543-77.2021.8.08.0048',
-'5017248-13.2021.8.08.0048',
-'5022937-13.2021.8.08.0024')
-and hsp.IdStatus = 23
-and cast(hsp.Data AS DATE) = '2021-12-16'
---order by 
---select * from StatusProcesso
 
-
-create table #CapturaOmnijus (numero varchar(30), CapturadoEm date)
-insert into #CapturaOmnijus (numero, CapturadoEm) values
-('0813948-36.2021.8.19.0001','2021-12-10'),
-('5028260-96.2021.8.08.0024','2021-12-10'),
-('5001957-64.2021.8.08.0050','2021-12-10'),
-('0801930-35.2021.8.19.0210','2021-12-10'),
-('0813993-40.2021.8.19.0001','2021-12-10'),
-('0804906-57.2021.8.19.0002','2021-12-10'),
-('0804898-80.2021.8.19.0002','2021-12-10'),
-('0311783-73.2021.8.19.0001','2021-12-10'),
-('0800832-39.2021.8.19.0202','2021-12-13'),
-('0801792-89.2021.8.19.0203','2021-12-13'),
-('0806136-14.2021.8.19.0042','2021-12-13'),
-('0802733-35.2021.8.19.0075','2021-12-13'),
-('0804656-64.2021.8.19.0021','2021-12-14'),
-('0807605-57.2021.8.19.0087','2021-12-14'),
-('0814299-09.2021.8.19.0001','2021-12-14'),
-('5001144-98.2021.8.08.0062','2021-12-14'),
-('5006013-33.2021.8.08.0021','2021-12-15'),
-('5001770-62.2021.8.08.0048','2021-12-15'),
-('5028935-59.2021.8.08.0024','2021-12-15'),
-('5019903-94.2021.8.08.0035','2021-12-15'),
-('5028800-47.2021.8.08.0024','2021-12-15'),
-('0814636-95.2021.8.19.0001','2021-12-15'),
-('0028255-07.2021.8.19.0202','2021-12-15'),
-('0804208-27.2021.8.19.0204','2021-12-16'),
-('0804265-45.2021.8.19.0204','2021-12-16'),
-('0813442-51.2021.8.19.0004','2021-12-16'),
-('0835918-78.2021.8.19.0038','2021-12-16'),
-('5012813-07.2021.8.08.0012','2021-12-16'),
-('5019521-62.2021.8.08.0048','2021-12-16'),
-('5028990-10.2021.8.08.0024','2021-12-16'),
-('5029260-34.2021.8.08.0024','2021-12-16')
 

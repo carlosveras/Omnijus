@@ -398,6 +398,23 @@ order by hsp.Id desc
 
 ---- fim query's epecificas para conferencia gravacao tabelas do sistema
 
+
+<---- QUERY PARA ENCONTRAR MAIOR IDSTATUS POR GRUPO DE REGISTROS DENTRO DE UMA DATA --->
+
+ WITH ranked_hsp AS (
+  SELECT m.*,   ROW_NUMBER() OVER (PARTITION BY IdProcesso ORDER BY IdStatus DESC) AS rn
+  FROM HistoricoStatusProcesso AS m where cast(m.Data AS DATE) = '2021-12-20'
+)
+SELECT ranked_hsp.IdProcesso, 
+       ranked_hsp.Data, 
+	   ranked_hsp.IdStatus, 
+	   sp.Descricao, 
+	   p.Numero 
+  FROM ranked_hsp
+  join StatusProcesso sp on sp.Id = ranked_hsp.IdStatus
+  join Processo p on p.id = ranked_hsp.IdProcesso
+ WHERE rn = 1; --<< escolher o rank 1,2,3 etc
+
 ---- query para pesquisar fase do processo por ultimo status
 
 select pro.id 
@@ -413,41 +430,6 @@ select pro.id
   join StatusProcesso sp on sp.Id = hsp.IdStatus
 where pro.Numero in
 ('0006436-90.2021.8.19.0209',
-'0006851-82.2021.8.19.0206',
-'0029621-60.2021.8.19.0209',
-'0029856-39.2021.8.19.0205',
-'0038022-66.2021.8.19.0203',
-'0049204-13.2021.8.19.0021',
-'0800072-78.2021.8.19.0206',
-'0800776-52.2021.8.19.0025',
-'0801117-60.2021.8.19.0031',
-'0801131-70.2021.8.19.0087',
-'0801289-62.2021.8.19.0205',
-'0801517-34.2021.8.19.0206',
-'0801922-47.2021.8.19.0052',
-'0801947-62.2021.8.19.0213',
-'0802586-36.2021.8.19.0066',
-'0802589-96.2021.8.19.0031',
-'0802616-85.2021.8.19.0029',
-'0802641-98.2021.8.19.0029',
-'0803500-17.2021.8.19.0029',
-'0804466-34.2021.8.19.0011',
-'0804898-80.2021.8.19.0002',
-'0805963-59.2021.8.19.0213',
-'0807007-06.2021.8.19.0087',
-'0807516-77.2021.8.19.0008',
-'0809500-06.2021.8.19.0038',
-'0809707-10.2021.8.19.0004',
-'0810247-67.2021.8.19.0001',
-'0813442-51.2021.8.19.0004',
-'0814636-95.2021.8.19.0001',
-'0830238-15.2021.8.19.0038',
-'0834083-55.2021.8.19.0038',
-'5005038-81.2021.8.08.0030',
-'5006510-20.2021.8.08.0030',
-'5014975-61.2021.8.08.0048',
-'5015543-77.2021.8.08.0048',
-'5017248-13.2021.8.08.0048',
 '5022937-13.2021.8.08.0024')
 and hsp.IdStatus = 23
 and cast(hsp.Data AS DATE) = '2021-12-16'
