@@ -598,6 +598,16 @@ and IdStatus not in (9,2)
 
 select * from SolicitacaoCaptura where id = 8863
 
+---- QUERY PARA MONTAR BASE ORGAOJULGADOR PARA PESQUISAR
+
+select distinct 
+       upper(p.vara) as VARA,  
+       upper(p.comarca) AS COMARCA,  
+	   upper(p.forum) AS FORUM,  
+	   upper(p1.OrgaoJulgador) AS ORGAOJULGADOR
+  from Processo p
+  join Processo p1 on p1.id = p.Id 
+ where p.OrgaoJulgador is not null
 
 
 ---- query para pesquisar processos
@@ -627,10 +637,10 @@ drop table #CapturaOmnijus
 
 create table #CapturaOmnijus (numero varchar(30), CapturadoEm DATETIME)
 insert into #CapturaOmnijus (CapturadoEm, numero) values
-('2021-12-21 9:12:24','0802435-29.2021.8.19.0209'),
-('2021-12-21 9:23:19','5029754-93.2021.8.08.0024'),
-('2021-12-21 9:23:21','0803493-76.2021.8.19.0206'),
-('2021-12-21 9:23:19','5005988-39.2021.8.08.0047')
+('2021-12-22 11:30:14','0056006-27.2021.8.19.0021'),
+('2021-12-22 09:16:11','0813691-02.2021.8.19.0004'),
+('2021-12-22 08:54:18','0803679-48.2021.8.19.0029'),
+('2021-12-22 08:54:17','5020530-98.2021.8.08.0035'),
 
 select p.Numero, 
        format(co.CapturadoEm, ('dd/MM/yyyy')) As CaptOito, 
