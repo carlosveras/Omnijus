@@ -8,23 +8,6 @@ processo abaixo:
 1889317	PICPAY SERVICOS S.A	1	1	EMBARGANTE 0813598-39.2021.8.19.0004 --- > embargante
 nao esta sendo disponibilizarDistribuicao pois o cliente é EMBARGANTE
 
-<---- QUERY PARA RELATORIO WARLEY DIARIO --  CAPTURADOS REGLARE  -->
-
-select 
-       p.Numero
-	  ,hsp.Data 
-	  ,tj.Sigla
-	  ,p.Vara
-  from HistoricoStatusProcesso hsp
-  join Processo p on p.id = hsp.IdProcesso 
-  join TribunalJustica tj on tj.Id = p.IdTribunalJustica
- where hsp.IdStatus = 2 --<-- Capturado -- 21.Distribuido -- 23.Movimentado
---and cast(hsp.Data AS DATE) = '2021-12-17'
-and year(hsp.Data) = 2021
-and month(hsp.Data) = 12
-and day(hsp.Data) = 20
-order by hsp.Id desc
-
 <---- QUERY PARA ENCONTRAR MAIOR IDSTATUS POR GRUPO DE REGISTROS DENTRO DE UMA DATA --->
 
  WITH ranked_hsp AS (
@@ -79,12 +62,6 @@ and pro.Numero in
 ('5012433-81.2021.8.08.0012',
 '5027969-96.2021.8.08.0024',
 '5018841-77.2021.8.08.0048')
-
-0802435-29.2021.8.19.0209
-5029754-93.2021.8.08.0024
-0803493-76.2021.8.19.0206
-5005988-39.2021.8.08.0047
-
 order by ttp.CriadoEm desc
 
 3- Rodar a query abaixo e se certificar 
@@ -201,9 +178,7 @@ insert into #ativoOmnijus (numero) values
 ('5004125-74.2021.8.08.0006'),
 ('0022649-83.2021.8.19.0206'),
 
-0804656-64.2021.8.19.0021
-5001144-98.2021.8.08.0062
-
+0803532-67.2021.8.19.0208
 
 --===============================================
 
@@ -637,10 +612,8 @@ drop table #CapturaOmnijus
 
 create table #CapturaOmnijus (numero varchar(30), CapturadoEm DATETIME)
 insert into #CapturaOmnijus (CapturadoEm, numero) values
-('2021-12-22 11:30:14','0056006-27.2021.8.19.0021'),
-('2021-12-22 09:16:11','0813691-02.2021.8.19.0004'),
-('2021-12-22 08:54:18','0803679-48.2021.8.19.0029'),
-('2021-12-22 08:54:17','5020530-98.2021.8.08.0035'),
+('2021-12-28 08:54:12','0803532-67.2021.8.19.0208')
+
 
 select p.Numero, 
        format(co.CapturadoEm, ('dd/MM/yyyy')) As CaptOito, 
@@ -663,7 +636,7 @@ select p.Numero,
  join Processo p on p.Id = hsp.IdProcesso
  join TribunalJustica tj on tj.Id = p.IdTribunalJustica
 where hsp.IdStatus = 2
-and cast(hsp.Data AS DATE) = '2021-12-21'
+and cast(hsp.Data AS DATE) = '2021-12-21' --<-- ATENTE PARA A DATA
 and p.vara is not null
 
 -------- QUERY PARA A PLANILHA DIARIA - MOVIMENTOS REGLARE
@@ -680,6 +653,24 @@ select p.Numero
    and month(hsp.Data) = 12
    and day(hsp.Data) = 22
  order by hsp.Id desc
+
+
+<---- QUERY PARA RELATORIO WARLEY DIARIO --  CAPTURADOS REGLARE  -->
+
+select 
+       p.Numero
+	  ,hsp.Data 
+	  ,tj.Sigla
+	  ,p.Vara
+  from HistoricoStatusProcesso hsp
+  join Processo p on p.id = hsp.IdProcesso 
+  join TribunalJustica tj on tj.Id = p.IdTribunalJustica
+ where hsp.IdStatus = 2 --<-- Capturado -- 21.Distribuido -- 23.Movimentado
+--and cast(hsp.Data AS DATE) = '2021-12-17'
+and year(hsp.Data) = 2021
+and month(hsp.Data) = 12
+and day(hsp.Data) = 20
+order by hsp.Id desc
 
 
 

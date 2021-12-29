@@ -987,25 +987,6 @@ VALUES(GETDATE(),1,GETDATE(),1,31,'Pasta Gerar .json Captura Distribuicao','C:\P
 INSERT INTO EquipamentoProcessamentoParametro (CriadoEm,CriadoPor,AlteradoEm,AlteradoPor,IdEquipamentoProcessamento,Descricao,Valor)
 VALUES(GETDATE(),1,GETDATE(),1,31,'Posicao Imagem TJRJ','-60#0#0#0');
 
-INSERT INTO EquipamentoProcessamentoParametro (CriadoEm,CriadoPor,AlteradoEm,AlteradoPor,IdEquipamentoProcessamento,Descricao,Valor)
-VALUES(GETDATE(),1,GETDATE(),1,31,'Pasta Base Processos Robos','C:\Pastas de Trabalho\Projetos\Captura Dados Processo\Processos\');
-
-INSERT INTO EquipamentoProcessamentoParametro (CriadoEm,CriadoPor,AlteradoEm,AlteradoPor,IdEquipamentoProcessamento,Descricao,Valor)
-VALUES(GETDATE(),1,GETDATE(),1,31,'Pasta Base Firefox 68.0.2 (32-bits)','C:\Program Files\Mozilla Firefox\firefox.exe');
-
-
-	
-INSERT INTO EquipamentoProcessamentoParametro (CriadoEm,CriadoPor,AlteradoEm,AlteradoPor,IdEquipamentoProcessamento,Descricao,Valor)
-VALUES(GETDATE(),1,GETDATE(),1,31,'Tentativas Desafio Captcha','10');
-
-
-INSERT INTO EquipamentoProcessamentoParametro (CriadoEm,CriadoPor,AlteradoEm,AlteradoPor,IdEquipamentoProcessamento,Descricao,Valor)
-VALUES(GETDATE(),1,GETDATE(),1,31,'EndPoint .json Retorno OmniJus','https://apidistribuicao.omnijus.com.br/');
-
-
-select * 
-  from EquipamentoProcessamento
-
 select *
   from EquipamentoProcessamentoParametro
 where IdEquipamentoProcessamento = 26
@@ -1058,35 +1039,20 @@ order by pc.IdEquipamentoProcessamento, cast(pc.DataInicio AS DATE)
 
 
 
----- auxilio criacao de novas solicitacoes ---- 
----- observar que para o sistema baixar as copias deve-se configurar os termoexpressaoregular
 
----- insert na solicitacaocaptura
-insert into SolicitacaoCaptura values (GETDATE(),1,'Captura Distribuição - TJRJ - 0039 - 0800000',0,3,null,0,1,0,0,0,1,1,0,0,null,null,null)
+---- Traduçao da Query abaixo:
+---- Pegar solicitacoes para Capturar Distribuicao
 
---- primeiro campo refere-se ao id da solicitacaocaptura gerado no insert acima
-insert into Processo values (8841,'9999999-00.2021.8.19.0039',2,null,1,1,null,5319,20,
-null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,
-8623,0,null,0,null)
+SolicitacaoCaptura.Where(sc => (sc.Status == StatusSolicitacaoCaptura.LiberadoProcessamento  ||
+                                sc.Status == StatusSolicitacaoCaptura.ProcessadoComPendencia ||
+                                sc.Status == StatusSolicitacaoCaptura.EmProcessamento) &&
+                               (sc.EquipamentoProcessamento == null || sc.EquipamentoProcessamento == configuracao.EquipamentoProcessamento) &&
+                                sc.CapturarDistribuicao &&
+							   !sc.Capturas.Any(c => c.DataTermino == null) &&
+								sc.Processos.Any(p => p.Tribunal.Id == configuracao.Tribunal.Id &&
+								p.TecnologiaSite.Id == configuracao.Tecnologia.Id &&
+							   (p.Status == StatusProcesso.Pendente || p.Status == StatusProcesso.EmProcessamento))).OrderBy(sc => sc.DataTerminoUltimaCaptura).ToList();
 
-
-
----- desvendar ... traduzir.. converter... esta query .....
-
-
-SolicitacaoCaptura.Where(sc => (sc.Status == StatusSolicitacaoCaptura.LiberadoProcessamento ||
-                                    sc.Status == StatusSolicitacaoCaptura.ProcessadoComPendencia ||
-                                    sc.Status == StatusSolicitacaoCaptura.EmProcessamento) &&
-                                   (sc.EquipamentoProcessamento == null || sc.EquipamentoProcessamento == configuracao.EquipamentoProcessamento) &&
-                                    sc.CapturarDistribuicao &&
-                !sc.Capturas.Any(c => c.DataTermino == null) &&
-sc.Processos.Any(p => p.Tribunal.Id == configuracao.Tribunal.Id &&
-p.TecnologiaSite.Id == configuracao.Tecnologia.Id &&
-(p.Status == StatusProcesso.Pendente || p.Status == StatusProcesso.EmProcessamento)
-)).OrderBy(sc => sc.DataTerminoUltimaCaptura).ToList();
-
-
-//// traducao da query acima
 select sc.Id,
        sc.Descricao,
 	   sc.IdStatus,
@@ -1096,33 +1062,65 @@ select sc.Id,
 	   sc.DataUltimoProcessamento
   from SolicitacaoCaptura sc
  where sc.IdStatus in (3,12,4)
-   and (sc.IdEquipamentoProcessamento = 26 or sc.IdEquipamentoProcessamento is null)
+   and (sc.IdEquipamentoProcessamento = 31 or sc.IdEquipamentoProcessamento is null)
+   and sc.CapturarDistribuicao = 1
    and not exists (select pc.IdSolicitacaoCaptura from ProcessamentoCaptura pc where pc.IdSolicitacaoCaptura = sc.id and pc.DataTermino is null)
-   and sc.Id in (select p.IdSolicitacaoCaptura from Processo p where p.IdSolicitacaoCaptura = sc.id and p.IdTribunalJustica = 5008 
-                 and p.IdTecnologiaSite = 20 and (p.IdStatus = 1 or p.IdStatus = 10))
+   and sc.Id in (select p.IdSolicitacaoCaptura from Processo p where p.IdSolicitacaoCaptura = sc.id and p.IdTribunalJustica = 2 
+                 and p.IdTecnologiaSite = 21 and 
+				(p.IdStatus = 1 or p.IdStatus = 10))
+
+---- Pegar solicitacoes para Capturar Processo
+
+SolicitacaoCaptura.Where(sc => (sc.Status == StatusSolicitacaoCaptura.LiberadoProcessamento ||
+                                sc.Status == StatusSolicitacaoCaptura.ProcessadoComPendencia ||
+                                sc.Status == StatusSolicitacaoCaptura.EmProcessamento) &&
+                               (sc.EquipamentoProcessamento == null || sc.EquipamentoProcessamento == configuracao.EquipamentoProcessamento) &&
+                               !sc.CapturarDistribuicao &&
+                               !sc.Capturas.Any(c => c.DataTermino == null) &&
+                                sc.Processos.Any(p => p.Tribunal.Id == configuracao.Tribunal.Id &&
+                                p.TecnologiaSite.Id == configuracao.Tecnologia.Id &&
+                               (p.Status == StatusProcesso.Pendente || p.Status == StatusProcesso.EmProcessamento))).OrderBy(sc => sc.DataTerminoUltimaCaptura).ToList();
+
+select sc.Id,
+       sc.Descricao,
+	   sc.IdStatus,
+	   sc.CapturarDado,
+	   sc.CapturarDistribuicao,
+	   sc.DataTerminoUltimaCaptura,
+	   sc.DataUltimoProcessamento
+  from SolicitacaoCaptura sc
+ where sc.IdStatus in (3,12,4)
+   and (sc.IdEquipamentoProcessamento = 31 or sc.IdEquipamentoProcessamento is null)
+   and sc.CapturarDistribuicao = 0
+   and not exists (select pc.IdSolicitacaoCaptura from ProcessamentoCaptura pc where pc.IdSolicitacaoCaptura = sc.id and pc.DataTermino is null)
+   and sc.Id in (select p.IdSolicitacaoCaptura from Processo p where p.IdSolicitacaoCaptura = sc.id and p.IdTribunalJustica = 2 
+
 
 
 
 ---- query para transferir o processo para a omnijus
-              var processos = _session.Query<Processo>()
-                                .Timeout(100)
-                                .Where(x => x.Status == StatusProcesso.Capturado &&
-                                            x.Solicitacao.CapturarDistribuicao &&
+session.Query<Processo>()
+       .Timeout(100)
+       .Where(x => x.Status == StatusProcesso.Capturado &&
+       x.Solicitacao.CapturarDistribuicao &&
                                             //x.Classe == "ATOrd" &&
                                             //x.Area.Contains("Juizado Especial Cível") &&
                                             !x.Historicos.Any(hp => hp.Status == StatusProcesso.EntreguePlataformaOmniJus) &&
                                             x.Historicos.Any(hp => hp.Status == StatusProcesso.DownloadDisponivel) &&
-                                            x.Partes.Any(p => p.Nome.ToUpper().Contains("PIC")) &&
+                                            //x.Partes.Any(p => p.Nome.ToUpper().Contains("PIC")) &&
                                             //x.Distribuicao.Contains("02/2021") &&
                                             //x.Numero.Contains(".8.08.") &&
-                                            (x.Id == 1874419 || x.Id == 1874368) &&
+                                            //(x.Id == 1889042 || x.Id == 1889041 || x.Id == 1889039 || x.Id == 1889038 || x.Id == 1889037 || x.Id == 1889034 || x.Id == 1889033 ) &&
+                                            (x.Id == 1889349) &&
                                             x.ProcessoPecas.Any(p => p.Movimento != null)
                                             )
                                 .ToList();
-
-select * from Processo p
-where p.idstatus = 2
-
+								
+								
+								
+								
+								
+								
 
 ---- outra query traduzida
 
