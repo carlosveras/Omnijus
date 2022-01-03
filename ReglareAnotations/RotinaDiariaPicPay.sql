@@ -630,28 +630,27 @@ and p.vara is not null
 --------- QUERY PARA PLANILHA DIARIA - CAPTURADOS REGLARE
 
 select p.Numero, 
-       hsp.Data As CaptReglare,
+       format(hsp.Data, ('dd/MM/yyyy HH:mm:ss')) As CaptReglare,
 	   tj.Sigla
   from HistoricoStatusProcesso hsp
  join Processo p on p.Id = hsp.IdProcesso
  join TribunalJustica tj on tj.Id = p.IdTribunalJustica
 where hsp.IdStatus = 2
-and cast(hsp.Data AS DATE) = '2021-12-21' --<-- ATENTE PARA A DATA
+and cast(hsp.Data AS DATE) = '2021-12-30' --<-- ATENTE PARA A DATA
 and p.vara is not null
+
 
 -------- QUERY PARA A PLANILHA DIARIA - MOVIMENTOS REGLARE
 
 select p.Numero
-	  ,hsp.Data 
+	  ,format(hsp.Data, ('dd/MM/yyyy HH:mm:ss')) As CaptReglare
 	  ,tj.Sigla
 	  ,p.Vara
   from HistoricoStatusProcesso hsp
   join Processo p on p.id = hsp.IdProcesso 
   join TribunalJustica tj on tj.Id = p.IdTribunalJustica
  where hsp.IdStatus = 23 --<-- Capturado -- 21.Distribuido -- 23.Movimentado
-   and year(hsp.Data) = 2021
-   and month(hsp.Data) = 12
-   and day(hsp.Data) = 22
+   and cast(hsp.Data AS DATE) = '2021-12-31' --<-- ATENTE PARA A DATA
  order by hsp.Id desc
 
 

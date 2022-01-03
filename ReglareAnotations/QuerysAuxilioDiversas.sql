@@ -1037,9 +1037,6 @@ where cast(pc.DataInicio AS DATE) >= '2021-04-01' and cast(pc.DataInicio AS DATE
 group by pc.IdEquipamentoProcessamento, cast(pc.DataInicio AS DATE)
 order by pc.IdEquipamentoProcessamento, cast(pc.DataInicio AS DATE)
 
-
-
-
 ---- Traduçao da Query abaixo:
 ---- Pegar solicitacoes para Capturar Distribuicao
 
@@ -1051,7 +1048,8 @@ SolicitacaoCaptura.Where(sc => (sc.Status == StatusSolicitacaoCaptura.LiberadoPr
 							   !sc.Capturas.Any(c => c.DataTermino == null) &&
 								sc.Processos.Any(p => p.Tribunal.Id == configuracao.Tribunal.Id &&
 								p.TecnologiaSite.Id == configuracao.Tecnologia.Id &&
-							   (p.Status == StatusProcesso.Pendente || p.Status == StatusProcesso.EmProcessamento))).OrderBy(sc => sc.DataTerminoUltimaCaptura).ToList();
+							   (p.Status == StatusProcesso.Pendente || p.Status == StatusProcesso.EmProcessamento))).
+							   OrderBy(sc => sc.DataTerminoUltimaCaptura).ToList();
 
 select sc.Id,
        sc.Descricao,
@@ -1079,7 +1077,8 @@ SolicitacaoCaptura.Where(sc => (sc.Status == StatusSolicitacaoCaptura.LiberadoPr
                                !sc.Capturas.Any(c => c.DataTermino == null) &&
                                 sc.Processos.Any(p => p.Tribunal.Id == configuracao.Tribunal.Id &&
                                 p.TecnologiaSite.Id == configuracao.Tecnologia.Id &&
-                               (p.Status == StatusProcesso.Pendente || p.Status == StatusProcesso.EmProcessamento))).OrderBy(sc => sc.DataTerminoUltimaCaptura).ToList();
+                               (p.Status == StatusProcesso.Pendente || p.Status == StatusProcesso.EmProcessamento))).
+							   OrderBy(sc => sc.DataTerminoUltimaCaptura).ToList();
 
 select sc.Id,
        sc.Descricao,
