@@ -8,6 +8,11 @@ processo abaixo:
 1889317	PICPAY SERVICOS S.A	1	1	EMBARGANTE 0813598-39.2021.8.19.0004 --- > embargante
 nao esta sendo disponibilizarDistribuicao pois o cliente é EMBARGANTE
 
+
+
+ver com o renato essa rotina ---> GerarNumeroProcessoDistribuido
+
+
 <---- QUERY PARA ENCONTRAR MAIOR IDSTATUS POR GRUPO DE REGISTROS DENTRO DE UMA DATA --->
 
  WITH ranked_hsp AS (
@@ -82,6 +87,16 @@ and pro.IdStatus != 9
 group by sc.Descricao, pro.IdSolicitacaoCaptura, pro.IdStatus
 order by sc.Descricao,pro.IdSolicitacaoCaptura, pro.IdStatus
 
+---=========================================
+-- ver esta rotina com o Renato. Atencao !!!
+-- se retornar processos com status 4
+--==========================================
+
+--update processo
+--   set IdStatus = 1 , Inconsistencia = null, PossuiDocumento = 0, IdEquipamentoProcessamento = null
+--where IdStatus = 4
+--and IdSolicitacaoCaptura in (8764,8866,8765,8867,8868,8840,8869,8870)
+
 4- Apos o passo 3 executar o processo:
    DisponibilizarMovimentacao na VM 172.13.0.16 ou se 
    esta maquina estiver down executar na maquina local 
@@ -114,7 +129,6 @@ and ttp.CriadoEm >= '2021-11-01 00:00:00'
 and (select count(1) from HistoricoStatusProcesso hsp where hsp.idprocesso = pro.Id and hsp.IdStatus = 21) = 0
 order by ttp.CriadoEm desc
 
-
 <---- Query para encontrar anteriores para correcao  de forum vara e comarca -->
 
 select top 100 
@@ -128,7 +142,6 @@ select top 100
  where p.OrgaoJulgador = '1º Juizado Especial Cível da Regional de Alcântara'
 order by id desc
 
-Vitória - Comarca da Capital - 9ª Vara Cível
 <--- Para alterar os campos se necessario --->
 
 begin transaction
@@ -351,6 +364,10 @@ order by pm.AlteradoEm desc
 
 
 /*
+
+
+
+
 
 --===========================================
 -- Limpa o Processamento da Maquina
@@ -636,7 +653,7 @@ select p.Numero,
  join Processo p on p.Id = hsp.IdProcesso
  join TribunalJustica tj on tj.Id = p.IdTribunalJustica
 where hsp.IdStatus = 2
-and cast(hsp.Data AS DATE) = '2021-12-30' --<-- ATENTE PARA A DATA
+and cast(hsp.Data AS DATE) = '2022-01-04' --<-- ATENTE PARA A DATA
 and p.vara is not null
 
 
@@ -650,7 +667,7 @@ select p.Numero
   join Processo p on p.id = hsp.IdProcesso 
   join TribunalJustica tj on tj.Id = p.IdTribunalJustica
  where hsp.IdStatus = 23 --<-- Capturado -- 21.Distribuido -- 23.Movimentado
-   and cast(hsp.Data AS DATE) = '2021-12-31' --<-- ATENTE PARA A DATA
+   and cast(hsp.Data AS DATE) = '2022-01-04' --<-- ATENTE PARA A DATA
  order by hsp.Id desc
 
 

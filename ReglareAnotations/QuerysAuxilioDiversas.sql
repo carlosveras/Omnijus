@@ -70,10 +70,6 @@ $git difftool origin/master
 com span e texto:
 //span[@class='ng-star-inserted'][text()='50']
 
-
-//.[contains(text(),'A verificação de captcha não está correta.')]
-//.[contains(text(),'Atendimento ao usuário do DEJT:')]
-
 para inspecionar por href:
 //a[text()='Compare']
 
@@ -91,41 +87,6 @@ para inspecionar por id:
 //abaixo da class
 //[@id="captcha"]/following::input
 
-//input[@id='imgCaptcha']
-
-//[@id="portalTabs__consultaUnificada"]/child::a[1]
-
-div//table//tbody//tr//td[@class='modalTitulo']
-
-//[@id="content100"]//h3[.="Erro"]
-
-//div[@id='idOestePortal']
-
-//.[@class='rc-imageselect-error-dynamic-more']
-
-//span[@class='title']
-
-//.[@class='modalTitulo']
-//.[@class='esajCelulaConteudoServico']
-//.[@class='rc-image-tile-33']
-//.[@class='rc-imageselect-desc-no-canonical']/strong
-//.[@class='rc-imageselect-desc']/strong
-//.[@class='rich-messages-label']
-
-//.[@id='corpo:formulario:dataFim']//following::button[1]
-
-//select[@id='corpo:formulario:tribunal']//following::td[@class='celulaFormulario'][1]
-
-//div[@id='diarioCon']//fieldset[@class='plc-fieldset']
-
-//[@id="corpo:formulario:tribunal"]//following::td[@class='celulaFormulario']//span[@class='ico iNavProximo']
-
-//[@id='diarioInferiorNav']/preceding::tbody[1]
-
-
-//.[contains(text(),'A verificação de captcha não está correta.')]
-//.[contains(text(),'Atendimento ao usuário do DEJT:')]
-
 para inspecionar por href:
 //a[text()='Compare']
 
@@ -140,27 +101,41 @@ com span e texto:
 
 //para inspecionar elementos filhos - no caso a 2 div abaixo da class
 //.[@class='primary-controls']/child::div[2]
+
+//.[contains(text(),'A verificação de captcha não está correta.')]
+//.[contains(text(),'Atendimento ao usuário do DEJT:')]
+//input[@id='imgCaptcha']
+//[@id="portalTabs__consultaUnificada"]/child::a[1]
+div//table//tbody//tr//td[@class='modalTitulo']
+//[@id="content100"]//h3[.="Erro"]
+//div[@id='idOestePortal']
+//.[@class='rc-imageselect-error-dynamic-more']
+//span[@class='title']
+//.[@class='modalTitulo']
+//.[@class='esajCelulaConteudoServico']
+//.[@class='rc-image-tile-33']
+//.[@class='rc-imageselect-desc-no-canonical']/strong
+//.[@class='rc-imageselect-desc']/strong
+//.[@class='rich-messages-label']
+//.[@id='corpo:formulario:dataFim']//following::button[1]
+//select[@id='corpo:formulario:tribunal']//following::td[@class='celulaFormulario'][1]
+//div[@id='diarioCon']//fieldset[@class='plc-fieldset']
+//[@id="corpo:formulario:tribunal"]//following::td[@class='celulaFormulario']//span[@class='ico iNavProximo']
+//[@id='diarioInferiorNav']/preceding::tbody[1]
+//.[contains(text(),'A verificação de captcha não está correta.')]
+//.[contains(text(),'Atendimento ao usuário do DEJT:')]
 //.[@class='esajCelulaConteudoServico']
 //.[@class='app-detalhes-processo.ng-tns-c115-5']
 //.[@class='rc-image-tile-33']
 //.[@class='rc-imageselect-desc-no-canonical']/strong
 //.[@class='rc-imageselect-desc']/strong
 //.[@class='rich-messages-label']
-
 //[@id="captcha"]/following::input
-
 //input[@id='imgCaptcha']
-
-
 div//table//tbody//tr//td[@class='modalTitulo']
-
-
 //.[@class='rc-imageselect-error-dynamic-more']
-
 //span[@class='title']
-
 //.[@class='modalTitulo']
-
 //[@id="content100"]//h3[.="Erro"]
 //.[@id='corpo:formulario:dataFim']//following::button[1]
 //[@id="corpo:formulario:tribunal"]//following::td[@class='celulaFormulario']//span[@class='ico iNavProximo']
@@ -168,18 +143,13 @@ div//table//tbody//tr//td[@class='modalTitulo']
 //.[@id='senhaProvisoria']
 //.[@id='motivo']
 //.[@id='motivo']/following::button[1]
-
 //select[@id='corpo:formulario:tribunal']//following::td[@class='celulaFormulario'][1]
 //div[@id='diarioCon']//fieldset[@class='plc-fieldset']
 //div[@id='idOestePortal']
 //[@id="portalTabs__consultaUnificada"]/child::a[1]
-
 //span[text()='Listar todos os personagens']
-
 //a[text()='Listar todos os personagens']
-
 //.[@id='lista-historico-personagens']/preceding::i[1]
-
 //.[contains(text(),'Localização')]/following::div[1]
 //.[contains(text(),'Réu')]/following::div[1]
 //.[contains(text(),'Dados dos')]/following::div[2]
@@ -197,17 +167,11 @@ div//table//tbody//tr//td[@class='modalTitulo']
 //.[contains(@aria-label,'Salvar Cópia')]
 //.[contains(text(),'O processo informado não foi encontrado')]
 //.[contains(text(),'Processo Eletrônico - Novo')]
-
 //.[@class='row box-conteudo box-rb ng-tns-c115-1 ng-star-inserted']
-
-.tree-branch>ul>li:nth-of-type(3) 
-
 //.[app-detalhes-processo]/following::div/div/div[3]
 /html/body/app-root/app-detalhes-processo/section/div/div/div[3]
-
 //.[@class='row box-conteudo box-rb ng-tns-c115-5 ng-star-inserted']
 //.[@role='alert']
-
 
 ---- MAQUINAS NOVAS REGLARE
 Usuário: admomnijus
@@ -1332,6 +1296,25 @@ select ept.Id,
 where IdEquipamentoProcessamento = 26
 and ept.Ativo = 1
 
+<------------- PESQUISAR REGISTROS SEM COLUNA EM BRANCO USANDO LTRIM
+
+select upper(p.OrgaoJulgador) as ORGAO_JULGADOR, 
+       upper(p.Vara) as VARA, 
+	   upper(p.Forum) as FORUM, 
+	   upper(p.Comarca) as COMARCA, 
+	   p.IdTribunalJustica,
+	   p.IdInstanciaTribunal,
+	   p.IdTecnologiaSite 
+from Processo p 
+where p.OrgaoJulgador is not null 
+   and p.Comarca is not null
+   and p.Vara is not null
+   and p.Forum is not null
+   and not ltrim(rtrim(p.Forum)) = ''
+   and not ltrim(rtrim(p.Comarca)) = ''
+   and not ltrim(rtrim(p.Vara)) = ''
+ group by p.OrgaoJulgador, p.Vara, p.Forum, p.Comarca,  p.IdTribunalJustica,
+	      p.IdInstanciaTribunal, p.IdTecnologiaSite 
 
 
 <------------- QUERY AUTOMATIZADA PARA GERAR NUMERACAO NOS TRIBUNAIS ----->
