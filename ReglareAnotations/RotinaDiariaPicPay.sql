@@ -633,9 +633,9 @@ insert into #CapturaOmnijus (CapturadoEm, numero) values
 
 
 select p.Numero, 
-       format(co.CapturadoEm, ('dd/MM/yyyy')) As CaptOito, 
+       format(co.CapturadoEm, ('dd-MM-yyyy')) As CaptOito, 
 	   tj.Sigla,
-       format(hsp.Data, ('dd/MM/yyyy')) As CaptReglare,
+       format(hsp.Data, ('dd-MM-yyyy')) As CaptReglare,
 	   DATEDIFF(DAY, HSP.Data, co.CapturadoEm) as diasDif
   from #CapturaOmnijus co
  left join Processo p on p.Numero = co.numero
@@ -647,20 +647,20 @@ and p.vara is not null
 --------- QUERY PARA PLANILHA DIARIA - CAPTURADOS REGLARE
 
 select p.Numero, 
-       format(hsp.Data, ('dd/MM/yyyy HH:mm:ss')) As CaptReglare,
+       format(hsp.Data, ('dd-MM-yyyy HH:mm:ss')) As CaptReglare,
 	   tj.Sigla
   from HistoricoStatusProcesso hsp
  join Processo p on p.Id = hsp.IdProcesso
  join TribunalJustica tj on tj.Id = p.IdTribunalJustica
 where hsp.IdStatus = 2
-and cast(hsp.Data AS DATE) = '2022-01-04' --<-- ATENTE PARA A DATA
+and cast(hsp.Data AS DATE) = '2022-01-05' --<-- ATENTE PARA A DATA
 and p.vara is not null
 
 
 -------- QUERY PARA A PLANILHA DIARIA - MOVIMENTOS REGLARE
 
 select p.Numero
-	  ,format(hsp.Data, ('dd/MM/yyyy HH:mm:ss')) As CaptReglare
+	  ,format(hsp.Data, ('dd-MM-yyyy HH:mm:ss')) As CaptReglare
 	  ,tj.Sigla
 	  ,p.Vara
   from HistoricoStatusProcesso hsp
@@ -687,6 +687,52 @@ and year(hsp.Data) = 2021
 and month(hsp.Data) = 12
 and day(hsp.Data) = 20
 order by hsp.Id desc
+
+
+<------ QUERY OVER PARTITION
+
+create table #MovOmnijus (numero varchar(30), idprocesso int)
+insert into #MovOmnijus (numero) values
+('0007208-56.2021.8.19.0208'),
+('0007951-84.2021.8.19.0202'),
+('0010826-83.2021.8.19.0054'),
+('0804208-27.2021.8.19.0204'),
+('0802487-83.2021.8.19.0028'),
+('0805021-80.2021.8.19.0066'),
+('0801099-46.2021.8.19.0061'),
+('0018620-96.2021.8.19.0203'),
+('0044557-72.2021.8.19.0021'),
+('0803095-65.2021.8.19.0001'),
+('0805122-12.2021.8.19.0004'),
+('0803500-17.2021.8.19.0029'),
+('0810247-67.2021.8.19.0001'),
+('5000597-32.2021.8.08.0006'),
+('5003936-67.2021.8.08.0048'),
+('5004125-74.2021.8.08.0006'),
+('5012987-16.2021.8.08.0012'),
+('5015543-77.2021.8.08.0048')
+
+UPDATE mov
+   SET mov.idprocesso = p.Id 
+  FROM #MovOmnijus mov
+  JOIN Processo p ON mov.numero = p.Numero
+  
+WITH ranked_hsp AS (
+  SELECT h.*,  ROW_NUMBER() OVER (PARTITION BY h.IdProcesso ORDER BY h.Data DESC) AS rn
+  FROM HistoricoStatusProcesso h 
+  JOIN #MovOmnijus mov on mov.idprocesso = h.IdProcesso)
+
+SELECT ranked_hsp.IdProcesso, 
+       ranked_hsp.Data, 
+	   ranked_hsp.IdStatus, 
+	   sp.Descricao, 
+	   p.Numero 
+  FROM ranked_hsp
+  JOIN StatusProcesso sp on sp.Id = ranked_hsp.IdStatus
+  JOIN Processo p on p.id = ranked_hsp.IdProcesso
+ WHERE rn = 1; --<< escolher o rank 1,2,3 etc
+
+
 
 
 
