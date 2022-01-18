@@ -1296,6 +1296,17 @@ select ept.Id,
 where IdEquipamentoProcessamento = 26
 and ept.Ativo = 1
 
+<------------- QUERY PARA PEGAR O 1 REGISTRO GERADO A PARTIR DO RELACIONAMENTO DA 1 TABELA
+
+select sc.Id, sc.CriadoEm, sc.Descricao, Processos.Numero
+  from SolicitacaoCaptura sc
+  cross apply
+        (select top 1 IdSolicitacaoCaptura, Numero 
+		   from Processo p where p.IdSolicitacaoCaptura = sc.Id) Processos
+where cast(sc.CriadoEm as date) >= '2022-01-01'
+order by sc.Id desc
+
+
 <------------- PESQUISAR REGISTROS SEM COLUNA EM BRANCO USANDO LTRIM
 
 select upper(p.OrgaoJulgador) as ORGAO_JULGADOR, 
@@ -1435,7 +1446,7 @@ declare @ultimoNumeroFaixa int;
 -- 0800429-67.2021.8.19.0203	
 --===================================================================================================
 select @identificacaoProcesso = '8.19'
-select @ano = 2021;
+select @ano = 2022;
 select @IdTecnologiaSite = 20;  
 select @Numeracao = '0800000';
 select @ultimoNumeroFaixa = 0800428;

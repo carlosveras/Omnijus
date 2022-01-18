@@ -66,16 +66,15 @@ order by ttp.CriadoEm desc
 
 select pro.id as idprocesso
 		,ttp.Numero
-		,pro.IdStatus as IdProcesso
-		,pro.Distribuicao
+		,pro.IdStatus 
 		,ttp.CriadoEm
-		,(select count(1) from HistoricoStatusProcesso hsp where hsp.idprocesso = pro.Id and hsp.IdStatus = 15) as Desmenbrado
-		,(select count(1) from HistoricoStatusProcesso hsp where hsp.idprocesso = pro.Id and hsp.IdStatus = 5) as DisponibilizadoS3
-		,(select count(1) from HistoricoStatusProcesso hsp where hsp.idprocesso = pro.Id and hsp.IdStatus = 21) as IntegradoOmnijus
-		,pro.IdEquipamentoProcessamento
-		,pro.PossuiDocumento
-		,pro.IdSolicitacaoCaptura
-		,pro.Area
+		,(select count(1) from HistoricoStatusProcesso hsp where hsp.idprocesso = pro.Id and hsp.IdStatus = 15) as DMB
+		,(select count(1) from HistoricoStatusProcesso hsp where hsp.idprocesso = pro.Id and hsp.IdStatus = 5) as DPZ
+		,(select count(1) from HistoricoStatusProcesso hsp where hsp.idprocesso = pro.Id and hsp.IdStatus = 21) as ITG
+		,pro.Vara
+        ,pro.Forum
+		,pro.Comarca
+		,pro.OrgaoJulgador
   from TermoTribunalProcesso ttp
 		,Processo pro
 where ttp.Numero = pro.Numero

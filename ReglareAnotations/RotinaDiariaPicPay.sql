@@ -64,9 +64,8 @@ and ttp.IdSolicitacaoCaptura = pro.IdSolicitacaoCaptura
 and ttp.NomeParte like 'PIC%'
 and ttp.CriadoEm >= '2021-10-01 00:00:00'
 and pro.Numero in 
-('5012433-81.2021.8.08.0012',
-'5027969-96.2021.8.08.0024',
-'5018841-77.2021.8.08.0048')
+('5000223-50.2022.8.08.0048',
+'0800426-88.2022.8.19.0038')
 order by ttp.CriadoEm desc
 
 3- Rodar a query abaixo e se certificar 
@@ -625,11 +624,13 @@ and day(hsp.Data) = 17
 order by hsp.Id desc
 
 --------- QUERY PARA PLANILHA DIARIA - COMPARATIVO OITO x REGLARE
-drop table #CapturaOmnijus
+drop table if exists [dbo].[#CapturaOmnijus];
+go
 
 create table #CapturaOmnijus (numero varchar(30), CapturadoEm DATETIME)
 insert into #CapturaOmnijus (CapturadoEm, numero) values
-('2021-12-28 08:54:12','0803532-67.2021.8.19.0208')
+('2022-01-11 09:04:13','5000223-50.2022.8.08.0048'),
+('2022-01-11 18:42:12','0800426-88.2022.8.19.0038')
 
 
 select p.Numero, 
@@ -643,6 +644,7 @@ select p.Numero,
  join TribunalJustica tj on tj.Id = p.IdTribunalJustica
 where hsp.IdStatus = 2
 and p.vara is not null
+order by p.Numero desc
 
 --------- QUERY PARA PLANILHA DIARIA - CAPTURADOS REGLARE
 
@@ -653,8 +655,9 @@ select p.Numero,
  join Processo p on p.Id = hsp.IdProcesso
  join TribunalJustica tj on tj.Id = p.IdTribunalJustica
 where hsp.IdStatus = 2
-and cast(hsp.Data AS DATE) = '2022-01-05' --<-- ATENTE PARA A DATA
+and cast(hsp.Data AS DATE) = '2022-01-12' --<-- ATENTE PARA A DATA
 and p.vara is not null
+order by p.Numero desc
 
 
 -------- QUERY PARA A PLANILHA DIARIA - MOVIMENTOS REGLARE
@@ -667,8 +670,8 @@ select p.Numero
   join Processo p on p.id = hsp.IdProcesso 
   join TribunalJustica tj on tj.Id = p.IdTribunalJustica
  where hsp.IdStatus = 23 --<-- Capturado -- 21.Distribuido -- 23.Movimentado
-   and cast(hsp.Data AS DATE) = '2022-01-04' --<-- ATENTE PARA A DATA
- order by hsp.Id desc
+   and cast(hsp.Data AS DATE) = '2022-01-18' --<-- ATENTE PARA A DATA
+ order by p.Numero desc
 
 
 <---- QUERY PARA RELATORIO WARLEY DIARIO --  CAPTURADOS REGLARE  -->
@@ -682,7 +685,7 @@ select
   join Processo p on p.id = hsp.IdProcesso 
   join TribunalJustica tj on tj.Id = p.IdTribunalJustica
  where hsp.IdStatus = 2 --<-- Capturado -- 21.Distribuido -- 23.Movimentado
---and cast(hsp.Data AS DATE) = '2021-12-17'
+--and cast(hsp.Data AS DATE) = '2021-12-18'
 and year(hsp.Data) = 2021
 and month(hsp.Data) = 12
 and day(hsp.Data) = 20
@@ -700,17 +703,7 @@ insert into #MovOmnijus (numero) values
 ('0802487-83.2021.8.19.0028'),
 ('0805021-80.2021.8.19.0066'),
 ('0801099-46.2021.8.19.0061'),
-('0018620-96.2021.8.19.0203'),
-('0044557-72.2021.8.19.0021'),
-('0803095-65.2021.8.19.0001'),
-('0805122-12.2021.8.19.0004'),
-('0803500-17.2021.8.19.0029'),
-('0810247-67.2021.8.19.0001'),
-('5000597-32.2021.8.08.0006'),
-('5003936-67.2021.8.08.0048'),
-('5004125-74.2021.8.08.0006'),
-('5012987-16.2021.8.08.0012'),
-('5015543-77.2021.8.08.0048')
+
 
 UPDATE mov
    SET mov.idprocesso = p.Id 
@@ -733,6 +726,15 @@ SELECT ranked_hsp.IdProcesso,
  WHERE rn = 1; --<< escolher o rank 1,2,3 etc
 
 
+<------------- QUERY PARA PEGAR O 1 REGISTRO GERADO A PARTIR DO RELACIONAMENTO DA 1 TABELA
+
+select sc.Id, sc.CriadoEm, sc.Descricao, Processos.Numero
+  from SolicitacaoCaptura sc
+  cross apply
+        (select top 1 IdSolicitacaoCaptura, Numero 
+		   from Processo where IdSolicitacaoCaptura = sc.Id) Processos
+where cast(sc.CriadoEm as date) >= '2022-01-01'
+order by sc.id desc
 
 
 
