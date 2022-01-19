@@ -731,6 +731,20 @@ and Descricao = 'Posicao Imagem PJe V2'
 select * from SolicitacaoCaptura 
  where CriadoEm >= '2020/08/13' and CriadoEm <= '2020/08/14'
 
+--- query para pesquisar por data e a partir de hora específica
+
+select p.Numero
+	  ,format(hsp.Data, ('dd-MM-yyyy HH:mm:ss')) As CaptReglare
+	  ,tj.Sigla
+	  ,p.Vara
+  from HistoricoStatusProcesso hsp
+  join Processo p on p.id = hsp.IdProcesso 
+  join TribunalJustica tj on tj.Id = p.IdTribunalJustica
+ where hsp.IdStatus = 23 --<-- Capturado -- 21.Distribuido -- 23.Movimentado
+   and cast(hsp.Data AS date) >= '2022-01-01' --<-- ATENTE PARA A DATA
+   and datepart(hh,hsp.Data) >= 15 and datepart(hh,hsp.Data) <= 23 
+ order by cast(hsp.Data AS date)
+
 ---- query tabela expressao regular
 select * from SolicitacaoLocalizacao
 

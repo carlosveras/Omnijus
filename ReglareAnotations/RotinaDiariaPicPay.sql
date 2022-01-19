@@ -655,7 +655,7 @@ select p.Numero,
  join Processo p on p.Id = hsp.IdProcesso
  join TribunalJustica tj on tj.Id = p.IdTribunalJustica
 where hsp.IdStatus = 2
-and cast(hsp.Data AS DATE) = '2022-01-12' --<-- ATENTE PARA A DATA
+and cast(hsp.Data AS DATE) = '2022-01-18' --<-- ATENTE PARA A DATA
 and p.vara is not null
 order by p.Numero desc
 
