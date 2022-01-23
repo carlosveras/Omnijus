@@ -3,15 +3,42 @@ http://dashboard.omnijus.com.br:3000/d/2341bDBMzA/omnijus-operacional-producao?o
 login: carlos.silva
 senha: Mudar@123
 
+
+<--- erro ao montar manual
+
+https://www3.tjrj.jus.br/segweb/faces/login.jsp
+
+https://www3.tjrj.jus.br/segweb/faces/login.jsp?indGet=true&SIGLASISTEMA=PORTALSERV
+
+
+
+https://www3.tjrj.jus.br/segweb/faces/login.jsp?indGet=true&SIGLASISTEMA=PORTALSERV
+
+https://www3.tjrj.jus.br/SEGWEB-ListarSistemas/faces/listarSistemas.jsp
+
+
+07576868422
+Johnny88*
+
+<-- usuario 
+
+6122	1	2	07576868422	Johnny88	5302
+
+registro usuarioacesso em 21-01-2022
+Id	IdUsuario	IdTribunal	Usuario	PWD	IdInstanciaTribunal
+6141	1	2	41391654803	Omnijus@2021	5327
+
+<---- instancia excluida em 23-01-2022 ------->
+Id	IdTribunal	Descricao	URL	SequenciaProcessamento	Situacao	PrimeiroParametro	IdTecnologiaSite	IdTipoNavegador	VersaoNavegadorWeb	VersaoTecnologia
+5327	2	Login	https://www3.tjrj.jus.br/portalservicos/#/dashboard	1	1	NULL	21	1	68.0.2 (32-bits)	NULL
+<---------------------         --------------->
+
 <-- observacao importante 18.12.2021 --->
 processo abaixo:
 1889317	PICPAY SERVICOS S.A	1	1	EMBARGANTE 0813598-39.2021.8.19.0004 --- > embargante
 nao esta sendo disponibilizarDistribuicao pois o cliente é EMBARGANTE
 
-
-
 ver com o renato essa rotina ---> GerarNumeroProcessoDistribuido
-
 
 <---- QUERY PARA ENCONTRAR MAIOR IDSTATUS POR GRUPO DE REGISTROS DENTRO DE UMA DATA --->
 
@@ -190,7 +217,7 @@ insert into #ativoOmnijus (numero) values
 ('5004125-74.2021.8.08.0006'),
 ('0022649-83.2021.8.19.0206'),
 
-0803532-67.2021.8.19.0208
+0800261-54.2022.8.19.0066
 
 --===============================================
 

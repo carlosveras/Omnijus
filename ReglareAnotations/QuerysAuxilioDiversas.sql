@@ -548,7 +548,6 @@ insert into SolicitacaoCaptura values
 select @@IDENTITY
 --8864
 --===================================================================================================
-
 insert into Processo (IdSolicitacaoCaptura,Numero,IdTribunalJustica,IdStatus,Eletronico,IdTecnologiaSite,IdFaixaNumeroProcesso, IdInstanciaTribunal, justicagratuita)
 values (8864,'9999999-00.2021.8.19.0206',2,1,1,20,8628, 5319, 0)
 --===================================================================================================
@@ -1068,7 +1067,7 @@ select sc.Id,
   from SolicitacaoCaptura sc
  where sc.IdStatus in (3,12,4)
    and (sc.IdEquipamentoProcessamento = 31 or sc.IdEquipamentoProcessamento is null)
-   and sc.CapturarDistribuicao = 0
+   and sc.CapturarDistribuicao = 1
    and not exists (select pc.IdSolicitacaoCaptura from ProcessamentoCaptura pc where pc.IdSolicitacaoCaptura = sc.id and pc.DataTermino is null)
    and sc.Id in (select p.IdSolicitacaoCaptura from Processo p where p.IdSolicitacaoCaptura = sc.id and p.IdTribunalJustica = 2 
 
