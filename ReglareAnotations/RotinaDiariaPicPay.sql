@@ -3,14 +3,11 @@ http://dashboard.omnijus.com.br:3000/d/2341bDBMzA/omnijus-operacional-producao?o
 login: carlos.silva
 senha: Mudar@123
 
-
 <--- erro ao montar manual
 
 https://www3.tjrj.jus.br/segweb/faces/login.jsp
 
 https://www3.tjrj.jus.br/segweb/faces/login.jsp?indGet=true&SIGLASISTEMA=PORTALSERV
-
-
 
 https://www3.tjrj.jus.br/segweb/faces/login.jsp?indGet=true&SIGLASISTEMA=PORTALSERV
 
@@ -112,6 +109,13 @@ and pro.IdSolicitacaoCaptura = sc.Id
 and pro.IdStatus != 9
 group by sc.Descricao, pro.IdSolicitacaoCaptura, pro.IdStatus
 order by sc.Descricao,pro.IdSolicitacaoCaptura, pro.IdStatus
+
+select sc.Id, 
+       sc.Descricao, 
+	   sc.DataTerminoUltimaCaptura, 
+	   sc.DataUltimoProcessamento
+  from SolicitacaoCaptura sc 
+where sc.Id in (8764,8866,8765,8867,8868,8840,8869,8870,8881,8882,8883)
 
 ---=========================================
 -- ver esta rotina com o Renato. Atencao !!!
@@ -730,7 +734,6 @@ insert into #MovOmnijus (numero) values
 ('0802487-83.2021.8.19.0028'),
 ('0805021-80.2021.8.19.0066'),
 ('0801099-46.2021.8.19.0061'),
-
 
 UPDATE mov
    SET mov.idprocesso = p.Id 
